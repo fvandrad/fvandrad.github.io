@@ -11,12 +11,23 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 svg {
     position: fixed;
     right: 20px;
     z-index: 1;
+    animation: fadeIn 1s ease-in;
 }
 
 h1 {
@@ -26,6 +37,7 @@ h1 {
     font-size: clamp(1.5em, 5vw, 2.5em);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
+    animation: fadeIn 1s ease-in;
 }
 
 h2 {
@@ -37,7 +49,7 @@ h2 {
     font-size: clamp(1.2em, 4vw, 2em);
     text-align: center;
     z-index: 1;
-
+    animation: fadeIn 1s ease-in;
 }
 
 h2::after {
@@ -49,6 +61,7 @@ h2::after {
     width: min(50px, 10vw);
     height: 3px;
     background: linear-gradient(90deg, #3498db, #2ecc71);
+    animation: fadeIn 1s ease-in;
 }
 
 #products,
@@ -61,6 +74,7 @@ h2::after {
     width: 95%;
     max-width: 1200px;
     padding: 0 10px;
+    animation: fadeIn 1s ease-in;
 }
 
 #products {
@@ -75,6 +89,7 @@ h2::after {
     padding: clamp(10px, 2vw, 20px);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 1s ease-in;
     /* width: 100%; */
 }
 
@@ -90,6 +105,7 @@ h2::after {
     object-fit: cover;
     border-radius: 12px;
     transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in;
 }
 
 .product img:hover {
@@ -101,6 +117,7 @@ h2::after {
     color: #2c3e50;
     margin: 15px 0;
     font-weight: 600;
+    animation: fadeIn 1s ease-in;
 }
 
 .product p {
@@ -108,11 +125,13 @@ h2::after {
     color: #7f8c8d;
     line-height: 1.6;
     margin-bottom: 15px;
+    animation: fadeIn 1s ease-in;
 }
 
 .product strong {
     color: #2c3e50;
     font-weight: 600;
+    animation: fadeIn 1s ease-in;
 }
 
 @media screen and (max-width: 768px) {
