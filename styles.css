@@ -1,0 +1,198 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f4f4f4 0%, #e0e0e0 100%);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+svg {
+    position: fixed;
+    right: 20px;
+    z-index: 1;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    font-size: clamp(1.5em, 5vw, 2.5em);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    color: #34495e;
+    margin-top: 25px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+    font-size: clamp(1.2em, 4vw, 2em);
+    text-align: center;
+    z-index: 1;
+
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(50px, 10vw);
+    height: 3px;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+}
+
+#products,
+#products-natureza,
+#products-tecnologia {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(10px, 2vw, 20px);
+    margin: 30px auto;
+    width: 95%;
+    max-width: 1200px;
+    padding: 0 10px;
+}
+
+#products {
+    margin-top: -110px;
+}
+
+.product {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: clamp(10px, 2vw, 20px);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* width: 100%; */
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    max-height: min(600px, 80vh);
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.product img:hover {
+    transform: scale(1.05);
+}
+
+.product h2 {
+    font-size: clamp(1.1em, 3vw, 1.4em);
+    color: #2c3e50;
+    margin: 15px 0;
+    font-weight: 600;
+}
+
+.product p {
+    font-size: clamp(0.9em, 2vw, 1em);
+    color: #7f8c8d;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.product strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .product {
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    #products,
+    #products-natureza,
+    #products-tecnologia {
+        grid-template-columns: 1fr;
+    }
+}
+
+.fixed-menu {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.fixed-menu:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.menu-content {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 15px;
+    transform-origin: bottom right;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-content a {
+    display: block;
+    padding: 10px 15px;
+    color: #2c3e50;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin: 5px 0;
+}
+
+.menu-content a:hover {
+    background: linear-gradient(135deg, #3498db20, #2ecc7120);
+    transform: translateX(5px);
+    color: #3498db;
+}
