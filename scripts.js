@@ -8,7 +8,9 @@ function toggleMenu() {
 }
 
 // Script para criar dinamicamente os elementos HTML para os produtos
-const urlsEspiritualidade = ['https://fvandrad.github.io/deus/'];
+const urlsEspiritualidade = [
+    'https://fvandrad.github.io/deus/'
+];
 const urlsNatureza = [
     'https://fvandrad.github.io/ceu/',
     'https://fvandrad.github.io/tubarao/',
@@ -27,8 +29,6 @@ const urlsTecnologia = [
     'https://fvandrad.github.io/conectado/',
     'https://fvandrad.github.io/ia/',
     'https://fvandrad.github.io/notebook/'
-
-
 ];
 
 const productsContainerEspiritualidade = document.getElementById("products");
