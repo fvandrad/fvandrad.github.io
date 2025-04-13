@@ -54,6 +54,11 @@ function createProductElements(urls, container) {
     });
 }
 
+// Atualizar contadores de projetos
+document.getElementById('count-espiritualidade').textContent = urlsEspiritualidade.length;
+document.getElementById('count-natureza').textContent = urlsNatureza.length;
+document.getElementById('count-tecnologia').textContent = urlsTecnologia.length;
+
 createProductElements(urlsEspiritualidade, productsContainerEspiritualidade);
 createProductElements(urlsNatureza, productsContainerNatureza);
 createProductElements(urlsTecnologia, productsContainerTecnologia);

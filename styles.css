@@ -50,6 +50,24 @@ h2 {
     text-align: center;
     animation: fadeIn 1s ease-in;
     z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.count-badge {
+    background-color: #3498db;
+    color: white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: bold;
+    animation: fadeIn 1s ease-in;
 }
 
 h2::after {
