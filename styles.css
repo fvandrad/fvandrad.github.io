@@ -33,7 +33,7 @@ svg {
 h1 {
     color: #2c3e50;
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     font-size: clamp(1.5em, 5vw, 2.5em);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -70,7 +70,7 @@ h2 {
     animation: fadeIn 1s ease-in;
 }
 
-h2::after {
+/* h2::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -81,7 +81,7 @@ h2::after {
     background: linear-gradient(90deg, #3498db, #2ecc71);
     animation: fadeIn 1s ease-in;
     z-index: 0;
-}
+} */
 
 #products,
 #products-natureza,
@@ -89,16 +89,16 @@ h2::after {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: clamp(10px, 2vw, 20px);
-    margin: 30px auto;
+    margin: 0px auto;
     width: 95%;
     max-width: 1200px;
-    padding: 0 10px;
+    padding: 0 0px;
     animation: fadeIn 1s ease-in;
 }
 
-#products {
+/* #products {
     margin-top: -110px;
-}
+} */
 
 .product {
     background: rgba(255, 255, 255, 0.95);
@@ -184,7 +184,7 @@ h2::after {
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 2;
+    z-index: 3;
 }
 
 .fixed-menu:hover {
@@ -206,6 +206,7 @@ h2::after {
     padding: 15px;
     transform-origin: bottom right;
     animation: slideIn 0.3s ease;
+    opacity: 0.95;
 }
 
 @keyframes slideIn {
@@ -230,12 +231,12 @@ h2::after {
     border-radius: 8px;
     transition: all 0.2s ease;
     margin: 5px 0;
-    z-index: 2;
+    z-index: 3;
 }
 
 .menu-content a:hover {
     background: linear-gradient(135deg, #3498db20, #2ecc7120);
     transform: translateX(5px);
     color: #3498db;
-    z-index: 2;
+    z-index: 3;
 }

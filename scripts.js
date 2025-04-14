@@ -8,7 +8,7 @@ function toggleMenu() {
 }
 
 // Script para criar dinamicamente os elementos HTML para os produtos
-const urlsEspiritualidade = [
+const urlsDeus = [
     'https://fvandrad.github.io/deus/'
 ];
 const urlsNatureza = [
@@ -32,7 +32,7 @@ const urlsTecnologia = [
     'https://fvandrad.github.io/notebook/'
 ];
 
-const productsContainerEspiritualidade = document.getElementById("products");
+const productsContainerDeus = document.getElementById("products");
 const productsContainerNatureza = document.getElementById("products-natureza");
 const productsContainerTecnologia = document.getElementById("products-tecnologia");
 
@@ -55,11 +55,11 @@ function createProductElements(urls, container) {
 }
 
 // Atualizar contadores de projetos
-document.getElementById('count-espiritualidade').textContent = urlsEspiritualidade.length;
+document.getElementById('count-Deus').textContent = urlsDeus.length;
 document.getElementById('count-natureza').textContent = urlsNatureza.length;
 document.getElementById('count-tecnologia').textContent = urlsTecnologia.length;
 
-createProductElements(urlsEspiritualidade, productsContainerEspiritualidade);
+createProductElements(urlsDeus, productsContainerDeus);
 createProductElements(urlsNatureza, productsContainerNatureza);
 createProductElements(urlsTecnologia, productsContainerTecnologia);
 
@@ -90,12 +90,12 @@ async function fetchMultipleMetaTags(urls) {
 }
 
 (async () => {
-    const dataEspiritualidade = await fetchMultipleMetaTags(urlsEspiritualidade);
+    const dataDeus = await fetchMultipleMetaTags(urlsDeus);
     const dataNatureza = await fetchMultipleMetaTags(urlsNatureza);
     const dataTecnolgia = await fetchMultipleMetaTags(urlsTecnologia);
 
 
-    console.log("Meta Tags Espiritualidade:", dataEspiritualidade);
+    console.log("Meta Tags Deus:", dataDeus);
     console.log("Meta Tags Natureza:", dataNatureza);
     console.log("Meta Tags Tecnologia:", dataTecnolgia);
 
@@ -116,15 +116,15 @@ async function fetchMultipleMetaTags(urls) {
     }
 
     (async () => {
-        const dataEspiritualidade = await fetchMultipleMetaTags(urlsEspiritualidade);
+        const dataDeus = await fetchMultipleMetaTags(urlsDeus);
         const dataNatureza = await fetchMultipleMetaTags(urlsNatureza);
         const dataTecnologia = await fetchMultipleMetaTags(urlsTecnologia);
 
-        console.log("Meta Tags Espiritualidade:", dataEspiritualidade);
+        console.log("Meta Tags Deus:", dataDeus);
         console.log("Meta Tags Natureza:", dataNatureza);
         console.log("Meta Tags Tecnologia:", dataTecnologia);
 
-        updateProductElements(dataEspiritualidade, 'products');
+        updateProductElements(dataDeus, 'products');
         updateProductElements(dataNatureza, 'products-natureza');
         updateProductElements(dataTecnologia, 'products-tecnologia');
     })();
