@@ -1,6 +1,6 @@
 # Top Repositories in Github
 
-![Banner do Projeto](https://fvandrad.github.io/images/canva-code.png)
+<img src="https://fvandrad.github.io/images/canva-code.png" alt="Banner do Projeto" width="100">
 
 ## 📋 Sobre o Projeto
 
