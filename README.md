@@ -1,7 +1,5 @@
 # Top Repositories in Github
 
-<img src="https://fvandrad.github.io/images/canva-code.png" alt="Banner do Projeto" width="100">
-
 ## 📋 Sobre o Projeto
 
 Este é um site moderno e minimalista que exibe uma coleção de projetos organizados em três categorias principais: Deus, Natureza e Tecnologia. O site utiliza JavaScript para carregar dinamicamente informações dos projetos a partir de suas meta tags.
