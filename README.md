@@ -2,7 +2,7 @@
 
 ## 📋 Sobre o Projeto
 
-Este é um site moderno e minimalista que exibe uma coleção de projetos organizados em três categorias principais: Deus, Natureza e Tecnologia. O site utiliza JavaScript para carregar dinamicamente informações dos projetos a partir de suas meta tags.
+Este é um site moderno e minimalista que exibe uma coleção de 16 projetos organizados em três categorias principais: Deus (1), Natureza (11) e Tecnologia (4). O site utiliza JavaScript para carregar dinamicamente informações dos projetos a partir de suas meta tags.
 
 ## 🚀 Tecnologias Utilizadas
 
