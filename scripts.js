@@ -7,30 +7,37 @@ function toggleMenu() {
     }
 }
 
-// Script para criar dinamicamente os elementos HTML para os produtos
-const urlsDeus = [
-    'https://fvandrad.github.io/deus/'
-];
-const urlsNatureza = [
-    'https://fvandrad.github.io/arco-iris/',
-    'https://fvandrad.github.io/ceu/',
-    'https://fvandrad.github.io/tubarao/',
-    'https://fvandrad.github.io/leao/',
-    'https://fvandrad.github.io/onca-pintada/',
-    'https://fvandrad.github.io/gato/',
-    'https://fvandrad.github.io/flor/',
-    'https://fvandrad.github.io/montes/',
-    'https://fvandrad.github.io/beija-flor/',
-    'https://fvandrad.github.io/labrador/',
-    'https://fvandrad.github.io/oceanos/'
+// Script para carregar dados do arquivo JSON e criar dinamicamente os elementos HTML para os produtos
+let urlsDeus = [];
+let urlsNatureza = [];
+let urlsTecnologia = [];
 
-];
-const urlsTecnologia = [
-    'https://fvandrad.github.io/ourworld/',
-    'https://fvandrad.github.io/conectado/',
-    'https://fvandrad.github.io/ia/',
-    'https://fvandrad.github.io/notebook/'
-];
+// Função para carregar os dados do arquivo JSON
+async function carregarURLs() {
+    try {
+        const response = await fetch('./data/urls.json');
+        const data = await response.json();
+        
+        urlsDeus = data.deus || [];
+        urlsNatureza = data.natureza || [];
+        urlsTecnologia = data.tecnologia || [];
+        
+        // Atualizar contadores de projetos
+        document.getElementById('count-Deus').textContent = urlsDeus.length;
+        document.getElementById('count-natureza').textContent = urlsNatureza.length;
+        document.getElementById('count-tecnologia').textContent = urlsTecnologia.length;
+        
+        // Criar elementos de produto
+        createProductElements(urlsDeus, productsContainerDeus);
+        createProductElements(urlsNatureza, productsContainerNatureza);
+        createProductElements(urlsTecnologia, productsContainerTecnologia);
+        
+        // Carregar meta tags
+        carregarMetaTags();
+    } catch (error) {
+        console.error('Erro ao carregar o arquivo JSON:', error);
+    }
+}
 
 const productsContainerDeus = document.getElementById("products");
 const productsContainerNatureza = document.getElementById("products-natureza");
@@ -54,14 +61,8 @@ function createProductElements(urls, container) {
     });
 }
 
-// Atualizar contadores de projetos
-document.getElementById('count-Deus').textContent = urlsDeus.length;
-document.getElementById('count-natureza').textContent = urlsNatureza.length;
-document.getElementById('count-tecnologia').textContent = urlsTecnologia.length;
-
-createProductElements(urlsDeus, productsContainerDeus);
-createProductElements(urlsNatureza, productsContainerNatureza);
-createProductElements(urlsTecnologia, productsContainerTecnologia);
+// Iniciar o carregamento dos dados
+carregarURLs();
 
 
 async function fetchMetaTags(url) {
@@ -89,43 +90,32 @@ async function fetchMultipleMetaTags(urls) {
     return Promise.all(promises);
 }
 
-(async () => {
+// Função para atualizar os elementos com os dados das meta tags
+function updateProductElements(data, category) {
+    data.forEach((meta, index) => {
+        const titleElement = document.getElementById(`title-${category}-${index}`);
+        const descriptionElement = document.getElementById(`description-${category}-${index}`);
+        const imageElement = document.getElementById(`image-${category}-${index}`);
+        const priceElement = document.getElementById(`price-${category}-${index}`);
+
+        if (titleElement) titleElement.innerHTML = meta.title;
+        if (descriptionElement) descriptionElement.innerHTML = meta.description;
+        if (imageElement) imageElement.src = meta.image;
+        if (priceElement) priceElement.innerHTML = meta.price;
+    });
+}
+
+// Função para carregar e processar as meta tags
+async function carregarMetaTags() {
     const dataDeus = await fetchMultipleMetaTags(urlsDeus);
     const dataNatureza = await fetchMultipleMetaTags(urlsNatureza);
-    const dataTecnolgia = await fetchMultipleMetaTags(urlsTecnologia);
-
+    const dataTecnologia = await fetchMultipleMetaTags(urlsTecnologia);
 
     console.log("Meta Tags Deus:", dataDeus);
     console.log("Meta Tags Natureza:", dataNatureza);
-    console.log("Meta Tags Tecnologia:", dataTecnolgia);
+    console.log("Meta Tags Tecnologia:", dataTecnologia);
 
-
-    // Função para atualizar os elementos com os dados das meta tags
-    function updateProductElements(data, category) {
-        data.forEach((meta, index) => {
-            const titleElement = document.getElementById(`title-${category}-${index}`);
-            const descriptionElement = document.getElementById(`description-${category}-${index}`);
-            const imageElement = document.getElementById(`image-${category}-${index}`);
-            const priceElement = document.getElementById(`price-${category}-${index}`);
-
-            if (titleElement) titleElement.innerHTML = meta.title;
-            if (descriptionElement) descriptionElement.innerHTML = meta.description;
-            if (imageElement) imageElement.src = meta.image;
-            if (priceElement) priceElement.innerHTML = meta.price;
-        });
-    }
-
-    (async () => {
-        const dataDeus = await fetchMultipleMetaTags(urlsDeus);
-        const dataNatureza = await fetchMultipleMetaTags(urlsNatureza);
-        const dataTecnologia = await fetchMultipleMetaTags(urlsTecnologia);
-
-        console.log("Meta Tags Deus:", dataDeus);
-        console.log("Meta Tags Natureza:", dataNatureza);
-        console.log("Meta Tags Tecnologia:", dataTecnologia);
-
-        updateProductElements(dataDeus, 'products');
-        updateProductElements(dataNatureza, 'products-natureza');
-        updateProductElements(dataTecnologia, 'products-tecnologia');
-    })();
-})();
+    updateProductElements(dataDeus, 'products');
+    updateProductElements(dataNatureza, 'products-natureza');
+    updateProductElements(dataTecnologia, 'products-tecnologia');
+}

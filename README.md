@@ -65,12 +65,20 @@ Este é um site moderno e minimalista que exibe uma coleção de 16 projetos org
 
 2. Abra o arquivo `index.html` em seu navegador ou utilize um servidor local.
 
-3. Para adicionar novos projetos, edite os arrays no arquivo `scripts.js`:
-   ```javascript
-   const urlsDeus = [
-       'https://fvandrad.github.io/deus/'
+3. Para adicionar novos projetos, edite o arquivo `data/urls.json`:
+   ```json
+   {
+     "deus": [
+       "https://fvandrad.github.io/deus/"
        // Adicione mais URLs aqui
-   ];
+     ],
+     "natureza": [
+       // URLs da categoria natureza
+     ],
+     "tecnologia": [
+       // URLs da categoria tecnologia
+     ]
+   }
    ```
 
 ## 📝 Licença
