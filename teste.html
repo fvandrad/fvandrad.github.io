@@ -1,1 +1,406 @@
-teste
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maria, Mãe de Deus - Um Santuário Digital</title>
+    
+    <!-- Metadados e Open Graph -->
+    <meta name="description" content="Uma página web moderna e contemplativa dedicada a Maria, Mãe de Deus, explorando sua vida, virtudes e orações.">
+    <meta property="og:title" content="Maria, Mãe de Deus - Um Santuário Digital">
+    <meta property="og:description" content="Explore a vida, as virtudes e a beleza espiritual de Maria em uma experiência web serena e inspiradora.">
+    <meta property="og:image" content="https://placehold.co/1200x630/E0F2FE/333333?text=Ave+Maria">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate on Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Estilos Personalizados -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fce_4ec 0%, #f8_cdda 25%, #e_0f2fe 50%, #f_fffff 100%);
+            background-attachment: fixed;
+        }
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-title-glow {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7), 0 0 12px rgba(219, 185, 98, 0.5);
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #d_bb62;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        /* Animação do ícone de hambúrguer */
+        .hamburger-line {
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger.open .line-1 {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger.open .line-2 {
+            opacity: 0;
+        }
+        .hamburger.open .line-3 {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+    </style>
+</head>
+<body class="text-gray-700 antialiased">
+
+    <!-- Cabeçalho e Navegação -->
+    <header id="header" class="bg-white/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#inicio" class="font-playfair text-xl font-bold text-gray-800 flex items-center">
+                <!-- Ícone de Lírio -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-amber-500"><path d="M20 12c0-2.2-1.8-4-4-4s-4 1.8-4 4c0 3.9 4 8 4 8s4-4.1 4-8Z"/><path d="M12 12c0-2.2-1.8-4-4-4s-4 1.8-4 4c0 3.9 4 8 4 8s4-4.1 4-8Z"/><path d="M12 20a4 4 0 0 0 4-4c0-3.9-4-8-4-8s-4 4.1-4 8a4 4 0 0 0 4 4Z"/></svg>
+                Mãe de Deus
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#inicio" class="nav-link text-gray-600 hover:text-amber-600">Início</a>
+                <a href="#vida" class="nav-link text-gray-600 hover:text-amber-600">Vida de Maria</a>
+                <a href="#virtudes" class="nav-link text-gray-600 hover:text-amber-600">Virtudes</a>
+                <a href="#oracoes" class="nav-link text-gray-600 hover:text-amber-600">Orações</a>
+                <a href="#inspiracoes" class="nav-link text-gray-600 hover:text-amber-600">Inspirações</a>
+                <a href="#homenagem" class="nav-link text-gray-600 hover:text-amber-600">Homenagem</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden hamburger z-50">
+                <span class="block w-6 h-0.5 bg-gray-700 my-1 line-1"></span>
+                <span class="block w-6 h-0.5 bg-gray-700 my-1 line-2"></span>
+                <span class="block w-6 h-0.5 bg-gray-700 my-1 line-3"></span>
+            </button>
+        </div>
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-sm">
+            <a href="#inicio" class="block py-3 px-6 text-center text-gray-700 hover:bg-amber-50">Início</a>
+            <a href="#vida" class="block py-3 px-6 text-center text-gray-700 hover:bg-amber-50">Vida de Maria</a>
+            <a href="#virtudes" class="block py-3 px-6 text-center text-gray-700 hover:bg-amber-50">Virtudes</a>
+            <a href="#oracoes" class="block py-3 px-6 text-center text-gray-700 hover:bg-amber-50">Orações</a>
+            <a href="#inspiracoes" class="block py-3 px-6 text-center text-gray-700 hover:bg-amber-50">Inspirações</a>
+            <a href="#homenagem" class="block py-3 px-6 text-center text-gray-700 hover:bg-amber-50">Homenagem</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Hero -->
+        <section id="inicio" class="min-h-screen flex items-center justify-center relative pt-20">
+            <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1594904351211-39b158839063?q=80&w=1887&auto=format&fit=crop');"></div>
+            <div class="text-center z-10 p-6">
+                <h1 class="font-playfair text-5xl md:text-7xl font-bold text-gray-800 hero-title-glow" data-aos="fade-down">
+                    Maria, Mãe de Deus
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                    Cheia de Graça, farol de esperança e modelo de fé.
+                </p>
+                <a href="#vida" class="absolute bottom-10 left-1/2 -translate-x-1/2" data-aos="fade-up" data-aos-delay="400">
+                    <svg class="w-8 h-8 text-gray-600 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Seção Vida de Maria -->
+        <section id="vida" class="py-20 bg-white/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="font-playfair text-4xl font-bold text-gray-800">Uma Vida de Sim</h2>
+                    <p class="mt-2 text-lg text-gray-600">Do anúncio do anjo à Cruz, um caminho de amor e entrega.</p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2" data-aos="fade-right">
+                        <img src="https://placehold.co/600x400/F3E8FF/4A148C?text=Anunciação" alt="Representação artística da Anunciação" class="rounded-lg shadow-xl w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 space-y-6" data-aos="fade-left">
+                        <p class="text-lg leading-relaxed">A história de Maria é uma tapeçaria de momentos sagrados, tecida com fios de humildade, coragem e uma fé inabalável. Desde o seu "sim" ao Arcanjo Gabriel, ela se tornou o tabernáculo vivo de Deus, a mulher escolhida para trazer o Salvador ao mundo.</p>
+                        <blockquote class="border-l-4 border-amber-400 pl-6 italic text-gray-600">
+                            "A minha alma engrandece o Senhor, e o meu espírito se alegra em Deus, meu Salvador, pois atentou para a humildade da sua serva."
+                            <cite class="block mt-2 not-italic font-semibold">— Magnificat (Lucas 1:46-48)</cite>
+                        </blockquote>
+                        <p class="leading-relaxed">Sua jornada, marcada por alegrias e dores profundas, inspira-nos a confiar na providência divina, mesmo nos momentos de incerteza. Ela é a mãe que nos acolhe e nos aponta o caminho para Jesus.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Virtudes e Títulos -->
+        <section id="virtudes" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="font-playfair text-4xl font-bold text-gray-800">Espelho de Virtudes</h2>
+                    <p class="mt-2 text-lg text-gray-600">Qualidades que iluminam nosso caminho espiritual.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Card Humildade -->
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-lg shadow-lg text-center transform hover:-translate-y-2 transition-transform duration-300" data-aos="zoom-in">
+                        <div class="inline-block p-4 bg-rose-100 rounded-full mb-4">
+                            <!-- Ícone Coração -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-rose-500"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </div>
+                        <h3 class="font-playfair text-2xl font-semibold mb-2">Humildade</h3>
+                        <p class="text-gray-600">Reconhecer a própria pequenez diante da grandeza de Deus.</p>
+                    </div>
+                    <!-- Card Fé -->
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-lg shadow-lg text-center transform hover:-translate-y-2 transition-transform duration-300" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="inline-block p-4 bg-sky-100 rounded-full mb-4">
+                            <!-- Ícone Estrela -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        </div>
+                        <h3 class="font-playfair text-2xl font-semibold mb-2">Fé</h3>
+                        <p class="text-gray-600">Confiança total e cega nos planos do Pai.</p>
+                    </div>
+                    <!-- Card Obediência -->
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-lg shadow-lg text-center transform hover:-translate-y-2 transition-transform duration-300" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="inline-block p-4 bg-amber-100 rounded-full mb-4">
+                            <!-- Ícone Luz -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m4.93 19.07 1.41-1.41"></path><path d="m17.66 6.34 1.41-1.41"></path></svg>
+                        </div>
+                        <h3 class="font-playfair text-2xl font-semibold mb-2">Obediência</h3>
+                        <p class="text-gray-600">Adesão amorosa à vontade divina, mesmo sem compreender.</p>
+                    </div>
+                    <!-- Card Pureza -->
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-lg shadow-lg text-center transform hover:-translate-y-2 transition-transform duration-300" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="inline-block p-4 bg-gray-100 rounded-full mb-4">
+                           <!-- Ícone Pomba -->
+                           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M12 22a8 8 0 0 0 8-8c0-4.42-3.58-8-8-8s-8 3.58-8 8a8 8 0 0 0 8 8Z"/><path d="M12 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/><path d="M12 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/><path d="M18 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/><path d="M6 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/><path d="M12 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/><path d="M12 18a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/></svg>
+                        </div>
+                        <h3 class="font-playfair text-2xl font-semibold mb-2">Pureza</h3>
+                        <p class="text-gray-600">Um coração indiviso, totalmente consagrado a Deus.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Orações -->
+        <section id="oracoes" class="py-20 bg-white/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="font-playfair text-4xl font-bold text-gray-800">Converse com a Mãe</h2>
+                    <p class="mt-2 text-lg text-gray-600">Orações para fortalecer a alma e encontrar refúgio.</p>
+                </div>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- Oração: Ave Maria -->
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md" data-aos="fade-right">
+                        <details>
+                            <summary class="font-playfair text-2xl font-semibold cursor-pointer flex justify-between items-center">
+                                Ave Maria
+                                <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </summary>
+                            <div class="mt-4 text-gray-600 leading-relaxed space-y-3">
+                                <p>Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus.</p>
+                                <p>Santa Maria, Mãe de Deus, rogai por nós pecadores, agora e na hora da nossa morte. Amém.</p>
+                                <button onclick="copyToClipboard('Ave Maria...')" class="mt-4 text-sm text-amber-600 hover:underline">Copiar Oração</button>
+                            </div>
+                        </details>
+                    </div>
+                    <!-- Oração: Salve Rainha -->
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md" data-aos="fade-left">
+                        <details>
+                            <summary class="font-playfair text-2xl font-semibold cursor-pointer flex justify-between items-center">
+                                Salve Rainha
+                                <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </summary>
+                            <div class="mt-4 text-gray-600 leading-relaxed space-y-3">
+                                <p>Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva. A vós suspiramos, gemendo e chorando neste vale de lágrimas.</p>
+                                <p>Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei, e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria.</p>
+                                <p>Rogai por nós, Santa Mãe de Deus, para que sejamos dignos das promessas de Cristo. Amém.</p>
+                                <button onclick="copyToClipboard('Salve Rainha...')" class="mt-4 text-sm text-amber-600 hover:underline">Copiar Oração</button>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Inspirações (Carrossel) -->
+        <section id="inspiracoes" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="font-playfair text-4xl font-bold text-gray-800">Imagens e Inspirações</h2>
+                    <p class="mt-2 text-lg text-gray-600">Arte e palavras que elevam o espírito.</p>
+                </div>
+                <div class="relative max-w-3xl mx-auto" data-aos="zoom-in-up">
+                    <div id="carousel" class="relative overflow-hidden rounded-lg shadow-2xl bg-white/50">
+                        <div id="carousel-inner" class="flex transition-transform duration-500 ease-in-out">
+                            <!-- Slide 1 -->
+                            <div class="w-full flex-shrink-0 p-8 md:p-16 text-center">
+                                <img src="https://placehold.co/500x300/E1F5FE/01579B?text=Arte+Sacra+1" class="mx-auto rounded-lg mb-6" alt="Arte Sacra 1">
+                                <blockquote class="italic text-xl text-gray-700">"O nó da desobediência de Eva foi desatado pela obediência de Maria."</blockquote>
+                                <cite class="block mt-2 not-italic font-semibold text-gray-500">— Santo Irineu</cite>
+                            </div>
+                            <!-- Slide 2 -->
+                            <div class="w-full flex-shrink-0 p-8 md:p-16 text-center">
+                                <img src="https://placehold.co/500x300/FFF8E1/F57F17?text=Arte+Sacra+2" class="mx-auto rounded-lg mb-6" alt="Arte Sacra 2">
+                                <blockquote class="italic text-xl text-gray-700">"A Jesus, por Maria."</blockquote>
+                                <cite class="block mt-2 not-italic font-semibold text-gray-500">— São Luís Maria Grignion de Montfort</cite>
+                            </div>
+                            <!-- Slide 3 -->
+                            <div class="w-full flex-shrink-0 p-8 md:p-16 text-center">
+                                <img src="https://placehold.co/500x300/FCE4EC/880E4F?text=Arte+Sacra+3" class="mx-auto rounded-lg mb-6" alt="Arte Sacra 3">
+                                <blockquote class="italic text-xl text-gray-700">"Nunca se ouviu dizer que algum daqueles que têm recorrido à vossa proteção, implorado a vossa assistência, e reclamado o vosso socorro, fosse por vós desamparado."</blockquote>
+                                <cite class="block mt-2 not-italic font-semibold text-gray-500">— Memorare (São Bernardo)</cite>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="prevBtn" class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white/70 p-2 rounded-full shadow-md hover:bg-white transition">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button id="nextBtn" class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white/70 p-2 rounded-full shadow-md hover:bg-white transition">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Seção Homenagem -->
+        <section id="homenagem" class="py-20 bg-white/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="font-playfair text-4xl font-bold text-gray-800">Deixe sua Homenagem</h2>
+                    <p class="mt-2 text-lg text-gray-600">Compartilhe uma prece, um agradecimento ou uma mensagem de amor.</p>
+                </div>
+                <div class="max-w-2xl mx-auto" data-aos="fade-up">
+                    <form id="tribute-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Seu Nome (Opcional)</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 bg-white/80 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Sua Mensagem</label>
+                            <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-4 py-2 bg-white/80 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 transition-colors">
+                                Enviar Homenagem
+                            </button>
+                        </div>
+                    </form>
+                    <div id="form-feedback" class="mt-6 text-center text-green-700 font-semibold hidden"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <div class="flex justify-center space-x-6 mb-6">
+                <!-- Ícones Sociais Minimalistas -->
+                <a href="#" class="text-gray-400 hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg></a>
+            </div>
+            <p class="text-gray-400">&copy; 2024 Santuário Digital. Todos os direitos reservados.</p>
+            <a href="#inicio" class="mt-6 inline-block bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full transition-colors">
+                Voltar ao Topo
+            </a>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicialização do AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+
+        // Menu Mobile Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fechar menu mobile ao clicar em um link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('open');
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Função de copiar para a área de transferência
+        function copyToClipboard(textToCopy) {
+            // Cria um elemento de texto temporário
+            const tempTextArea = document.createElement('textarea');
+            // Remove a parte do nome da oração para copiar apenas o texto
+            const prayerText = document.querySelector(`summary:contains('${textToCopy.split('...')[0]}')`).nextElementSibling.innerText.replace('Copiar Oração', '').trim();
+            tempTextArea.value = prayerText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                alert('Oração copiada para a área de transferência!');
+            } catch (err) {
+                alert('Não foi possível copiar a oração.');
+            }
+            document.body.removeChild(tempTextArea);
+        }
+        
+        // Lógica do Carrossel
+        const carouselInner = document.getElementById('carousel-inner');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slides = carouselInner.children;
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            const offset = -currentIndex * 100;
+            carouselInner.style.transform = `translateX(${offset}%)`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateCarousel();
+        });
+
+        // Formulário de Homenagem
+        const tributeForm = document.getElementById('tribute-form');
+        const formFeedback = document.getElementById('form-feedback');
+        tributeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formFeedback.textContent = 'Obrigado pela sua linda homenagem!';
+            formFeedback.classList.remove('hidden');
+            tributeForm.reset();
+            setTimeout(() => {
+                formFeedback.classList.add('hidden');
+            }, 5000);
+        });
+
+    </script>
+</body>
+</html>
+
