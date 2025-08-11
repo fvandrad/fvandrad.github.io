@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maria, Mãe de Jesus</title>
+  <meta name="description" content="Uma página leve, moderna e inspiradora dedicada a Maria, Mãe de Jesus: história, virtudes, arte e citações bíblicas." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Maria, Mãe de Jesus" />
+  <meta property="og:description" content="História, virtudes, arte e citações bíblicas em um design leve e inspirador." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%231c3879'/><stop offset='100%' stop-color='%23d4af37'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Georgia, serif' font-size='72'>Maria, Mãe de Jesus</text></svg>" />
+  <meta property="og:image:alt" content="Degradê azul e dourado com o título Maria, Mãe de Jesus" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --celeste-50: #eef6ff;
+      --celeste-100: #daeaff;
+      --celeste-200: #bcd8ff;
+      --celeste-300: #90bdff;
+      --celeste-400: #5e9bff;
+      --celeste-500: #3d79ec;
+      --celeste-600: #295fca;
+      --celeste-700: #1f4ca3;
+      --celeste-800: #1c3f86;
+      --celeste-900: #1a376f;
+
+      --gold-50: #fff8e6;
+      --gold-100: #ffeec2;
+      --gold-200: #ffe093;
+      --gold-300: #ffd062;
+      --gold-400: #f3bf3b;
+      --gold-500: #d4af37;
+      --gold-600: #b39228;
+      --gold-700: #8f731e;
+      --gold-800: #725a19;
+      --gold-900: #5d4a16;
+
+      --text-900: #0f172a;
+      --text-700: #27324a;
+      --text-600: #3b4969;
+      --text-500: #4e5f86;
+      --surface: #ffffff;
+      --muted: #f6f8fc;
+
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+
+      --shadow-sm: 0 6px 20px rgba(12, 27, 69, 0.08);
+      --shadow-md: 0 10px 30px rgba(12, 27, 69, 0.12);
+      --shadow-lg: 0 20px 60px rgba(12, 27, 69, 0.18);
+
+      --container: 1120px;
+    }
+
+    /* Reset e base */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text-700);
+      line-height: 1.6;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(61, 121, 236, 0.15), transparent 60%),
+                  radial-gradient(900px 500px at 110% 10%, rgba(212, 175, 55, 0.18), transparent 70%),
+                  linear-gradient(180deg, #f8fbff 0%, #f7f6ff 100%);
+      background-attachment: fixed, fixed, scroll;
+    }
+    img { max-width: 100%; display: block; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    svg { display: inline-block; }
+
+    .container {
+      width: min(100%, var(--container));
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Cabeçalho fixo */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(120%) blur(10px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.74));
+      border-bottom: 1px solid rgba(27, 57, 120, 0.08);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px; font-weight: 700; color: var(--celeste-800);
+      letter-spacing: 0.3px;
+    }
+    .brand .symbol {
+      width: 28px; height: 28px;
+      color: var(--gold-600);
+      filter: drop-shadow(0 2px 6px rgba(212,175,55,.35));
+    }
+    nav ul {
+      display: flex; gap: 18px; list-style: none; padding: 0; margin: 0;
+      align-items: center;
+    }
+    nav a {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-weight: 500; color: var(--text-600);
+      padding: 10px 14px; border-radius: 999px; transition: all .25s ease;
+    }
+    nav a:hover { background: var(--muted); color: var(--celeste-800); }
+
+    /* Hamburguer */
+    .menu-toggle { display: none; }
+    .menu-btn {
+      display: none; width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(27, 57, 120, 0.16);
+      align-items: center; justify-content: center; background: #fff; cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative; overflow: clip;
+      padding: 72px 0 32px; /* compensar header sticky */
+      background:
+        radial-gradient(900px 400px at 10% -10%, rgba(61, 121, 236, 0.12), transparent 60%),
+        radial-gradient(600px 350px at 110% 0%, rgba(212, 175, 55, 0.18), transparent 60%);
+    }
+    .hero-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .hero-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.1; margin: 8px 0 10px; color: var(--celeste-900);
+      text-shadow: 0 8px 30px rgba(61, 121, 236, 0.15);
+    }
+    .hero-kicker { color: var(--gold-700); font-weight: 600; letter-spacing: .6px; text-transform: uppercase; font-size: 13px; }
+    .hero-sub { color: var(--text-600); font-size: 18px; margin: 12px 0 22px; }
+    .hero-cta { display: flex; gap: 12px; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; border: none; cursor: pointer;
+      padding: 12px 18px; border-radius: 12px; font-weight: 600; transition: all .25s ease;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--celeste-500), var(--celeste-700)); color: #fff; box-shadow: var(--shadow-md); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+    .btn-ghost { background: transparent; color: var(--celeste-800); border: 1px solid rgba(27, 57, 120, 0.2); }
+    .btn-ghost:hover { background: var(--muted); }
+
+    .hero-art {
+      position: relative; aspect-ratio: 1/1; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg);
+      background: linear-gradient(160deg, var(--celeste-100), #fff 35%, var(--gold-50));
+      transform: translateZ(0);
+    }
+    .hero-art .glow {
+      position: absolute; inset: -20%; background: radial-gradient(closest-side, rgba(212,175,55,.18), transparent 70%);
+      filter: blur(20px); animation: glow 6s ease-in-out infinite alternate;
+    }
+    @keyframes glow { from { transform: translate(-6%, -4%); } to { transform: translate(6%, 4%); } }
+    .mary-svg { position: absolute; inset: 0; opacity: 0; transform: translateY(12px) scale(.98); transition: all .9s ease .2s; }
+    .mary-svg.loaded { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* Seções genéricas */
+    section { padding: 80px 0; }
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif; font-size: clamp(26px, 3.6vw, 40px);
+      margin: 0 0 14px; color: var(--celeste-900);
+    }
+    .section-sub { margin: 0 0 32px; color: var(--text-600); }
+
+    /* História */
+    .historia {
+      background: linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,.92));
+    }
+    .hist-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 36px; align-items: start; }
+    .hist-card {
+      background: var(--surface); border: 1px solid rgba(27, 57, 120, 0.08); border-radius: var(--radius-lg);
+      padding: 24px; box-shadow: var(--shadow-sm);
+    }
+    .hist-card p { margin: 0 0 14px; }
+    .hist-aside {
+      border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);
+      min-height: 420px; position: relative;
+      background: url('data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%23eaf2ff"/><stop offset="100%" stop-color="%23fff7e6"/></linearGradient></defs><rect width="100%" height="100%" fill="url(%23bg)"/><circle cx="300" cy="220" r="140" fill="%235e9bff" opacity="0.18"/><circle cx="900" cy="540" r="180" fill="%23d4af37" opacity="0.15"/></svg>') center/cover no-repeat fixed;
+    }
+    .hist-aside::after {
+      content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.6));
+    }
+
+    /* Virtudes */
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .card {
+      background: var(--surface); border: 1px solid rgba(27, 57, 120, 0.08); border-radius: var(--radius-md);
+      padding: 20px; box-shadow: var(--shadow-sm); transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .card-icon { width: 34px; height: 34px; color: var(--gold-600); filter: drop-shadow(0 6px 16px rgba(212,175,55,.25)); }
+    .card h3 { margin: 12px 0 6px; color: var(--celeste-800); font-size: 18px; }
+    .card p { margin: 0; color: var(--text-600); }
+
+    /* Galeria */
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .tile { position: relative; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 4/3; background: #fff; }
+    .tile img, .tile .placeholder { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .tile .caption {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 16px; color: #fff; font-weight: 600;
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.55)); opacity: 0; transform: translateY(8px);
+      transition: all .25s ease; letter-spacing: .2px;
+    }
+    .tile:hover .caption { opacity: 1; transform: translateY(0); }
+
+    /* Citações (carrossel) */
+    .carousel { position: relative; overflow: hidden; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid rgba(27,57,120,.08); box-shadow: var(--shadow-md); }
+    .carousel-track { display: flex; transition: transform .6s cubic-bezier(.22,.61,.36,1); }
+    .slide { min-width: 100%; padding: 28px; display: grid; gap: 8px; place-items: center; text-align: center; }
+    .verse { font-family: 'Playfair Display', Georgia, serif; color: var(--celeste-900); font-size: clamp(18px, 2.6vw, 26px); line-height: 1.35; }
+    .ref { color: var(--text-600); font-weight: 600; letter-spacing: .3px; }
+    .dots { display: flex; gap: 8px; justify-content: center; padding: 12px 0 18px; }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: rgba(27,57,120,.2); border: none; }
+    .dot.active { background: var(--celeste-600); }
+    .ctrl {
+      position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: none; border-radius: 10px;
+      background: rgba(255,255,255,0.86); backdrop-filter: blur(6px); box-shadow: var(--shadow-sm); cursor: pointer; display: grid; place-items: center;
+    }
+    .ctrl:hover { background: #fff; }
+    .ctrl.prev { left: 8px; } .ctrl.next { right: 8px; }
+
+    /* Parallax section de separação */
+    .parallax {
+      background:
+        radial-gradient(800px 300px at 10% 20%, rgba(61,121,236,.12), transparent 60%),
+        radial-gradient(600px 250px at 100% 10%, rgba(212,175,55,.2), transparent 60%),
+        linear-gradient(180deg, #fbfdff, #fff6eb);
+      background-attachment: fixed, fixed, scroll;
+      padding: 90px 0;
+    }
+    .parallax .blurb {
+      text-align: center; max-width: 820px; margin: 0 auto; color: var(--text-600);
+      font-size: 18px; background: rgba(255,255,255,.6); border: 1px solid rgba(27,57,120,.08);
+      backdrop-filter: blur(8px); border-radius: 18px; padding: 22px; box-shadow: var(--shadow-sm);
+    }
+
+    /* Rodapé */
+    footer {
+      background: #0e1a38; color: #d9e6ff; padding: 40px 0 24px; position: relative; overflow: hidden;
+    }
+    footer::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px 180px at 100% 0%, rgba(212,175,55,.18), transparent 60%); }
+    .footer-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; align-items: start; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; }
+    .social { display: flex; gap: 10px; }
+    .social a { width: 38px; height: 38px; display: grid; place-items: center; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 10px; transition: all .25s ease; }
+    .social a:hover { background: rgba(255,255,255,.14); transform: translateY(-2px); }
+    .credits { margin-top: 14px; color: #c2d2ff; font-size: 14px; }
+
+    /* Botão Topo */
+    #backToTop {
+      position: fixed; right: 16px; bottom: 16px; width: 46px; height: 46px; border-radius: 999px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, var(--celeste-600), var(--celeste-800)); color: #fff; box-shadow: var(--shadow-md);
+      display: grid; place-items: center; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all .25s ease;
+      z-index: 60;
+    }
+    #backToTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    /* Responsividade */
+    @media (max-width: 980px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hist-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      nav ul { position: absolute; right: 20px; top: 64px; flex-direction: column; gap: 6px; background: #fff; border: 1px solid rgba(27,57,120,.14); padding: 10px; border-radius: 12px; box-shadow: var(--shadow-md); display: none; }
+      .menu-btn { display: inline-flex; }
+      .menu-toggle:checked + .menu-btn + ul { display: flex; }
+      .cards { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Acessibilidade: reduzir movimento */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-art .glow { animation: none; }
+      .carousel-track { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Definições de ícones SVG reutilizáveis -->
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+    <defs>
+      <symbol id="icon-crown" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M3 7l3.5 3 3-5 3 5L16.5 7 21 11v7H3v-7l0 0zM5 18h14v-4.5l-2.7-2.4-2.9 4.9-3-5-2.9 5L5 13.5V18z"/>
+      </symbol>
+      <symbol id="icon-dove" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M2 12c3 0 5-1 7-3 1.5-1.5 3.5-3 7-3-1 2-3 3-4.5 3.5 1.5.3 3 .9 4.5 2 1.9 1.4 3 3 6 3-2 2-4.5 3-7 2.5-2-.4-3.8-1.6-5-3-1 1.3-2.8 2.2-5 2.2-1.9 0-3.4-.6-4.5-1.2 1.2-.6 2.2-1.3 3-2z"/>
+      </symbol>
+      <symbol id="icon-star" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 2l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17l-5.8 3.1 1.1-6.6L2.6 8.8l6.5-.9L12 2z"/>
+      </symbol>
+      <symbol id="icon-heart" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 21s-6.3-4.4-9.2-7.3C-1 11 1 5.7 5.5 6 8 6.2 9.6 8.1 12 10.3 14.4 8.1 16 6.2 18.5 6 23 5.7 25 11 21.2 13.7 18.3 16.6 12 21 12 21z"/>
+      </symbol>
+      <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 5l-1.4 1.4 4.6 4.6H5v2h10.2l-4.6 4.6L12 19l7-7-7-7z"/>
+      </symbol>
+      <symbol id="icon-up" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M7 14l5-5 5 5H7z"/>
+      </symbol>
+      <symbol id="icon-menu" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+      </symbol>
+      <symbol id="icon-facebook" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M13 22v-9h3l.5-3H13V8.2c0-.9.3-1.5 1.7-1.5H17V4.1C16.6 4 15.6 4 14.5 4 12 4 10.3 5.5 10.3 8v2H7v3h3.3v9H13z"/>
+      </symbol>
+      <symbol id="icon-instagram" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M7 2h10c2.8 0 5 2.2 5 5v10c0 2.8-2.2 5-5 5H7c-2.8 0-5-2.2-5-5V7c0-2.8 2.2-5 5-5zm0 2C5.4 4 4 5.4 4 7v10c0 1.6 1.4 3 3 3h10c1.6 0 3-1.4 3-3V7c0-1.6-1.4-3-3-3H7zm5 3a6 6 0 110 12 6 6 0 010-12zm0 2.2A3.8 3.8 0 1015.8 13 3.8 3.8 0 0012 9.2zM18.4 6a1 1 0 110 2 1 1 0 010-2z"/>
+      </symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M3 3h4.8l4.2 6 4.8-6H22l-7.1 8.9L22 21h-4.8l-4.4-6-5 6H2l7.7-9.3L3 3z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="Página inicial">
+        <svg class="symbol" aria-hidden="true"><use href="#icon-crown"/></svg>
+        <span>Maria</span>
+      </a>
+
+      <input id="menu-toggle" class="menu-toggle" type="checkbox" aria-hidden="true" />
+      <label for="menu-toggle" class="menu-btn" aria-label="Abrir menu">
+        <svg width="22" height="22" aria-hidden="true"><use href="#icon-menu"/></svg>
+      </label>
+
+      <nav aria-label="Navegação principal">
+        <ul>
+          <li><a href="#historia"><svg width="16" height="16" aria-hidden="true"><use href="#icon-star"/></svg> História</a></li>
+          <li><a href="#virtudes"><svg width="16" height="16" aria-hidden="true"><use href="#icon-heart"/></svg> Virtudes</a></li>
+          <li><a href="#galeria"><svg width="16" height="16" aria-hidden="true"><use href="#icon-crown"/></svg> Galeria</a></li>
+          <li><a href="#citacoes"><svg width="16" height="16" aria-hidden="true"><use href="#icon-dove"/></svg> Citações</a></li>
+          <li><a href="#contato"><svg width="16" height="16" aria-hidden="true"><use href="#icon-star"/></svg> Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-inner">
+      <div class="hero-copy reveal">
+        <div class="hero-kicker">Pureza • Paz • Esperança</div>
+        <h1 id="hero-title" class="hero-headline">Maria, Mãe de Jesus</h1>
+        <p class="hero-sub">Um olhar contemplativo sobre a sua história, virtudes e legado, em uma experiência serena e inspiradora.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#historia" aria-label="Ir para a seção História">
+            <svg width="18" height="18" aria-hidden="true"><use href="#icon-arrow"/></svg>
+            Explorar
+          </a>
+          <a class="btn btn-ghost" href="#citacoes">Citações Bíblicas</a>
+        </div>
+      </div>
+      <div class="hero-art reveal" aria-hidden="true">
+        <div class="glow" aria-hidden="true"></div>
+        <!-- Ilustração estilizada de Maria (SVG) -->
+        <svg class="mary-svg" viewBox="0 0 600 600" role="img" aria-label="Ilustração artística de Maria">
+          <defs>
+            <linearGradient id="halo" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ffe9a8"/>
+              <stop offset="100%" stop-color="#ffd36a"/>
+            </linearGradient>
+            <linearGradient id="mantle" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#bcd8ff"/>
+              <stop offset="100%" stop-color="#5e9bff"/>
+            </linearGradient>
+          </defs>
+          <g transform="translate(300,300)">
+            <circle r="160" fill="url(#halo)" opacity="0.65"></circle>
+          </g>
+          <path d="M300 150c-60 0-110 50-110 110 0 72 50 130 110 130s110-58 110-130c0-60-50-110-110-110z" fill="#fff" opacity="0.95"/>
+          <path d="M300 140c-85 0-140 70-160 140 18-16 47-28 78-28 56 0 64 30 82 30s26-30 82-30c31 0 60 12 78 28-20-70-75-140-160-140z" fill="url(#mantle)" opacity="0.85"/>
+          <path d="M260 260c10 16 24 26 40 26s30-10 40-26c-10 12-24 18-40 18s-30-6-40-18z" fill="#e0ecff"/>
+          <circle cx="265" cy="245" r="6" fill="#3d79ec"/>
+          <circle cx="335" cy="245" r="6" fill="#3d79ec"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- História de Maria -->
+  <section id="historia" class="historia" aria-labelledby="titulo-historia">
+    <div class="container">
+      <header class="reveal">
+        <h2 id="titulo-historia" class="section-title">História de Maria</h2>
+        <p class="section-sub">De Nazaré ao Calvário, Maria aparece como serva fiel e mãe compassiva, unida ao plano divino de salvação.</p>
+      </header>
+      <div class="hist-grid">
+        <article class="hist-card reveal" aria-label="Texto introdutório sobre a vida de Maria">
+          <p>Maria, jovem de Nazaré, recebeu o anúncio do anjo e respondeu com fé: “Eis aqui a serva do Senhor”. Sua vida foi marcada pela confiança absoluta em Deus, mesmo diante dos mistérios e das dores.</p>
+          <p>Presente no nascimento de Jesus, nas bodas de Caná e aos pés da cruz, Maria guardava e meditava todas as coisas em seu coração, tornando-se modelo de discipulado e amor.</p>
+          <p>Para milhões de pessoas, sua presença inspira paz, esperança e um caminho de humildade e serviço.</p>
+        </article>
+        <aside class="hist-aside reveal" aria-hidden="true"></aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Virtudes e Mensagens -->
+  <section id="virtudes" aria-labelledby="titulo-virtudes">
+    <div class="container">
+      <header class="reveal">
+        <h2 id="titulo-virtudes" class="section-title">Virtudes e Mensagens</h2>
+        <p class="section-sub">Cartões com virtudes que refletem a vida de Maria.</p>
+      </header>
+      <div class="cards">
+        <div class="card reveal" role="article">
+          <svg class="card-icon" aria-hidden="true"><use href="#icon-dove"/></svg>
+          <h3>Fé</h3>
+          <p>Confiança total em Deus, acolhendo o chamado com coragem e entrega.</p>
+        </div>
+        <div class="card reveal" role="article">
+          <svg class="card-icon" aria-hidden="true"><use href="#icon-star"/></svg>
+          <h3>Obediência</h3>
+          <p>Disponibilidade para servir, mesmo sem compreender todos os caminhos.</p>
+        </div>
+        <div class="card reveal" role="article">
+          <svg class="card-icon" aria-hidden="true"><use href="#icon-heart"/></svg>
+          <h3>Amor</h3>
+          <p>Caridade sincera, atenção aos necessitados e cuidado maternal.</p>
+        </div>
+        <div class="card reveal" role="article">
+          <svg class="card-icon" aria-hidden="true"><use href="#icon-crown"/></svg>
+          <h3>Humildade</h3>
+          <p>Grandeza na simplicidade, apontando sempre para a misericórdia divina.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria de Arte -->
+  <section id="galeria" aria-labelledby="titulo-galeria">
+    <div class="container">
+      <header class="reveal">
+        <h2 id="titulo-galeria" class="section-title">Galeria de Arte</h2>
+        <p class="section-sub">Imagens e composições inspiradas em Maria. Passe o cursor para ver as legendas.</p>
+      </header>
+      <div class="gallery">
+        <!-- Tiles com placeholders SVG leves (substitua por imagens reais se desejar) -->
+        <figure class="tile reveal">
+          <img alt="Ilustração minimalista de Maria 1" src="data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23bcd8ff'/><stop offset='100%' stop-color='%23fff1cc'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><circle cx='420' cy='260' r='120' fill='%23ffd36a' opacity='.55'/><path d='M200 420c60-60 140-120 240-120 80 0 140 40 200 120' fill='none' stroke='%235e9bff' stroke-width='14' stroke-linecap='round'/></svg>" />
+          <figcaption class="caption">Luz da manhã</figcaption>
+        </figure>
+        <figure class="tile reveal">
+          <img alt="Ilustração minimalista de Maria 2" src="data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><defs><linearGradient id='g2' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23eaf2ff'/><stop offset='100%' stop-color='%23ffe6b3'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g2)'/><path d='M260 180c-90 0-150 90-170 160 20-18 44-32 76-32 54 0 64 28 84 28s30-28 84-28c32 0 56 14 76 32-20-70-80-160-170-160z' fill='%235e9bff' opacity='.35'/></svg>" />
+          <figcaption class="caption">Mantle celeste</figcaption>
+        </figure>
+        <figure class="tile reveal">
+          <img alt="Ilustração minimalista de Maria 3" src="data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><defs><radialGradient id='r' cx='.6' cy='.4' r='.8'><stop offset='0%' stop-color='%23ffd36a'/><stop offset='100%' stop-color='%23fff1cc'/></radialGradient></defs><rect width='100%' height='100%' fill='%23eaf2ff'/><circle cx='420' cy='220' r='120' fill='url(%23r)'/><rect x='120' y='360' width='560' height='140' rx='70' fill='%235e9bff' opacity='.3'/></svg>" />
+          <figcaption class="caption">Halo dourado</figcaption>
+        </figure>
+        <figure class="tile reveal">
+          <img alt="Ilustração minimalista de Maria 4" src="data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23fff7e6'/><path d='M160 440c80-80 180-160 300-160 70 0 140 40 200 160' fill='none' stroke='%23d4af37' stroke-width='10' stroke-linecap='round' opacity='.6'/><circle cx='320' cy='220' r='110' fill='%23bcd8ff'/></svg>" />
+          <figcaption class="caption">Esperança</figcaption>
+        </figure>
+        <figure class="tile reveal">
+          <img alt="Ilustração minimalista de Maria 5" src="data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23eaf2ff'/><circle cx='420' cy='240' r='118' fill='%23ffd36a' opacity='.5'/><path d='M220 420c70-60 150-120 240-120 80 0 140 40 200 120' fill='none' stroke='%235e9bff' stroke-width='12' stroke-linecap='round'/></svg>" />
+          <figcaption class="caption">Gratidão</figcaption>
+        </figure>
+        <figure class="tile reveal">
+          <img alt="Ilustração minimalista de Maria 6" src="data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><defs><linearGradient id='gg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23eaf2ff'/><stop offset='100%' stop-color='%23fff7e6'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23gg)'/><rect x='120' y='360' width='560' height='140' rx='70' fill='%235e9bff' opacity='.22'/><circle cx='300' cy='220' r='110' fill='%23ffd36a' opacity='.45'/></svg>" />
+          <figcaption class="caption">Silêncio e oração</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Separador Parallax -->
+  <section class="parallax" aria-hidden="true">
+    <div class="container">
+      <p class="blurb reveal">“A minha alma engrandece o Senhor, e o meu espírito exulta em Deus, meu Salvador.”</p>
+    </div>
+  </section>
+
+  <!-- Citações Bíblicas (Carrossel) -->
+  <section id="citacoes" aria-labelledby="titulo-citacoes">
+    <div class="container">
+      <header class="reveal">
+        <h2 id="titulo-citacoes" class="section-title">Citações Bíblicas</h2>
+        <p class="section-sub">Versículos que iluminam a missão de Maria.</p>
+      </header>
+
+      <div class="carousel reveal" role="region" aria-roledescription="carrossel" aria-label="Versículos sobre Maria">
+        <button class="ctrl prev" aria-label="Anterior"><svg width="18" height="18"><use href="#icon-arrow"/></svg></button>
+        <div class="carousel-track" id="track" aria-live="polite">
+          <div class="slide">
+            <div class="verse">“Alegra-te, cheia de graça, o Senhor está contigo!”</div>
+            <div class="ref">Lc 1, 28</div>
+          </div>
+          <div class="slide">
+            <div class="verse">“Eis aqui a serva do Senhor; faça-se em mim segundo a tua palavra.”</div>
+            <div class="ref">Lc 1, 38</div>
+          </div>
+          <div class="slide">
+            <div class="verse">“Sua mãe disse aos serventes: ‘Fazei tudo o que Ele vos disser.’”</div>
+            <div class="ref">Jo 2, 5</div>
+          </div>
+          <div class="slide">
+            <div class="verse">“Perto da cruz de Jesus estava de pé sua mãe [...]”</div>
+            <div class="ref">Jo 19, 25</div>
+          </div>
+        </div>
+        <button class="ctrl next" aria-label="Próximo"><svg width="18" height="18" style="transform:scaleX(-1)"><use href="#icon-arrow"/></svg></button>
+        <div class="dots" role="tablist" aria-label="Indicadores de slides"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer id="contato" role="contentinfo">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg class="symbol" width="26" height="26" aria-hidden="true"><use href="#icon-crown"/></svg>
+          <span>Maria</span>
+        </div>
+        <p class="credits">Projeto visual leve e acessível dedicado a Maria, Mãe de Jesus. Compartilhe e inspire!</p>
+      </div>
+      <div>
+        <div class="social" aria-label="Redes sociais">
+          <a href="#" aria-label="Facebook"><svg width="18" height="18"><use href="#icon-facebook"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="18" height="18"><use href="#icon-instagram"/></svg></a>
+          <a href="#" aria-label="X (Twitter)"><svg width="18" height="18"><use href="#icon-x"/></svg></a>
+        </div>
+        <p class="credits">Links úteis: <a href="#historia" style="color:#ffe28a">História</a> • <a href="#virtudes" style="color:#ffe28a">Virtudes</a> • <a href="#citacoes" style="color:#ffe28a">Citações</a></p>
+      </div>
+    </div>
+    <div class="container" style="margin-top:10px; opacity:.75; font-size:13px">© <span id="year"></span> - Feito com carinho.</div>
+  </footer>
+
+  <!-- Botão Voltar ao Topo -->
+  <button id="backToTop" aria-label="Voltar ao topo"><svg width="18" height="18" aria-hidden="true"><use href="#icon-up"/></svg></button>
+
+  <script>
+    // Ano no rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Fade-in da ilustração
+    window.addEventListener('load', function () {
+      const mary = document.querySelector('.mary-svg');
+      if (mary) mary.classList.add('loaded');
+    });
+
+    // Reveal on scroll com IntersectionObserver
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealEls = document.querySelectorAll('.reveal');
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => io.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('in-view'));
+    }
+
+    // Menu hamburguer fecha ao clicar em link
+    const menuToggle = document.getElementById('menu-toggle');
+    document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => {
+      if (menuToggle) menuToggle.checked = false;
+    }));
+
+    // Carrossel simples
+    const track = document.getElementById('track');
+    const slides = Array.from(track.children);
+    const dotsWrap = document.querySelector('.dots');
+    let index = 0; let timer = null;
+
+    function renderDots() {
+      dotsWrap.innerHTML = '';
+      slides.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.className = 'dot' + (i === index ? ' active' : '');
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', 'Ir para o slide ' + (i + 1));
+        b.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(b);
+      });
+    }
+    function goTo(i) {
+      index = (i + slides.length) % slides.length;
+      track.style.transform = 'translateX(' + (-index * 100) + '%)';
+      renderDots();
+      restart();
+    }
+    function next() { goTo(index + 1); }
+    function prev() { goTo(index - 1); }
+    function restart() {
+      if (prefersReduced) return;
+      if (timer) clearInterval(timer);
+      timer = setInterval(next, 6000);
+    }
+    document.querySelector('.ctrl.next').addEventListener('click', next);
+    document.querySelector('.ctrl.prev').addEventListener('click', prev);
+    renderDots(); restart();
+
+    // Parallax sutil no hero (imagem sobe delicadamente)
+    const heroArt = document.querySelector('.hero-art');
+    window.addEventListener('scroll', () => {
+      if (!heroArt || prefersReduced) return;
+      const rect = heroArt.getBoundingClientRect();
+      const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+      const translate = Math.max(-14, Math.min(14, -center * 0.03));
+      heroArt.style.transform = 'translateY(' + translate + 'px)';
+    }, { passive: true });
+
+    // Botão Voltar ao Topo
+    const back = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) back.classList.add('show'); else back.classList.remove('show');
+    }, { passive: true });
+    back.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
+
+

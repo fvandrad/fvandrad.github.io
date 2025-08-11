@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigo Fiel | Celebrando a Lealdade dos Cães</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 🎨 Paleta de Cores e Configurações Globais */
+        :root {
+            --cor-primaria: #A0522D; /* Sienna (Marrom) */
+            --cor-secundaria: #F4A460; /* Sandy Brown (Laranja Suave) */
+            --cor-fundo: #FFF8E1; /* Creme */
+            --cor-texto: #5D4037; /* Marrom Escuro */
+            --cor-verde-suave: #A5D6A7; /* Verde Suave */
+            --cor-azul-detalhe: #64B5F6; /* Azul Suave */
+            --cor-branco: #FFFFFF;
+            --sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 100 100'%3E%3Cpath d='M34.3,95.5c-1.8-0.1-3.6-0.4-5.4-1c-2.0-0.6-3.9-1.6-5.6-3c-1.7-1.3-3.1-3-4.1-4.9c-1-1.9-1.5-4-1.5-6.2c0-1.6,0.2-3.2,0.7-4.8c0.5-1.6,1.2-3,2.1-4.3c0.9-1.3,1.9-2.4,3.2-3.3c-2.3-2.1-3.9-4.9-4.6-8c-0.7-3,0.1-6.1,2.1-8.5c2-2.4,4.9-3.8,8.1-3.9c2.9-0.1,5.7,0.8,7.9,2.5c2.2,1.7,3.6,4.1,4,6.8c0.4,2.7-0.2,5.4-1.7,7.5c-0.1,0.1-0.2,0.3-0.3,0.4c2.5,1.1,4.5,2.9,5.9,5.2c1.4,2.3,2.1,5,2.1,7.7c0,3-0.8,5.9-2.3,8.4c-1.5,2.5-3.7,4.5-6.4,5.8C38.3,95.2,36.3,95.6,34.3,95.5z M65.7,95.5c-2,0-4-0.4-5.8-1.1c-2.7-1.2-4.9-3.2-6.4-5.8c-1.5-2.5-2.3-5.4-2.3-8.4c0-2.8,0.7-5.4,2.1-7.7c1.4-2.3,3.4-4.1,5.9-5.2c-0.1-0.1-0.2-0.3-0.3-0.4c-1.5-2.1-2.1-4.8-1.7-7.5c0.4-2.7,1.8-5.1,4-6.8c2.2-1.7,5-2.6,7.9-2.5c3.2,0.1,6.1,1.5,8.1,3.9c2,2.4,2.8,5.5,2.1,8.5c-0.7,3-2.3,5.9-4.6,8c1.3,0.9,2.4,2,3.2,3.3c0.9,1.3,1.6,2.7,2.1,4.3c0.5,1.6,0.7,3.2,0.7,4.8c0,2.2-0.5,4.3-1.5,6.2c-1,1.9-2.4,3.6-4.1,4.9c-1.7,1.4-3.6,2.4-5.6,3C69.3,95.1,67.5,95.4,65.7,95.5z M50,57.9c-2.1,0-4.1-0.6-5.9-1.8c-1.8-1.2-3.2-2.8-4.1-4.8c-0.9-2-1.3-4.2-1.1-6.4c0.2-3.1,1.5-5.9,3.8-7.9c2.3-2,5.2-3,8.3-2.8c3.1,0.2,5.9,1.5,7.9,3.8c2,2.3,3,5.2,2.8,8.3c-0.2,2.2-0.9,4.3-2.2,6.1c-1.2,1.8-2.9,3.3-4.8,4.1C53,57.6,51.5,57.9,50,57.9z M50,4.5c-5.1,0-9.9,1.5-13.9,4.2c-4,2.7-7,6.5-8.7,10.9c-1.7,4.4-1.9,9.2-0.6,13.8c1.3,4.6,4.1,8.7,8,11.7c1.3,1,2.8,1.9,4.3,2.6c-2.6,2.9-4.2,6.6-4.6,10.6c-0.4,4,0.5,8,2.4,11.3c1.9,3.3,4.9,5.8,8.5,6.8c3.6,1,7.4,0.5,10.6-1.3c-0.2,0.1-0.5,0.2-0.7,0.3c-4.1,2.1-7.4,5.4-9.5,9.5c-2.1,4.1-2.9,8.8-2.2,13.5c0.7,4.7,2.9,9,6.2,12.2c3.3,3.2,7.6,5.1,12.2,5.1c4.6,0,8.9-1.9,12.2-5.1c3.3-3.2,5.5-7.5,6.2-12.2c0.7-4.7-0.1-9.4-2.2-13.5c-2.1-4.1-5.4-7.4-9.5-9.5c-0.2-0.1-0.5-0.2-0.7-0.3c3.2,1.9,7,2.3,10.6,1.3c3.6-1,6.6-3.5,8.5-6.8c1.9-3.3,2.8-7.3,2.4-11.3c-0.4-4-2-7.8-4.6-10.6c1.6-0.7,3-1.6,4.3-2.6c3.9-3,6.7-7.1,8-11.7c1.3-4.6,1.1-9.4-0.6-13.8c-1.7-4.4-4.7-8.2-8.7-10.9C59.9,6,55.1,4.5,50,4.5z' fill-opacity='0.05' fill='%23A0522D'/%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        .section {
+            padding: 80px 5%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* ✨ Animações de Entrada */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 📌 Menu de Navegação */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 248, 225, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cor-primaria);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--cor-texto);
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--cor-secundaria);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /*  HERO */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--cor-branco);
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1974&auto=format&fit=crop) no-repeat center center/cover;
+            position: relative;
+        }
+        
+        .hero-content {
+             max-width: 800px;
+        }
+
+        #hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+
+        #hero p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+        }
+        
+        /* Seção Sobre */
+        #sobre {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        #sobre .content h2 {
+            font-size: 2.5rem;
+            color: var(--cor-primaria);
+            margin-bottom: 20px;
+        }
+
+        #sobre .images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            position: relative;
+        }
+
+        #sobre img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: var(--sombra-padrao);
+            transition: transform 0.3s ease;
+        }
+        #sobre img:hover {
+            transform: scale(1.05);
+        }
+
+        .svg-decor {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            fill: var(--cor-secundaria);
+            opacity: 0.5;
+            z-index: -1;
+        }
+        .svg-bone { top: -30px; left: -30px; transform: rotate(-30deg); }
+        .svg-heart { bottom: -20px; right: -40px; transform: rotate(15deg); fill: var(--cor-azul-detalhe); }
+        
+        /* Grade de Raças */
+        #racas h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--cor-primaria);
+        }
+
+        .racas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card-raca {
+            background: var(--cor-branco);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--sombra-padrao);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-raca:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-raca .icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            fill: var(--cor-secundaria);
+        }
+
+        .card-raca img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-raca h3 {
+            margin-bottom: 10px;
+            color: var(--cor-primaria);
+        }
+
+        /* Cuidados e Dicas */
+        #cuidados {
+            background-color: #fdf2d0;
+        }
+        
+        #cuidados h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--cor-primaria);
+        }
+        
+        .cuidados-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .cuidado-item {
+            text-align: center;
+        }
+        
+        .cuidado-item .icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            fill: var(--cor-verde-suave);
+            background-color: var(--cor-branco);
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: var(--sombra-padrao);
+        }
+        
+        .cuidado-item h3 {
+            margin-bottom: 10px;
+        }
+        
+        /* Depoimentos */
+        #depoimentos h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--cor-primaria);
+        }
+        
+        .carousel-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            min-height: 250px;
+        }
+
+        .depoimento {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .depoimento.active {
+            opacity: 1;
+        }
+        
+        .depoimento img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: var(--sombra-padrao);
+        }
+        
+        .depoimento blockquote {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .depoimento cite {
+            font-weight: bold;
+            color: var(--cor-secundaria);
+        }
+        
+        /* Adoção */
+        #adocao {
+            text-align: center;
+            background-color: var(--cor-verde-suave);
+        }
+        
+        #adocao h2 {
+            font-size: 2.5rem;
+            color: var(--cor-branco);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        
+        #adocao p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: #333;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--cor-secundaria);
+            color: var(--cor-branco);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e3944f;
+            transform: scale(1.05);
+        }
+        
+        /* Rodapé */
+        footer {
+            background-color: var(--cor-primaria);
+            color: var(--cor-fundo);
+            padding: 40px 5%;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .footer-links a, .social-links a {
+            color: var(--cor-fundo);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover, .social-links a:hover {
+            color: var(--cor-secundaria);
+        }
+
+        .social-links svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            nav ul { display: none; } /* Simplificação para o exemplo. Menu hambúrguer seria o ideal */
+
+            #sobre {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SVG Icons para Reuso -->
+    <svg style="display:none;">
+        <defs>
+            <symbol id="icon-bone" viewBox="0 0 512 512">
+                <path d="M496 192c-26.5 0-48 21.5-48 48s21.5 48 48 48c13.2 0 25.2-5.4 33.9-14.1C538.6 265.2 544 253.2 544 240c0-26.5-21.5-48-48-48zM16 192c-26.5 0-48 21.5-48 48s21.5 48 48 48c13.2 0 25.2-5.4 33.9-14.1C58.6 265.2 64 253.2 64 240c0-26.5-21.5-48-48-48zm432 96c0-4.4-3.6-8-8-8h-32c-4.4 0-8 3.6-8 8v32c0 4.4 3.6 8 8 8h32c4.4 0 8-3.6 8-8v-32zM112 288c0-4.4-3.6-8-8-8H72c-4.4 0-8 3.6-8 8v32c0 4.4 3.6 8 8 8h32c4.4 0 8-3.6 8-8v-32z"/>
+                <path d="M480 224H80c-8.8 0-16-7.2-16-16V80c0-8.8 7.2-16 16-16h400c8.8 0 16 7.2 16 16v128c0 8.8-7.2 16-16 16zM64 432c0 8.8 7.2 16 16 16h400c8.8 0 16-7.2 16-16V304c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16v128z"/>
+            </symbol>
+            <symbol id="icon-paw" viewBox="0 0 512 512">
+                <path d="M224 352c-35.3 0-64-28.7-64-64c0-35.3 28.7-64 64-64s64 28.7 64 64c0 35.3-28.7 64-64 64zm160-128c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64zM64 224c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64zm320-64c0 35.3-28.7 64-64 64s-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64zM256 64C167.6 64 96 135.6 96 224c0 61.3 35 114.7 85.2 140.6C197.8 381.7 224 416 224 448c0 17.7 14.3 32 32 32s32-14.3 32-32c0-32 26.2-66.3 42.8-83.4C381 338.7 416 285.3 416 224c0-88.4-71.6-160-160-160z"/>
+            </symbol>
+            <symbol id="icon-bowl" viewBox="0 0 512 512">
+                 <path d="M448 320H64c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32h384c17.7 0 32-14.3 32-32v-64c0-17.7-14.3-32-32-32zM32 288c0-53 43-96 96-96h256c53 0 96 43 96 96v16H32v-16z"/>
+            </symbol>
+            <symbol id="icon-heart" viewBox="0 0 512 512">
+                 <path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-35.9C50.5 59.2 0 118.8 0 188.1v5.8c0 41.5 17.2 81.2 47.6 106.5z"/>
+            </symbol>
+        </defs>
+    </svg>
+
+    <!-- 📌 Menu de Navegação Fixo -->
+    <header>
+        <a href="#hero" class="logo">Amigo Fiel 🐾</a>
+        <nav>
+            <ul>
+                <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                <li><a href="#racas" class="nav-link">Raças</a></li>
+                <li><a href="#cuidados" class="nav-link">Cuidados</a></li>
+                <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+                <li><a href="#adocao" class="nav-link">Adoção</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Amor em Quatro Patas</h1>
+                <p>Celebrando a amizade incondicional e a lealdade que só eles sabem dar.</p>
+            </div>
+        </section>
+
+        <!-- Seção "Sobre os Cachorros" -->
+        <section id="sobre" class="section fade-in-section">
+            <div class="content">
+                <h2>O Melhor Amigo do Homem</h2>
+                <p>Há milhares de anos, os cães caminham ao nosso lado. Eles não são apenas animais de estimação, mas membros da família, protetores leais e companheiros para todas as horas. A sua capacidade de amar incondicionalmente, a sua alegria contagiante e a sua lealdade inabalável transformam as nossas vidas de maneiras que mal podemos descrever.</p>
+                <br>
+                <p>Nesta página, celebramos cada latido, cada abanar de rabo e cada momento de pura felicidade que eles nos proporcionam.</p>
+            </div>
+            <div class="images">
+                 <svg class="svg-decor svg-bone" ><use xlink:href="#icon-bone"></use></svg>
+                 <svg class="svg-decor svg-heart"><use xlink:href="#icon-heart"></use></svg>
+                 <img src="https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=1780&auto=format&fit=crop" alt="Cão feliz brincando">
+                 <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1862&auto=format&fit=crop" alt="Cão com o seu dono">
+            </div>
+        </section>
+
+        <!-- Grade de Raças -->
+        <section id="racas" class="section fade-in-section">
+            <h2>Conheça Algumas Raças</h2>
+            <div class="racas-grid">
+                <div class="card-raca">
+                    <svg class="icon"><use xlink:href="#icon-paw"></use></svg>
+                    <img src="https://images.unsplash.com/photo-1587764379873-978174848058?q=80&w=1780&auto=format&fit=crop" alt="Golden Retriever">
+                    <h3>Golden Retriever</h3>
+                    <p>Conhecido por sua paciência e inteligência, é um excelente cão de família e companheiro para crianças.</p>
+                </div>
+                <div class="card-raca">
+                    <svg class="icon"><use xlink:href="#icon-paw"></use></svg>
+                    <img src="https://images.unsplash.com/photo-1605741041633-5c53158d89c8?q=80&w=1780&auto=format&fit=crop" alt="Pug">
+                    <h3>Pug</h3>
+                    <p>Um cão charmoso e sociável, com uma personalidade gigante em um corpo pequeno e robusto.</p>
+                </div>
+                <div class="card-raca">
+                     <svg class="icon"><use xlink:href="#icon-paw"></use></svg>
+                     <img src="https://images.unsplash.com/photo-1598875184988-5e67b1a874b8?q=80&w=1887&auto=format&fit=crop" alt="Pastor Alemão">
+                    <h3>Pastor Alemão</h3>
+                    <p>Leal, corajoso e confiante. É uma das raças mais versáteis do mundo, excelente como cão de guarda e companhia.</p>
+                </div>
+                 <div class="card-raca">
+                     <svg class="icon"><use xlink:href="#icon-paw"></use></svg>
+                     <img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?q=80&w=1780&auto=format&fit=crop" alt="Beagle">
+                    <h3>Beagle</h3>
+                    <p>Curioso e amigável, este cão farejador adora explorar e seguir o seu nariz por toda parte.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Cuidados e Dicas -->
+        <section id="cuidados" class="section fade-in-section">
+            <h2>Cuidados e Dicas Essenciais</h2>
+            <div class="cuidados-grid">
+                <div class="cuidado-item">
+                    <svg class="icon"><use xlink:href="#icon-bowl"></use></svg>
+                    <h3>Alimentação</h3>
+                    <p>Ofereça uma dieta balanceada e adequada à idade, porte e nível de atividade do seu cão.</p>
+                </div>
+                <div class="cuidado-item">
+                     <svg class="icon" viewBox="0 0 512 512"><path fill="currentColor" d="M384 320c-17.7 0-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32s-14.3-32-32-32zm-64 32c0-53-43-96-96-96s-96 43-96 96s43 96 96 96s96-43 96-96zM128 64c0-35.3-28.7-64-64-64S0 28.7 0 64v192h128V64z"/></svg>
+                    <h3>Exercícios</h3>
+                    <p>Passeios diários e brincadeiras são fundamentais para a saúde física e mental do seu pet.</p>
+                </div>
+                <div class="cuidado-item">
+                    <svg class="icon"><use xlink:href="#icon-heart"></use></svg>
+                    <h3>Carinho e Atenção</h3>
+                    <p>O amor é o principal ingrediente. Dedique tempo de qualidade para fortalecer o vosso laço.</p>
+                </div>
+                <div class="cuidado-item">
+                     <svg class="icon" viewBox="0 0 512 512"><path fill="currentColor" d="M192 160h-64c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm128 0h-64c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 64H32C14.3 64 0 78.3 0 96v320c0 17.7 14.3 32 32 32h448c17.7 0 32-14.3 32-32V96c0-17.7-14.3-64-32-64zM32 416V128h448v288H32z"/></svg>
+                    <h3>Visitas ao Vet</h3>
+                    <p>Mantenha as vacinas e desparasitações em dia. Consultas regulares previnem doenças.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Depoimentos de Donos -->
+        <section id="depoimentos" class="section fade-in-section">
+            <h2>Histórias de Amizade</h2>
+            <div class="carousel-container">
+                <div class="depoimento active">
+                    <img src="https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=1889&auto=format&fit=crop" alt="Foto de Maria">
+                    <blockquote>"O Rex entrou na minha vida e preencheu um vazio que eu nem sabia que existia. Hoje, não imagino os meus dias sem a sua alegria."</blockquote>
+                    <cite>- Maria & Rex</cite>
+                </div>
+                <div class="depoimento">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1887&auto=format&fit=crop" alt="Foto de João">
+                    <blockquote>"Adotar a Luna foi a melhor decisão que tomei. Ela ensinou-me sobre lealdade, amor puro e a importância de viver o momento."</blockquote>
+                    <cite>- João & Luna</cite>
+                </div>
+                <div class="depoimento">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop" alt="Foto de Ana">
+                    <blockquote>"Ter o Trovão ao meu lado durante os tempos difíceis foi a minha salvação. Ele é mais do que um cão, é o meu anjo da guarda de quatro patas."</blockquote>
+                    <cite>- Ana & Trovão</cite>
+                </div>
+            </div>
+        </section>
+
+        <!-- Área de Adoção -->
+        <section id="adocao" class="section fade-in-section">
+            <h2>Abra o seu Coração e o seu Lar</h2>
+            <p>Milhares de cães esperam por uma família. Adotar é um ato de amor que transforma a vida de um animal e a sua. Encontre o seu amigo fiel hoje!</p>
+            <a href="#" class="btn">Encontrar um Amigo para Adotar</a>
+        </section>
+    </main>
+
+    <!-- Rodapé Moderno -->
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2025 Amigo Fiel. Todos os direitos reservados.
+            </div>
+            <div class="footer-links">
+                <a href="#sobre">Sobre</a>
+                <a href="#racas">Raças</a>
+                <a href="#cuidados">Cuidados</a>
+                <a href="#adocao">Adoção</a>
+            </div>
+            <div class="social-links">
+                <a href="#" aria-label="Instagram">
+                   <svg viewBox="0 0 448 512"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z"></path></svg>
+                </a>
+                <a href="#" aria-label="Facebook">
+                    <svg viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"></path></svg>
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <svg viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ✨ Animações de Entrada ao Rolar
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // 📌 Destaque da Seção Ativa no Menu
+        const navLinks = document.querySelectorAll('.nav-link');
+        const allSections = document.querySelectorAll('section');
+
+        const navObserverOptions = {
+            threshold: 0.5
+        };
+        
+        const navObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, navObserverOptions);
+        
+        allSections.forEach(section => {
+            navObserver.observe(section);
+        });
+
+
+        // 🎠 Carrossel de Depoimentos
+        const depoimentos = document.querySelectorAll('.depoimento');
+        let depoimentoAtual = 0;
+
+        function mostrarDepoimento(index) {
+            depoimentos.forEach((depoimento, i) => {
+                depoimento.classList.remove('active');
+                if (i === index) {
+                    depoimento.classList.add('active');
+                }
+            });
+        }
+
+        function proximoDepoimento() {
+            depoimentoAtual = (depoimentoAtual + 1) % depoimentos.length;
+            mostrarDepoimento(depoimentoAtual);
+        }
+        
+        // Inicia o carrossel
+        setInterval(proximoDepoimento, 5000); // Muda a cada 5 segundos
+        mostrarDepoimento(depoimentoAtual);
+    });
+    </script>
+
+</body>
+</html>

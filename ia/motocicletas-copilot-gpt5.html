@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Universo das Motocicletas</title>
+
+  <!-- Tipografia: títulos robustos + texto limpo -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Paleta metálica e vibrante */
+      --black: #0f0f10;
+      --graphite: #1b1c20;
+      --smoke: #2a2c31;
+      --matte: #121316;
+      --matte-2: #0b0b0c;
+      --red: #e02828;
+      --orange: #ff6a00;
+      --orange-burnt: #c04a00;
+      --electric: #00c2ff;
+      --electric-strong: #00a7df;
+      --steel: #8a8f99;
+      --silver: #b9bec8;
+      --white: #f3f5f7;
+
+      /* Tipografia fluida */
+      --title: clamp(2rem, 3vw + 1rem, 4rem);
+      --subtitle: clamp(1.125rem, 1.1vw + 1rem, 1.6rem);
+      --body: clamp(0.98rem, 0.8vw + 0.6rem, 1.05rem);
+      --label: 0.82rem;
+
+      /* Shadows & radii */
+      --soft-shadow: 0 6px 30px rgba(0,0,0,0.35);
+      --neon: 0 0 16px rgba(0,194,255,0.45), 0 0 48px rgba(0,194,255,0.25);
+      --radius: 16px;
+
+      /* Velocidade e movimento */
+      --speed: 22s;
+      --accent-grad: linear-gradient(135deg, var(--red), var(--orange));
+      --neon-grad: linear-gradient(135deg, var(--electric), #5af0ff 70%);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 800px at 85% -10%, #1b1d22 0%, var(--black) 60%) fixed,
+                  linear-gradient(180deg, var(--matte) 0%, var(--matte-2) 100%);
+      color: var(--white);
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%;height:auto}
+
+    /* Container utilitário */
+    .container{
+      width:min(1200px, 92vw);
+      margin-inline:auto;
+    }
+
+    /* Efeito de “vento/velocidade” no topo do site */
+    .wind{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:1;
+      overflow:hidden;
+    }
+    .wind .line{
+      position:absolute;
+      top:0;
+      height:100%;
+      width:2px;
+      background: linear-gradient(to bottom, transparent 0 10%, rgba(255,255,255,0.08) 50%, transparent 90% 100%);
+      filter: drop-shadow(0 0 8px rgba(0,194,255,0.25));
+      animation: wind var(--speed) linear infinite;
+      opacity: .5;
+    }
+    /* múltiplas linhas distribuídas responsivamente */
+    .wind .line:nth-child(1){left:8%;}
+    .wind .line:nth-child(2){left:18%; animation-duration: calc(var(--speed) * 0.75);}
+    .wind .line:nth-child(3){left:30%; animation-duration: calc(var(--speed) * 0.62);}
+    .wind .line:nth-child(4){left:44%; animation-duration: calc(var(--speed) * 0.9);}
+    .wind .line:nth-child(5){left:58%; animation-duration: calc(var(--speed) * 0.7);}
+    .wind .line:nth-child(6){left:72%; animation-duration: calc(var(--speed) * 0.8);}
+    .wind .line:nth-child(7){left:85%; animation-duration: calc(var(--speed) * 0.68);}
+
+    @keyframes wind{
+      0%{transform: translate3d(0,-100%,0)}
+      100%{transform: translate3d(0,100%,0)}
+    }
+
+    /* Hero com parallax e diagonal */
+    header.hero{
+      position: relative;
+      min-height: 92vh;
+      display:grid;
+      align-items:center;
+      isolation:isolate;
+      z-index:2;
+      background: radial-gradient(1000px 600px at 70% -20%, rgba(0,194,255,0.15) 0%, rgba(0,194,255,0) 60%) no-repeat,
+                  linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.65)),
+                  url('https://images.unsplash.com/photo-1517940310602-65f6a61f7e43?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3') center/cover no-repeat fixed;
+      clip-path: polygon(0 0, 100% 0, 100% 80%, 0 95%);
+    }
+    /* fallback mobile: remove fixed parallax por performance */
+    @media (max-width: 900px){
+      header.hero{
+        background-attachment: scroll;
+      }
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(120deg, rgba(224,40,40,0.35), rgba(0,194,255,0.12) 50%, rgba(0,0,0,0.35) 90%);
+      mix-blend-mode: overlay;
+      pointer-events:none;
+    }
+
+    .brand{
+      position:absolute; top:22px; left: clamp(16px, 4vw, 40px);
+      display:flex; align-items:center; gap:12px;
+      letter-spacing: .08em; text-transform: uppercase;
+      font-family: 'Oswald', sans-serif; font-weight:700;
+    }
+    .brand .logo{
+      width:42px; height:42px; border-radius:10px;
+      background: var(--neon-grad);
+      box-shadow: var(--neon);
+      position:relative;
+      overflow:hidden;
+    }
+    .brand .logo::after{
+      content:""; position:absolute; inset:2px; border-radius:8px;
+      background: linear-gradient(135deg, #022430, #031116);
+    }
+    .brand span{ font-size:.98rem; color: var(--silver); }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      padding: clamp(60px, 10vh, 120px) 0 clamp(120px, 14vh, 200px);
+    }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      background: rgba(0,194,255,0.12);
+      color: var(--electric);
+      border: 1px solid rgba(0,194,255,0.35);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: var(--label);
+      text-transform: uppercase;
+      letter-spacing:.1em;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 30px rgba(0,194,255,0.15);
+    }
+
+    h1{
+      font-family: 'Oswald', sans-serif;
+      font-weight:700;
+      font-size: var(--title);
+      line-height: 1.05;
+      margin: 18px 0 14px;
+      text-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    }
+    .hero-sub{
+      font-size: var(--subtitle);
+      color: #d9dde4;
+      max-width: 60ch;
+      margin-bottom: 26px;
+    }
+
+    .cta{
+      display:inline-flex; align-items:center; gap:12px;
+      background: var(--accent-grad);
+      color: #fff;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      cursor:pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+      box-shadow: 0 12px 30px rgba(224,40,40,0.3);
+    }
+    .cta:hover{ transform: translateY(-2px); box-shadow: 0 18px 40px rgba(224,40,40,0.35)}
+    .cta:active{ transform: translateY(0)}
+
+    .cta.secondary{
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--silver);
+      box-shadow:none;
+    }
+    .cta-wrap{ display:flex; gap:14px; flex-wrap:wrap }
+
+    /* Ícone de moto animado */
+    .moto-icon{
+      width: 64px; height: 64px;
+      filter: drop-shadow(0 0 6px rgba(0,194,255,0.4));
+    }
+    .wheel{ transform-box: fill-box; transform-origin: center; animation: spin 6s linear infinite}
+    .wheel.fast{ animation-duration: 3s}
+    @keyframes spin{ to{ transform: rotate(360deg) } }
+
+    /* Seções diagonais com elementos sobrepostos */
+    section{
+      position:relative;
+      z-index:2;
+      padding: clamp(56px, 10vh, 100px) 0;
+    }
+    .diagonal-top{
+      clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+      margin-top: -6vw;
+      background: linear-gradient(180deg, var(--graphite), #121317);
+    }
+    .diagonal-bottom{
+      clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+      background: linear-gradient(180deg, #121317, var(--matte-2));
+    }
+
+    /* Chips com ícones para cultura */
+    .chips{
+      display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      margin-top:18px;
+    }
+    .chip{
+      display:flex; align-items:center; gap:12px;
+      background: linear-gradient(180deg, #17181c, #121316);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: var(--soft-shadow);
+    }
+    .chip svg{ width:22px; height:22px; color: var(--electric) }
+
+    .grid{
+      display:grid; gap:24px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    /* Cards de tipos */
+    .cards{
+      display:grid; gap:24px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .card{
+      position:relative;
+      overflow:hidden;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #17181c, #101114 60%);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--soft-shadow);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.45) }
+    .card .media{
+      position:relative; aspect-ratio: 16/10; overflow:hidden;
+    }
+    .card img{
+      width:100%; height:100%; object-fit: cover; filter: contrast(1.05) saturate(1.08);
+      transform: scale(1.04); transition: transform .6s ease;
+    }
+    .card:hover img{ transform: scale(1.09) }
+    .badge{
+      position:absolute; top:12px; left:12px;
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:10px;
+      background: rgba(0,194,255,0.12);
+      border: 1px solid rgba(0,194,255,0.35);
+      color: var(--electric);
+      font-size: var(--label);
+      backdrop-filter: blur(6px);
+    }
+    .card .content{ padding:16px 16px 18px }
+    .card h3{
+      margin:4px 0 6px;
+      font-family:'Oswald', sans-serif;
+      font-weight:600;
+      letter-spacing:.02em;
+    }
+    .card p{ color:#cdd3db; margin:0 }
+
+    /* Curiosidades */
+    .stats{
+      display:grid; gap:16px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      margin-top: 18px;
+    }
+    .stat{
+      background: linear-gradient(180deg, #181a1f, #101114);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 18px;
+      display:grid; gap:8px; align-content:start;
+    }
+    .stat .num{
+      font-family:'Oswald', sans-serif;
+      font-weight:700;
+      font-size: clamp(1.4rem, 1.6vw + 1rem, 2.4rem);
+      background: var(--neon-grad);
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+      text-shadow: var(--neon);
+    }
+    .stat small{ color:#aab2be }
+
+    /* Contato / Social */
+    .contact{
+      display:grid; gap:24px;
+      grid-template-columns: 1.2fr .8fr;
+    }
+    @media (max-width: 860px){
+      .contact{ grid-template-columns: 1fr }
+    }
+    .social{
+      display:flex; flex-wrap:wrap; gap:12px;
+    }
+    .social a{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px; border-radius: 12px;
+      background: #121317;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .social a:hover{ transform: translateY(-3px); border-color: rgba(0,194,255,0.4) }
+    .social svg{ width:20px; height:20px; color: var(--electric) }
+
+    /* Títulos de seção */
+    .section-head{
+      display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom: 22px;
+    }
+    .section-head h2{
+      margin:0;
+      font-family:'Oswald', sans-serif;
+      font-weight:700;
+      letter-spacing:.02em;
+      font-size: clamp(1.6rem, 1.8vw + 1rem, 2.4rem);
+    }
+    .divider{
+      height:2px; flex:1;
+      background: linear-gradient(90deg, rgba(255,255,255,0.15), rgba(0,194,255,0.45) 60%, rgba(0,0,0,0));
+      filter: drop-shadow(0 0 8px rgba(0,194,255,0.4));
+    }
+
+    /* Formas geométricas SVG no fundo */
+    .bg-geometry{
+      position: absolute; inset: 0; z-index: 0; pointer-events:none; opacity: .35;
+      mask-image: radial-gradient(1200px 600px at 70% 30%, #000 0 55%, transparent 80%);
+    }
+    .bg-geometry svg{
+      position:absolute; width: 140%; left:-10%; top: -8%;
+    }
+
+    /* Animações de entrada (reveal) */
+    .reveal{ opacity:0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease }
+    .reveal.in{ opacity:1; transform: translateY(0) }
+
+    /* Footer */
+    footer{
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 24px 0 40px;
+      color: #aab2be;
+      background: linear-gradient(180deg, #0b0b0c, #0b0b0c);
+    }
+
+    /* Acessibilidade foco */
+    :focus-visible{ outline: 2px dashed var(--electric); outline-offset: 3px }
+  </style>
+</head>
+<body>
+
+  <!-- Efeito “vento/velocidade” -->
+  <div class="wind" aria-hidden="true">
+    <span class="line"></span><span class="line"></span><span class="line"></span>
+    <span class="line"></span><span class="line"></span><span class="line"></span>
+    <span class="line"></span>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="topo" role="banner">
+    <div class="brand" aria-label="Universo das Motocicletas">
+      <div class="logo" aria-hidden="true"></div>
+      <span>Universo das Motocicletas</span>
+    </div>
+
+    <!-- Formas geométricas de fundo -->
+    <div class="bg-geometry" aria-hidden="true">
+      <svg viewBox="0 0 1200 600" fill="none">
+        <defs>
+          <linearGradient id="road" x1="0" y1="0" x2="1200" y2="0">
+            <stop offset="0" stop-color="#00c2ff" stop-opacity=".2"/>
+            <stop offset="1" stop-color="#00c2ff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- Traços de estrada curvos -->
+        <path d="M-50,550 C200,480 400,520 650,470 C900,420 1100,500 1250,450" stroke="url(#road)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M-50,500 C180,430 420,470 640,420 C880,365 1120,440 1250,380" stroke="url(#road)" stroke-width="3" stroke-linecap="round" stroke-dasharray="12 12"/>
+        <!-- Silhueta minimalista de moto -->
+        <g transform="translate(740 160) scale(1.2)" opacity=".35">
+          <circle cx="60" cy="60" r="36" stroke="#00c2ff" stroke-opacity=".35"/>
+          <circle cx="200" cy="60" r="36" stroke="#00c2ff" stroke-opacity=".35"/>
+          <path d="M60 60 L120 30 L210 60" stroke="#00c2ff" stroke-opacity=".35"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="container hero-content">
+      <span class="kicker reveal">Velocidade, liberdade e design</span>
+      <h1 class="reveal" style="max-width: 16ch;">Domine a estrada. Viva a cultura das motocicletas.</h1>
+      <p class="hero-sub reveal">Um tributo moderno às máquinas que movem paixões — do ronco grave das customs à precisão das esportivas. Explore estilos, história, curiosidades e eventos.</p>
+
+      <div class="cta-wrap reveal">
+        <button class="cta" onclick="document.getElementById('tipos').scrollIntoView({behavior:'smooth'})">
+          Explorar estilos
+          <!-- Ícone seta -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="cta secondary" href="#eventos">Ver eventos de motos</a>
+        <!-- Ícone de moto animado -->
+        <svg class="moto-icon" viewBox="0 0 64 64" aria-label="Ícone animado de moto">
+          <g fill="none" stroke="currentColor" stroke-width="2" color="var(--electric)">
+            <circle class="wheel fast" cx="18" cy="42" r="8"></circle>
+            <circle class="wheel" cx="46" cy="42" r="8"></circle>
+            <path d="M10 42h6l6-10 10 4 8-6 8 6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M28 22l8 8M24 18l4 4" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- HISTÓRIA E CULTURA -->
+  <section class="diagonal-top" id="cultura" aria-labelledby="titulo-cultura">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="titulo-cultura" class="reveal">História e cultura da motocicleta</h2>
+        <div class="divider" aria-hidden="true"></div>
+      </div>
+      <div class="grid">
+        <div class="reveal" style="grid-column: span 7; min-width: 260px;">
+          <p>Das pioneiras do início do século XX aos modelos elétricos de hoje, as motos sempre foram sinônimo de expressão e autonomia. A cultura motociclista conecta pessoas, rotas e estilos — um universo onde cada quilômetro conta uma história.</p>
+          <div class="chips">
+            <div class="chip">
+              <!-- Liberdade -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 12c4 0 6-6 9-6s5 6 9 6-6 6-9 6-5-6-9-6Z" stroke="currentColor" stroke-width="1.8" />
+              </svg>
+              <span>Liberdade na estrada</span>
+            </div>
+            <div class="chip">
+              <!-- Aventura -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              <span>Aventura e descoberta</span>
+            </div>
+            <div class="chip">
+              <!-- Viagens -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 6h10l8 6-8 6H3l8-6-8-6Z" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+              <span>Viagens e rotas cênicas</span>
+            </div>
+            <div class="chip">
+              <!-- Comunidade -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8 10a6 6 0 0 0-12 0M16 13a4 4 0 1 0 0-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              <span>Comunidade e encontros</span>
+            </div>
+          </div>
+        </div>
+        <div class="reveal" style="grid-column: span 5; min-width: 260px;">
+          <div class="card" style="height:100%">
+            <div class="media">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Motociclista em estrada ao pôr do sol">
+              <span class="badge">
+                <!-- Rota -->
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 20c6 0 6-16 12-16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="6" cy="20" r="2" fill="currentColor"/>
+                  <circle cx="18" cy="4" r="2" fill="currentColor"/>
+                </svg>
+                Rotas lendárias
+              </span>
+            </div>
+            <div class="content">
+              <h3>Do asfalto ao off-road</h3>
+              <p>Da estrada infinita às trilhas sinuosas, cada terreno pede um estilo — e revela uma nova maneira de pilotar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPOS DE MOTOCICLETAS -->
+  <section id="tipos" class="diagonal-bottom" aria-labelledby="titulo-tipos">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="titulo-tipos" class="reveal">Tipos de motocicletas</h2>
+        <div class="divider" aria-hidden="true"></div>
+      </div>
+
+      <div class="cards">
+        <!-- Custom -->
+        <article class="card reveal">
+          <div class="media">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Moto custom com estética clássica">
+            <span class="badge">
+              <!-- Chama/estilo -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3s6 5 6 10a6 6 0 0 1-12 0c0-5 6-10 6-10Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Custom
+            </span>
+          </div>
+          <div class="content">
+            <h3>Custom</h3>
+            <p>Visual marcante, posição relaxada e opções infinitas de personalização — identidade sobre duas rodas.</p>
+          </div>
+        </article>
+
+        <!-- Esportiva -->
+        <article class="card reveal">
+          <div class="media">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1517524206127-48bbd363f3c7?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Moto esportiva em pista">
+            <span class="badge">
+              <!-- Velocímetro -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 12l4-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Esportiva
+            </span>
+          </div>
+          <div class="content">
+            <h3>Esportiva</h3>
+            <p>Aerodinâmica e precisão. Feita para curvas rápidas, aceleração intensa e controle absoluto.</p>
+          </div>
+        </article>
+
+        <!-- Touring -->
+        <article class="card reveal">
+          <div class="media">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Moto touring viajando em rodovia">
+            <span class="badge">
+              <!-- Mala/viagem -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="5" y="7" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M9 7V5h6v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Touring
+            </span>
+          </div>
+          <div class="content">
+            <h3>Touring</h3>
+            <p>Conforto e autonomia para longas distâncias. Estrada aberta, bagagem pronta e horizonte no painel.</p>
+          </div>
+        </article>
+
+        <!-- Scooter -->
+        <article class="card reveal">
+          <div class="media">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Scooter urbana">
+            <span class="badge">
+              <!-- Cidade -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 20h16M6 20V8l4-2 4 2v12M18 20V10l-4-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Scooter
+            </span>
+          </div>
+          <div class="content">
+            <h3>Scooter</h3>
+            <p>Praticidade urbana com economia e estilo. Mobilidade ágil para o dia a dia.</p>
+          </div>
+        </article>
+
+        <!-- Off-road -->
+        <article class="card reveal">
+          <div class="media">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1519842464544-938b281acadc?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Moto off-road em trilha">
+            <span class="badge">
+              <!-- Montanha -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 18l7-10 5 7 3-4 3 7H3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Off-road
+            </span>
+          </div>
+          <div class="content">
+            <h3>Off-road</h3>
+            <p>Leveza e suspensão preparadas para terra, lama e desafios fora do asfalto.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURIOSIDADES -->
+  <section id="curiosidades" class="diagonal-top" aria-labelledby="titulo-curiosidades">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="titulo-curiosidades" class="reveal">Curiosidades</h2>
+        <div class="divider" aria-hidden="true"></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat reveal">
+          <div class="num" data-count="3.2">0</div>
+          <small>segundos — aceleração 0–100 km/h em modelos de alta performance</small>
+        </div>
+        <div class="stat reveal">
+          <div class="num" data-count="1200">0</div>
+          <small>km — autonomia em viagens com equipamentos de touring e tanques ampliados</small>
+        </div>
+        <div class="stat reveal">
+          <div class="num" data-count="100">0</div>
+          <small>+ eventos — encontros e rides ao longo do ano</small>
+        </div>
+        <div class="stat reveal">
+          <div class="num" data-count="50">0</div>
+          <small>países — comunidades de motociclismo ativas e conectadas</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO E REDES -->
+  <section id="contato" class="diagonal-bottom" aria-labelledby="titulo-contato">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="titulo-contato" class="reveal">Contato e redes sociais</h2>
+        <div class="divider" aria-hidden="true"></div>
+      </div>
+
+      <div class="contact">
+        <div class="reveal">
+          <p>Quer compartilhar sua rota favorita, divulgar um evento ou colaborar? Entre em contato e acompanhe nossas redes para não perder nada.</p>
+          <form onsubmit="event.preventDefault(); alert('Obrigado! Em breve entraremos em contato.')" aria-label="Formulário de contato">
+            <div style="display:grid; gap:12px; grid-template-columns: 1fr 1fr;">
+              <input required aria-label="Seu nome" placeholder="Seu nome" style="grid-column: span 1; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.12); background:#0e0f12; color:#e7ecf3;">
+              <input required type="email" aria-label="Seu e-mail" placeholder="Seu e-mail" style="grid-column: span 1; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.12); background:#0e0f12; color:#e7ecf3;">
+              <textarea required aria-label="Mensagem" placeholder="Mensagem" rows="4" style="grid-column: span 2; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.12); background:#0e0f12; color:#e7ecf3;"></textarea>
+            </div>
+            <div style="margin-top:12px; display:flex; gap:12px; align-items:center;">
+              <button class="cta" type="submit">Enviar mensagem</button>
+              <a class="cta secondary" id="eventos" href="https://www.google.com/search?q=eventos+de+motos+perto+de+mim" target="_blank" rel="noopener">Eventos de motos</a>
+            </div>
+          </form>
+        </div>
+
+        <div class="reveal">
+          <div class="social" aria-label="Nossas redes sociais">
+            <a href="#" aria-label="Instagram">
+              <!-- Instagram -->
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+              <span>@universo.moto</span>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <!-- YouTube -->
+              <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="2"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>
+              <span>/universo-moto</span>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <!-- Facebook -->
+              <svg viewBox="0 0 24 24" fill="none"><path d="M14 9h3V6h-3a4 4 0 0 0-4 4v3H7v3h3v5h3v-5h3l1-3h-4v-3a1 1 0 0 1 1-1Z" fill="currentColor"/></svg>
+              <span>/universomoto</span>
+            </a>
+            <a href="#" aria-label="TikTok">
+              <!-- TikTok -->
+              <svg viewBox="0 0 24 24" fill="none"><path d="M14 3v5c1.2 1.2 2.6 2 5 2V7c-1.5-.1-3-.7-4-2V3h-1Z" fill="currentColor"/><path d="M13 9.5V14a4 4 0 1 1-3-3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span>@universomoto</span>
+            </a>
+          </div>
+          <p style="margin-top:12px; color:#cdd3db;">Dica: marque suas fotos com <strong>#UniversoMoto</strong> para aparecer em nossos destaques.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <p style="margin:0">© <span id="year"></span> Universo das Motocicletas — paixão, design e velocidade.</p>
+      <a href="#topo" class="cta secondary" aria-label="Voltar ao topo">Voltar ao topo</a>
+    </div>
+  </footer>
+
+  <script>
+    // Atualiza ano do rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Intersection Observer para animações de entrada
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Parallax leve no HERO (ajusta background-position)
+    const hero = document.querySelector('header.hero');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if(!ticking){
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY || window.pageYOffset;
+          // desloca levemente o background para simular profundidade
+          hero.style.backgroundPosition = `center ${Math.round(y * 0.3)}px`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Contador animado nas curiosidades
+    const counters = document.querySelectorAll('.num');
+    const runCounter = (el) => {
+      const target = parseFloat(el.dataset.count);
+      const isFloat = !Number.isInteger(target);
+      const duration = 1400;
+      const start = performance.now();
+      const startVal = 0;
+
+      const step = (t) => {
+        const p = Math.min((t - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = startVal + (target - startVal) * eased;
+        el.textContent = isFloat ? val.toFixed(1) : Math.round(val).toString();
+        if(p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          runCounter(e.target);
+          counterObserver.unobserve(e.target);
+        }
+      })
+    }, { threshold: 0.4 });
+
+    counters.forEach(c => counterObserver.observe(c));
+  </script>
+</body>
+</html>

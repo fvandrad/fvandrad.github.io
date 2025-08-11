@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PetJoy • Diversidade e alegria dos pets</title>
+  <meta name="description" content="Uma página vibrante, acolhedora e responsiva que celebra a diversidade e alegria dos pets — cães, gatos, pássaros, peixes e muito mais." />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Paleta alegre e acolhedora */
+      --turquesa: #2EC9C3;
+      --turquesa-escuro: #1BA5A0;
+      --amarelo: #FFE588;
+      --menta: #B2F7EF;
+      --rosa: #FFCCE1;
+      --lilas: #C9A3FF;
+      --laranja: #FF8A5B;
+
+      --bg-base: #F8FBFD;
+      --texto: #163046;
+      --texto-suave: #3B5266;
+      --branco: #FFFFFF;
+      --sombra: rgba(10, 25, 47, .08);
+
+      --radius-lg: 18px;
+      --radius-sm: 12px;
+      --container: 1200px;
+      --blur: saturate(180%) blur(10px);
+      --elev-1: 0 10px 24px var(--sombra);
+      --elev-2: 0 16px 40px var(--sombra);
+
+      --grad-1: linear-gradient(135deg, rgba(46,201,195,.22), rgba(178,247,239,.22));
+      --grad-2: linear-gradient(135deg, #2EC9C3, #C9A3FF);
+      --grad-3: linear-gradient(135deg, #FFE588, #FFCCE1);
+    }
+
+    *{ box-sizing: border-box }
+    html{ scroll-behavior: smooth }
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--texto);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(201,163,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 95% 10%, rgba(46,201,195,.20), transparent 60%),
+        radial-gradient(800px 600px at 30% 100%, rgba(255,204,225,.18), transparent 50%),
+        var(--bg-base);
+      line-height: 1.6;
+    }
+
+    /* Padrão sutil de patinhas no fundo */
+    body::before{
+      content:"";
+      position: fixed;
+      inset:0;
+      pointer-events: none;
+      background-image: url('data:image/svg+xml;utf8,\
+        <svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">\
+          <g fill="none" fill-opacity=".14">\
+            <path d="M64 64c2 8 10 12 15 8 5-4 4-12-1-18-3-4-8-7-12-7-4 0-5 3-3 9 1 3 1 5 1 8z" fill="%23C9A3FF"/>\
+            <circle cx="40" cy="28" r="10" fill="%232EC9C3"/>\
+            <circle cx="100" cy="28" r="9" fill="%23FF8A5B"/>\
+            <circle cx="28" cy="100" r="8" fill="%23FFE588"/>\
+            <circle cx="112" cy="104" r="10" fill="%23FFCCE1"/>\
+          </g>\
+        </svg>');
+      background-size: 220px;
+      opacity:.45;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.65));
+    }
+
+    a{ color: inherit; text-decoration: none }
+    img{ max-width:100%; height:auto; display:block }
+
+    .container{
+      width: min(100% - 32px, var(--container));
+      margin-inline: auto;
+    }
+
+    /* Navegação fixa */
+    .nav{
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255,255,255,.7);
+      backdrop-filter: var(--blur);
+      border-bottom: 1px solid rgba(22,48,70,.06);
+    }
+    .nav__wrap{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:700;
+      letter-spacing:.4px;
+    }
+    .brand__logo{
+      width:42px; height:42px; border-radius:14px;
+      background: var(--grad-2);
+      display:grid; place-items:center;
+      color: var(--branco);
+      box-shadow: var(--elev-1);
+    }
+    .brand__text{
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-size: 1.35rem;
+    }
+
+    .nav__links{
+      display:flex; gap: 6px; align-items:center;
+    }
+    .nav__links a{
+      padding: 10px 14px; border-radius: 999px; font-weight:600;
+      color: var(--texto-suave);
+      transition: transform .15s ease, background-color .2s ease, color .2s ease;
+    }
+    .nav__links a:hover{ transform: translateY(-1px) }
+    .nav__links a.active{ background: var(--grad-1); color: var(--texto) }
+
+    /* Hamburguer mobile */
+    .nav__toggle{ display:none }
+    .nav__burger{
+      display:none; width:42px; height:42px; border-radius:12px;
+      background: var(--grad-1);
+      align-items:center; justify-content:center;
+      border: 1px solid rgba(22,48,70,.08);
+      cursor:pointer;
+    }
+    .nav__burger span, .nav__burger::before, .nav__burger::after{
+      content:""; display:block; width:20px; height:2px; background: var(--texto);
+      border-radius:4px; transition: transform .25s ease, opacity .25s ease;
+    }
+    .nav__burger span{ margin:4px 0 }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      padding: clamp(56px, 12vw, 120px) 0 clamp(28px, 6vw, 60px);
+    }
+    .hero__wrap{
+      display:grid; gap: 28px;
+      grid-template-columns: 1.02fr .98fr;
+      align-items: center;
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      background: var(--grad-1); border:1px solid rgba(22,48,70,.08);
+      padding: 6px 12px; border-radius: 999px; font-weight:600; color: var(--texto-suave);
+    }
+    .hero h1{
+      font-family:"Baloo 2", system-ui, sans-serif;
+      font-size: clamp(2rem, 3.6vw, 3.4rem);
+      line-height:1.1; margin: 10px 0 12px; letter-spacing:.3px;
+    }
+    .hero p{
+      font-size: clamp(1rem, 1.4vw, 1.125rem);
+      color: var(--texto-suave); margin:0 0 20px;
+    }
+    .cta{
+      display:flex; gap:12px; flex-wrap: wrap;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 16px; border-radius: 12px; font-weight:700; border: none;
+      cursor:pointer; transition: transform .2s ease, box-shadow .25s ease, filter .2s ease;
+    }
+    .btn--primary{
+      background: var(--grad-2); color: var(--branco); box-shadow: var(--elev-2);
+    }
+    .btn--ghost{
+      background: var(--branco); color: var(--texto);
+      border:1px solid rgba(22,48,70,.1);
+    }
+    .btn:hover{ transform: translateY(-2px); filter: brightness(1.03) }
+
+    .hero__art{
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-lg);
+      overflow:hidden;
+      box-shadow: var(--elev-2);
+      background: radial-gradient(120% 120% at 100% 0%, rgba(255,229,136,.35), transparent 45%), radial-gradient(110% 110% at 0% 100%, rgba(201,163,255,.32), transparent 45%), linear-gradient(140deg, #FDFEFF, #EFFFFB);
+      border:1px solid rgba(22,48,70,.06);
+    }
+
+    /* SVG hero dentro da arte */
+    .hero__art svg{
+      position:absolute; inset:0; width:100%; height:100%;
+    }
+
+    /* Seções */
+    section{ padding: clamp(48px, 9vw, 96px) 0 }
+    .title{
+      font-family:"Baloo 2", system-ui, sans-serif;
+      font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+      margin: 0 0 8px;
+    }
+    .subtitle{ color: var(--texto-suave); margin:0 0 24px }
+
+    /* Sobre */
+    .sobre{
+      position: relative;
+    }
+    .sobre__grid{
+      display:grid; gap: 20px;
+      grid-template-columns: .9fr 1.1fr;
+      align-items:center;
+    }
+    .sobre__cards{
+      display:grid; gap: 16px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .sobre__card{
+      background: var(--branco);
+      border: 1px solid rgba(22,48,70,.06);
+      border-radius: 16px; overflow:hidden;
+      box-shadow: var(--elev-1);
+      transition: transform .2s ease, box-shadow .25s ease;
+    }
+    .sobre__card:hover{ transform: translateY(-4px); box-shadow: var(--elev-2) }
+    .sobre__img{
+      aspect-ratio: 4 / 3; background: var(--grad-3);
+      display:grid; place-items:center;
+    }
+    .sobre__txt{ padding: 12px 14px; font-weight:600; color: var(--texto) }
+
+    /* Grade de espécies */
+    .grid{
+      display:grid; gap: 18px;
+      grid-template-columns: repeat(6, minmax(0,1fr));
+    }
+    .card{
+      background: var(--branco);
+      border:1px solid rgba(22,48,70,.06);
+      border-radius: 18px; padding: 16px;
+      box-shadow: var(--elev-1);
+      transition: transform .2s ease, box-shadow .25s ease;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow: var(--elev-2) }
+    .card__head{
+      display:flex; align-items:center; gap:10px; margin-bottom:10px;
+    }
+    .badge{
+      width:44px; height:44px; border-radius:12px;
+      display:grid; place-items:center;
+      background: var(--grad-1);
+      border:1px solid rgba(22,48,70,.06);
+    }
+    .thumb{
+      width:100%; aspect-ratio: 3 / 2; border-radius: 14px; overflow:hidden;
+      border:1px solid rgba(22,48,70,.06);
+      background: #F7FFFE;
+    }
+    .small{ font-size:.95rem; color: var(--texto-suave) }
+
+    /* Dicas/cuidados */
+    .tips{
+      display:grid; gap: 18px;
+      grid-template-columns: repeat(6, minmax(0,1fr));
+    }
+    .tip{
+      padding: 16px; border-radius: 16px;
+      border: 1px solid rgba(22,48,70,.08);
+      background: var(--branco);
+      box-shadow: var(--elev-1);
+      transition: transform .2s ease, box-shadow .25s ease;
+    }
+    .tip:hover{ transform: translateY(-4px); box-shadow: var(--elev-2) }
+    .tip__icon{
+      width:40px; height:40px; border-radius:10px; display:grid; place-items:center;
+      margin-bottom:8px; border:1px solid rgba(22,48,70,.06);
+    }
+    .tip h4{ margin:6px 0 6px; font-size:1.05rem }
+    .tip p{ margin:0; color: var(--texto-suave) }
+
+    /* Galeria */
+    .gallery{
+      display:grid; gap: 16px;
+      grid-template-columns: repeat(12, minmax(0,1fr));
+    }
+    .shot{
+      grid-column: span 4;
+      position:relative; border-radius: 18px; overflow:hidden;
+      border:1px solid rgba(22,48,70,.08);
+      box-shadow: var(--elev-1);
+      background: #fff;
+      transform: translateZ(0);
+    }
+    .shot img{ width:100%; height:100%; object-fit: cover; aspect-ratio: 4 / 3; transition: transform .4s ease }
+    .shot:hover img{ transform: scale(1.06) }
+    .shot::after{
+      content:"❤"; position:absolute; right:12px; bottom:10px; font-size: 18px;
+      color: #ff6f91; opacity:.0; transform: translateY(8px);
+      transition: transform .25s ease, opacity .25s ease;
+      text-shadow: 0 3px 10px rgba(255,105,135,.35);
+    }
+    .shot:hover::after{ opacity:1; transform: translateY(0) }
+
+    /* Adoção */
+    .adocao{
+      background: radial-gradient(120% 140% at 0% 0%, rgba(46,201,195,.18), transparent 40%), radial-gradient(120% 140% at 100% 100%, rgba(201,163,255,.20), transparent 40%), #F9FEFF;
+      border: 1px solid rgba(22,48,70,.06);
+      border-radius: 24px;
+      padding: clamp(24px, 4vw, 36px);
+      box-shadow: var(--elev-2);
+    }
+    .adocao__wrap{
+      display: grid; gap: 18px; align-items: center;
+      grid-template-columns: 1.2fr .8fr;
+    }
+    .contact{
+      display:flex; gap:10px; flex-wrap:wrap; color: var(--texto-suave);
+      font-weight:600;
+    }
+    .contact a{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:10px;
+      border:1px solid rgba(22,48,70,.1); background: #fff;
+    }
+
+    /* Rodapé */
+    footer{
+      padding: 28px 0; color: var(--texto-suave);
+    }
+    .foot{
+      display:grid; gap: 18px;
+      grid-template-columns: 1.1fr .9fr .9fr .9fr;
+      align-items:flex-start;
+      border-top: 1px solid rgba(22,48,70,.08);
+      padding-top: 22px;
+    }
+    .foot h5{ margin: 0 0 10px; font-size:1rem; color: var(--texto); }
+    .foot a{ color: var(--texto-suave); display:inline-flex; gap:10px; padding:6px 0 }
+    .social{ display:flex; gap:10px; }
+    .social a{
+      width:38px; height:38px; border-radius:12px; display:grid; place-items:center;
+      background: var(--grad-1); border:1px solid rgba(22,48,70,.08)
+    }
+
+    /* Utilitários de cor para ícones */
+    .c-menta{ background: #E9FFFC }
+    .c-rosa{ background: #FFF2F7 }
+    .c-amarelo{ background: #FFF8E2 }
+    .c-lilas{ background: #F8F1FF }
+    .c-turq{ background: #ECFFFE }
+    .c-laranja{ background: #FFF1EC }
+
+    /* Animações (scroll reveal) */
+    .reveal{ opacity:0; transform: translateY(20px) scale(.98); transition: opacity .6s ease, transform .6s ease }
+    .reveal.is-visible{ opacity:1; transform: translateY(0) scale(1) }
+
+    /* Responsividade */
+    @media (max-width: 1080px){
+      .grid{ grid-template-columns: repeat(3, minmax(0,1fr)) }
+      .tips{ grid-template-columns: repeat(3, minmax(0,1fr)) }
+      .gallery .shot{ grid-column: span 6 }
+      .adocao__wrap{ grid-template-columns: 1fr }
+      .foot{ grid-template-columns: 1fr 1fr }
+      .hero__wrap{ grid-template-columns: 1fr }
+      .sobre__grid{ grid-template-columns: 1fr }
+    }
+    @media (max-width: 720px){
+      .nav__burger{ display:flex }
+      .nav__links{
+        position: absolute; top: 62px; right: 16px; left: 16px;
+        background: rgba(255,255,255,.9);
+        backdrop-filter: var(--blur);
+        border: 1px solid rgba(22,48,70,.08);
+        border-radius: 14px; padding: 8px;
+        flex-direction: column; gap: 6px;
+        display:none;
+      }
+      .nav__toggle:checked ~ .nav__links{ display:flex }
+      .grid{ grid-template-columns: repeat(2, minmax(0,1fr)) }
+      .tips{ grid-template-columns: repeat(2, minmax(0,1fr)) }
+      .gallery .shot{ grid-column: span 12 }
+      .foot{ grid-template-columns: 1fr }
+      .brand__text{ font-size: 1.2rem }
+      .hero{ padding-top: 68px }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sprite SVG: ícones e formas reutilizáveis -->
+  <svg width="0" height="0" style="position:absolute;visibility:hidden">
+    <defs>
+      <linearGradient id="gPaw" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#2EC9C3"/>
+        <stop offset="1" stop-color="#C9A3FF"/>
+      </linearGradient>
+
+      <symbol id="i-paw" viewBox="0 0 64 64">
+        <path d="M22 30c-6 2-10-1-10-7s5-10 10-8c4 1 6 5 6 8s-2 6-6 7zM42 30c6 2 10-1 10-7s-5-10-10-8c-4 1-6 5-6 8s2 6 6 7zM20 34c3-4 9-6 12-6s9 2 12 6c2 3 1 8-1 10-3 2-7-1-11-1s-8 3-11 1c-2-2-3-7-1-10z" fill="url(#gPaw)"/>
+        <circle cx="12" cy="16" r="6" fill="#FF8A5B"/>
+        <circle cx="52" cy="16" r="6" fill="#FFE588"/>
+      </symbol>
+
+      <symbol id="i-bone" viewBox="0 0 64 64">
+        <path fill="#FF8A5B" d="M10 28c-6 0-8-10 0-10 2 0 3 1 4 2 4-3 9-4 14-1h4c5-3 10-2 14 1 1-1 2-2 4-2 8 0 6 10 0 10 2 4 1 8-4 10-5 2-9 0-12-3h-8c-3 3-7 5-12 3-5-2-6-6-4-10z"/>
+      </symbol>
+
+      <symbol id="i-fish" viewBox="0 0 64 64">
+        <path fill="#2EC9C3" d="M10 32c8-10 20-14 32-8 2-2 6-6 12-8-2 6-2 10 0 16-6-2-10-6-12-8-12 6-24 2-32-8 2 6 2 10 0 16z"/>
+        <circle cx="44" cy="26" r="2" fill="#163046"/>
+      </symbol>
+
+      <symbol id="i-heart" viewBox="0 0 64 64">
+        <path d="M32 54s-22-12-22-28c0-8 6-12 12-12 6 0 10 6 10 6s4-6 10-6c6 0 12 4 12 12 0 16-22 28-22 28z" fill="#FF6F91"/>
+      </symbol>
+
+      <symbol id="i-bowl" viewBox="0 0 64 64">
+        <rect x="8" y="28" width="48" height="14" rx="7" fill="#FFE588"/>
+        <rect x="12" y="36" width="40" height="8" rx="4" fill="#EFD46B"/>
+        <circle cx="20" cy="24" r="4" fill="#2EC9C3"/>
+        <circle cx="28" cy="22" r="4" fill="#FFCCE1"/>
+        <circle cx="36" cy="24" r="4" fill="#C9A3FF"/>
+      </symbol>
+
+      <symbol id="i-collar" viewBox="0 0 64 64">
+        <rect x="8" y="20" width="48" height="12" rx="6" fill="#C9A3FF"/>
+        <circle cx="32" cy="40" r="8" fill="#FF8A5B"/>
+        <circle cx="32" cy="40" r="4" fill="#fff"/>
+      </symbol>
+
+      <symbol id="i-cage" viewBox="0 0 64 64">
+        <rect x="12" y="20" width="40" height="28" rx="6" fill="#B2F7EF" stroke="#1BA5A0" stroke-width="2"/>
+        <path d="M32 12v8M20 20v28M26 20v28M32 20v28M38 20v28M44 20v28" stroke="#1BA5A0" stroke-width="2"/>
+      </symbol>
+
+      <symbol id="i-ball" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="16" fill="#2EC9C3"/>
+        <path d="M16 28c8 4 24 4 32 0" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+      </symbol>
+
+      <symbol id="i-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+
+      <!-- Silhuetas simples -->
+      <symbol id="sil-dog" viewBox="0 0 100 70">
+        <path d="M12 40c4-10 14-16 24-16 8 0 12 4 20 4 6 0 10-4 16-6 4-2 8 2 6 6l-4 10c4 2 6 8 4 12s-8 6-12 4l-8-4-16 2-8 6c-4 2-12 0-16-6s-4-12-6-12z" fill="#2EC9C3"/>
+      </symbol>
+      <symbol id="sil-cat" viewBox="0 0 100 70">
+        <path d="M28 38c0-8 8-14 14-14 6 0 8 4 12 6 4 2 10 2 12 6 2 4-2 8-6 10l-8 4-6 6-8-2c-6-2-10-8-10-16z" fill="#C9A3FF"/>
+        <circle cx="74" cy="26" r="4" fill="#C9A3FF"/>
+      </symbol>
+      <symbol id="sil-bird" viewBox="0 0 100 70">
+        <path d="M20 44c10-6 16-16 26-18 10-2 18 6 18 12s-6 10-16 10-18-2-28-4z" fill="#FFE588"/>
+        <path d="M46 30l8-6" stroke="#FF8A5B" stroke-width="3" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="sil-fish" viewBox="0 0 100 70">
+        <path d="M18 40c8-10 24-14 40-8 2-2 8-8 16-10-2 8-2 14 0 20-8-2-14-8-16-10-16 6-32 2-40-8 2 6 2 12 0 16z" fill="#B2F7EF"/>
+        <circle cx="58" cy="34" r="2" fill="#163046"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Navegação -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="container nav__wrap">
+      <a href="#" class="brand" aria-label="PetJoy - início">
+        <div class="brand__logo" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 64 64"><use href="#i-paw"/></svg>
+        </div>
+        <span class="brand__text">PetJoy</span>
+      </a>
+
+      <input class="nav__toggle" type="checkbox" id="nav-toggle" aria-label="Abrir menu" />
+      <label class="nav__burger" for="nav-toggle" aria-controls="site-menu" aria-expanded="false">
+        <span></span>
+      </label>
+
+      <div id="site-menu" class="nav__links">
+        <a href="#inicio" class="active">Início</a>
+        <a href="#sobre">Sobre Pets</a>
+        <a href="#especies">Espécies & Raças</a>
+        <a href="#cuidados">Cuidados & Dicas</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#adocao">Adoção</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header id="inicio" class="hero">
+    <div class="container hero__wrap">
+      <div class="reveal">
+        <div class="eyebrow">
+          <svg width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-heart"/></svg>
+          Amor que late, mia, canta e nada
+        </div>
+        <h1>Celebramos a diversidade e a alegria dos pets</h1>
+        <p>Um espaço vibrante, moderno e acolhedor sobre cães, gatos, pássaros, peixes e outros companheiros.
+          Conheça espécies, raças, cuidados e a magia de adotar com responsabilidade.</p>
+
+        <div class="cta">
+          <a class="btn btn--primary" href="#adocao">
+            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+            Quero adotar
+          </a>
+          <a class="btn btn--ghost" href="#especies">
+            <svg width="18" height="18" viewBox="0 0 64 64"><use href="#i-paw"/></svg>
+            Explorar pets
+          </a>
+        </div>
+      </div>
+
+      <figure class="hero__art reveal" aria-label="Imagem de um grupo de pets felizes em cenário alegre">
+        <!-- Ilustração SVG (substitua por imagem gerada por IA, se desejar) -->
+        <svg viewBox="0 0 800 600" role="img" aria-label="Cachorro, gato, pássaro e peixe felizes">
+          <defs>
+            <linearGradient id="bgHero" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#EFFFFB"/>
+              <stop offset="1" stop-color="#F8F1FF"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="600" fill="url(#bgHero)"/>
+          <!-- sol e bolhas -->
+          <circle cx="680" cy="90" r="42" fill="#FFE588" opacity=".9"/>
+          <circle cx="120" cy="120" r="16" fill="#2EC9C3" opacity=".25"/>
+          <circle cx="160" cy="160" r="10" fill="#C9A3FF" opacity=".25"/>
+          <circle cx="700" cy="180" r="12" fill="#FFCCE1" opacity=".3"/>
+
+          <!-- Grama -->
+          <path d="M0 520 C 180 480, 420 580, 800 520 L800 600 L0 600 Z" fill="#E6FFF9"/>
+          <path d="M0 560 C 240 520, 560 620, 800 560 L800 600 L0 600 Z" fill="#DBF9FF"/>
+
+          <!-- Silhuetas dos pets -->
+          <g transform="translate(220,290) scale(2.2)">
+            <use href="#sil-dog"/>
+          </g>
+          <g transform="translate(390,320) scale(2)">
+            <use href="#sil-cat"/>
+          </g>
+          <g transform="translate(540,260) scale(1.6)">
+            <use href="#sil-bird"/>
+          </g>
+          <g transform="translate(120,360) scale(1.8)">
+            <use href="#sil-fish"/>
+          </g>
+
+          <!-- Decorativos -->
+          <g opacity=".85">
+            <g transform="translate(80,80) rotate(-20)"><use href="#i-bone"/></g>
+            <g transform="translate(620,420)"><use href="#i-fish"/></g>
+            <g transform="translate(640,300)"><use href="#i-heart"/></g>
+          </g>
+        </svg>
+      </figure>
+    </div>
+  </header>
+
+  <!-- Sobre Pets -->
+  <section id="sobre" class="sobre">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="title">Sobre pets</h2>
+        <p class="subtitle">Cada pet é um universo: temperamentos únicos, necessidades específicas e um amor que transforma. Explore histórias, curiosidades e boas práticas para uma convivência feliz e saudável.</p>
+      </div>
+
+      <div class="sobre__grid">
+        <div class="reveal">
+          <div class="sobre__cards">
+            <article class="sobre__card">
+              <div class="sobre__img">
+                <svg width="100%" height="100%" viewBox="0 0 300 225" aria-hidden="true">
+                  <rect width="300" height="225" rx="18" fill="#FFF7EC"/>
+                  <g transform="translate(40,60) scale(1.4)"><use href="#sil-dog"/></g>
+                </svg>
+              </div>
+              <div class="sobre__txt">Cães: leais, brincalhões e grandes companheiros.</div>
+            </article>
+
+            <article class="sobre__card">
+              <div class="sobre__img">
+                <svg width="100%" height="100%" viewBox="0 0 300 225" aria-hidden="true">
+                  <rect width="300" height="225" rx="18" fill="#F6F1FF"/>
+                  <g transform="translate(50,70) scale(1.5)"><use href="#sil-cat"/></g>
+                </svg>
+              </div>
+              <div class="sobre__txt">Gatos: carinhosos, curiosos e independentes.</div>
+            </article>
+
+            <article class="sobre__card">
+              <div class="sobre__img">
+                <svg width="100%" height="100%" viewBox="0 0 300 225" aria-hidden="true">
+                  <rect width="300" height="225" rx="18" fill="#EEFFFC"/>
+                  <g transform="translate(70,70) scale(1.4)"><use href="#sil-bird"/></g>
+                </svg>
+              </div>
+              <div class="sobre__txt">Pássaros: cantos, cores e muita vivacidade.</div>
+            </article>
+
+            <article class="sobre__card">
+              <div class="sobre__img">
+                <svg width="100%" height="100%" viewBox="0 0 300 225" aria-hidden="true">
+                  <rect width="300" height="225" rx="18" fill="#FDF2F7"/>
+                  <g transform="translate(66,74) scale(1.5)"><use href="#sil-fish"/></g>
+                </svg>
+              </div>
+              <div class="sobre__txt">Peixes: calmaria, beleza e equilíbrio.</div>
+            </article>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="adocao">
+            <h3 class="title" style="margin:0 0 6px">Convivência responsável</h3>
+            <p class="subtitle" style="margin:0 0 14px">Saúde, afeto e enriquecimento ambiental formam a base de uma vida plena para qualquer pet. Informação salva, carinho cura.</p>
+            <div class="contact">
+              <span class="eyebrow" style="border-radius:10px">Dicas rápidas</span>
+              <span>• Visitas regulares ao vet</span>
+              <span>• Alimentação adequada</span>
+              <span>• Brincadeiras diárias</span>
+              <span>• Água fresca sempre</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Espécies & raças -->
+  <section id="especies">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="title">Espécies e raças</h2>
+        <p class="subtitle">Descubra características e particularidades. Cada card reúne um ícone, uma imagem ilustrativa e um resumo rápido.</p>
+      </div>
+
+      <div class="grid">
+        <!-- Cão -->
+        <article class="card reveal">
+          <div class="card__head">
+            <div class="badge c-turq"><svg width="24" height="24" viewBox="0 0 64 64"><use href="#i-bone"/></svg></div>
+            <div>
+              <strong>Cães</strong>
+              <div class="small">Amor ativo e companheirismo</div>
+            </div>
+          </div>
+          <div class="thumb" aria-hidden="true">
+            <svg width="100%" height="100%" viewBox="0 0 300 200">
+              <rect width="300" height="200" rx="14" fill="#ECFFFE"/>
+              <g transform="translate(40,50) scale(1.5)"><use href="#sil-dog"/></g>
+            </svg>
+          </div>
+          <p class="small" style="margin-top:10px">Raças variadas, energia diversa e muito vínculo afetivo.</p>
+        </article>
+
+        <!-- Gato -->
+        <article class="card reveal">
+          <div class="card__head">
+            <div class="badge c-lilas"><svg width="24" height="24" viewBox="0 0 64 64"><use href="#i-collar"/></svg></div>
+            <div>
+              <strong>Gatos</strong>
+              <div class="small">Elegância e curiosidade</div>
+            </div>
+          </div>
+          <div class="thumb">
+            <svg width="100%" height="100%" viewBox="0 0 300 200">
+              <rect width="300" height="200" rx="14" fill="#F8F1FF"/>
+              <g transform="translate(60,60) scale(1.6)"><use href="#sil-cat"/></g>
+            </svg>
+          </div>
+          <p class="small" style="margin-top:10px">Personalidades únicas: de brincalhões a contemplativos.</p>
+        </article>
+
+        <!-- Pássaro -->
+        <article class="card reveal">
+          <div class="card__head">
+            <div class="badge c-amarelo"><svg width="24" height="24" viewBox="0 0 64 64"><use href="#i-cage"/></svg></div>
+            <div>
+              <strong>Pássaros</strong>
+              <div class="small">Cores e cantos</div>
+            </div>
+          </div>
+          <div class="thumb">
+            <svg width="100%" height="100%" viewBox="0 0 300 200">
+              <rect width="300" height="200" rx="14" fill="#FFF8E2"/>
+              <g transform="translate(70,60) scale(1.6)"><use href="#sil-bird"/></g>
+            </svg>
+          </div>
+          <p class="small" style="margin-top:10px">Espécies sociais, exigem rotina e estímulos adequados.</p>
+        </article>
+
+        <!-- Peixe -->
+        <article class="card reveal">
+          <div class="card__head">
+            <div class="badge c-menta"><svg width="24" height="24" viewBox="0 0 64 64"><use href="#i-fish"/></svg></div>
+            <div>
+              <strong>Peixes</strong>
+              <div class="small">Calma e contemplação</div>
+            </div>
+          </div>
+          <div class="thumb">
+            <svg width="100%" height="100%" viewBox="0 0 300 200">
+              <rect width="300" height="200" rx="14" fill="#E9FFFC"/>
+              <g transform="translate(60,70) scale(1.6)"><use href="#sil-fish"/></g>
+            </svg>
+          </div>
+          <p class="small" style="margin-top:10px">Água, parâmetros e equilíbrio são essenciais.</p>
+        </article>
+
+        <!-- Coelho -->
+        <article class="card reveal">
+          <div class="card__head">
+            <div class="badge c-rosa"><svg width="24" height="24" viewBox="0 0 64 64"><use href="#i-heart"/></svg></div>
+            <div>
+              <strong>Coelhos</strong>
+              <div class="small">Doces e sensíveis</div>
+            </div>
+          </div>
+          <div class="thumb">
+            <svg width="100%" height="100%" viewBox="0 0 300 200">
+              <rect width="300" height="200" rx="14" fill="#FFF2F7"/>
+              <g transform="translate(46,68) scale(1.3)">
+                <ellipse cx="80" cy="60" rx="70" ry="40" fill="#FFCCE1"/>
+                <rect x="120" y="8" width="12" height="46" rx="6" fill="#FFCCE1"/>
+                <rect x="104" y="12" width="12" height="42" rx="6" fill="#FFCCE1"/>
+              </g>
+            </svg>
+          </div>
+          <p class="small" style="margin-top:10px">Ambiente enriquecido e dieta com feno e vegetais.</p>
+        </article>
+
+        <!-- Hamster -->
+        <article class="card reveal">
+          <div class="card__head">
+            <div class="badge c-laranja"><svg width="24" height="24" viewBox="0 0 64 64"><use href="#i-ball"/></svg></div>
+            <div>
+              <strong>Hamsters</strong>
+              <div class="small">Pequenos exploradores</div>
+            </div>
+          </div>
+          <div class="thumb">
+            <svg width="100%" height="100%" viewBox="0 0 300 200">
+              <rect width="300" height="200" rx="14" fill="#FFF1EC"/>
+              <g transform="translate(60,66) scale(1.4)">
+                <circle cx="60" cy="50" r="40" fill="#FF8A5B" opacity=".85"/>
+                <circle cx="45" cy="40" r="6" fill="#fff"/>
+                <circle cx="72" cy="40" r="6" fill="#fff"/>
+              </g>
+            </svg>
+          </div>
+          <p class="small" style="margin-top:10px">Precisam de espaço, toca e roda segura.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuidados & dicas -->
+  <section id="cuidados">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="title">Cuidados e dicas essenciais</h2>
+        <p class="subtitle">Informação clara e prática para o bem-estar diário. Ícones minimalistas, textos curtos e cores que guiam o olhar.</p>
+      </div>
+
+      <div class="tips">
+        <div class="tip reveal">
+          <div class="tip__icon c-amarelo"><svg width="22" height="22" viewBox="0 0 64 64"><use href="#i-bowl"/></svg></div>
+          <h4>Alimentação</h4>
+          <p>Escolha ração apropriada para idade e espécie. Evite excessos e mantenha horários.</p>
+        </div>
+        <div class="tip reveal">
+          <div class="tip__icon c-menta"><svg width="22" height="22" viewBox="0 0 24 24"><use href="#i-plus"/></svg></div>
+          <h4>Saúde</h4>
+          <p>Vacinação, vermifugação e visitas ao veterinário mantêm tudo em dia.</p>
+        </div>
+        <div class="tip reveal">
+          <div class="tip__icon c-lilas"><svg width="22" height="22" viewBox="0 0 64 64"><use href="#i-ball"/></svg></div>
+          <h4>Brincadeiras</h4>
+          <p>Estimule corpo e mente com brinquedos, jogos e desafios seguros.</p>
+        </div>
+        <div class="tip reveal">
+          <div class="tip__icon c-rosa"><svg width="22" height="22" viewBox="0 0 64 64"><use href="#i-collar"/></svg></div>
+          <h4>Treino & social</h4>
+          <p>Reforço positivo, paciência e socialização gradual fazem toda a diferença.</p>
+        </div>
+        <div class="tip reveal">
+          <div class="tip__icon c-turq"><svg width="22" height="22" viewBox="0 0 64 64"><use href="#i-cage"/></svg></div>
+          <h4>Ambiente</h4>
+          <p>Espaço limpo, seguro e enriquecido: arranhadores, tocas, poleiros e plantas pet-friendly.</p>
+        </div>
+        <div class="tip reveal">
+          <div class="tip__icon c-laranja"><svg width="22" height="22" viewBox="0 0 64 64"><use href="#i-heart"/></svg></div>
+          <h4>Segurança</h4>
+          <p>Identificação, telas, cercas e atenção a objetos e alimentos perigosos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="title">Momentos fofos</h2>
+        <p class="subtitle">Passe o mouse (ou toque) para ver um carinho extra. Substitua as imagens por suas fotos favoritas quando quiser.</p>
+      </div>
+
+      <div class="gallery">
+        <!-- Imagens ilustrativas em SVG (podem ser trocadas por JPG/PNG) -->
+        <figure class="shot reveal">
+          <img alt="Cão brincando feliz" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?>\
+            <svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>\
+              <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23EFFFFB'/><stop offset='1' stop-color='%23FFF2F7'/></linearGradient></defs>\
+              <rect width='800' height='600' fill='url(%23g)'/>\
+              <g transform='translate(140,260) scale(3.2)'><path d='M12 40c4-10 14-16 24-16 8 0 12 4 20 4 6 0 10-4 16-6 4-2 8 2 6 6l-4 10c4 2 6 8 4 12s-8 6-12 4l-8-4-16 2-8 6c-4 2-12 0-16-6s-4-12-6-12z' fill='%232EC9C3'/></g>\
+            </svg>"/>
+        </figure>
+
+        <figure class="shot reveal">
+          <img alt="Gato curioso ao sol" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?>\
+            <svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>\
+              <rect width='800' height='600' fill='%23F8F1FF'/>\
+              <circle cx='620' cy='120' r='60' fill='%23FFE588'/>\
+              <g transform='translate(180,240) scale(3)'><path d='M28 38c0-8 8-14 14-14 6 0 8 4 12 6 4 2 10 2 12 6 2 4-2 8-6 10l-8 4-6 6-8-2c-6-2-10-8-10-16z' fill='%23C9A3FF'/><circle cx='74' cy='26' r='4' fill='%23C9A3FF'/></g>\
+            </svg>"/>
+        </figure>
+
+        <figure class="shot reveal">
+          <img alt="Pássaro pousado em um galho" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?>\
+            <svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>\
+              <rect width='800' height='600' fill='%23FFF8E2'/>\
+              <g transform='translate(160,260) scale(3.2)'><path d='M20 44c10-6 16-16 26-18 10-2 18 6 18 12s-6 10-16 10-18-2-28-4z' fill='%23FFE588'/><path d='M46 30l8-6' stroke='%23FF8A5B' stroke-width='3' stroke-linecap='round'/></g>\
+            </svg>"/>
+        </figure>
+
+        <figure class="shot reveal">
+          <img alt="Aquário com peixe colorido" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?>\
+            <svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>\
+              <defs><linearGradient id='w' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23E6FFF9'/><stop offset='1' stop-color='%23DBF9FF'/></linearGradient></defs>\
+              <rect width='800' height='600' fill='url(%23w)'/>\
+              <g transform='translate(200,260) scale(3)'><path d='M18 40c8-10 24-14 40-8 2-2 8-8 16-10-2 8-2 14 0 20-8-2-14-8-16-10-16 6-32 2-40-8 2 6 2 12 0 16z' fill='%23B2F7EF'/><circle cx='58' cy='34' r='2' fill='%23163046'/></g>\
+            </svg>"/>
+        </figure>
+
+        <figure class="shot reveal">
+          <img alt="Coelho descansando" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?>\
+            <svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>\
+              <rect width='800' height='600' fill='%23FFF2F7'/>\
+              <g transform='translate(160,280) scale(2.8)'><ellipse cx='80' cy='60' rx='70' ry='40' fill='%23FFCCE1'/><rect x='120' y='8' width='12' height='46' rx='6' fill='%23FFCCE1'/><rect x='104' y='12' width='12' height='42' rx='6' fill='%23FFCCE1'/></g>\
+            </svg>"/>
+        </figure>
+
+        <figure class="shot reveal">
+          <img alt="Hamster explorando" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?>\
+            <svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>\
+              <rect width='800' height='600' fill='%23FFF1EC'/>\
+              <g transform='translate(200,240) scale(3)'><circle cx='60' cy='50' r='40' fill='%23FF8A5B' opacity='.85'/><circle cx='45' cy='40' r='6' fill='%23ffffff'/><circle cx='72' cy='40' r='6' fill='%23ffffff'/></g>\
+            </svg>"/>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Adoção responsável -->
+  <section id="adocao">
+    <div class="container">
+      <div class="adocao reveal">
+        <div class="adocao__wrap">
+          <div>
+            <h2 class="title" style="margin:0 0 6px">Adoção responsável</h2>
+            <p class="subtitle" style="margin:0 0 18px">Adotar é mudar duas vidas: a sua e a de um pet. Informe-se, prepare o lar e conte com nossa rede para orientação.</p>
+            <div class="cta">
+              <a class="btn btn--primary" href="mailto:adocao@petjoy.org?subject=Quero%20adotar%20um%20pet">
+                <svg width="18" height="18" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+                Quero adotar
+              </a>
+              <a class="btn btn--ghost" href="https://wa.me/5500000000000" target="_blank" rel="noopener">
+                <svg width="18" height="18" viewBox="0 0 64 64"><use href="#i-heart"/></svg>
+                Quero ajudar
+              </a>
+            </div>
+          </div>
+          <div>
+            <div class="contact">
+              <a href="mailto:contato@petjoy.org" aria-label="E-mail de contato">
+                <svg width="18" height="18" viewBox="0 0 64 64"><use href="#i-paw"/></svg>
+                contato@petjoy.org
+              </a>
+              <a href="tel:+550000000000" aria-label="Telefone">
+                <svg width="18" height="18" viewBox="0 0 64 64"><use href="#i-bowl"/></svg>
+                (00) 00000-0000
+              </a>
+              <a href="https://wa.me/5500000000000" target="_blank" rel="noopener" aria-label="WhatsApp">
+                <svg width="18" height="18" viewBox="0 0 64 64"><use href="#i-fish"/></svg>
+                WhatsApp
+              </a>
+            </div>
+            <p class="small" style="margin-top:10px">Botões e contatos fictícios — personalize para sua ONG, clínica ou comunidade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>
+          <div class="brand">
+            <div class="brand__logo" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 64 64"><use href="#i-paw"/></svg>
+            </div>
+            <span class="brand__text">PetJoy</span>
+          </div>
+          <p class="small" style="margin-top:8px">Diversidade, respeito e alegria em cada patinha, asa, escama e bigode.</p>
+          <div class="social" style="margin-top:10px">
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 64 64"><use href="#i-heart"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 64 64"><use href="#i-paw"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 64 64"><use href="#i-bowl"/></svg></a>
+            <a href="#" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 64 64"><use href="#i-fish"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <h5>Mapa do site</h5>
+          <a href="#inicio">Início</a><br/>
+          <a href="#sobre">Sobre</a><br/>
+          <a href="#especies">Espécies</a><br/>
+          <a href="#cuidados">Cuidados</a><br/>
+          <a href="#galeria">Galeria</a><br/>
+          <a href="#adocao">Adoção</a>
+        </div>
+
+        <div>
+          <h5>Categorias</h5>
+          <a href="#cuidados">Alimentação</a><br/>
+          <a href="#cuidados">Higiene & saúde</a><br/>
+          <a href="#cuidados">Brincadeiras</a><br/>
+          <a href="#adocao">Adoção</a>
+        </div>
+
+        <div>
+          <h5>Créditos</h5>
+          <p class="small">Design & código com amor por pets. Ícones e formas SVG personalizadas.</p>
+          <p class="small">Substitua imagens ilustrativas por fotos reais quando desejar.</p>
+        </div>
+      </div>
+      <p class="small" style="text-align:center; margin-top:18px">© <span id="year"></span> PetJoy — Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Ano atual
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Scrollspy: destaca link ativo
+    const sections = [...document.querySelectorAll('section, header.hero')];
+    const navLinks = [...document.querySelectorAll('.nav__links a')];
+
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const id = entry.target.id || 'inicio';
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+          });
+        }
+      });
+    }, { root: null, threshold: 0.55 });
+
+    sections.forEach(s => spy.observe(s));
+
+    // Fecha menu mobile ao clicar em um link
+    navLinks.forEach(a => a.addEventListener('click', () => {
+      const toggle = document.getElementById('nav-toggle');
+      if(toggle && toggle.checked) toggle.checked = false;
+    }));
+  </script>
+</body>
+</html>

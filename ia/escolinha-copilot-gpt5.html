@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Escolinha — Aprender, crescer e se divertir</title>
+  <meta name="description" content="Uma página moderna, criativa e responsiva para uma escolinha infantil, com design alegre, acolhedor e divertido." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fffef9;
+      --text: #2b3340;
+      --muted: #5c6470;
+      --primary: #FFD33D; /* amarelo vivo */
+      --primary-600: #E7B800;
+      --blue: #58C2FF; /* azul claro */
+      --blue-600: #2E9FD6;
+      --red: #FF6B6B; /* vermelho coral */
+      --green: #2ED889; /* verde menta */
+      --orange: #FFA76C; /* laranja suave */
+      --card: #ffffff;
+      --shadow: 0 8px 24px rgba(15,28,58,0.08);
+      --nav: rgba(255, 255, 255, 0.8);
+      --stroke: rgba(0,0,0,0.08);
+      --grad-hero: linear-gradient(135deg, #58C2FF 0%, #FFD33D 100%);
+      --grad-hero-night: linear-gradient(135deg, #1e3a8a 0%, #f59e0b 100%);
+      --link: #2E9FD6;
+      --ring: rgba(46,159,214,0.3);
+    }
+    [data-theme="night"] {
+      --bg: #0f1221;
+      --text: #e6ecff;
+      --muted: #a5b1d4;
+      --primary: #f59e0b;
+      --primary-600: #d97706;
+      --blue: #60a5fa;
+      --blue-600: #3b82f6;
+      --red: #fb7185;
+      --green: #34d399;
+      --orange: #fbbf24;
+      --card: #171a2e;
+      --shadow: 0 8px 24px rgba(0,0,0,0.35);
+      --nav: rgba(15,18,33,0.7);
+      --stroke: rgba(255,255,255,0.08);
+      --grad-hero: var(--grad-hero-night);
+      --link: #93c5fd;
+      --ring: rgba(147,197,253,0.3);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    /* ====== Navbar ====== */
+    .skip { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip:focus { position:fixed; left:1rem; top:1rem; width:auto; height:auto; background:var(--card); color:var(--text); padding:.5rem .75rem; border-radius:.5rem; box-shadow:var(--shadow); z-index:9999; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: var(--nav);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: .5rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      text-decoration: none;
+      color: var(--text);
+      font-family: 'Baloo 2', cursive;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: .2px;
+    }
+    .brand svg { width: 36px; height: 36px; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      gap: .25rem;
+      align-items: center;
+    }
+    nav a {
+      --c: var(--blue);
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: var(--text);
+      text-decoration: none;
+      padding: .5rem .75rem;
+      border-radius: .75rem;
+      position: relative;
+      transition: transform .15s ease, background .2s ease, color .2s ease;
+    }
+    nav a:hover { background: rgba(0,0,0,0.04); transform: translateY(-1px); }
+    [data-theme="night"] nav a:hover { background: rgba(255,255,255,0.06); }
+    nav a.active { background: var(--c); color: #0d1321; }
+    [data-theme="night"] nav a.active { color: #0b1020; }
+    nav a svg { width: 18px; height: 18px; flex: 0 0 auto; transition: transform .25s ease; }
+    nav a:hover svg { transform: rotate(-10deg) scale(1.05); }
+
+    .grow { flex: 1; }
+    .controls {
+      display: inline-flex; gap: .5rem;
+      align-items: center;
+    }
+    .btn-icon {
+      appearance: none; border: 0;
+      background: var(--card); color: var(--text);
+      border: 1px solid var(--stroke);
+      width: 40px; height: 40px; border-radius: 12px;
+      display: inline-grid; place-items: center;
+      cursor: pointer; box-shadow: var(--shadow);
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn-icon:hover { transform: translateY(-1px); background: #ffffff33; }
+    .btn-icon svg { width: 22px; height: 22px; }
+    .btn-audio { width: auto; padding: 0 .75rem; gap: .5rem; font-weight: 600; }
+
+    .hamburger {
+      display: none;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      position: relative;
+      cursor: pointer;
+    }
+    .hamburger span, .hamburger::before, .hamburger::after {
+      content: ''; position: absolute; left: 10px; right: 10px; height: 2.5px; background: var(--text); border-radius: 2px; transition: transform .3s ease, top .3s ease, opacity .3s ease;
+    }
+    .hamburger span { top: 50%; transform: translateY(-50%); }
+    .hamburger::before { top: 14px; }
+    .hamburger::after { top: 28px; }
+    .hamburger.open span { opacity: 0; }
+    .hamburger.open::before { top: 50%; transform: translateY(-50%) rotate(45deg); }
+    .hamburger.open::after { top: 50%; transform: translateY(-50%) rotate(-45deg); }
+
+    .menu {
+      display: flex; align-items: center; gap: .25rem;
+    }
+
+    @media (max-width: 900px) {
+      .menu {
+        position: fixed; inset: 64px 12px auto 12px;
+        display: grid; grid-template-columns: 1fr 1fr; gap: .5rem;
+        background: var(--nav); padding: .75rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--stroke);
+        border-radius: 16px; box-shadow: var(--shadow);
+        transform: translateY(-10px) scale(.98);
+        opacity: 0; pointer-events: none;
+        transition: opacity .25s ease, transform .25s ease;
+      }
+      .menu.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+      .controls { display: none; }
+      .hamburger { display: inline-block; }
+    }
+
+    /* ====== Hero ====== */
+    .hero {
+      position: relative;
+      background: var(--grad-hero);
+      color: #0b1020;
+      padding: 6rem 1rem 3.5rem;
+      isolation: isolate;
+      overflow: hidden;
+    }
+    .hero .container {
+      max-width: 1200px; margin: 0 auto; display: grid;
+      grid-template-columns: 1.1fr .9fr; align-items: center; gap: 2rem;
+    }
+    .hero h1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(2rem, 2vw + 2rem, 3.25rem);
+      line-height: 1.1;
+      margin: 0 0 .5rem;
+      letter-spacing: .5px;
+    }
+    .hero p {
+      margin: 0 0 1.25rem;
+      font-size: 1.15rem;
+      color: #0d1321;
+    }
+    .cta {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: #0b1020;
+      color: #fffbeb;
+      padding: .85rem 1.1rem;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: .2px;
+      box-shadow: 0 10px 30px rgba(11,16,32,0.35), inset 0 -3px 0 rgba(255,255,255,0.1);
+      transform: translateY(0);
+      transition: transform .15s ease, box-shadow .2s ease;
+      border: 2px solid #0b1020;
+    }
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(11,16,32,0.45), inset 0 -3px 0 rgba(255,255,255,0.12); }
+    .cta svg { width: 22px; height: 22px; color: var(--primary); }
+
+    .hero-illustration {
+      position: relative; width: 100%; aspect-ratio: 1.1/1; max-width: 520px; margin: 0 auto;
+      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.2));
+    }
+    .floaty { animation: floaty 5.5s ease-in-out infinite; transform-origin: 50% 50%; }
+    .floaty.delayed { animation-delay: .8s; }
+    .floaty.slow { animation-duration: 7s; }
+    @keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
+
+    /* Floating hearts & stars background layer */
+    .float-layer {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    }
+    .float { position: absolute; opacity: .7; animation: rise 12s linear infinite; }
+    .float.star { color: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.15)); }
+    .float.heart { color: #fff0f5; }
+    @keyframes rise {
+      0% { transform: translateY(20px) scale(.9); opacity: 0; }
+      10% { opacity: .8; }
+      90% { opacity: .8; }
+      100% { transform: translateY(-110%) scale(1.1); opacity: 0; }
+    }
+
+    /* Scribbles */
+    .scribble {
+      position: absolute; opacity: .25; z-index: 0;
+      filter: blur(.4px);
+    }
+
+    /* ====== Sections ====== */
+    section {
+      position: relative;
+      padding: 4rem 1rem;
+    }
+    section .wrap { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .section-title {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(1.6rem, 1vw + 1.2rem, 2.2rem);
+      margin: 0 0 .25rem;
+    }
+    .section-subtitle { margin: 0 0 2rem; color: var(--muted); }
+
+    .alt { background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent 40%), var(--bg); }
+    [data-theme="night"] .alt { background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 40%), var(--bg); }
+
+    /* Sobre (columns with separators) */
+    .about-grid {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .about-item {
+      background: var(--card); border: 1px solid var(--stroke);
+      border-radius: 18px; padding: 1.2rem;
+      box-shadow: var(--shadow);
+      position: relative; overflow:hidden;
+    }
+    .about-item:not(:last-child)::after {
+      content: ''; position: absolute; top: 12px; right: -6px; width: 12px; height: calc(100% - 24px);
+      background: linear-gradient(to bottom, var(--blue), var(--orange));
+      border-radius: 6px; transform: rotate(2deg);
+      opacity: .5; display: none;
+    }
+    @media (min-width: 901px) {
+      .about-item:not(:last-child)::after { display: block; }
+    }
+    .about-icon {
+      width: 44px; height: 44px; border-radius: 12px; display: inline-grid; place-items: center;
+      margin-bottom: .6rem; color: #0b1020; box-shadow: var(--shadow);
+      border: 1px solid var(--stroke);
+    }
+    .about-icon.bg-red { background: var(--red); }
+    .about-icon.bg-green { background: var(--green); }
+    .about-icon.bg-blue { background: var(--blue); }
+    .about-item h3 { margin: 0 0 .25rem; font-size: 1.15rem; }
+    .about-item p { margin: 0; color: var(--muted); }
+
+    /* Atividades (cards) */
+    .cards {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      padding: 1rem;
+      box-shadow: var(--shadow);
+      position: relative; overflow: hidden;
+      transition: transform .18s ease, box-shadow .2s ease;
+    }
+    .card:hover { transform: translateY(-4px) rotate(-.2deg); box-shadow: 0 18px 40px rgba(15,28,58,0.12); }
+    .card .tag {
+      display: inline-flex; gap: .4rem; align-items: center;
+      background: rgba(255,255,255,.7);
+      border: 1px dashed rgba(0,0,0,.15);
+      color: #0b1020; padding: .35rem .6rem; border-radius: 999px; font-weight: 700;
+      box-shadow: inset 0 -2px rgba(255,255,255,.6);
+    }
+    [data-theme="night"] .card .tag { background: rgba(255,255,255,.08); color: var(--text); border-color: rgba(255,255,255,.15); }
+    .card p { margin: .6rem 0 0; color: var(--muted); font-size: .98rem; }
+
+    /* Galeria */
+    .gallery {
+      display: grid; gap: .75rem;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .gallery figure {
+      margin: 0; position: relative; overflow: hidden;
+      border-radius: 16px; border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      cursor: zoom-in;
+      background: var(--card);
+    }
+    .gallery img { width: 100%; height: 100%; display: block; object-fit: cover; aspect-ratio: 1/1; }
+    .gallery figcaption {
+      position: absolute; left: 8px; bottom: 8px; background: rgba(0,0,0,.5);
+      color: #fff; padding: .25rem .5rem; border-radius: 999px; font-size: .8rem;
+      backdrop-filter: blur(2px);
+    }
+    /* Mobile carousel */
+    @media (max-width: 700px) {
+      .gallery { display: flex; overflow-x: auto; gap: .75rem; scroll-snap-type: x mandatory; padding-bottom: .5rem; }
+      .gallery figure { min-width: 80%; scroll-snap-align: center; }
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,.75);
+      display: none; align-items: center; justify-content: center; z-index: 2000;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-inner {
+      position: relative; width: min(92vw, 1000px); max-height: 86vh;
+      background: var(--card); border-radius: 16px; overflow: hidden; border: 1px solid var(--stroke);
+      box-shadow: 0 30px 80px rgba(0,0,0,.4);
+    }
+    .lightbox img { width: 100%; height: auto; display: block; }
+    .lightbox .lb-caption {
+      padding: .75rem 1rem; color: var(--muted); display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+    }
+    .lb-actions { display: inline-flex; gap: .5rem; }
+    .lb-btn {
+      width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--stroke); background: var(--card);
+      display: grid; place-items: center; cursor: pointer; color: var(--text); box-shadow: var(--shadow);
+    }
+
+    /* Contato */
+    .contact {
+      display: grid; gap: 1.2rem; grid-template-columns: 1.1fr .9fr;
+    }
+    .form {
+      background: var(--card); border: 1px solid var(--stroke); border-radius: 18px; padding: 1rem; box-shadow: var(--shadow);
+    }
+    .field { margin-bottom: .75rem; }
+    .field label { display: block; font-weight: 700; margin-bottom: .3rem; }
+    .input, .textarea {
+      width: 100%; border: 1.5px solid var(--stroke); background: #fff; border-radius: 12px; padding: .75rem .9rem;
+      outline: none; font-size: 1rem; transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    [data-theme="night"] .input, [data-theme="night"] .textarea { background: #0f1221; color: var(--text); }
+    .input:focus, .textarea:focus { border-color: var(--blue-600); box-shadow: 0 0 0 6px var(--ring); }
+    .textarea { min-height: 120px; resize: vertical; }
+    .btn {
+      appearance: none; border: 0; cursor: pointer;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      color: #0b1020; font-weight: 800; letter-spacing:.2px;
+      padding: .8rem 1rem; border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(46,159,214,.35);
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(46,159,214,.45); }
+
+    .socials {
+      background: linear-gradient(135deg, rgba(255,211,61,.2), rgba(94,234,212,.2));
+      border: 1px dashed var(--stroke); border-radius: 18px; padding: 1rem;
+    }
+    .socials-list { display: grid; gap: .5rem; }
+    .social-link {
+      display: flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--text);
+      background: var(--card); border: 1px solid var(--stroke); border-radius: 12px; padding: .65rem .8rem;
+      transition: transform .12s ease, background .2s ease;
+    }
+    .social-link:hover { transform: translateX(2px); background: rgba(255,255,255,.7); }
+    [data-theme="night"] .social-link:hover { background: rgba(255,255,255,.06); }
+    .social-link svg { width: 22px; height: 22px; }
+
+    /* Footer */
+    footer {
+      position: relative; margin-top: 2rem; padding: 2.5rem 1rem 3rem; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.04));
+      border-top: 1px solid var(--stroke);
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; gap: 1rem; grid-template-columns: 1fr auto; align-items: center; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .footer-links a { color: var(--link); text-decoration: none; font-weight: 700; }
+    .school-facade { width: min(520px, 40vw); height: auto; opacity: .9; }
+
+    /* Utilities */
+    .badge {
+      display: inline-flex; align-items: center; gap: .5rem; background: rgba(255,255,255,.5);
+      padding: .35rem .6rem; border-radius: 999px; font-weight: 700; border: 1px dashed rgba(0,0,0,.15);
+    }
+
+    /* Responsive grids */
+    @media (max-width: 1000px) {
+      .hero .container { grid-template-columns: 1fr; text-align: center; }
+    }
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .contact { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 901px) and (max-width: 1200px) {
+      .cards { grid-template-columns: repeat(3, 1fr); }
+      .gallery { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body data-theme="day">
+  <a href="#inicio" class="skip">Ir para o conteúdo</a>
+
+  <!-- SVG symbols (icons) -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <symbol id="icon-blocks" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="2" y="2" width="9" height="9" rx="2" fill="#FFD33D" stroke="none"/>
+        <rect x="13" y="2" width="9" height="9" rx="2" fill="#58C2FF" stroke="none"/>
+        <rect x="2" y="13" width="9" height="9" rx="2" fill="#2ED889" stroke="none"/>
+        <rect x="13" y="13" width="9" height="9" rx="2" fill="#FF6B6B" stroke="none"/>
+      </symbol>
+      <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M12 8h.01M11 12h2v5h-2z" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="icon-activities" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h10M4 17h6" stroke-width="1.6" stroke-linecap="round"/><circle cx="18" cy="12" r="2.2" /></symbol>
+      <symbol id="icon-gallery" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M3 14l4-4 6 6 3-3 5 5" stroke-linecap="round"/></symbol>
+      <symbol id="icon-contact" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 5h18v14H3z"/><path d="M3 7l9 6 9-6" stroke-linecap="round"/></symbol>
+
+      <symbol id="icon-pencil" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L18.81 8.94l-3.75-3.75L3 17.25Zm2.92 1.58-1.75-.75.75 1.75 1-.25Zm12.31-12.3-3.75-3.75 1.06-1.06a1.5 1.5 0 0 1 2.12 0l1.63 1.63a1.5 1.5 0 0 1 0 2.12l-1.06 1.06Z"/></symbol>
+      <symbol id="icon-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12.1 21s-7.1-4.35-9.3-8.13C1.2 9.77 2.5 6.5 5.37 5.55 7.3 4.93 9.4 5.64 10.7 7.15c1.3-1.5 3.4-2.22 5.33-1.6 2.88.95 4.17 4.22 2.58 7.32C19.43 16.65 12.1 21 12.1 21Z"/></symbol>
+      <symbol id="icon-tree" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22v-4M7 18h10M5 14h14M4 10h16M12 2l6 8H6l6-8Z" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-hand" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 12V6a2 2 0 1 1 4 0v6M12 12V5a2 2 0 1 1 4 0v7M16 12V7a2 2 0 1 1 4 0v6c0 4-3 7-7 7H9a6 6 0 0 1-6-6v-3a2 2 0 1 1 4 0" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="icon-book" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19a3 3 0 0 1 3-3h12V5H7a3 3 0 0 0-3 3v11Z" stroke-width="1.5"/><path d="M7 16V8a3 3 0 0 1 3-3h9" /></symbol>
+      <symbol id="icon-music" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3Zm9-1V4l-8 2v11" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3a9 9 0 1 0 0 18c2 0 3-1 3-2.5S13.5 16 13.5 15 15 13 16.5 13 21 12 21 9 16 3 12 3Z" stroke-width="1.4"/><circle cx="7.5" cy="10" r="1.2"/><circle cx="9.5" cy="6.5" r="1.2"/><circle cx="14.5" cy="6.5" r="1.2"/></symbol>
+      <symbol id="icon-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 3h6v3a2 2 0 1 0 0 4v3h-3a2 2 0 1 0-4 0H3V9h3a2 2 0 1 0 4 0V3Z" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-ball" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5 5l14 14M19 5 5 19" opacity=".4"/></symbol>
+      <symbol id="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 18v-9a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-5 3v-3Z" stroke-width="1.5"/></symbol>
+      <symbol id="icon-backpack" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 8V7a5 5 0 0 1 10 0v1" /><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M8 12h8" stroke-linecap="round"/></symbol>
+      <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.5 2.95 6 6.62.96-4.78 4.64 1.13 6.6L12 17.9l-5.92 3.1 1.13-6.6L2.43 9.46l6.62-.96L12 2.5Z"/></symbol>
+      <symbol id="icon-child" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="6" r="3"/><path d="M5 22l2.5-8H9l-1 4h8l-1-4h1.5L19 22M12 9v5" stroke-linecap="round"/></symbol>
+
+      <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="12" cy="12" r="4" fill="#FFD33D" stroke="none"/>
+        <g stroke-width="1.6" stroke-linecap="round"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></g>
+      </symbol>
+      <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M21 12.5A9 9 0 1 1 11.5 3c.5 3.5 3 9 9.5 9.5Z" fill="#93c5fd" stroke="none"/>
+      </symbol>
+
+      <symbol id="icon-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <rect x="3.5" y="3.5" width="17" height="17" rx="4"/>
+        <circle cx="12" cy="12" r="3.5"/>
+        <circle cx="17.5" cy="6.5" r="1"/>
+      </symbol>
+      <symbol id="icon-facebook" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M13 10V8a3 3 0 0 1 3-3h2v3h-2a1 1 0 0 0-1 1v1h3v3h-3v8h-3v-8H9v-3h4Z" stroke-width="1.2"/>
+      </symbol>
+      <symbol id="icon-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M12 21a8.5 8.5 0 1 0-7.36-4.3L3 21l4.5-1.52A8.5 8.5 0 0 0 12 21Z"/>
+        <path d="M8.3 9.5c0 4 3.4 6.2 5.4 6.2.4 0 1.1-.2 1.4-.6l.2-.2-.5-1.3-1.4.3-2.5-2.5.3-1.4-1.3-.5-.2.2c-.4.3-.6 1-.6 1.4Z" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="#inicio" aria-label="Início">
+        <svg aria-hidden="true"><use href="#icon-blocks" /></svg>
+        <span>Escolinha</span>
+      </a>
+
+      <div class="grow"></div>
+
+      <nav>
+        <ul class="menu" id="menu">
+          <li><a href="#inicio" data-color="var(--green)"><svg><use href="#icon-home" /></svg> Início</a></li>
+          <li><a href="#sobre" data-color="var(--orange)"><svg><use href="#icon-info" /></svg> Sobre</a></li>
+          <li><a href="#atividades" data-color="var(--blue)"><svg><use href="#icon-activities" /></svg> Atividades</a></li>
+          <li><a href="#galeria" data-color="var(--red)"><svg><use href="#icon-gallery" /></svg> Galeria</a></li>
+          <li><a href="#contato" data-color="var(--primary)"><svg><use href="#icon-contact" /></svg> Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="controls">
+        <button class="btn-icon" id="themeToggle" aria-label="Alternar modo dia/noite" title="Modo dia/noite">
+          <svg aria-hidden="true"><use href="#icon-moon"/></svg>
+        </button>
+        <button class="btn-icon btn-audio" id="soundLaugh" title="Risadinhas">
+          <svg aria-hidden="true"><use href="#icon-chat"/></svg> Risadinhas
+        </button>
+        <button class="btn-icon btn-audio" id="soundBell" title="Sino da escola">
+          <svg aria-hidden="true"><use href="#icon-bell"/></svg> Sino
+        </button>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="inicio" class="hero">
+    <!-- floating shapes -->
+    <div class="float-layer" id="floatLayer" aria-hidden="true"></div>
+
+    <!-- scribbles -->
+    <svg class="scribble" style="left:-40px; top:-20px; width:180px; height:180px" viewBox="0 0 120 120">
+      <path d="M10,60 C20,20 100,10 110,60 100,100 20,110 10,60Z" fill="#ffffff66" stroke="#0b102010"/>
+    </svg>
+    <svg class="scribble" style="right:-30px; bottom:-30px; width:200px; height:140px" viewBox="0 0 200 140">
+      <path d="M10,70 Q40,20 80,70 T150,70 T190,70" fill="none" stroke="#ffffff88" stroke-width="6" stroke-linecap="round" />
+    </svg>
+
+    <div class="container">
+      <div class="hero-copy">
+        <span class="badge" style="background:#fff; border-color:#00000022"><svg width="16" height="16" style="color:#FF6B6B"><use href="#icon-star"/></svg> Acolhedora e divertida</span>
+        <h1>Bem-vindo à Nossa Escolinha!</h1>
+        <p>Um lugar para aprender, crescer e se divertir. Aqui, cada criança é única e aprende no seu próprio ritmo, com afeto e criatividade.</p>
+
+        <a href="#sobre" class="cta">
+          <svg aria-hidden="true"><use href="#icon-pencil"/></svg>
+          Conheça Nossos Programas
+        </a>
+      </div>
+
+      <!-- Central illustration -->
+      <svg class="hero-illustration" viewBox="0 0 600 520" role="img" aria-label="Crianças brincando, aprendendo e lendo">
+        <defs>
+          <linearGradient id="gSky" x1="0" x2="1">
+            <stop offset="0" stop-color="#A5E8FF"/>
+            <stop offset="1" stop-color="#FFF2A8"/>
+          </linearGradient>
+        </defs>
+        <!-- ground -->
+        <ellipse cx="300" cy="420" rx="240" ry="40" fill="#0b102015"/>
+        <!-- cloud -->
+        <g class="floaty slow" transform="translate(60,40)" opacity=".8">
+          <ellipse cx="60" cy="30" rx="60" ry="30" fill="#fff"/>
+          <ellipse cx="100" cy="30" rx="40" ry="25" fill="#fff"/>
+          <ellipse cx="30" cy="35" rx="30" ry="20" fill="#fff"/>
+        </g>
+        <!-- balloons -->
+        <g class="floaty delayed" transform="translate(500,120)">
+          <path d="M0 0C18 0 18 24 0 24S-18 0 0 0Z" fill="#FF6B6B"/><path d="M0 24v50" stroke="#0b102040"/>
+          <circle cx="-28" cy="14" r="14" fill="#2ED889"/><path d="M-28 28v45" stroke="#0b102040"/>
+        </g>
+        <!-- kid reading -->
+        <g transform="translate(190,210)">
+          <circle cx="120" cy="40" r="26" fill="#FFDCA8"/>
+          <rect x="94" y="62" width="52" height="58" rx="16" fill="#58C2FF"/>
+          <rect x="80" y="120" width="80" height="16" rx="8" fill="#0b102025"/>
+          <rect x="78" y="84" width="84" height="56" rx="8" fill="#FFD33D" class="floaty"/>
+          <path d="M84 88h76v48H84z" fill="none" stroke="#0b102030" />
+          <path d="M100 100h45M100 112h45" stroke="#0b102050" stroke-linecap="round"/>
+        </g>
+        <!-- kid playing (blocks) -->
+        <g transform="translate(70,260)">
+          <circle cx="60" cy="35" r="22" fill="#FFDCA8"/>
+          <rect x="36" y="56" width="48" height="50" rx="12" fill="#2ED889"/>
+          <rect x="10" y="112" width="96" height="16" rx="8" fill="#0b102025"/>
+          <rect x="22" y="96" width="22" height="22" rx="5" fill="#FF6B6B"/>
+          <rect x="48" y="96" width="22" height="22" rx="5" fill="#58C2FF"/>
+          <rect x="74" y="96" width="22" height="22" rx="5" fill="#FFD33D"/>
+        </g>
+        <!-- kid learning (paint) -->
+        <g transform="translate(380,245)">
+          <circle cx="110" cy="35" r="22" fill="#FFDCA8"/>
+          <rect x="86" y="56" width="48" height="50" rx="12" fill="#FFA76C"/>
+          <rect x="48" y="10" width="10" height="110" rx="5" fill="#8B5CF6"/>
+          <rect x="20" y="60" width="70" height="46" rx="8" fill="#fff" stroke="#0b102020"/>
+          <circle cx="45" cy="80" r="6" fill="#FF6B6B"/><circle cx="65" cy="88" r="6" fill="#58C2FF"/><circle cx="55" cy="100" r="6" fill="#2ED889"/>
+        </g>
+      </svg>
+    </div>
+  </main>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="alt">
+    <div class="wrap">
+      <h2 class="section-title">Sobre a Escolinha</h2>
+      <p class="section-subtitle">Nossa missão é acolher, inspirar e desenvolver habilidades com afeto, brincadeiras e projetos significativos.</p>
+
+      <div class="about-grid">
+        <article class="about-item">
+          <div class="about-icon bg-red"><svg width="24" height="24" aria-hidden="true"><use href="#icon-heart"/></svg></div>
+          <h3>Afeto e Respeito</h3>
+          <p>Valorizamos vínculos, empatia e o cuidado. Acreditamos que a confiança abre portas para aprender com alegria.</p>
+        </article>
+
+        <article class="about-item">
+          <div class="about-icon bg-green"><svg width="24" height="24" aria-hidden="true"><use href="#icon-tree"/></svg></div>
+          <h3>Ambiente Acolhedor</h3>
+          <p>Espaços seguros, arejados e coloridos, com áreas externas, hortinha e cantinhos de leitura e criação.</p>
+        </article>
+
+        <article class="about-item">
+          <div class="about-icon bg-blue"><svg width="24" height="24" aria-hidden="true"><use href="#icon-book"/></svg></div>
+          <h3>Aprendizagem Ativa</h3>
+          <p>Projetos, brincadeiras e experiências que estimulam autonomia, curiosidade, expressão e cooperação.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- scribbles -->
+    <svg class="scribble" style="left:10%; bottom:10%; width:120px; height:120px" viewBox="0 0 120 120">
+      <path d="M10 100C40 80 80 40 100 20" fill="none" stroke="#58C2FF" stroke-width="6" stroke-linecap="round" stroke-dasharray="8 12"/>
+    </svg>
+  </section>
+
+  <!-- ATIVIDADES -->
+  <section id="atividades">
+    <div class="wrap">
+      <h2 class="section-title">Atividades</h2>
+      <p class="section-subtitle">Brincar é coisa séria: música, artes, leitura, jogos e esportes para explorar o mundo com imaginação.</p>
+
+      <div class="cards">
+        <div class="card">
+          <span class="tag"><svg width="18" height="18" style="color:#FF6B6B"><use href="#icon-music"/></svg> Música</span>
+          <p>Ritmo, cantigas e instrumentos simples para brincar com sons, coordenação e expressão.</p>
+        </div>
+        <div class="card">
+          <span class="tag"><svg width="18" height="18" style="color:#FFA76C"><use href="#icon-palette"/></svg> Artes</span>
+          <p>Pintura, colagem e modelagem para soltar a criatividade com texturas e cores.</p>
+        </div>
+        <div class="card">
+          <span class="tag"><svg width="18" height="18" style="color:#58C2FF"><use href="#icon-puzzle"/></svg> Jogos</span>
+          <p>Desafios lúdicos para pensar, cooperar e celebrar conquistas em equipe.</p>
+        </div>
+        <div class="card">
+          <span class="tag"><svg width="18" height="18" style="color:#2ED889"><use href="#icon-book"/></svg> Leitura</span>
+          <p>Histórias e contação para ampliar repertórios, vocabulário e imaginação.</p>
+        </div>
+        <div class="card">
+          <span class="tag"><svg width="18" height="18" style="color:#FFD33D"><use href="#icon-ball"/></svg> Esportes</span>
+          <p>Movimento, regras simples e brincadeiras ao ar livre para corpo e mente.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- doodle -->
+    <svg class="scribble" style="right:6%; top:12%; width:160px; height:120px" viewBox="0 0 160 120">
+      <path d="M10 60c20-30 40-30 60 0s40 30 60 0" fill="none" stroke="#FFD33D" stroke-width="6" stroke-linecap="round"/>
+    </svg>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="galeria" class="alt">
+    <div class="wrap">
+      <h2 class="section-title">Galeria</h2>
+      <p class="section-subtitle">Momentos especiais da nossa rotina: sorrisos, descobertas e muita brincadeira.</p>
+
+      <div class="gallery" id="gallery">
+        <!-- Each figure uses an embedded SVG thumbnail as data URI -->
+        <figure>
+          <img alt="Pintura criativa" loading="lazy"
+               src='data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> 
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                 <defs><linearGradient id="g" x1="0" x2="1">
+                   <stop offset="0" stop-color="%23FFA76C"/><stop offset="1" stop-color="%23FFD33D"/>
+                 </linearGradient></defs>
+                 <rect width="500" height="500" fill="url(%23g)"/>
+                 <circle cx="150" cy="180" r="60" fill="%23FF6B6B"/>
+                 <circle cx="280" cy="260" r="50" fill="%2358C2FF"/>
+                 <circle cx="360" cy="160" r="40" fill="%232ED889"/>
+                 <text x="24" y="470" font-family="Verdana" font-size="28" fill="%230b1020" opacity=".5">Artes</text>
+               </svg>'/>
+          <figcaption>Artes</figcaption>
+        </figure>
+
+        <figure>
+          <img alt="Leitura em roda" loading="lazy"
+               src='data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> 
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                 <rect width="500" height="500" fill="%2358C2FF"/>
+                 <rect x="100" y="160" width="300" height="200" rx="20" fill="%23FFD33D"/>
+                 <path d="M120 200h260" stroke="%230b1020" stroke-opacity=".3" stroke-width="8"/>
+                 <path d="M120 240h260" stroke="%230b1020" stroke-opacity=".2" stroke-width="8"/>
+                 <text x="24" y="470" font-family="Verdana" font-size="28" fill="white" opacity=".8">Leitura</text>
+               </svg>'/>
+          <figcaption>Leitura</figcaption>
+        </figure>
+
+        <figure>
+          <img alt="Jogos cooperativos" loading="lazy"
+               src='data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> 
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                 <rect width="500" height="500" fill="%232ED889"/>
+                 <g transform="translate(80,120)">
+                   <rect x="0" y="0" width="120" height="120" rx="18" fill="%23FF6B6B"/>
+                   <rect x="140" y="0" width="120" height="120" rx="18" fill="%23FFD33D"/>
+                   <rect x="70" y="140" width="120" height="120" rx="18" fill="%2358C2FF"/>
+                 </g>
+                 <text x="24" y="470" font-family="Verdana" font-size="28" fill="%230b1020" opacity=".5">Jogos</text>
+               </svg>'/>
+          <figcaption>Jogos</figcaption>
+        </figure>
+
+        <figure>
+          <img alt="Brincadeiras ao ar livre" loading="lazy"
+               src='data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> 
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                 <defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1">
+                   <stop offset="0" stop-color="%2358C2FF"/><stop offset="1" stop-color="%232ED889"/>
+                 </linearGradient></defs>
+                 <rect width="500" height="500" fill="url(%23gg)"/>
+                 <circle cx="380" cy="100" r="48" fill="%23FFD33D"/>
+                 <rect x="60" y="340" width="380" height="40" rx="20" fill="%230b1020" opacity=".15"/>
+                 <text x="24" y="470" font-family="Verdana" font-size="28" fill="white" opacity=".8">Ao Ar Livre</text>
+               </svg>'/>
+          <figcaption>Ao Ar Livre</figcaption>
+        </figure>
+
+        <figure>
+          <img alt="Música e ritmo" loading="lazy"
+               src='data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> 
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                 <rect width="500" height="500" fill="%23FF6B6B"/>
+                 <path d="M160 360a40 40 0 1 0 0-80v80Zm180-40V120l-120 30v170" fill="none" stroke="white" stroke-width="16" stroke-linecap="round"/>
+                 <text x="24" y="470" font-family="Verdana" font-size="28" fill="white" opacity=".9">Música</text>
+               </svg>'/>
+          <figcaption>Música</figcaption>
+        </figure>
+
+        <figure>
+          <img alt="Horta e natureza" loading="lazy"
+               src='data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> 
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                 <rect width="500" height="500" fill="%23FFA76C"/>
+                 <path d="M80 360h340" stroke="%230b1020" stroke-opacity=".2" stroke-width="18"/>
+                 <path d="M160 360v-140c40 20 60-20 80-20s40 40 80 20v140" fill="none" stroke="%232ED889" stroke-width="16" stroke-linecap="round"/>
+                 <text x="24" y="470" font-family="Verdana" font-size="28" fill="%230b1020" opacity=".6">Natureza</text>
+               </svg>'/>
+          <figcaption>Natureza</figcaption>
+        </figure>
+
+        <figure>
+          <img alt="Hora do conto" loading="lazy"
+               src='data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> 
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                 <rect width="500" height="500" fill="%23FFD33D"/>
+                 <rect x="110" y="160" width="280" height="180" rx="18" fill="%23fff"/>
+                 <path d="M120 200h260M120 240h220" stroke="%230b1020" stroke-opacity=".3" stroke-width="10"/>
+                 <text x="24" y="470" font-family="Verdana" font-size="28" fill="%230b1020" opacity=".6">Histórias</text>
+               </svg>'/>
+          <figcaption>Histórias</figcaption>
+        </figure>
+
+        <figure>
+          <img alt="Brincar e compartilhar" loading="lazy"
+               src='data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> 
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                 <defs><linearGradient id="g2" x1="0" x2="1">
+                   <stop offset="0" stop-color="%2358C2FF"/><stop offset="1" stop-color="%23FF6B6B"/>
+                 </linearGradient></defs>
+                 <rect width="500" height="500" fill="url(%23g2)"/>
+                 <path d="M100 360c40-40 80-40 120 0s80 40 120 0" fill="none" stroke="white" stroke-width="16" stroke-linecap="round"/>
+                 <text x="24" y="470" font-family="Verdana" font-size="28" fill="white" opacity=".9">Compartilhar</text>
+               </svg>'/>
+          <figcaption>Compartilhar</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="wrap">
+      <h2 class="section-title">Contato / Matricule-se</h2>
+      <p class="section-subtitle">Fale conosco e faça parte da nossa família!</p>
+
+      <div class="contact">
+        <form class="form" id="contactForm" novalidate>
+          <div class="field">
+            <label for="nome">Nome</label>
+            <input class="input" id="nome" name="nome" type="text" placeholder="Seu nome completo" required />
+          </div>
+          <div class="field">
+            <label for="telefone">Telefone</label>
+            <input class="input" id="telefone" name="telefone" type="tel" placeholder="(xx) xxxxx-xxxx" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input class="input" id="email" name="email" type="email" placeholder="voce@exemplo.com" required />
+          </div>
+          <div class="field">
+            <label for="mensagem">Mensagem</label>
+            <textarea class="textarea" id="mensagem" name="mensagem" placeholder="Conte um pouco sobre a criança e o que procura :)"></textarea>
+          </div>
+          <button class="btn" type="submit">Enviar mensagem</button>
+        </form>
+
+        <aside class="socials" aria-label="Nossas redes">
+          <p class="section-subtitle" style="margin-top:0">Estamos pertinho de você em Piracicaba! Chame a gente nas redes:</p>
+          <div class="socials-list">
+            <a class="social-link" href="#" aria-label="Falar no WhatsApp">
+              <svg aria-hidden="true"><use href="#icon-whatsapp"/></svg> WhatsApp
+            </a>
+            <a class="social-link" href="#" aria-label="Ver Instagram">
+              <svg aria-hidden="true"><use href="#icon-instagram"/></svg> Instagram
+            </a>
+            <a class="social-link" href="#" aria-label="Facebook">
+              <svg aria-hidden="true"><use href="#icon-facebook"/></svg> Facebook
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- doodle -->
+    <svg class="scribble" style="left:5%; top:-20px; width:140px; height:100px" viewBox="0 0 140 100">
+      <path d="M10 50c15-25 30-25 45 0s30 25 45 0" fill="none" stroke="#2ED889" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 10"/>
+    </svg>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Visualização de imagem">
+    <div class="lightbox-inner">
+      <img id="lbImg" alt="" />
+      <div class="lb-caption">
+        <div id="lbText">Legenda</div>
+        <div class="lb-actions">
+          <button class="lb-btn" id="lbPrev" aria-label="Imagem anterior"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>
+          <button class="lb-btn" id="lbNext" aria-label="Próxima imagem"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>
+          <button class="lb-btn" id="lbClose" aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-links">
+          <a href="#inicio">Início</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#atividades">Atividades</a>
+          <a href="#galeria">Galeria</a>
+          <a href="#contato">Contato</a>
+        </div>
+        <p style="color:var(--muted); margin:.5rem 0 0">© <span id="year"></span> Escolinha — Feito com carinho e criatividade.</p>
+      </div>
+      <svg class="school-facade" viewBox="0 0 400 160" aria-hidden="true">
+        <rect x="20" y="60" width="360" height="80" rx="8" fill="#fff" stroke="currentColor" opacity=".2"/>
+        <rect x="160" y="20" width="80" height="40" rx="6" fill="#FFD33D" stroke="currentColor" opacity=".2"/>
+        <rect x="40" y="80" width="60" height="40" rx="4" fill="#58C2FF" opacity=".7"/>
+        <rect x="120" y="80" width="60" height="40" rx="4" fill="#2ED889" opacity=".7"/>
+        <rect x="220" y="80" width="60" height="40" rx="4" fill="#FFA76C" opacity=".7"/>
+        <rect x="300" y="80" width="60" height="40" rx="4" fill="#FF6B6B" opacity=".7"/>
+        <rect x="190" y="96" width="20" height="44" rx="3" fill="#0b1020" opacity=".25"/>
+        <circle cx="200" cy="16" r="8" fill="#FF6B6B"/>
+        <path d="M20 140h360" stroke="currentColor" opacity=".2"/>
+      </svg>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle with persistence
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.body;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) root.setAttribute('data-theme', savedTheme);
+    updateThemeIcon();
+
+    themeToggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'night' ? 'day' : 'night';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateThemeIcon();
+    });
+    function updateThemeIcon() {
+      const current = root.getAttribute('data-theme');
+      themeToggle.innerHTML = current === 'night'
+        ? '<svg aria-hidden="true"><use href="#icon-sun"/></svg>'
+        : '<svg aria-hidden="true"><use href="#icon-moon"/></svg>';
+    }
+
+    // Mobile menu
+    const menu = document.getElementById('menu');
+    const hamburger = document.getElementById('hamburger');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      hamburger.classList.remove('open'); menu.classList.remove('open');
+    }));
+
+    // Smooth scroll + active highlight (scroll spy)
+    const links = document.querySelectorAll('.menu a');
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const el = document.querySelector(href);
+          el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    const sections = [...document.querySelectorAll('main, section')];
+    const byId = id => document.querySelector('.menu a[href="#' + id + '"]');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id || (entry.target.tagName === 'MAIN' ? 'inicio' : null);
+          if (!id) return;
+          document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
+          const anchor = byId(id);
+          if (anchor) {
+            anchor.classList.add('active');
+            const color = anchor.dataset.color || 'var(--blue)';
+            anchor.style.setProperty('--c', color);
+          }
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0.1 });
+    sections.forEach(s => obs.observe(s));
+
+    // Floating hearts and stars
+    const floatLayer = document.getElementById('floatLayer');
+    function spawnFloat() {
+      const el = document.createElement('div');
+      el.className = 'float ' + (Math.random() > 0.5 ? 'star' : 'heart');
+      const size = Math.random() * 20 + 12;
+      el.style.left = (Math.random() * 92 + 2) + '%';
+      el.style.bottom = '-10px';
+      el.style.animationDuration = (Math.random() * 6 + 10) + 's';
+      el.style.animationDelay = (Math.random() * 5) + 's';
+      el.style.opacity = (Math.random() * 0.5 + 0.4).toFixed(2);
+      el.innerHTML = '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" style="display:block;color:#fff">' +
+        (el.classList.contains('star') ? '<use href="#icon-star"/>' :
+        '<path fill="currentColor" d="M12.1 21s-7.1-4.35-9.3-8.13C1.2 9.77 2.5 6.5 5.37 5.55 7.3 4.93 9.4 5.64 10.7 7.15c1.3-1.5 3.4-2.22 5.33-1.6 2.88.95 4.17 4.22 2.58 7.32C19.43 16.65 12.1 21 12.1 21Z"/>' ) +
+      '</svg>';
+      floatLayer.appendChild(el);
+      setTimeout(() => el.remove(), 16000);
+    }
+    for (let i = 0; i < 10; i++) spawnFloat();
+    setInterval(spawnFloat, 1800);
+
+    // Lightbox
+    const gallery = document.getElementById('gallery');
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbText = document.getElementById('lbText');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+    const lbClose = document.getElementById('lbClose');
+    let currentIndex = 0;
+    let items = [];
+
+    function openLB(index) {
+      currentIndex = index;
+      const fig = items[currentIndex];
+      const img = fig.querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbText.textContent = fig.querySelector('figcaption')?.textContent || '';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLB() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function nextLB(dir = 1) {
+      currentIndex = (currentIndex + dir + items.length) % items.length;
+      openLB(currentIndex);
+    }
+
+    function initGallery() {
+      items = Array.from(gallery.querySelectorAll('figure'));
+      items.forEach((fig, idx) => {
+        fig.addEventListener('click', () => openLB(idx));
+      });
+    }
+    initGallery();
+
+    lbClose.addEventListener('click', closeLB);
+    lb.addEventListener('click', (e) => { if (e.target === lb) closeLB(); });
+    lbNext.addEventListener('click', () => nextLB(1));
+    lbPrev.addEventListener('click', () => nextLB(-1));
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLB();
+      if (e.key === 'ArrowRight') nextLB(1);
+      if (e.key === 'ArrowLeft') nextLB(-1);
+    });
+
+    // Simple Web Audio sounds: laughs and school bell
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let ctx;
+    function getCtx() { if (!ctx) ctx = new AudioCtx(); return ctx; }
+
+    function playBell() {
+      const c = getCtx();
+      const now = c.currentTime;
+      // soft bell: sine + triangle, quick decay
+      const osc1 = c.createOscillator(); const gain1 = c.createGain();
+      osc1.type = 'sine'; osc1.frequency.setValueAtTime(880, now);
+      gain1.gain.setValueAtTime(0.0001, now);
+      gain1.gain.exponentialRampToValueAtTime(0.5, now + 0.01);
+      gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
+      osc1.connect(gain1).connect(c.destination);
+      osc1.start(now); osc1.stop(now + 1.0);
+
+      const osc2 = c.createOscillator(); const gain2 = c.createGain();
+      osc2.type = 'triangle'; osc2.frequency.setValueAtTime(1320, now + 0.02);
+      gain2.gain.setValueAtTime(0.0001, now + 0.02);
+      gain2.gain.exponentialRampToValueAtTime(0.35, now + 0.05);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+      osc2.connect(gain2).connect(c.destination);
+      osc2.start(now + 0.02); osc2.stop(now + 0.8);
+    }
+
+    function playLaugh() {
+      const c = getCtx();
+      const now = c.currentTime;
+      // giggle-like: quick bursts of frequency-modulated tones
+      const seq = [600, 720, 680, 820, 760, 900].map((f, i) => ({ f, t: now + i*0.08 }));
+      seq.forEach(({f, t}, i) => {
+        const o = c.createOscillator(); const g = c.createGain();
+        o.type = 'sine'; o.frequency.setValueAtTime(f, t);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+        o.connect(g).connect(c.destination);
+        o.start(t); o.stop(t + 0.14);
+      });
+    }
+
+    document.getElementById('soundLaugh').addEventListener('click', playLaugh);
+    document.getElementById('soundBell').addEventListener('click', playBell);
+
+    // Enhance nav icon animation color on hover
+    document.querySelectorAll('.menu a').forEach(a => {
+      a.addEventListener('mouseenter', () => {
+        a.style.setProperty('--c', a.dataset.color || 'var(--blue)');
+      });
+    });
+
+    // Form demo (no backend): basic validation UI
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      alert('Obrigado! Recebemos sua mensagem e entraremos em contato.');
+      form.reset();
+    });
+
+    // Add missing bell icon dynamically to avoid cluttering defs
+    (function injectBell() {
+      const defs = document.querySelector('svg defs');
+      const bell = document.createElementNS('http://www.w3.org/2000/svg', 'symbol');
+      bell.setAttribute('id', 'icon-bell');
+      bell.setAttribute('viewBox', '0 0 24 24');
+      bell.innerHTML = '<path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M9 20a3 3 0 006 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>';
+      defs.appendChild(bell);
+    })();
+  </script>
+</body>
+</html>

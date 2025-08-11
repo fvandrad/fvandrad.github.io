@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Velocidade & Alma — Motocicletas</title>
+  <meta name="description" content="Página moderna sobre o universo das motocicletas — design responsivo, animações e galeria." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0b0c; --matte:#1b1b1d; --graphite:#2a2a2c; --accent:#ff2e2e; --burnt:#ff7a2e; --electric:#00a8ff; --glass: rgba(255,255,255,0.06);
+      --maxw:1200px; --radius:18px; --ease: cubic-bezier(.2,.9,.3,1);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:linear-gradient(180deg,var(--bg) 0%, #070708 100%); color:#e9eef6;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1.45;
+    }
+    .container{max-width:var(--maxw); margin:0 auto; padding:28px;}
+
+    /* HERO */
+    .hero{
+      position:relative; display:grid; grid-template-columns:1fr; gap:24px; align-items:center; overflow:hidden; border-radius:22px; padding:36px; background:linear-gradient(120deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+    .hero-grid{display:grid; grid-template-columns:1fr 480px; gap:36px; align-items:center}
+    .hero-copy h1{font-family:Montserrat, Inter, sans-serif; font-weight:800; font-size:clamp(28px,5vw,56px); margin:0 0 8px; letter-spacing:-1px; color:linear-gradient(#fff,#eee)}
+    .hero-copy p{margin:0 0 18px; color:#cfd9e6; font-size:clamp(14px,2.1vw,18px)}
+    .cta{display:inline-flex; gap:12px; align-items:center; background:linear-gradient(90deg,var(--accent),var(--burnt)); padding:12px 18px; border-radius:12px; color:#fff; text-decoration:none; font-weight:700; transition:transform .35s var(--ease), box-shadow .35s var(--ease)}
+    .cta:hover{transform:translateY(-4px); box-shadow:0 10px 30px rgba(255,90,50,0.12)}
+
+    /* Animated SVG motorcycle badge */
+    .moto-badge{width:120px; height:120px; display:inline-block}
+    .moto-badge svg{width:100%; height:100%}
+    .moto-anim{transform-origin:center; animation:tilt 6s ease-in-out infinite}
+    @keyframes tilt{0%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}100%{transform:rotate(-3deg)}}
+
+    /* hero image */
+    .hero-visual{position:relative; height:320px; border-radius:16px; overflow:hidden}
+    .hero-visual img{width:100%; height:100%; object-fit:cover; transform:translateZ(0); transition:transform .9s var(--ease)}
+    .hero-visual::before{content:''; position:absolute; inset:0; background:linear-gradient(90deg, rgba(0,0,0,0.3), rgba(10,10,10,0.6)); mix-blend-mode:multiply}
+
+    .diagonal{clip-path:polygon(0 0,100% 8%,100% 100%,0 92%);}
+
+    /* Sections */
+    section{padding:48px 0;}
+    h2{font-family:Montserrat; font-weight:700; font-size:20px; margin:8px 0 18px; color:#fff}
+    .sub{color:#bfcbe0}
+
+    /* cards */
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); border-radius:14px; padding:18px; box-shadow:0 6px 26px rgba(0,0,0,0.6); transition:transform .35s var(--ease)}
+    .card:hover{transform:translateY(-8px)}
+    .card img{width:100%; height:150px; object-fit:cover; border-radius:10px; margin-bottom:12px}
+
+    .icon{width:46px; height:46px; display:inline-flex; align-items:center; justify-content:center; border-radius:10px; background:var(--glass); margin-right:12px}
+
+    /* safety list */
+    .safety{display:flex; flex-direction:column; gap:12px}
+    .safety .item{display:flex; gap:12px; align-items:center; background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent); padding:12px; border-radius:12px}
+
+    /* gallery */
+    .gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px}
+    .gallery img{width:100%; height:160px; object-fit:cover; border-radius:12px; transition:transform .55s var(--ease); cursor:pointer}
+    .gallery img:hover{transform:scale(1.06)}
+
+    /* stats row */
+    .stats{display:flex; gap:18px; flex-wrap:wrap}
+    .stat{flex:1; min-width:140px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); padding:18px; border-radius:12px; text-align:center}
+    .stat strong{display:block; font-size:22px; font-family:Montserrat}
+
+    /* contact form */
+    form{display:grid; gap:12px; grid-template-columns:1fr 1fr}
+    form input, form textarea{background:transparent; border:1px solid rgba(255,255,255,0.08); padding:12px; border-radius:10px; color:#eaf1ff}
+    form textarea{grid-column:1/-1; min-height:120px; resize:vertical}
+    .btn{grid-column:1/-1; justify-self:start; padding:10px 18px; border-radius:10px; border:none; background:linear-gradient(90deg,var(--electric),var(--accent)); color:#031022; font-weight:700}
+
+    /* footer */
+    footer{padding:28px 0; color:#9fb0c9}
+
+    /* responsiveness */
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero-visual{height:260px}
+      form{grid-template-columns:1fr}
+    }
+
+    /* small motion for parallax feel */
+    [data-parallax]{transform:translateZ(0); transition:transform .4s linear}
+
+    /* subtle shimmer on titles */
+    .glow{position:relative; display:inline-block}
+    .glow::after{content:''; position:absolute; inset:0; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent); transform:translateX(-100%); animation:shimmer 3s linear infinite}
+    @keyframes shimmer{100%{transform:translateX(100%)}}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--graphite),#111);display:flex;align-items:center;justify-content:center">
+          <!-- mini logo -->
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M2 12h4l3-6h6l3 6h4" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div style="font-family:Montserrat;font-weight:700">Velocidade & Alma</div>
+          <div style="font-size:12px;color:#9fb0c9">Universo das Motocicletas</div>
+        </div>
+      </div>
+      <nav style="display:flex;gap:14px;align-items:center">
+        <a href="#tipos" style="color:#cfe6ff;text-decoration:none;font-weight:600">Tipos</a>
+        <a href="#galeria" style="color:#cfe6ff;text-decoration:none;font-weight:600">Galeria</a>
+        <a href="#contato" style="color:#cfe6ff;text-decoration:none;font-weight:600">Contato</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero diagonal">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+            <div class="moto-badge moto-anim" aria-hidden>
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="30" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+                <path d="M10 40c6-10 18-10 28-10s18 0 22 10" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.85"/>
+                <path d="M20 34c6-6 12-8 24-8" stroke="var(--electric)" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M18 44c0-6 6-10 12-10s11 4 16 10" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M26 22c6-4 14-4 20 0" stroke="var(--burnt)" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size:12px;color:#9fb0c9;font-weight:700">Explorar</div>
+              <div style="font-size:11px;color:#7d93aa">Liberdade • Comunidade • Aventura</div>
+            </div>
+          </div>
+
+          <h1 class="glow">Sinta a estrada — viva a motocicleta</h1>
+          <p>Uma celebração do design, da potência e da cultura das motos. Descubra modelos, dicas de segurança e histórias que aceleram o coração.</p>
+          <div style="display:flex;gap:12px;align-items:center">
+            <a class="cta" href="#galeria">Ver Galeria</a>
+            <a class="cta" href="#contato" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:#cfe6ff">Participe do evento</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" data-parallax>
+          <!-- Placeholder high-res motorcycle image (user should replace with optimized image) -->
+          <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Motocicleta esportiva preta"/>
+        </div>
+      </div>
+      <!-- decorative SVG background -->
+      <svg style="position:absolute;right:-10%;top:20%;width:40%;opacity:0.06;pointer-events:none" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+        <path d="M0 100 C150 200 350 0 800 100 L800 0 L0 0 Z" fill="var(--electric)" />
+      </svg>
+    </section>
+
+    <!-- História e Cultura -->
+    <section id="historia">
+      <div class="container">
+        <h2>História & Cultura</h2>
+        <p class="sub">Das primeiras máquinas às comunidades que viajam o mundo — um resumo rápido com ícones que contam a história.</p>
+        <div class="grid cols-3" style="margin-top:16px">
+          <div class="card" role="article">
+            <div style="display:flex;align-items:center;">
+              <div class="icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <strong>Liberdade</strong>
+                <div style="color:#bfcbe0;font-size:13px">Estrada aberta, jornadas sem roteiro e o barulho do motor.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;align-items:center;">
+              <div class="icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 3l18 18" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <strong>Aventura</strong>
+                <div style="color:#bfcbe0;font-size:13px">Trilhas, explorações e paisagens inesquecíveis.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;align-items:center;">
+              <div class="icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.4"/></svg>
+              </div>
+              <div>
+                <strong>Comunidade</strong>
+                <div style="color:#bfcbe0;font-size:13px">Encontros, eventos e irmandade sobre duas rodas.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tipos de motocicletas -->
+    <section id="tipos" style="border-top:1px solid rgba(255,255,255,0.03)">
+      <h2>Tipos de Motocicletas</h2>
+      <p class="sub">Conheça os principais estilos — cada card traz o espírito de cada categoria.</p>
+      <div class="grid cols-3" style="margin-top:16px">
+        <!-- Custom -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Custom bike"/>
+          <h3 style="margin:6px 0">Custom</h3>
+          <p class="sub">Personalização, estilo próprio e presença marcante nas ruas.</p>
+        </article>
+
+        <!-- Esportiva -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Esportiva"/>
+          <h3 style="margin:6px 0">Esportiva</h3>
+          <p class="sub">Velocidade, aerodinâmica e tecnologia de motores de alta performance.</p>
+        </article>
+
+        <!-- Touring -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1549921296-3d2f9f6a3d7b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Touring"/>
+          <h3 style="margin:6px 0">Touring</h3>
+          <p class="sub">Conforto para viagens longas, bagageiros e ergonomia premium.</p>
+        </article>
+
+        <!-- Scooter -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1542367597-2d1f4b9b9f2c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Scooter"/>
+          <h3 style="margin:6px 0">Scooter</h3>
+          <p class="sub">Mobilidade urbana, economia e facilidade de uso.</p>
+        </article>
+
+        <!-- Off-road -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Off-road"/>
+          <h3 style="margin:6px 0">Off-road</h3>
+          <p class="sub">Suspensão robusta, pneus largos e espírito aventureiro fora de estrada.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Segurança e dicas -->
+    <section id="seguranca" style="padding-top:18px">
+      <h2>Segurança & Dicas</h2>
+      <p class="sub">Checklist simples e visual para manter você e sua moto seguros.</p>
+      <div class="safety" style="margin-top:12px">
+        <div class="item">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6-3 2-3-2 3-6zM6 14v4h12v-4" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <strong>Capacete adequado</strong>
+            <div class="sub">Escolha com certificação e ajuste correto.</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M6 6v12" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <strong>Manutenção regular</strong>
+            <div class="sub">Pneus, freios e óleo verificados periodicamente.</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4v8l4 4" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <strong>Direção defensiva</strong>
+            <div class="sub">Antecipe o trânsito e mantenha distância segura.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria">
+      <h2>Galeria</h2>
+      <p class="sub">Fotos e vídeos de motos com um layout responsivo e efeito de zoom.</p>
+      <div class="gallery" style="margin-top:12px">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Moto 1" loading="lazy"/>
+        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Moto 2" loading="lazy"/>
+        <img src="https://images.unsplash.com/photo-1549921296-3d2f9f6a3d7b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Moto 3" loading="lazy"/>
+        <img src="https://images.unsplash.com/photo-1542367597-2d1f4b9b9f2c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Moto 4" loading="lazy"/>
+        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Moto 5" loading="lazy"/>
+      </div>
+    </section>
+
+    <!-- Curiosidades -->
+    <section style="padding-top:28px">
+      <h2>Curiosidades</h2>
+      <div class="stats" style="margin-top:12px">
+        <div class="stat"><strong>1200+</strong><div class="sub">Modelos antigos catalogados</div></div>
+        <div class="stat"><strong>500K</strong><div class="sub">Participantes em eventos anuais</div></div>
+        <div class="stat"><strong>3.2M</strong><div class="sub">Km percorridos em viagens registradas</div></div>
+      </div>
+    </section>
+
+    <!-- Contato e redes -->
+    <section id="contato" style="padding-top:28px;border-top:1px solid rgba(255,255,255,0.03)">
+      <h2>Contato & Redes</h2>
+      <p class="sub">Fale conosco, envie sua foto ou cadastre seu evento.</p>
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:24px;margin-top:18px">
+        <form id="contactForm" class="card" novalidate>
+          <input type="text" name="nome" placeholder="Seu nome" required aria-label="Seu nome">
+          <input type="email" name="email" placeholder="Seu e‑mail" required aria-label="Seu e-mail">
+          <input type="text" name="assunto" placeholder="Assunto" aria-label="Assunto">
+          <textarea name="mensagem" placeholder="Mensagem" aria-label="Mensagem"></textarea>
+          <button class="btn" type="submit">Enviar mensagem</button>
+        </form>
+
+        <aside class="card" style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8v11h18V8" stroke="#fff" stroke-width="1.2"/></svg></div>
+            <div>
+              <strong>Eventos</strong>
+              <div class="sub">Veja e anuncie encontros e passeios.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center;">
+            <!-- social icons -->
+            <a href="#" aria-label="Instagram" style="text-decoration:none"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.2"/></svg></a>
+            <a href="#" aria-label="YouTube" style="text-decoration:none"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M3 7.8C3 6 4.2 4.8 6 4.8h12c1.8 0 3 1.2 3 3v8.4c0 1.8-1.2 3-3 3H6c-1.8 0-3-1.2-3-3V7.8z" stroke="#fff" stroke-width="1.2"/></svg></a>
+            <a href="#" aria-label="Facebook" style="text-decoration:none"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M15 3h3v4h-3v14h-5V7h-2V3h7z" stroke="#fff" stroke-width="1.2"/></svg></a>
+          </div>
+
+          <div style="margin-top:auto;color:#9fb0c9;font-size:13px">Endereço do clube • Rua das Estradas, 123 • Cidade</div>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <strong>Velocidade & Alma</strong>
+          <div style="font-size:13px;color:#9fb0c9">© 2025 — Feito com paixão por motociclistas</div>
+        </div>
+        <nav style="display:flex;gap:12px"><a href="#" style="color:#9fb0c9;text-decoration:none">Privacidade</a><a href="#" style="color:#9fb0c9;text-decoration:none">Termos</a></nav>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Parallax subtle movement on mouse move for hero image
+    const heroVisual = document.querySelector('.hero-visual');
+    document.addEventListener('mousemove', (e)=>{
+      const rect = heroVisual.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top + rect.height/2;
+      const dx = (e.clientX - cx)/rect.width;
+      const dy = (e.clientY - cy)/rect.height;
+      heroVisual.style.transform = `translate3d(${dx*8}px, ${dy*6}px, 0) rotate(${dx*1.5}deg)`;
+    });
+
+    // Contact form fake submit (replace with AJAX to backend)
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const btn = this.querySelector('button');
+      btn.disabled = true; btn.textContent = 'Enviando...';
+      setTimeout(()=>{ btn.textContent='Enviado — obrigado!'; btn.style.opacity=0.9 }, 900);
+    });
+
+    // Lightweight lazy gallery modal
+    document.querySelectorAll('.gallery img').forEach(img=>{
+      img.addEventListener('click', ()=>{
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:9999;';
+        const big = document.createElement('img'); big.src = img.src; big.style.maxWidth='90%'; big.style.maxHeight='90%'; big.style.borderRadius='10px';
+        modal.appendChild(big);
+        modal.addEventListener('click', ()=>document.body.removeChild(modal));
+        document.body.appendChild(modal);
+      })
+    });
+
+    // small accessibility: focus outline handling
+    document.body.addEventListener('keydown', (e)=>{ if(e.key==='Tab') document.documentElement.style.scrollBehavior='smooth' });
+  </script>
+</body>
+</html>

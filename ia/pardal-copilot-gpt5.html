@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>O Pequeno Grande Pardal</title>
+  <meta name="description" content="Uma página leve, moderna e responsiva celebrando o pardal — sua beleza, força e simpatia." />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --bg-elev: #ffffff;
+      --text: #2a2a2a;
+      --muted: #6c6a66;
+      --accent: #7a5c3d;    /* marrom pardal */
+      --accent-2: #76a57b;  /* verde claro */
+      --sky: #89b6e8;       /* azul do céu */
+      --beige: #e9dfd1;     /* bege */
+      --card: #ffffff;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --ring: 0 0 0 3px rgba(118,165,123,.25);
+      --radius: 16px;
+      --nav-h: 72px;
+      --grad-hero: radial-gradient(1200px 600px at 70% 10%, rgba(137,182,232,.25), transparent 60%),
+                   radial-gradient(900px 500px at 10% 20%, rgba(118,165,123,.20), transparent 60%),
+                   linear-gradient(180deg, #f4efe9 0%, #ecf3f8 100%);
+    }
+    [data-theme="dark"] {
+      --bg: #0f1113;
+      --bg-elev: #15181b;
+      --text: #e9e9ea;
+      --muted: #a0a3a6;
+      --accent: #caa27c;
+      --accent-2: #89c391;
+      --sky: #6aa4df;
+      --beige: #2a2621;
+      --card: #181b1f;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --ring: 0 0 0 3px rgba(137,195,145,.2);
+      --grad-hero: radial-gradient(1200px 600px at 70% 10%, rgba(106,164,223,.20), transparent 60%),
+                   radial-gradient(900px 500px at 10% 20%, rgba(137,195,145,.15), transparent 60%),
+                   linear-gradient(180deg, #0f1215 0%, #14191e 100%);
+    }
+
+    * { box-sizing: border-box }
+    html { scroll-behavior: smooth }
+    body {
+      margin: 0;
+      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 1000;
+      height: var(--nav-h);
+      background: color-mix(in srgb, var(--bg-elev) 82%, transparent);
+      backdrop-filter: saturate(140%) blur(12px);
+      border-bottom: 1px solid color-mix(in srgb, var(--muted) 15%, transparent);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 0 20px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .3px;
+    }
+    .brand svg { width: 28px; height: 28px }
+    .menu {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .menu a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 12px; border-radius: 12px; text-decoration: none;
+      color: var(--text); font-weight: 500; transition: .25s ease;
+    }
+    .menu a:hover { background: color-mix(in srgb, var(--accent-2) 12%, transparent); transform: translateY(-1px) }
+    .menu a.active {
+      background: color-mix(in srgb, var(--accent-2) 16%, transparent);
+      box-shadow: var(--ring);
+    }
+    .menu svg { width: 18px; height: 18px; opacity: .9 }
+
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      border: 0; background: var(--bg-elev); color: var(--text);
+      padding: 10px 12px; border-radius: 12px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: var(--shadow); transition: .25s ease;
+    }
+    .icon-btn:hover { transform: translateY(-1px) }
+    .icon-btn svg { width: 18px; height: 18px }
+
+    /* Mobile menu */
+    .hamburger { display: none }
+    @media (max-width: 900px) {
+      .nav-inner { grid-template-columns: auto auto auto }
+      .menu {
+        position: fixed; inset: var(--nav-h) 0 auto 0;
+        background: var(--bg-elev);
+        flex-direction: column; align-items: stretch;
+        padding: 12px; gap: 4px; display: none;
+        border-bottom: 1px solid color-mix(in srgb, var(--muted) 15%, transparent);
+      }
+      .menu.open { display: flex }
+      .hamburger { display: inline-flex }
+      .brand { font-size: 15px }
+      .nav-actions .icon-label { display: none }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      background: var(--grad-hero);
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; padding: 56px 20px 72px;
+      display: grid; align-items: center; gap: 32px;
+      grid-template-columns: 1.1fr .9fr;
+      min-height: clamp(580px, 70vh, 780px);
+    }
+    @media (max-width: 980px) {
+      .hero-inner { grid-template-columns: 1fr; padding: 40px 20px 56px }
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: color-mix(in srgb, var(--sky) 20%, transparent);
+      color: var(--text); padding: 8px 12px; border-radius: 999px;
+      font-size: 13px; font-weight: 600;
+      box-shadow: var(--shadow);
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1.1; margin: 16px 0 12px;
+      letter-spacing: -0.5px;
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 18px);
+      margin: 0 0 24px;
+    }
+    .cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 18px; border-radius: 14px;
+      background: linear-gradient(160deg, var(--accent-2), color-mix(in srgb, var(--sky) 40%, var(--accent-2)));
+      color: white; text-decoration: none; font-weight: 700; letter-spacing: .3px;
+      box-shadow: 0 10px 24px color-mix(in srgb, var(--accent-2) 35%, transparent);
+      transition: transform .2s ease, filter .2s ease;
+    }
+    .cta:hover { transform: translateY(-2px); filter: brightness(1.03) }
+    .cta svg { width: 18px; height: 18px }
+
+    .sunrise {
+      width: 100%; max-width: 560px; justify-self: center;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,.15));
+      animation: floatY 10s ease-in-out infinite;
+    }
+    @keyframes floatY { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+
+    /* Sections */
+    section {
+      scroll-margin-top: calc(var(--nav-h) + 12px);
+      padding: 72px 20px;
+      position: relative;
+    }
+    .container { max-width: 1100px; margin: 0 auto }
+    .section-title {
+      font-size: clamp(24px, 3.8vw, 34px);
+      margin: 0 0 8px;
+    }
+    .section-sub { color: var(--muted); margin-bottom: 24px }
+
+    /* About */
+    .about-grid {
+      display: grid; gap: 24px; grid-template-columns: 1.2fr .8fr;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr } }
+    .about-card {
+      background: var(--bg-elev); border-radius: var(--radius); padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .about-icons { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .i-chip {
+      display: flex; align-items: center; gap: 10px; padding: 12px;
+      border-radius: 12px; background: color-mix(in srgb, var(--beige) 35%, transparent);
+    }
+    .i-chip svg { width: 20px; height: 20px }
+
+    /* Curiosidades */
+    .facts {
+      display: grid; gap: 16px;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+    @media (max-width: 980px) { .facts { grid-template-columns: repeat(2,1fr) } }
+    @media (max-width: 640px) { .facts { grid-template-columns: 1fr } }
+    .fact {
+      background: var(--card);
+      border-radius: 16px; padding: 18px; box-shadow: var(--shadow);
+      display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .fact:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.12) }
+    .fact .icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: color-mix(in srgb, var(--accent-2) 18%, transparent);
+      display: grid; place-items: center;
+    }
+    .fact .icon svg { width: 20px; height: 20px }
+    .fact h4 { margin: 4px 0 6px }
+    .fact p { margin: 0; color: var(--muted) }
+
+    /* Galeria */
+    .gallery-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .preserve {
+      padding: 10px 14px; border-radius: 12px;
+      background: color-mix(in srgb, var(--accent-2) 14%, transparent);
+      color: color-mix(in srgb, var(--accent-2) 55%, black);
+      font-weight: 600;
+    }
+    .socials { display: flex; gap: 8px; align-items: center }
+    .s-btn {
+      display: inline-grid; place-items: center; width: 38px; height: 38px;
+      border-radius: 12px; background: var(--bg-elev); box-shadow: var(--shadow);
+      transition: transform .15s ease;
+    }
+    .s-btn:hover { transform: translateY(-2px) }
+    .s-btn svg { width: 18px; height: 18px }
+
+    .gallery {
+      display: grid; gap: 12px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .g-item {
+      grid-column: span 4;
+      border-radius: 14px; overflow: hidden; position: relative; cursor: zoom-in;
+      background: var(--bg-elev); box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .g-item.tall { grid-row: span 2 }
+    .g-item:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.12) }
+    .g-item img, .g-item svg { width: 100%; height: 100%; object-fit: cover; display: block }
+    .g-caption {
+      position: absolute; left: 8px; bottom: 8px;
+      padding: 6px 10px; border-radius: 10px;
+      background: color-mix(in srgb, #000 60%, transparent);
+      color: white; font-size: 12px; letter-spacing: .2px;
+    }
+    @media (max-width: 1024px) {
+      .g-item { grid-column: span 6 }
+    }
+    @media (max-width: 720px) {
+      /* Carousel-like on mobile */
+      .gallery { display: grid; grid-auto-flow: column; grid-auto-columns: 85%; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px }
+      .g-item { scroll-snap-align: start; min-height: 280px; grid-column: auto }
+      .g-item.tall { grid-row: auto; min-height: 360px }
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,.75);
+      display: none; align-items: center; justify-content: center; z-index: 2000;
+    }
+    .lightbox.open { display: flex }
+    .lightbox img, .lightbox svg { max-width: 92vw; max-height: 86vh; border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.5) }
+    .lightbox .close {
+      position: absolute; top: 16px; right: 16px; background: #ffffff; border: 0; border-radius: 50%;
+      width: 40px; height: 40px; display: grid; place-items: center; cursor: pointer;
+    }
+
+    /* Floating leaves */
+    .leaves { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .leaf {
+      position: absolute; top: -60px; width: 26px; height: 26px; opacity: .25;
+      animation: fall linear infinite;
+      filter: blur(.2px);
+    }
+    @keyframes fall {
+      0% { transform: translateY(-60px) translateX(0) rotate(0) }
+      100% { transform: translateY(120vh) translateX(40px) rotate(160deg) }
+    }
+
+    /* Section highlight stripe */
+    .stripe {
+      position: absolute; left: 0; top: 0; width: 6px; height: 0; background: linear-gradient(180deg, var(--accent-2), var(--sky));
+      border-radius: 0 6px 6px 0; transition: height .6s ease;
+    }
+    section.active .stripe { height: 100% }
+
+    /* Appear animations */
+    .reveal { opacity: 0; transform: translateY(12px); transition: .6s ease }
+    .reveal.in { opacity: 1; transform: translateY(0) }
+
+    /* Footer */
+    footer {
+      padding: 36px 20px; text-align: center; color: var(--muted);
+    }
+    .heart {
+      width: 18px; height: 18px; fill: #e25555; display: inline-block; vertical-align: middle;
+      animation: beat 1.6s ease-in-out infinite;
+      filter: drop-shadow(0 6px 14px rgba(226,85,85,.35));
+      margin-left: 6px;
+    }
+    @keyframes beat { 0%,100% { transform: scale(1) } 25% { transform: scale(1.12) } 60% { transform: scale(1) } }
+
+    /* Focus styles */
+    a:focus-visible, button:focus-visible { outline: none; box-shadow: var(--ring) }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav" role="banner">
+    <div class="nav-inner">
+      <div class="brand" aria-label="Marca">
+        <!-- Sparrow logo -->
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <defs>
+            <linearGradient id="gBody" x1="0" x2="1">
+              <stop offset="0" stop-color="#8b6a4a"/>
+              <stop offset="1" stop-color="#6a4e34"/>
+            </linearGradient>
+          </defs>
+          <path d="M10 42c6-10 14-15 26-14 6 .5 10 2 16-1 1-.5 2 .8 1.2 1.6-2.6 2.8-5.6 4.5-8.7 5.7 1.8 1.2 3.4 3 4.5 5.7.5 1.1-.7 2.2-1.8 1.7-3.6-1.5-7.2-2.6-10.6-2.3-3.2.3-6.6 1.8-10.4 5.1-1.2 1-3 .9-4-.3-1.3-1.5-1.7-4.3-12.2-1.2z" fill="url(#gBody)"/>
+          <circle cx="36" cy="30" r="2.1" fill="#1f1f1f"/>
+          <path d="M50 24c3-.5 5.6-2 8-5-1.3 4.8-3.8 8-8 9" fill="#4c3725"/>
+          <path d="M18 50c6-5 11-7.4 16-7.7 3.2-.2 6.7.6 10.4 2.2-8.3 2.5-15.5 5.2-21.5 6.6-3.8.9-6.2.5-4.9-1.1z" fill="#a48363"/>
+        </svg>
+        <span>O Pequeno Grande Pardal</span>
+      </div>
+
+      <nav class="menu" id="menu" aria-label="Navegação principal">
+        <a href="#inicio" class="active">
+          <!-- home icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 2 12h2v8h6v-6h4v6h6v-8h2z"/></svg>
+          Início
+        </a>
+        <a href="#sobre">
+          <!-- leaf icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.7 7.3C18.1 4.7 14.4 3 10 3 6 3 3 6 3 10c0 4.4 1.7 8.1 4.3 10.7.4.4 1 .4 1.4 0l12-12c.4-.4.4-1 0-1.4zM7.4 16.6C6.5 15.1 6 13 6 10c0-2.2 1.8-4 4-4 3 0 5.1.5 6.6 1.4L7.4 16.6z"/></svg>
+          Sobre o Pardal
+        </a>
+        <a href="#curiosidades">
+          <!-- spark icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 9 9 2 12l7 3 3 7 3-7 7-3-7-3-3-7z"/></svg>
+          Curiosidades
+        </a>
+        <a href="#galeria">
+          <!-- gallery icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 19V5a2 2 0 0 0-2-2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2zM5 5h14v9l-3.5-3.5-3.2 3.9-2.3-2.7L5 15.5V5z"/></svg>
+          Galeria
+        </a>
+        <a href="#contato">
+          <!-- nest icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 20c5 0 9-3.1 9-7 0-1.6-1-3.5-2.7-4.7-.5-.4-1.2-.3-1.6.2-1.2 1.5-2.9 2.5-4.7 2.5s-3.5-1-4.7-2.5c-.4-.5-1.2-.6-1.6-.2C4 9.5 3 11.4 3 13c0 3.9 4 7 9 7z"/></svg>
+          Contato
+        </a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn hamburger" aria-label="Menu" aria-controls="menu" aria-expanded="false" id="btnMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+        </button>
+        <button class="icon-btn" id="toggleSound" aria-pressed="false" title="Som do pardal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 9v6h4l5 5V4L9 9H5zM19 12a3 3 0 0 1-1 2.3v-4.6c.6.6 1 1.5 1 2.3z"/></svg>
+          <span class="icon-label">Som</span>
+        </button>
+        <button class="icon-btn" id="toggleTheme" aria-pressed="false">
+          <svg id="iconSun" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.8 4.7 5.4 3.3 3.3 5.4l1.4 1.4 2.1-2.1zM12 1h-1v3h2V1h-1zM18.6 3.3l-1.4 1.4 2.1 2.1 1.4-1.4-2.1-2.1zM1 11v2h3v-2H1zm19 0v2h3v-2h-3zM6.8 19.3l-2.1 2.1 1.4 1.4 2.1-2.1-1.4-1.4zM12 20h-1v3h2v-3h-1zm6.8-.7-1.4 1.4 2.1 2.1 1.4-1.4-2.1-2.1z"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
+          <span class="icon-label">Modo</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="inicio" class="hero">
+    <div class="leaves" aria-hidden="true" id="leaves"></div>
+    <div class="hero-inner container">
+      <div class="reveal in">
+        <span class="badge">
+          <!-- feather -->
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 21s12-1 16.9-5.9C23 12 22 6 17.5 5.1 13.3 4.3 8 8 7 12c2.7-1 6.2-3.9 6.2-3.9s-2.8 4.5-6.7 6.2c-.4 2.2-3.5 6.7-3.5 6.7z"/></svg>
+          Leve como uma pena, forte como quem persiste.
+        </span>
+        <h1>O Pequeno Grande Pardal</h1>
+        <p>Conheça a beleza, força e simpatia dessa ave tão presente em nosso dia a dia.</p>
+        <a href="#sobre" class="cta" id="btnExplorar">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2v16m0 0-6-6m6 6 6-6M4 22h16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          Explorar
+        </a>
+      </div>
+      <div class="reveal in" style="justify-self:center">
+        <!-- Central SVG: pardal no galho ao nascer do sol -->
+        <svg class="sunrise" viewBox="0 0 600 480" role="img" aria-label="Pardal pousado em um galho ao nascer do sol">
+          <defs>
+            <radialGradient id="gradSun" cx="50%" cy="35%" r="60%">
+              <stop offset="0%" stop-color="#FFD27D"/>
+              <stop offset="60%" stop-color="#FFB36B" stop-opacity=".9"/>
+              <stop offset="100%" stop-color="#F4EFE9" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="gradSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#b9d9ff"/>
+              <stop offset="100%" stop-color="#eaf3ff"/>
+            </linearGradient>
+            <linearGradient id="birdBody" x1="0" x2="1">
+              <stop offset="0" stop-color="#8f6c4d"/><stop offset="1" stop-color="#6b4f36"/>
+            </linearGradient>
+            <linearGradient id="branch" x1="0" x2="1">
+              <stop offset="0" stop-color="#5a3f28"/><stop offset="1" stop-color="#7a573a"/>
+            </linearGradient>
+            <linearGradient id="leaf" x1="0" x2="1">
+              <stop offset="0" stop-color="#84b08a"/><stop offset="1" stop-color="#6aa374"/>
+            </linearGradient>
+          </defs>
+          <!-- céu -->
+          <rect x="0" y="0" width="600" height="480" fill="url(#gradSky)" opacity=".45"/>
+          <!-- sol -->
+          <circle cx="420" cy="160" r="160" fill="url(#gradSun)"/>
+          <!-- nuvens suaves -->
+          <g fill="#ffffff" opacity=".55">
+            <ellipse cx="160" cy="110" rx="80" ry="26"/>
+            <ellipse cx="210" cy="120" rx="60" ry="20"/>
+            <ellipse cx="90" cy="150" rx="70" ry="20"/>
+          </g>
+          <!-- formas orgânicas no fundo -->
+          <g fill="#c7e2ff" opacity=".25">
+            <circle cx="80" cy="380" r="120"/>
+            <circle cx="560" cy="320" r="90"/>
+          </g>
+          <!-- galho -->
+          <path d="M40 360c160-10 250-40 370-40 70 0 160 10 160 10-40 20-80 34-120 40-100 16-200 18-300 8-40-4-80-10-110-18z" fill="url(#branch)"/>
+          <!-- folhas do galho -->
+          <g>
+            <path d="M170 330c30-8 50 10 50 10s-18 22-48 14c-20-6-2-22-2-24z" fill="url(#leaf)"/>
+            <path d="M250 320c30-8 50 10 50 10s-18 22-48 14c-20-6-2-22-2-24z" fill="url(#leaf)"/>
+            <path d="M340 320c28-6 46 10 46 10s-16 20-44 14c-18-4-2-20-2-24z" fill="url(#leaf)"/>
+          </g>
+          <!-- pardal -->
+          <!-- corpo -->
+          <ellipse cx="280" cy="290" rx="64" ry="46" fill="url(#birdBody)"/>
+          <!-- peito claro -->
+          <ellipse cx="260" cy="300" rx="36" ry="28" fill="#d9c6b1"/>
+          <!-- cabeça -->
+          <ellipse cx="320" cy="272" rx="28" ry="24" fill="url(#birdBody)"/>
+          <!-- bochecha clara -->
+          <ellipse cx="312" cy="276" rx="12" ry="10" fill="#e6d7c4"/>
+          <!-- olho -->
+          <circle cx="328" cy="270" r="4.4" fill="#1f1f1f"/>
+          <circle cx="329.7" cy="268.7" r="1.2" fill="#ffffff"/>
+          <!-- bico -->
+          <path d="M344 274l18 6-18 6c-2-2-2-10 0-12z" fill="#c18f3a"/>
+          <!-- asa -->
+          <path d="M310 298c-14 10-32 16-56 12 16-16 30-28 48-30 10-1 16 12 8 18z" fill="#6f543c"/>
+          <!-- cauda -->
+          <path d="M224 302c-16 10-28 12-44 14 16-10 30-24 46-28 6-2 12 8-2 14z" fill="#5c422d"/>
+          <!-- patas -->
+          <path d="M280 328l-10 18" stroke="#af7a3d" stroke-width="4" stroke-linecap="round"/>
+          <path d="M292 328l-10 18" stroke="#af7a3d" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre o Pardal -->
+  <section id="sobre">
+    <span class="stripe" aria-hidden="true"></span>
+    <div class="container">
+      <h2 class="section-title">Sobre o Pardal</h2>
+      <p class="section-sub">Pequeno no tamanho, imenso na presença — ele compartilha nossas ruas, varandas e manhãs, com canto simples e memória afetiva.</p>
+
+      <div class="about-grid">
+        <article class="about-card reveal">
+          <h3>Origem, hábitos e convivência</h3>
+          <p>O pardal é um companheiro de jornada. Voa baixo entre a pressa das cidades, pousa em galhos que abraçam janelas e encontra, nos detalhes, o que precisa para viver. Alimenta-se de grãos, sementes e migalhas generosas; descansa em bandos, vigia em pares, e constrói seus lares onde a vida humana pulsa — numa doçura resiliente que resiste ao tempo.</p>
+          <p>Na alvorada, canta. No entardecer, procura abrigo. Entre um salto e outro, revela a força do cotidiano: aquela coragem singela de quem não desiste do céu, mesmo quando o chão chama.</p>
+        </article>
+
+        <aside class="about-card reveal">
+          <h4>Elementos do seu mundo</h4>
+          <div class="about-icons">
+            <div class="i-chip">
+              <!-- grãos -->
+              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5zm10 6c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5z"/></svg>
+              <span>Grãos e sementes</span>
+            </div>
+            <div class="i-chip">
+              <!-- árvore -->
+              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C9 2 7 5 7 7.5 5 7.5 3 9 3 11s2 3.5 4 3.5V22h10v-7.5c2 0 4-1.5 4-3.5s-2-3.5-4-3.5C17 5 15 2 12 2z"/></svg>
+              <span>Galhos e jardins</span>
+            </div>
+            <div class="i-chip">
+              <!-- céu -->
+              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h12a4 4 0 0 0 0-8 5 5 0 0 0-9-2A4 4 0 1 0 6 19z"/></svg>
+              <span>Céu de manhãs</span>
+            </div>
+            <div class="i-chip">
+              <!-- voo -->
+              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 12s6-6 10-6 10 6 10 6-6 6-10 6S2 12 2 12z"/></svg>
+              <span>Voo leve</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curiosidades -->
+  <section id="curiosidades">
+    <span class="stripe" aria-hidden="true"></span>
+    <div class="container">
+      <h2 class="section-title">Curiosidades</h2>
+      <p class="section-sub">Pequenos fatos que fazem do pardal um vizinho especial.</p>
+
+      <div class="facts">
+        <div class="fact reveal">
+          <div class="icon">
+            <!-- canto -->
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 9 6h3v6a4 4 0 1 0 4 4h-2a2 2 0 1 1-2-2V3z"/></svg>
+          </div>
+          <div>
+            <h4>Cantor do amanhecer</h4>
+            <p>O canto curto e repetido marca o início do dia — um convite para respirar com calma.</p>
+          </div>
+        </div>
+
+        <div class="fact reveal">
+          <div class="icon">
+            <!-- ninho -->
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 20c5 0 9-3 9-7 0-2-1.3-4-3.5-5.5C15.5 5.5 12 5 12 5s-3.5.5-5.5 2.5C4.3 9 3 11 3 13c0 4 4 7 9 7z"/></svg>
+          </div>
+          <div>
+            <h4>Arquiteto urbano</h4>
+            <p>Constrói ninhos com o que encontra: palhas, fios, folhas — criatividade que floresce no concreto.</p>
+          </div>
+        </div>
+
+        <div class="fact reveal">
+          <div class="icon">
+            <!-- amigos -->
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM4 20v-1a4 4 0 0 1 8 0v1H4zm8 0v-1a4 4 0 0 1 8 0v1h-8z"/></svg>
+          </div>
+          <div>
+            <h4>Vizinhos sociáveis</h4>
+            <p>Vive em bandos e gosta de companhia: onde há conversa, há pardal curioso por perto.</p>
+          </div>
+        </div>
+
+        <div class="fact reveal">
+          <div class="icon">
+            <!-- grão -->
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5zM17 10c3 0 6 2 6 5s-3 5-6 5-5-2-5-5 2-5 5-5z"/></svg>
+          </div>
+          <div>
+            <h4>Menu preferido</h4>
+            <p>Grãos, sementes e algumas migalhas — simples e suficiente para seguir em frente.</p>
+          </div>
+        </div>
+
+        <div class="fact reveal">
+          <div class="icon">
+            <!-- asa -->
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 12s6-6 12-6 8 4 8 4-6 8-12 8-8-6-8-6z"/></svg>
+          </div>
+          <div>
+            <h4>Voo eficiente</h4>
+            <p>Mais saltos que longos voos — economia de energia para quem sabe se adaptar.</p>
+          </div>
+        </div>
+
+        <div class="fact reveal">
+          <div class="icon">
+            <!-- coração -->
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7-4.5-9-8.5S5 2 9 6l3 3 3-3c4-4 9 .5 9 6.5S12 21 12 21z"/></svg>
+          </div>
+          <div>
+            <h4>Símbolo afetivo</h4>
+            <p>Presença que abraça a rotina e lembra: a beleza mora no que é real e próximo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria">
+    <span class="stripe" aria-hidden="true"></span>
+    <div class="container">
+      <div class="gallery-head">
+        <div>
+          <h2 class="section-title">Galeria</h2>
+          <p class="section-sub">Fotos reais e ilustrações em SVG de pardais em diferentes momentos.</p>
+        </div>
+        <div class="socials" aria-label="Redes sociais">
+          <span class="preserve">Ajude a preservar o habitat dos pardais.</span>
+          <a class="s-btn" href="#" aria-label="Instagram" title="Instagram">
+            <!-- Instagram -->
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM12 9.5A2.5 2.5 0 1 1 12 14a2.5 2.5 0 0 1 0-4.5z"/></svg>
+          </a>
+          <a class="s-btn" href="#" aria-label="X" title="X">
+            <!-- X -->
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h5.3l3.5 5.3L18.7 3H22l-7.4 7.9L22 21h-5.3l-4-6-5.4 6H2l7.8-8.6L2 3z"/></svg>
+          </a>
+          <a class="s-btn" href="#" aria-label="YouTube" title="YouTube">
+            <!-- YouTube -->
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M23 12s0-3.4-.4-5c-.2-.9-.9-1.6-1.8-1.8C18.9 4.8 12 4.8 12 4.8s-6.9 0-8.8.4C2.3 5.4 1.6 6.1 1.4 7c-.4 1.6-.4 5-.4 5s0 3.4.4 5c.2.9.9 1.6 1.8 1.8 1.9.4 8.8.4 8.8.4s6.9 0 8.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-5 .4-5zM9.8 15.5v-7l6 3.5-6 3.5z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="gallery" id="grid">
+        <!-- Foto real -->
+        <figure class="g-item reveal tall">
+          <img src="https://images.unsplash.com/photo-1525253013412-55c1a69a5738?q=80&w=1200&auto=format&fit=crop" alt="Pardal empoleirado num galho" loading="lazy">
+          <figcaption class="g-caption">Em repouso</figcaption>
+        </figure>
+        <!-- Ilustração SVG: pardal voando -->
+        <figure class="g-item reveal">
+          <svg viewBox="0 0 600 400" role="img" aria-label="Ilustração de pardal voando">
+            <rect width="600" height="400" fill="#eaf3ff"/>
+            <path d="M120 220c60-50 120-60 180-30 30 20 60 20 120 0-40 60-90 100-160 90-50-8-90-30-140-60z" fill="#6b4f36"/>
+            <circle cx="360" cy="180" r="18" fill="#1f1f1f"/>
+            <path d="M420 180l36 12-36 12c-4-4-4-20 0-24z" fill="#c18f3a"/>
+          </svg>
+          <figcaption class="g-caption">Em voo</figcaption>
+        </figure>
+        <!-- Foto real -->
+        <figure class="g-item reveal">
+          <img src="https://images.unsplash.com/photo-1452570053594-1b985d6ea890?q=80&w=1200&auto=format&fit=crop" alt="Pardal cantando ao amanhecer" loading="lazy">
+          <figcaption class="g-caption">Canto da manhã</figcaption>
+        </figure>
+        <!-- Ilustração SVG: pardal cantando -->
+        <figure class="g-item reveal">
+          <svg viewBox="0 0 600 400" role="img" aria-label="Ilustração de pardal cantando em um poste">
+            <rect width="600" height="400" fill="#ecf4ff"/>
+            <rect x="80" y="220" width="28" height="180" fill="#6a6a70"/>
+            <ellipse cx="180" cy="240" rx="60" ry="40" fill="#8f6c4d"/>
+            <ellipse cx="220" cy="228" rx="28" ry="22" fill="#6b4f36"/>
+            <circle cx="228" cy="222" r="4.4" fill="#1f1f1f"/>
+            <path d="M242 230l18 6-18 6c-2-2-2-10 0-12z" fill="#c18f3a"/>
+            <!-- notas -->
+            <g fill="#6aa374" opacity=".9">
+              <path d="M340 160h10v24h-10z"/><circle cx="345" cy="158" r="6"/>
+              <path d="M370 148h10v24h-10z"/><circle cx="375" cy="146" r="6"/>
+            </g>
+          </svg>
+          <figcaption class="g-caption">Cantando</figcaption>
+        </figure>
+        <!-- Foto real -->
+        <figure class="g-item reveal">
+          <img src="https://images.unsplash.com/photo-1470137430626-983a37b8ea46?q=80&w=1200&auto=format&fit=crop" alt="Pardal em um jardim" loading="lazy">
+          <figcaption class="g-caption">No jardim</figcaption>
+        </figure>
+        <!-- Ilustração SVG: pardal em galhos -->
+        <figure class="g-item reveal tall">
+          <svg viewBox="0 0 600 800" role="img" aria-label="Ilustração de pardais em galhos">
+            <rect width="600" height="800" fill="#e7f1ff"/>
+            <path d="M60 700c100-120 160-240 260-340 40-40 120-100 180-120" stroke="#6b4f36" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <ellipse cx="320" cy="360" rx="52" ry="38" fill="#8f6c4d"/>
+            <ellipse cx="352" cy="344" rx="22" ry="18" fill="#6b4f36"/>
+            <circle cx="358" cy="340" r="4.4" fill="#1f1f1f"/>
+            <path d="M368 348l16 6-16 6c-2-2-2-10 0-12z" fill="#c18f3a"/>
+            <ellipse cx="220" cy="520" rx="44" ry="32" fill="#8f6c4d"/>
+            <ellipse cx="246" cy="508" rx="18" ry="14" fill="#6b4f36"/>
+            <circle cx="250" cy="504" r="3.8" fill="#1f1f1f"/>
+          </svg>
+          <figcaption class="g-caption">Em galhos</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato">
+    <span class="stripe" aria-hidden="true"></span>
+    <div class="container">
+      <h2 class="section-title">Contato</h2>
+      <p class="section-sub">Tem uma história com pardais? Compartilhe sua lembrança.</p>
+      <form class="about-card reveal" onsubmit="event.preventDefault(); alert('Mensagem enviada! Obrigado por compartilhar.');">
+        <div style="display:grid; gap:12px; grid-template-columns: repeat(2, minmax(0,1fr))">
+          <div>
+            <label for="nome" style="display:block; font-weight:600">Nome</label>
+            <input id="nome" required placeholder="Seu nome" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid color-mix(in srgb, var(--muted) 25%, transparent); background:var(--bg); color:var(--text)">
+          </div>
+          <div>
+            <label for="email" style="display:block; font-weight:600">Email</label>
+            <input id="email" type="email" required placeholder="voce@email.com" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid color-mix(in srgb, var(--muted) 25%, transparent); background:var(--bg); color:var(--text)">
+          </div>
+        </div>
+        <div style="margin-top:12px">
+          <label for="msg" style="display:block; font-weight:600">Mensagem</label>
+          <textarea id="msg" rows="4" placeholder="Escreva aqui..." style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid color-mix(in srgb, var(--muted) 25%, transparent); background:var(--bg); color:var(--text)"></textarea>
+        </div>
+        <div style="margin-top:16px; display:flex; gap:10px; align-items:center">
+          <button class="cta" type="submit" id="btnEnviar">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 21 23 12 2 3l3 7 10 2-10 2-3 7z"/></svg>
+            Enviar
+          </button>
+          <small style="color:var(--muted)">Clicando, você concorda em compartilhar um sorriso com um pardal por aí.</small>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    Feito com carinho pela natureza e por você
+    <svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-9-8.5S5 2 9 6l3 3 3-3c4-4 9 .5 9 6.5S12 21 12 21z"/></svg>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const btnMenu = document.getElementById('btnMenu');
+    const menu = document.getElementById('menu');
+    if (btnMenu) {
+      btnMenu.addEventListener('click', () => {
+        const open = menu.classList.toggle('open');
+        btnMenu.setAttribute('aria-expanded', String(open));
+      });
+      // Close menu when clicking a link (mobile)
+      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        menu.classList.remove('open');
+        btnMenu.setAttribute('aria-expanded', 'false');
+      }));
+    }
+
+    // Theme toggle with persistence
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('toggleTheme');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) root.setAttribute('data-theme', savedTheme);
+    function setTheme(mode) {
+      root.setAttribute('data-theme', mode);
+      localStorage.setItem('theme', mode);
+      themeBtn.setAttribute('aria-pressed', mode === 'dark');
+    }
+    themeBtn.addEventListener('click', () => {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      setTheme(isDark ? 'light' : 'dark');
+      chirp(); // playful sound
+    });
+
+    // Smooth scroll button sound
+    document.getElementById('btnExplorar').addEventListener('click', chirp);
+
+    // Sound toggle
+    let soundOn = false;
+    const btnSound = document.getElementById('toggleSound');
+    btnSound.addEventListener('click', () => {
+      soundOn = !soundOn;
+      btnSound.setAttribute('aria-pressed', String(soundOn));
+      chirp();
+    });
+
+    // Simple bird chirp using WebAudio
+    let audioCtx;
+    function chirp() {
+      if (!soundOn) return;
+      try {
+        audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = 'triangle';
+        o.frequency.setValueAtTime(2200, audioCtx.currentTime);
+        o.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.06);
+        g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.14);
+        o.connect(g).connect(audioCtx.destination);
+        o.start();
+        o.stop(audioCtx.currentTime + 0.15);
+        // second tweet
+        setTimeout(() => {
+          const o2 = audioCtx.createOscillator();
+          const g2 = audioCtx.createGain();
+          o2.type = 'triangle';
+          o2.frequency.setValueAtTime(2600, audioCtx.currentTime);
+          o2.frequency.exponentialRampToValueAtTime(1500, audioCtx.currentTime + 0.05);
+          g2.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+          g2.gain.exponentialRampToValueAtTime(0.1, audioCtx.currentTime + 0.01);
+          g2.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.12);
+          o2.connect(g2).connect(audioCtx.destination);
+          o2.start();
+          o2.stop(audioCtx.currentTime + 0.12);
+        }, 120);
+      } catch (e) {}
+    }
+
+    // IntersectionObservers: reveal on scroll and active section highlight
+    const reveals = document.querySelectorAll('.reveal');
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    reveals.forEach(el => revObs.observe(el));
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.menu a');
+    const secObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const id = e.target.getAttribute('id');
+        const link = document.querySelector('.menu a[href="#' + id + '"]');
+        if (e.isIntersecting) {
+          sections.forEach(s => s.classList.remove('active'));
+          e.target.classList.add('active');
+          navLinks.forEach(a => a.classList.remove('active'));
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(s => secObs.observe(s));
+
+    // Lightbox for gallery
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.innerHTML = `
+      <button class="close" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4z"/></svg>
+      </button>
+      <div class="content"></div>
+    `;
+    document.body.appendChild(lightbox);
+    const lbContent = lightbox.querySelector('.content');
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target.closest('.close')) {
+        lightbox.classList.remove('open');
+      }
+    });
+
+    document.querySelectorAll('.g-item').forEach(item => {
+      item.addEventListener('click', () => {
+        chirp();
+        const clone = item.querySelector('img,svg').cloneNode(true);
+        lbContent.innerHTML = '';
+        lbContent.appendChild(clone);
+        lightbox.classList.add('open');
+      });
+    });
+
+    // Floating leaves generator
+    const leaves = document.getElementById('leaves');
+    const leafSVG = (color = '#76a57b') => `
+      <svg class="leaf" viewBox="0 0 24 24" style="left:${Math.random()*100}%; animation-duration:${12 + Math.random()*10}s; animation-delay:${-Math.random()*10}s; opacity:${.18 + Math.random()*.2}">
+        <path fill="${color}" d="M12 2c6 0 10 5 10 10 0 6-5 10-10 10S2 18 2 12C2 7 6 2 12 2z"/>
+        <path d="M3 12c5 2 9 2 18 0" stroke="#2f5a39" stroke-opacity=".25" stroke-width="1.6" fill="none"/>
+      </svg>
+    `;
+    for (let i = 0; i < 16; i++) {
+      leaves.insertAdjacentHTML('beforeend', leafSVG());
+    }
+
+    // Accessibility: reduce motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mediaQuery.matches) {
+      document.querySelectorAll('*').forEach(el => {
+        el.style.animationDuration = '0s';
+        el.style.transitionDuration = '0s';
+      });
+    }
+  </script>
+</body>
+</html>

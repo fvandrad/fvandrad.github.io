@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cachorros Amáveis — Amizade & Lealdade</title>
+  <meta name="description" content="Uma página acolhedora sobre amizade e lealdade dos cachorros. Design responsivo, SVGs, animações sutis e seção de adoção.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    /* --- Tipografia --- */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;800&display=swap');
+    :root{
+      --bg:#F7F3EE; /* creme */
+      --card:#fff;
+      --accent:#E98A3E; /* laranja */
+      --muted:#7A6B59; /* marrom suave */
+      --green:#9BCBB1; /* verde suave */
+      --shadow: 0 8px 24px rgba(28,20,12,0.08);
+      --glass: rgba(255,255,255,0.7);
+      --maxw:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Nunito',system-ui,Segoe UI,Roboto,Arial;
+      background:var(--bg);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    /* --- Paw pattern background --- */
+    body::before{
+      content:'';
+      position:fixed;inset:0;z-index:-1;
+      background-image: radial-gradient(circle at 10% 20%, rgba(0,0,0,0.02) 0 2px, transparent 3px), radial-gradient(circle at 70% 80%, rgba(0,0,0,0.02) 0 2px, transparent 3px);
+      opacity:0.8;
+    }
+
+    .container{max-width:var(--maxw);margin:0 auto;padding:24px}
+
+    /* --- Header / Nav --- */
+    header{position:sticky;top:12px;z-index:40}
+    nav{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
+      padding:10px 16px;border-radius:14px;box-shadow:var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:46px;height:46px;background:var(--green);border-radius:12px;display:grid;place-items:center}
+    .logo svg{width:28px;height:28px}
+    .brand h1{margin:0;font-size:18px;color:#3f3a36}
+
+    .menu{display:flex;gap:10px;align-items:center}
+    .menu a{padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--muted);font-weight:600}
+    .menu a.active{background:var(--accent);color:white;box-shadow:0 6px 18px rgba(233,138,62,0.22)}
+    .cta{padding:8px 14px;background:var(--accent);color:#fff;border-radius:10px;text-decoration:none;font-weight:700}
+
+    /* --- Hero --- */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center;padding:36px 0}
+    .hero .copy h2{font-size:34px;margin:0 0 12px;color:#3b362f}
+    .hero .copy p{margin:0 0 18px;color:#6a5c4c}
+    .hero .actions{display:flex;gap:12px}
+
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));padding:18px;border-radius:16px;box-shadow:var(--shadow)}
+    .hero-visual{position:relative;border-radius:16px;overflow:hidden;display:grid;place-items:center;height:420px;background:linear-gradient(135deg,var(--green),#fff);}
+    .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
+    .hero-visual .svg-dog{position:absolute;right:14px;bottom:14px;opacity:0.85;width:120px}
+
+    /* --- Cards grid for breeds --- */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);padding:14px;border-radius:14px;box-shadow:var(--shadow);transition:transform .28s ease,box-shadow .28s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(28,20,12,0.12)}
+    .card img{width:100%;height:140px;object-fit:cover;border-radius:10px}
+    .card h3{margin:10px 0 6px}
+    .card p{margin:0;color:#7e6f5f;font-size:14px}
+
+    /* --- Responsive tweaks --- */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .hero-visual{height:320px}
+    }
+    @media (max-width:600px){
+      nav{padding:10px}
+      .menu{display:none}
+      .grid{grid-template-columns:1fr}
+      .hero-visual{height:260px}
+      .hero .copy h2{font-size:26px}
+    }
+
+    /* --- Sections styling --- */
+    section{padding:42px 0}
+    .section-title{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .section-title svg{width:44px;height:44px}
+
+    /* --- Icons list --- */
+    .icons{display:flex;gap:14px;flex-wrap:wrap}
+    .icon-box{background:var(--glass);padding:12px;border-radius:12px;min-width:160px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+    .icon-box svg{width:36px;height:36px}
+
+    /* --- Testimonials carousel --- */
+    .carousel{position:relative;overflow:hidden;border-radius:12px}
+    .slides{display:flex;transition:transform .5s ease}
+    .testimonial{min-width:100%;padding:24px;background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));display:flex;gap:14px;align-items:center}
+    .testimonial img{width:64px;height:64px;border-radius:50%;object-fit:cover}
+    .dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
+    .dot{width:10px;height:10px;border-radius:50%;background:#dcd6d1;cursor:pointer}
+    .dot.active{background:var(--accent)}
+
+    /* --- Adoption area --- */
+    .adopt{display:flex;gap:18px;align-items:flex-start}
+    .adopt .info{flex:1}
+    .adopt .form{width:360px;background:var(--card);padding:18px;border-radius:12px;box-shadow:var(--shadow)}
+    .field{display:flex;flex-direction:column;margin-bottom:10px}
+    .field input,.field textarea{padding:10px;border-radius:8px;border:1px solid #e9e1da}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700}
+
+    footer{padding:28px 0;color:#5f5447}
+    .socials{display:flex;gap:12px}
+
+    /* Smooth appearance on scroll */
+    [data-animate]{opacity:0;transform:translateY(10px);transition:all .7s cubic-bezier(.2,.9,.2,1)}
+    [data-animate].in{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav>
+        <div class="brand">
+          <div class="logo" aria-hidden>
+            <!-- paw SVG -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.5 6.5c0 1.38-1.12 2.5-2.5 2.5S1.5 7.88 1.5 6.5 2.62 4 4 4s2.5 1.12 2.5 2.5z" fill="#fff"/>
+              <path d="M12 12c2.5 0 4.5 2 4.5 4.5S14.5 21 12 21s-4.5-2-4.5-4.5S9.5 12 12 12z" fill="#fff"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Cachorros Amáveis</h1>
+            <small style="color:#8a7b6c">Amizade. Lealdade. Alegria.</small>
+          </div>
+        </div>
+        <div class="menu">
+          <a href="#sobre" class="active">Sobre</a>
+          <a href="#racas">Raças</a>
+          <a href="#cuidados">Cuidados</a>
+          <a href="#depoimentos">Depoimentos</a>
+          <a href="#adocao">Adoção</a>
+        </div>
+        <a class="cta" href="#adocao">Adote um amigo</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-label="hero">
+        <div class="copy" data-animate>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <!-- decorative bone svg -->
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10a2 2 0 0 1 4 0 2 2 0 0 0 4 0 2 2 0 0 1 4 0 2 2 0 0 0 4 0v4a2 2 0 0 1-4 0 2 2 0 0 0-4 0 2 2 0 0 1-4 0 2 2 0 0 0-4 0V10z" fill="var(--accent)"></path></svg>
+            <small style="color:var(--muted);font-weight:700">Celebre a lealdade</small>
+          </div>
+          <h2>Amigos que abanam o coração — histórias de lealdade e alegria</h2>
+          <p>Descubra dicas de cuidados, histórias de adoção, e uma galeria com raças diversas. Encontre inspiração para cuidar e celebrar esses companheiros tão especiais.</p>
+          <div class="actions">
+            <a class="btn" href="#racas">Explorar Raças</a>
+            <a class="btn" style="background:transparent;color:var(--muted);border:2px solid rgba(0,0,0,0.06)" href="#depoimentos">Ler Depoimentos</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" data-animate>
+          <div class="hero-visual" role="img" aria-label="Cachorro feliz no parque">
+            <!-- Placeholder: imagem gerada por IA (substitua por src real) -->
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e76b6?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Cachorro feliz correndo no parque">
+            <!-- dog silhouette -->
+            <svg class="svg-dog" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M10 44c2-6 8-8 12-8s6 2 10 2 8-2 10-2c6 0 10 6 10 6v4H10z" fill="#fff" opacity="0.6"/><path d="M12 34c2-6 8-10 16-10s18 6 22 10c0 0-4 2-10 0s-10-6-16-6-18 6-22 6z" fill="#fff" opacity="0.5"/></svg>
+          </div>
+        </aside>
+      </section>
+
+      <section id="sobre">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-6 8-12S16 2 12 6 4 6 4 10s8 12 8 12z" fill="var(--green)"/></svg>
+          <div>
+            <h3>Sobre os Cachorros</h3>
+            <p style="margin:4px 0 0;color:#7d6e5f">Companheiros que ensinam amor, paciência e responsabilidade.</p>
+          </div>
+        </div>
+        <div class="icons" data-animate>
+          <div class="icon-box">
+            <!-- bowl -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 0 0 18 0z" fill="var(--accent)"/></svg>
+            <div>
+              <strong>Alimentação</strong>
+              <div style="font-size:13px;color:#6f5f4f">Nutrição balanceada e horários consistentes.</div>
+            </div>
+          </div>
+
+          <div class="icon-box">
+            <!-- collar -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 12a6 6 0 0 1 12 0v4H6v-4z" fill="var(--green)"/></svg>
+            <div>
+              <strong>Cuidados</strong>
+              <div style="font-size:13px;color:#6f5f4f">Vacinação, higiene e visitas regulares ao vet.</div>
+            </div>
+          </div>
+
+          <div class="icon-box">
+            <!-- play -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 3v18l15-9L5 3z" fill="#FFD"/></svg>
+            <div>
+              <strong>Brincadeiras</strong>
+              <div style="font-size:13px;color:#6f5f4f">Estimule com jogos, passeios e objetos seguros.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="racas">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none"><circle cx="12" cy="12" r="10" fill="var(--accent)"/></svg>
+          <div>
+            <h3>Raças em Destaque</h3>
+            <p style="margin:4px 0 0;color:#7d6e5f">Uma pequena amostragem de raças e seus temperamentos.</p>
+          </div>
+        </div>
+
+        <div class="grid" data-animate>
+          <!-- Card 1 -->
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1525253086316-d0c936c814f8?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Labrador">
+            <h3>Labrador Retriever</h3>
+            <p>Afetuoso, ótimo com famílias, adora brincar e é muito leal.</p>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Shiba Inu">
+            <h3>Shiba Inu</h3>
+            <p>Independente, limpo e com personalidade forte — requer socialização.</p>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1558788353-f76d92427f16?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Golden Retriever">
+            <h3>Golden Retriever</h3>
+            <p>Calmo, inteligente e fácil de treinar — excelente companhia familiar.</p>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Bulldog">
+            <h3>Bulldog</h3>
+            <p>Tranquilo e carinhoso — bom para apartamentos e convivência calma.</p>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1507149833265-60c372daea22?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Pastor Alemão">
+            <h3>Pastor Alemão</h3>
+            <p>Loyal, inteligente and protective; needs mental stimulation.</p>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Beagle">
+            <h3>Beagle</h3>
+            <p>Curioso, sociável e cheio de energia — ótimo para famílias ativas.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="cuidados">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none"><rect width="24" height="24" rx="6" fill="var(--green)"/></svg>
+          <div>
+            <h3>Cuidados e Dicas</h3>
+            <p style="margin:4px 0 0;color:#7d6e5f">Pequenas mudanças que fazem grande diferença no bem-estar do seu amigo.</p>
+          </div>
+        </div>
+
+        <div class="icons" data-animate>
+          <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 0 18 0z" fill="var(--accent)"/></svg><div><strong>Rotina</strong><div style="font-size:13px;color:#6f5f4f">Passeios diários e horários de alimentação.</div></div></div>
+          <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M6 12a6 6 0 0 1 12 0v4H6v-4z" fill="var(--green)"/></svg><div><strong>Saúde</strong><div style="font-size:13px;color:#6f5f4f">Visitas regulares ao veterinário e vacinação em dia.</div></div></div>
+          <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M5 3v18l15-9L5 3z" fill="#FFD"/></svg><div><strong>Treino</strong><div style="font-size:13px;color:#6f5f4f">Reforço positivo e consistência.</div></div></div>
+        </div>
+      </section>
+
+      <section id="depoimentos">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none"><path d="M12 2l3 6 6 .5-4.5 4 1 6L12 17l-5.5 2.5 1-6L3 8.5 9 8z" fill="var(--accent)"/></svg>
+          <div>
+            <h3>Depoimentos</h3>
+            <p style="margin:4px 0 0;color:#7d6e5f">Histórias sinceras de donos que encontraram um amigo para a vida.</p>
+          </div>
+        </div>
+
+        <div class="carousel" data-animate>
+          <div class="slides" id="slides">
+            <div class="testimonial">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Dona Laura">
+              <div>
+                <strong>Laura P.</strong>
+                <p style="margin:6px 0;color:#6f5f4f">"Adotar o Thor mudou nossas manhãs — alegria e acolhimento sem fim. Ele é leal e paciente com as crianças."</p>
+              </div>
+            </div>
+
+            <div class="testimonial">
+              <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Dono Carlos">
+              <div>
+                <strong>Carlos M.</strong>
+                <p style="margin:6px 0;color:#6f5f4f">"Meu vira-lata Luna aprendeu truques e trouxe paz para casa. Lealdade que só os cães têm."</p>
+              </div>
+            </div>
+
+            <div class="testimonial">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Dona Rita">
+              <div>
+                <strong>Rita S.</strong>
+                <p style="margin:6px 0;color:#6f5f4f">"Adotar foi a melhor decisão. Cada dia é uma conquista e um novo motivo para sorrir."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dots" id="dots"></div>
+      </section>
+
+      <section id="adocao">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none"><path d="M12 21s-8-6-8-12 4-7 8-7 8 3 8 7-8 12-8 12z" fill="var(--accent)"/></svg>
+          <div>
+            <h3>Quer Adotar?</h3>
+            <p style="margin:4px 0 0;color:#7d6e5f">Entre em contato — muitos amigos esperando por um lar amoroso.</p>
+          </div>
+        </div>
+
+        <div class="adopt" data-animate>
+          <div class="info">
+            <p style="margin-top:0">Temos parceiros locais que promovem acolhimento e triagem. A adoção passa por uma avaliação leve para garantir o bem-estar do animal. Veja alguns pontos rápidos:</p>
+            <ul>
+              <li>Visita pré-adoção (online ou presencial).</li>
+              <li>Contrato simbólico para comprometer cuidado.</li>
+              <li>Suporte para os primeiros 30 dias.</li>
+            </ul>
+            <p style="margin-bottom:14px">Quer ver os cães disponíveis? Clique no botão ao lado.</p>
+            <a class="btn" href="#">Ver cães disponíveis</a>
+          </div>
+
+          <form class="form adopt-form form" action="mailto:adocoes@exemplo.org" method="post" enctype="text/plain">
+            <div class="form-inner">
+              <div class="field"><label>Nome</label><input type="text" name="nome" required></div>
+              <div class="field"><label>Email</label><input type="email" name="email" required></div>
+              <div class="field"><label>Interesse</label><select name="interesse"><option>Adotar</option><option>Ser Voluntário</option><option>Doar</option></select></div>
+              <div class="field"><label>Mensagem</label><textarea name="mensagem" rows="4"></textarea></div>
+              <button class="btn" type="submit">Enviar pedido</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center">
+        <div>
+          <strong>Cachorros Amáveis</strong>
+          <div style="font-size:13px;color:#7f6f60">&copy; 2025 — Feito com carinho</div>
+        </div>
+        <div class="socials">
+          <!-- social svg icons -->
+          <a aria-label="Instagram" href="#"><svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg></a>
+          <a aria-label="Facebook" href="#"><svg viewBox="0 0 24 24" width="22" height="22"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="var(--muted)" stroke-width="1.2"/></svg></a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Smooth scroll + active nav
+    document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'})})
+    })
+
+    // On scroll animations
+    const animEls = document.querySelectorAll('[data-animate]');
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(ent=>{ if(ent.isIntersecting) ent.target.classList.add('in')})
+    },{threshold:0.12});
+    animEls.forEach(el=>io.observe(el));
+
+    // Simple testimonials carousel
+    const slides = document.getElementById('slides');
+    const dotsWrap = document.getElementById('dots');
+    const total = slides.children.length;
+    let index = 0;
+    function renderDots(){
+      for(let i=0;i<total;i++){const d=document.createElement('div');d.className='dot';d.dataset.i=i;d.onclick=()=>goto(i);dotsWrap.appendChild(d)}
+      updateDots()
+    }
+    function updateDots(){Array.from(dotsWrap.children).forEach((d,i)=>d.classList.toggle('active',i===index))}
+    function goto(i){index=i;slides.style.transform=`translateX(-${index*100}%)`;updateDots()}
+    function next(){index=(index+1)%total;goto(index)}
+    renderDots();let carouselTimer = setInterval(next,4500);
+    slides.addEventListener('mouseenter',()=>clearInterval(carouselTimer));slides.addEventListener('mouseleave',()=>carouselTimer=setInterval(next,4500));
+
+    // Highlight active nav on scroll
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    const sections = Array.from(navLinks).map(a=>document.querySelector(a.getAttribute('href')));
+    window.addEventListener('scroll',()=>{
+      const y = window.scrollY + 140;
+      sections.forEach((s,i)=>{
+        if(!s) return;
+        const top=s.offsetTop; const bottom=top+s.offsetHeight;
+        navLinks[i].classList.toggle('active', y>=top && y<bottom);
+      })
+    })
+
+    // Accessibility: basic keyboard focus styles
+    document.addEventListener('keyup',e=>{if(e.key === 'Tab') document.body.classList.add('kbd')})
+  </script>
+</body>
+</html>

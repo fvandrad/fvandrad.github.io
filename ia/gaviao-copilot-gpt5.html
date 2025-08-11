@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gavião — O Senhor dos Céus</title>
+  <meta name="description" content="Página moderna e responsiva celebrando o gavião: poder, visão aguçada e liberdade." />
+  <style>
+    :root {
+      --bg: #0f1215;
+      --bg-elev: #14181c;
+      --text: #e8ecef;
+      --muted: #aeb7bf;
+      --gold: #d9a441;
+      --gold-2: #f1c75b;
+      --moss: #415a3e;
+      --moss-2: #2e3e2c;
+      --accent: var(--gold);
+      --line: #24303a;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    [data-theme="light"] {
+      --bg: #f7f9fb;
+      --bg-elev: #ffffff;
+      --text: #111418;
+      --muted: #4c5966;
+      --gold: #b8881e;
+      --gold-2: #cda44a;
+      --moss: #3f5b39;
+      --moss-2: #e9f2e6;
+      --line: #dde6ee;
+      --accent: var(--moss);
+      --shadow: 0 6px 18px rgba(0,0,0,.12);
+    }
+
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    /* Global layout */
+    .container {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+    }
+    section {
+      padding: clamp(56px, 8vw, 96px) 0;
+      position: relative;
+      overflow: clip;
+    }
+    .grid {
+      display: grid;
+      gap: clamp(16px, 3vw, 28px);
+    }
+    .two-col {
+      grid-template-columns: 1.2fr 1fr;
+    }
+    @media (max-width: 900px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    /* Top Nav */
+    header.nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: color-mix(in oklab, var(--bg) 70%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    .brand svg { width: 28px; height: 28px; }
+    nav ul {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+    nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background .2s ease, color .2s ease;
+      font-weight: 600;
+    }
+    nav a svg { width: 18px; height: 18px; }
+    nav a:hover { background: var(--bg-elev); }
+    nav a.active {
+      background: linear-gradient(135deg, color-mix(in oklab, var(--gold) 30%, transparent), transparent);
+      outline: 1px solid color-mix(in oklab, var(--gold) 35%, var(--line));
+      color: var(--gold-2);
+    }
+    .toggle-theme {
+      border: 1px solid var(--line);
+      background: var(--bg-elev);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+    .hamburger {
+      display: none;
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg-elev);
+      color: var(--text);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .hamburger svg { width: 22px; height: 22px; }
+    @media (max-width: 860px) {
+      nav { display: none; }
+      nav.open { display: block; }
+      .hamburger { display: inline-flex; }
+      .nav-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: var(--bg-elev);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        margin-top: 8px;
+        padding: 8px;
+        box-shadow: var(--shadow);
+      }
+      .nav-menu ul { flex-direction: column; align-items: stretch; }
+      .nav-menu a { width: 100%; }
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: clamp(40px, 6vw, 80px);
+      min-height: 88vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      background:
+        radial-gradient(1300px 600px at 70% 10%, color-mix(in oklab, var(--moss) 18%, transparent), transparent),
+        linear-gradient(180deg, color-mix(in oklab, var(--bg-elev) 80%, transparent), transparent);
+    }
+    .hero .content {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: clamp(16px, 4vw, 48px);
+      align-items: center;
+    }
+    @media (max-width: 1000px) {
+      .hero .content { grid-template-columns: 1fr; text-align: center; }
+    }
+    .kicker {
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-size: .8rem;
+    }
+    .title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+      justify-content: flex-start;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--bg-elev), color-mix(in oklab, var(--bg-elev) 75%, #000));
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: .3px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, background .25s ease, border-color .25s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, color-mix(in oklab, var(--gold) 24%, var(--bg-elev)) 0%, var(--bg-elev) 60%);
+      border-color: color-mix(in oklab, var(--gold) 35%, var(--line));
+      color: var(--gold-2);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .hawk-wrap {
+      position: relative;
+      aspect-ratio: 4/3;
+      width: 100%;
+      max-width: 520px;
+      margin-inline: auto;
+      filter: drop-shadow(0 30px 40px rgba(0,0,0,.35));
+    }
+    .wind-bg {
+      position: absolute;
+      inset: -10% -15% -15% -15%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .55;
+    }
+    .hawk-svg {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    @keyframes dashFlow {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -1000; }
+    }
+    @keyframes wingFlap {
+      0%,100% { transform: rotateX(0) rotateZ(0); }
+      50% { transform: rotateX(9deg) rotateZ(-2deg) translateY(-2px); }
+    }
+    @keyframes eyeBlink {
+      0%, 94%, 100% { transform: scaleY(1); }
+      95% { transform: scaleY(0.05); }
+      98% { transform: scaleY(1); }
+    }
+    @keyframes clawFlex {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(8deg); }
+    }
+
+    .wing { transform-origin: 50% 40%; animation: wingFlap 2.2s ease-in-out infinite; }
+    .wing.right { animation-delay: .2s; }
+    .eye { transform-origin: center; animation: eyeBlink 6s ease-in-out infinite; }
+    .claw { transform-origin: 50% 20%; animation: clawFlex 3.6s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wing, .eye, .claw { animation: none !important; }
+      .wind-bg path { animation: none !important; }
+      .feather { animation: none !important; }
+    }
+
+    /* Section titles */
+    .section-head {
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-head h2 {
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      margin: 0;
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: .4px;
+    }
+    .section-head .bar {
+      height: 3px;
+      width: 60px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border-radius: 2px;
+    }
+    .lead {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    /* Sobre */
+    .about-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: clamp(16px, 3vw, 24px);
+    }
+    .about-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media (max-width: 680px) {
+      .about-points { grid-template-columns: 1fr; }
+    }
+    .point {
+      display: grid; grid-template-columns: 40px 1fr; gap: 12px;
+      align-items: start;
+    }
+    .point svg { width: 28px; height: 28px; color: var(--gold); }
+    .point h4 { margin: 0 0 6px; font-size: 1.05rem; }
+    .point p { margin: 0; color: var(--muted); line-height: 1.6; }
+
+    /* Características */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+    @media (max-width: 900px) {
+      .features { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 520px) {
+      .features { grid-template-columns: 1fr; }
+    }
+    .feature {
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      display: grid;
+      gap: 8px;
+      transition: transform .15s ease, border-color .2s ease;
+    }
+    .feature:hover { transform: translateY(-2px); border-color: color-mix(in oklab, var(--gold) 30%, var(--line)); }
+    .feature .icon {
+      width: 28px; height: 28px; color: var(--gold);
+    }
+    .meter {
+      height: 10px; background: color-mix(in oklab, var(--moss) 25%, var(--line));
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .meter > span {
+      display: block; height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-2));
+      transition: width 1.2s ease;
+    }
+
+    .mini-chart {
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 18px;
+    }
+    .bars { display: grid; gap: 10px; }
+    .bar-row { display: grid; grid-template-columns: 120px 1fr; gap: 10px; align-items: center; }
+    .bar-row strong { font-size: .95rem; }
+    .bar {
+      height: 12px; border-radius: 999px; background: color-mix(in oklab, var(--line) 80%, var(--bg));
+      overflow: hidden; position: relative;
+    }
+    .bar span {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--moss));
+      transition: width 1.4s ease;
+    }
+    .bar.human span { background: linear-gradient(90deg, #9aa7b4, #5f6d79); }
+
+    /* Galeria */
+    .gallery-switch {
+      margin-top: 6px;
+      display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    }
+    .gallery-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+    }
+    .gallery-item {
+      aspect-ratio: 4/3;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      position: relative;
+      background: radial-gradient(120% 100% at 80% 10%, color-mix(in oklab, var(--moss) 18%, transparent), transparent), linear-gradient(180deg, var(--bg-elev), var(--bg));
+      cursor: zoom-in;
+    }
+    .gallery-item .overlay {
+      position: absolute; inset: 0; background: linear-gradient(180deg, transparent, rgba(0,0,0,.35));
+    }
+    .gallery-item svg, .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* Mobile carousel */
+    .mobile-carousel {
+      display: none;
+      margin-top: 12px;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+    }
+    .mobile-carousel .gallery-item {
+      flex: 0 0 80%;
+      scroll-snap-align: center;
+    }
+    @media (max-width: 760px) {
+      .gallery-grid { display: none; }
+      .mobile-carousel { display: flex; }
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-content {
+      width: min(1000px, 92vw);
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .lightbox-content img, .lightbox-content svg {
+      display: block; width: 100%; height: auto; background: var(--bg);
+    }
+    .lightbox-close {
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(0,0,0,.45);
+      color: #fff; border: none; border-radius: 10px;
+      padding: 8px; cursor: pointer;
+    }
+
+    /* Contato */
+    form {
+      display: grid; gap: 12px;
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    label { font-weight: 700; font-size: .95rem; }
+    input, textarea {
+      width: 100%; padding: 12px 14px;
+      border-radius: 12px; border: 1px solid var(--line);
+      background: color-mix(in oklab, var(--bg) 90%, var(--white));
+      color: var(--text); resize: vertical;
+    }
+    .socials { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .socials a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 12px;
+      border: 1px solid var(--line); color: var(--text);
+      background: var(--bg-elev);
+      transition: transform .15s ease, border-color .2s ease;
+    }
+    .socials a:hover { transform: translateY(-2px); border-color: color-mix(in oklab, var(--gold) 30%, var(--line)); }
+    .motivation {
+      background: linear-gradient(135deg, color-mix(in oklab, var(--gold) 12%, transparent), transparent);
+      border: 1px solid color-mix(in oklab, var(--gold) 28%, var(--line));
+      border-radius: 16px;
+      padding: 16px;
+      color: color-mix(in oklab, var(--text) 85%, var(--gold));
+      font-weight: 700;
+    }
+
+    /* Feathers */
+    .feather {
+      position: fixed; top: -10vh;
+      width: 14px; height: 40px;
+      background:
+        radial-gradient(8px 20px at 50% 20%, var(--gold-2), transparent 60%),
+        radial-gradient(10px 26px at 50% 60%, color-mix(in oklab, var(--gold) 70%, #6b4b12), transparent 62%);
+      border-radius: 50px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.25));
+      opacity: .75;
+      z-index: 5;
+      animation: fall linear infinite, sway ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      to { transform: translateY(120vh) rotate(360deg); }
+    }
+    @keyframes sway {
+      0%,100% { margin-left: 0; }
+      50% { margin-left: 20px; }
+    }
+
+    /* Footer */
+    footer {
+      padding: 30px 0 60px;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--bg-elev) 85%, transparent));
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+    }
+    @media (max-width: 640px) {
+      .footer-inner { grid-template-columns: 1fr; place-items: center; text-align: center; }
+    }
+    .perch {
+      width: 80px; height: 80px;
+    }
+    .perch .blink { animation: eyeBlink 7s ease-in-out infinite; transform-origin: center; }
+    .credits { color: var(--muted); font-size: .95rem; }
+  </style>
+</head>
+<body>
+  <!-- SVG Definitions -->
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;left:-9999px;visibility:hidden">
+    <defs>
+      <!-- Icons -->
+      <symbol id="ico-hawk" viewBox="0 0 64 64">
+        <path fill="currentColor" d="M5 36c16-6 22-14 28-22l10 1-3 8c6 0 13-3 19-8-3 9-9 16-16 20l7 1c-7 7-15 13-27 16-7 2-13-3-18-6 0-2 0-5 0-10z"/>
+        <circle cx="38" cy="16" r="2" fill="#f2d27a"/>
+      </symbol>
+      <symbol id="ico-claw" viewBox="0 0 64 64">
+        <path fill="currentColor" d="M12 50c4-6 8-12 12-16 5-5 10-7 15-7 6 0 9 5 9 8-2-3-7-4-11-1-4 3-7 9-8 14-1 6-7 7-17 2z"/>
+      </symbol>
+      <symbol id="ico-feather" viewBox="0 0 64 64">
+        <path fill="currentColor" d="M50 10c-18 2-32 16-34 34 8-6 14-10 22-12-8 6-14 12-18 22 14-2 28-16 30-30 0-4 0-8 0-14z"/>
+      </symbol>
+      <symbol id="ico-eye" viewBox="0 0 64 64">
+        <ellipse cx="32" cy="32" rx="26" ry="16" fill="none" stroke="currentColor" stroke-width="4"/>
+        <circle cx="32" cy="32" r="6" fill="currentColor"/>
+      </symbol>
+      <symbol id="ico-mountain" viewBox="0 0 64 64">
+        <path fill="currentColor" d="M6 50l16-24 8 12 8-10 20 22z"/>
+        <path fill="#d9a441" d="M22 26l4-6 4 6-4 2z"/>
+      </symbol>
+      <symbol id="ico-sky" viewBox="0 0 64 64">
+        <path fill="currentColor" d="M8 42c0-8 8-12 14-10 2-6 12-8 17-3 8-4 17 4 13 13H8z"/>
+      </symbol>
+      <symbol id="ico-arrow" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M5 12h11l-4-4 1.4-1.4L20.8 14l-7.4 7.4L12 20l4-4H5z"/>
+      </symbol>
+      <symbol id="ico-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4" fill="currentColor"/>
+        <g fill="currentColor">
+          <rect x="11" y="1" width="2" height="4"/><rect x="11" y="19" width="2" height="4"/>
+          <rect x="1" y="11" width="4" height="2"/><rect x="19" y="11" width="4" height="2"/>
+          <rect x="3.5" y="3.5" width="2" height="2" transform="rotate(45 4.5 4.5)"/>
+          <rect x="18.5" y="3.5" width="2" height="2" transform="rotate(45 19.5 4.5)"/>
+          <rect x="3.5" y="18.5" width="2" height="2" transform="rotate(45 4.5 19.5)"/>
+          <rect x="18.5" y="18.5" width="2" height="2" transform="rotate(45 19.5 19.5)"/>
+        </g>
+      </symbol>
+      <symbol id="ico-moon" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M21 13.5A9 9 0 1 1 10.5 3 7 7 0 0 0 21 13.5z"/>
+      </symbol>
+      <symbol id="ico-menu" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/>
+      </symbol>
+      <symbol id="ico-facebook" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M15 3h4v4h-3c-1 0-1 .5-1 1v2h4l-1 4h-3v7h-4v-7H8v-4h3V8c0-2.2 1.8-5 4-5z"/>
+      </symbol>
+      <symbol id="ico-instagram" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+      </symbol>
+      <symbol id="ico-twitter" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M22 6c-.7.3-1.4.5-2.2.6.8-.5 1.3-1.2 1.6-2.1-.7.5-1.6.9-2.5 1.1a3.7 3.7 0 0 0-6.5 3.4A10.6 10.6 0 0 1 3 5.4a3.7 3.7 0 0 0 1.1 5 3.7 3.7 0 0 1-1.7-.5v.1c0 1.8 1.3 3.3 3 3.7-.5.1-1 .2-1.5.1.4 1.4 1.8 2.5 3.3 2.6A7.5 7.5 0 0 1 2 18.6a10.5 10.5 0 0 0 5.7 1.7c6.9 0 10.7-5.8 10.7-10.7v-.5c.7-.5 1.3-1.2 1.6-2.1z"/>
+      </symbol>
+      <symbol id="ico-mail" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M2 6h20v12H2z"/>
+        <path fill="#fff" d="M2 6l10 7 10-7v2l-10 7L2 8z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Navigation -->
+  <header class="nav" id="top">
+    <div class="container nav-inner">
+      <a href="#inicio" class="brand" aria-label="Ir para o início">
+        <svg aria-hidden="true"><use href="#ico-hawk"/></svg>
+        <span>Gavião</span>
+      </a>
+      <button class="toggle-theme" id="themeToggle" aria-label="Alternar modo claro/escuro" title="Alternar tema">
+        <svg aria-hidden="true" width="20" height="20"><use href="#ico-moon"/></svg>
+        <span>Modo</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+        <svg aria-hidden="true"><use href="#ico-menu"/></svg>
+      </button>
+      <nav id="navMenu" class="nav-menu" aria-label="Navegação principal">
+        <ul>
+          <li><a href="#inicio"><svg aria-hidden="true"><use href="#ico-sky"/></svg>Início</a></li>
+          <li><a href="#sobre"><svg aria-hidden="true"><use href="#ico-feather"/></svg>Sobre o Gavião</a></li>
+          <li><a href="#caracteristicas"><svg aria-hidden="true"><use href="#ico-eye"/></svg>Características</a></li>
+          <li><a href="#galeria"><svg aria-hidden="true"><use href="#ico-mountain"/></svg>Galeria</a></li>
+          <li><a href="#contato"><svg aria-hidden="true"><use href="#ico-mail"/></svg>Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <div class="container content">
+      <div>
+        <div class="kicker">Majestade e força</div>
+        <h1 class="title" id="hero-title">Gavião — O Senhor dos Céus</h1>
+        <p class="subtitle">Descubra a majestade e a força dessa impressionante ave de rapina. Símbolo de poder, visão aguçada e liberdade que atravessa montanhas e céus abertos.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#sobre">
+            <svg aria-hidden="true" width="20" height="20"><use href="#ico-arrow"/></svg>
+            <span>Explore Mais</span>
+          </a>
+          <a class="btn" href="#galeria">
+            <svg aria-hidden="true" width="20" height="20"><use href="#ico-mountain"/></svg>
+            <span>Ver Galeria</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hawk-wrap" aria-hidden="true">
+        <!-- Dynamic wind background -->
+        <svg class="wind-bg" viewBox="0 0 800 600" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="windGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="var(--moss)" stop-opacity=".15"/>
+              <stop offset="100%" stop-color="var(--gold)" stop-opacity=".05"/>
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#windGrad)" stroke-width="2" stroke-linecap="round" stroke-dasharray="12 28">
+            <path d="M-100 80 Q 100 100, 280 60 T 800 80" style="animation: dashFlow 12s linear infinite;"/>
+            <path d="M-100 160 Q 120 120, 320 160 T 800 160" style="animation: dashFlow 14s linear infinite;"/>
+            <path d="M-100 240 Q 200 200, 360 240 T 800 240" style="animation: dashFlow 10s linear infinite;"/>
+            <path d="M-100 320 Q 160 340, 400 300 T 800 320" style="animation: dashFlow 11.5s linear infinite;"/>
+            <path d="M-100 420 Q 120 400, 380 440 T 800 420" style="animation: dashFlow 13s linear infinite;"/>
+          </g>
+        </svg>
+
+        <!-- Stylized Hawk -->
+        <svg class="hawk-svg" viewBox="0 0 400 300" role="img" aria-label="Ilustração de um gavião em voo">
+          <defs>
+            <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="var(--gold)" />
+              <stop offset="100%" stop-color="var(--gold-2)" />
+            </linearGradient>
+          </defs>
+          <!-- Wings -->
+          <g class="wing left">
+            <path d="M140 140 C 60 120, 30 80, 20 50 C 70 70, 100 70, 160 100" fill="none" stroke="var(--moss)" stroke-width="26" stroke-linecap="round"/>
+            <path d="M135 135 C 65 120, 40 90, 30 65" fill="none" stroke="url(#goldGrad)" stroke-width="6" stroke-linecap="round"/>
+          </g>
+          <g class="wing right">
+            <path d="M260 140 C 340 120, 370 80, 380 50 C 330 70, 300 70, 240 100" fill="none" stroke="var(--moss)" stroke-width="26" stroke-linecap="round"/>
+            <path d="M265 135 C 335 120, 360 90, 370 65" fill="none" stroke="url(#goldGrad)" stroke-width="6" stroke-linecap="round"/>
+          </g>
+          <!-- Body -->
+          <path d="M140 140 C 190 120, 210 120, 260 140 C 250 170, 230 185, 200 190 C 170 185, 150 170, 140 140 Z" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="2"/>
+          <!-- Head -->
+          <path d="M190 115 C 205 105, 225 105, 235 120 C 225 125, 210 130, 195 128 Z" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="2"/>
+          <circle class="eye" cx="224" cy="118" r="4" fill="url(#goldGrad)" stroke="var(--moss)" stroke-width="2"/>
+          <!-- Beak highlight -->
+          <path d="M235 120 L248 116 L238 126 Z" fill="url(#goldGrad)" />
+          <!-- Claws -->
+          <g class="claw">
+            <path d="M190 190 q10 8 18 0" fill="none" stroke="var(--gold)" stroke-width="5" stroke-linecap="round"/>
+            <path d="M197 192 q6 6 12 0" fill="none" stroke="var(--gold-2)" stroke-width="4" stroke-linecap="round"/>
+          </g>
+          <!-- Gold accents -->
+          <path d="M180 150 q20 8 40 0" fill="none" stroke="url(#goldGrad)" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre o Gavião -->
+  <section id="sobre" aria-labelledby="sobre-title">
+    <div class="container grid two-col">
+      <div>
+        <div class="section-head">
+          <div class="bar"></div>
+          <h2 id="sobre-title">Sobre o gavião</h2>
+        </div>
+        <p class="lead">
+          O gavião é uma ave de rapina que domina os céus com precisão e elegância. Dotado de visão excepcional, força nas garras e voo ágil, habita florestas, campos e regiões montanhosas. Sua presença inspira respeito: uma síntese de foco, adaptação e liberdade — atributos que o tornam um símbolo atemporal de poder e vigilância.
+        </p>
+        <div class="about-points">
+          <div class="point">
+            <svg aria-hidden="true"><use href="#ico-claw"/></svg>
+            <div>
+              <h4>Garras poderosas</h4>
+              <p>Capazes de segurar a presa com firmeza, combinando força e precisão em frações de segundo.</p>
+            </div>
+          </div>
+          <div class="point">
+            <svg aria-hidden="true"><use href="#ico-feather"/></svg>
+            <div>
+              <h4>Penas aerodinâmicas</h4>
+              <p>Estrutura leve e resistente reduz o arrasto e favorece manobras abruptas em pleno voo.</p>
+            </div>
+          </div>
+          <div class="point">
+            <svg aria-hidden="true"><use href="#ico-eye"/></svg>
+            <div>
+              <h4>Olhos atentos</h4>
+              <p>Percepção visual apurada para localizar movimentos a grandes distâncias e em alta velocidade.</p>
+            </div>
+          </div>
+          <div class="point">
+            <svg aria-hidden="true"><use href="#ico-mountain"/></svg>
+            <div>
+              <h4>Habitat versátil</h4>
+              <p>Do litoral às serras, adapta-se ao ambiente com inteligência e domínio territorial.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-card">
+        <h3 style="margin-top:0;">Voo, caça e comportamento</h3>
+        <p>
+          Em voo, o gavião alterna planadas silenciosas com batidas vigorosas de asa, economizando energia e surpreendendo sua presa. A caça é um ritual: observar, calcular e agir — no instante exato. Territorial, aprende com o ambiente e refina estratégias; no ninho, protege e ensina, perpetuando um legado de foco e coragem.
+        </p>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:10px;">
+          <div class="point">
+            <svg aria-hidden="true"><use href="#ico-sky"/></svg>
+            <div>
+              <h4>Planar com maestria</h4>
+              <p>Usa correntes térmicas para alcançar amplitude e silêncio no ar.</p>
+            </div>
+          </div>
+          <div class="point">
+            <svg aria-hidden="true"><use href="#ico-arrow"/></svg>
+            <div>
+              <h4>Ataque preciso</h4>
+              <p>Converte altura em velocidade, realizando mergulhos calculados e certeiros.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Características -->
+  <section id="caracteristicas" aria-labelledby="carac-title">
+    <div class="container">
+      <div class="section-head">
+        <div class="bar"></div>
+        <h2 id="carac-title">Características essenciais</h2>
+      </div>
+
+      <div class="features">
+        <div class="feature" data-meter="95">
+          <svg class="icon" aria-hidden="true"><use href="#ico-eye"/></svg>
+          <strong>Visão aguçada</strong>
+          <p class="lead" style="font-size:.95rem;">Enxerga detalhes a longas distâncias, antecipando movimentos mínimos no horizonte.</p>
+          <div class="meter"><span></span></div>
+        </div>
+        <div class="feature" data-meter="88">
+          <svg class="icon" aria-hidden="true"><use href="#ico-claw"/></svg>
+          <strong>Força</strong>
+          <p class="lead" style="font-size:.95rem;">Garras e musculatura capazes de capturar e sustentar presas com segurança.</p>
+          <div class="meter"><span></span></div>
+        </div>
+        <div class="feature" data-meter="90">
+          <svg class="icon" aria-hidden="true"><use href="#ico-sky"/></svg>
+          <strong>Velocidade</strong>
+          <p class="lead" style="font-size:.95rem;">Aceleração rápida e mergulhos que transformam ar em flecha.</p>
+          <div class="meter"><span></span></div>
+        </div>
+        <div class="feature" data-meter="85">
+          <svg class="icon" aria-hidden="true"><use href="#ico-mountain"/></svg>
+          <strong>Adaptabilidade</strong>
+          <p class="lead" style="font-size:.95rem;">Inteligência ambiental para prosperar em ecossistemas diversos.</p>
+          <div class="meter"><span></span></div>
+        </div>
+      </div>
+
+      <div class="mini-chart" id="vision-compare">
+        <h3 style="margin-top:0;">Comparativo ilustrativo — Visão</h3>
+        <div class="bars">
+          <div class="bar-row">
+            <strong>Gavião</strong>
+            <div class="bar hawk"><span style="width:0%"></span></div>
+          </div>
+          <div class="bar-row">
+            <strong>Humana</strong>
+            <div class="bar human"><span style="width:0%"></span></div>
+          </div>
+        </div>
+        <p class="lead" style="font-size:.92rem;margin-top:10px;">
+          Ilustração de escala relativa: o alcance e a acuidade do gavião superam em múltiplos a visão humana, permitindo identificar detalhes a grande distância.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria" aria-labelledby="galeria-title">
+    <div class="container">
+      <div class="section-head">
+        <div class="bar"></div>
+        <h2 id="galeria-title">Galeria</h2>
+      </div>
+      <div class="gallery-switch">
+        <p class="lead" style="margin:0;">Gaviões em diferentes poses e ambientes — toque para ampliar.</p>
+        <div class="kicker" style="letter-spacing:.1em;">Lightbox • Carrossel</div>
+      </div>
+
+      <!-- Grid for desktops/tablets -->
+      <div class="gallery-grid">
+        <!-- We'll use stylized SVG scenes to keep it self-contained -->
+        <div class="gallery-item" data-scene="1" role="button" aria-label="Abrir imagem 1">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="sceneGrad1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1c252c"/><stop offset="100%" stop-color="#0f1418"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="300" fill="url(#sceneGrad1)"/>
+            <use href="#ico-mountain" x="40" y="160" width="120" height="120" fill="var(--moss)"/>
+            <use href="#ico-sky" x="220" y="40" width="140" height="140" fill="var(--moss)"/>
+            <use href="#ico-hawk" x="160" y="80" width="120" height="120" fill="var(--gold)"/>
+          </svg>
+          <div class="overlay"></div>
+        </div>
+        <div class="gallery-item" data-scene="2" role="button" aria-label="Abrir imagem 2">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" fill="#122018"/>
+            <use href="#ico-mountain" x="220" y="160" width="140" height="140" fill="var(--moss)"/>
+            <use href="#ico-hawk" x="90" y="60" width="160" height="160" fill="var(--gold-2)"/>
+            <use href="#ico-sky" x="20" y="40" width="140" height="140" fill="#2f4030"/>
+          </svg>
+          <div class="overlay"></div>
+        </div>
+        <div class="gallery-item" data-scene="3" role="button" aria-label="Abrir imagem 3">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" fill="#10151a"/>
+            <use href="#ico-hawk" x="140" y="80" width="140" height="140" fill="var(--gold)"/>
+            <use href="#ico-feather" x="50" y="160" width="80" height="80" fill="#35493a"/>
+            <use href="#ico-feather" x="290" y="150" width="70" height="70" fill="#3b4f40"/>
+          </svg>
+          <div class="overlay"></div>
+        </div>
+        <div class="gallery-item" data-scene="4" role="button" aria-label="Abrir imagem 4">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" fill="#0e1114"/>
+            <use href="#ico-sky" x="40" y="60" width="180" height="180" fill="#2a3b2e"/>
+            <use href="#ico-hawk" x="210" y="80" width="150" height="150" fill="var(--gold-2)"/>
+          </svg>
+          <div class="overlay"></div>
+        </div>
+        <div class="gallery-item" data-scene="5" role="button" aria-label="Abrir imagem 5">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" fill="#162028"/>
+            <use href="#ico-mountain" x="40" y="140" width="160" height="160" fill="#2f4033"/>
+            <use href="#ico-hawk" x="200" y="70" width="160" height="160" fill="var(--gold)"/>
+          </svg>
+          <div class="overlay"></div>
+        </div>
+        <div class="gallery-item" data-scene="6" role="button" aria-label="Abrir imagem 6">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" fill="#11171c"/>
+            <use href="#ico-feather" x="80" y="140" width="120" height="120" fill="#36483b"/>
+            <use href="#ico-hawk" x="180" y="70" width="160" height="160" fill="var(--gold-2)"/>
+          </svg>
+          <div class="overlay"></div>
+        </div>
+      </div>
+
+      <!-- Mobile carousel -->
+      <div class="mobile-carousel" aria-label="Carrossel de imagens">
+        <div class="gallery-item" data-scene="1" role="button" aria-label="Abrir imagem 1">
+          <svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#0f1418"/><use href="#ico-hawk" x="160" y="80" width="120" height="120" fill="var(--gold)"/></svg>
+        </div>
+        <div class="gallery-item" data-scene="2" role="button" aria-label="Abrir imagem 2">
+          <svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#122018"/><use href="#ico-hawk" x="90" y="60" width="160" height="160" fill="var(--gold-2)"/></svg>
+        </div>
+        <div class="gallery-item" data-scene="3" role="button" aria-label="Abrir imagem 3">
+          <svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#10151a"/><use href="#ico-hawk" x="140" y="80" width="140" height="140" fill="var(--gold)"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização de imagem">
+      <div class="lightbox-content" id="lightboxContent">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">
+          ✕
+        </button>
+        <!-- Content injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato / Apoie -->
+  <section id="contato" aria-labelledby="contato-title">
+    <div class="container grid two-col">
+      <div>
+        <div class="section-head">
+          <div class="bar"></div>
+          <h2 id="contato-title">Contato e conservação</h2>
+        </div>
+        <p class="lead">
+          Ajude a proteger os gaviões e preservar a natureza. Sua mensagem, apoio e voz fazem a diferença para que essas aves continuem a reinar livres.
+        </p>
+        <div class="motivation">“Ajude a proteger os gaviões e preservar a natureza.”</div>
+        <div style="height:10px"></div>
+        <div class="socials" aria-label="Redes sociais">
+          <a href="#" aria-label="Facebook"><svg width="22" height="22"><use href="#ico-facebook"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="22" height="22"><use href="#ico-instagram"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg width="22" height="22"><use href="#ico-twitter"/></svg></a>
+          <a href="mailto:contato@exemplo.com" aria-label="Email"><svg width="22" height="22"><use href="#ico-mail"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <form id="contactForm">
+          <div>
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="voce@email.com" required />
+          </div>
+          <div>
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva sua mensagem..." required></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">
+            <svg aria-hidden="true" width="20" height="20"><use href="#ico-arrow"/></svg>
+            Enviar
+          </button>
+          <small class="lead" id="formStatus" aria-live="polite" style="display:block; min-height:1.2em;"></small>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="credits">
+        © <span id="year"></span> Gavião — O Senhor dos Céus. Design arrojado, elegante e responsivo.
+      </div>
+      <svg class="perch" viewBox="0 0 80 80" aria-hidden="true">
+        <g>
+          <rect x="8" y="60" width="64" height="6" rx="3" fill="var(--moss)"/>
+          <path d="M40 20c8 0 14 6 14 12s-6 14-14 14-14-8-14-14 6-12 14-12z" fill="var(--bg-elev)" stroke="var(--line)"/>
+          <circle class="blink" cx="48" cy="28" r="2" fill="var(--gold)"/>
+          <path d="M36 46 q6 4 12 0" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M30 50 h20" stroke="var(--moss)" stroke-width="3" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+  </footer>
+
+  <script>
+    // Utilities
+    const qs = (s, el=document) => el.querySelector(s);
+    const qsa = (s, el=document) => Array.from(el.querySelectorAll(s));
+
+    // Active nav highlight on scroll
+    const sections = ['inicio','sobre','caracteristicas','galeria','contato'].map(id => qs('#'+id));
+    const navLinks = qsa('nav a');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const link = navLinks.find(a => a.getAttribute('href') === '#' + id);
+        if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          if (link) link.classList.add('active');
+          history.replaceState(null, '', '#' + id);
+        }
+      });
+    }, { threshold: [0.4, 0.6], rootMargin: '-10% 0px -70% 0px' });
+    sections.forEach(sec => sec && obs.observe(sec));
+
+    // Hamburger menu
+    const hamburger = qs('#hamburger');
+    const navMenu = qs('#navMenu');
+    const toggleMenu = () => navMenu.classList.toggle('open');
+    hamburger.addEventListener('click', toggleMenu);
+    navLinks.forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+    // Theme toggle
+    const root = document.documentElement;
+    const themeToggle = qs('#themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    const applyTheme = (t) => {
+      document.documentElement.setAttribute('data-theme', t);
+      themeToggle.innerHTML = t === 'light'
+        ? '<svg aria-hidden="true" width="20" height="20"><use href="#ico-sun"/></svg><span>Modo</span>'
+        : '<svg aria-hidden="true" width="20" height="20"><use href="#ico-moon"/></svg><span>Modo</span>';
+      localStorage.setItem('theme', t);
+    };
+    applyTheme(savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    themeToggle.addEventListener('click', () => {
+      const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(t);
+    });
+
+    // Animate meters on view
+    const meters = qsa('.feature');
+    const meterObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const value = parseInt(el.dataset.meter, 10) || 0;
+          const bar = qs('.meter > span', el);
+          bar.style.width = value + '%';
+          meterObs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.4 });
+    meters.forEach(m => meterObs.observe(m));
+
+    // Vision comparison bars
+    const vision = qs('#vision-compare');
+    const visionObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const hawk = qs('.bar.hawk span', vision);
+          const human = qs('.bar.human span', vision);
+          hawk.style.width = '95%';
+          human.style.width = '40%';
+          visionObs.unobserve(vision);
+        }
+      });
+    }, { threshold: 0.4 });
+    visionObs.observe(vision);
+
+    // Lightbox for gallery (inject same SVG scene)
+    const lightbox = qs('#lightbox');
+    const lightboxContent = qs('#lightboxContent');
+    const lightboxClose = qs('#lightboxClose');
+    function openLightbox(sceneSVG) {
+      const clone = sceneSVG.cloneNode(true);
+      // Make it bigger and decorative in modal
+      clone.setAttribute('width','100%');
+      clone.setAttribute('height','auto');
+      lightboxContent.querySelectorAll('svg,img').forEach(n => n.remove());
+      lightboxContent.appendChild(clone);
+      lightbox.classList.add('open');
+    }
+    qsa('.gallery-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        const svg = item.querySelector('svg');
+        if (svg) openLightbox(svg);
+      });
+    });
+    function closeLightbox() { lightbox.classList.remove('open'); }
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+    // Subtle golden feathers falling
+    const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function spawnFeathers() {
+      if (prefersReduced) return;
+      const count = Math.min(12, Math.max(6, Math.floor(window.innerWidth / 160)));
+      for (let i=0; i<count; i++) {
+        const f = document.createElement('div');
+        f.className = 'feather';
+        f.style.left = (Math.random()*100) + 'vw';
+        const dur = 8 + Math.random()*10;
+        const delay = Math.random()*-dur;
+        f.style.animationDuration = dur + 's, ' + (3+Math.random()*3) + 's';
+        f.style.animationDelay = delay + 's, ' + (Math.random()*-5) + 's';
+        document.body.appendChild(f);
+      }
+    }
+    spawnFeathers();
+
+    // Optional: subtle wind "whoosh" on primary buttons using WebAudio
+    let audioCtx;
+    function whoosh() {
+      if (prefersReduced) return;
+      try {
+        audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+        const duration = 0.25;
+        const bufferSize = audioCtx.sampleRate * duration;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i=0; i<bufferSize; i++) data[i] = (Math.random()*2 - 1) * (1 - i/bufferSize); // fade-out noise
+        const src = audioCtx.createBufferSource();
+        src.buffer = buffer;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'highpass'; filter.frequency.value = 600;
+        const gain = audioCtx.createGain();
+        gain.gain.value = 0.05;
+        src.connect(filter).connect(gain).connect(audioCtx.destination);
+        src.start();
+      } catch(e) {}
+    }
+    qsa('.btn, .nav a').forEach(btn => {
+      btn.addEventListener('mouseenter', whoosh, { passive: true });
+    });
+
+    // Year
+    qs('#year').textContent = new Date().getFullYear();
+
+    // Accessibility: focus visible styles
+    const style = document.createElement('style');
+    style.textContent = `
+      :focus-visible { outline: 2px solid ${getComputedStyle(document.documentElement).getPropertyValue('--gold')}; outline-offset: 2px; border-radius: 10px; }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

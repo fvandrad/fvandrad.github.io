@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cães & Amigos — Amizade e Lealdade</title>
+  <meta name="description" content="Uma página vibrante celebrando a amizade e a lealdade dos cachorros — raças, cuidados, adoção e histórias." />
+  <meta name="color-scheme" content="light" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      /* Paleta quente e natural */
+      --brown-700: #5a3e2b;
+      --brown-500: #7a5743;
+      --brown-300: #b08e77;
+      --brown-200: #d8c2ae;
+
+      --beige:     #f3e7d8;
+      --cream:     #fff8ee;
+
+      --green-500: #6fa96a;
+      --green-400: #8bbf7f;
+
+      --orange-600:#ff6a3d;
+      --orange-500:#ff7f50;
+
+      --blue-600:  #357abd;
+      --blue-500:  #4a90e2;
+
+      --text-900:  #2c2a28;
+      --text-700:  #4a4642;
+      --text-600:  #5c5752;
+
+      --shadow: 0 10px 30px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
+
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+
+      --container: 1120px;
+    }
+
+    *{ box-sizing: border-box; }
+    html{
+      scroll-behavior: smooth;
+    }
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      color: var(--text-900);
+      background:
+        linear-gradient(180deg, rgba(255,248,238,1) 0%, rgba(243,231,216,1) 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Padrão suave de pegadas (SVG embutido) */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image: url("data:image/svg+xml;utf8,\
+      <svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120' fill='none'>\
+      <g opacity='0.10' fill='%235a3e2b'>\
+      <path d='M60 80c-8 0-16 6-16 14s8 12 16 12 16-4 16-12-8-14-16-14z'/>\
+      <circle cx='38' cy='58' r='10'/>\
+      <circle cx='82' cy='58' r='10'/>\
+      <circle cx='48' cy='38' r='9'/>\
+      <circle cx='72' cy='38' r='9'/>\
+      </g>\
+      </svg>");
+      background-size: 140px 140px;
+      background-repeat: repeat;
+      z-index: 0;
+    }
+
+    /* Utilitários */
+    .container{
+      width: min(100% - 2rem, var(--container));
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      padding: .85rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration:none;
+      transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+      box-shadow: var(--shadow);
+      border: 2px solid transparent;
+      will-change: transform;
+    }
+    .btn:hover{ transform: translateY(-2px); }
+    .btn:active{ transform: translateY(0); }
+    .btn-primary{
+      background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+      color:#fff;
+    }
+    .btn-primary:hover{
+      background: linear-gradient(135deg, #ff8f68, #ff5e2a);
+    }
+    .btn-secondary{
+      background: #ffffff;
+      color: var(--brown-700);
+      border-color: var(--brown-200);
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.35rem .7rem; border-radius:999px; font-size:.85rem;
+      background: #fff; border:1px solid var(--brown-200); color: var(--brown-700);
+    }
+    .section{
+      padding: clamp(3rem, 5vw, 6rem) 0;
+    }
+    h1,h2,h3,h4{
+      font-family: "Baloo 2", cursive;
+      line-height: 1.1;
+      letter-spacing: .2px;
+      color: var(--brown-700);
+      margin: 0 0 .6rem 0;
+    }
+    h1{ font-size: clamp(2rem, 4vw, 3.2rem); }
+    h2{ font-size: clamp(1.6rem, 3.2vw, 2.4rem); }
+    p{ color: var(--text-700); line-height: 1.7; margin: .4rem 0 1rem; }
+
+    /* Navbar */
+    .nav{
+      position: sticky;
+      top:0; z-index: 10;
+      backdrop-filter: saturate(120%) blur(10px);
+      background: color-mix(in oklab, #ffffff 86%, var(--beige) 14%);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .nav-inner{
+      height: 64px; display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:.6rem; font-family:"Baloo 2", cursive;
+      color: var(--brown-700); text-decoration:none; font-size:1.2rem; font-weight:700;
+    }
+    .brand svg{ width:28px; height:28px; }
+    .nav-links{
+      display:flex; gap:.6rem; align-items:center;
+    }
+    .nav-links a{
+      text-decoration:none; color: var(--text-600);
+      padding:.55rem .8rem; border-radius:999px; font-weight:600; font-size:.95rem;
+      transition: background-color .2s ease, color .2s ease, transform .2s ease;
+    }
+    .nav-links a:hover{ background:#fff; color: var(--brown-700); transform: translateY(-1px); }
+    .nav-links a.active{ background: var(--green-400); color:#fff; }
+
+    .menu-toggle{
+      display:none; background:#fff; border:1px solid var(--brown-200);
+      width:42px;height:42px;border-radius:999px; align-items:center; justify-content:center;
+      box-shadow: var(--shadow);
+    }
+    .menu-toggle svg{ width:22px; height:22px; }
+
+    @media (max-width: 900px){
+      .menu-toggle{ display:flex; }
+      .nav-links{
+        position: fixed;
+        top: 72px; right: 1rem; left: 1rem;
+        background: #fff;
+        border: 1px solid var(--brown-200);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        padding: .6rem;
+        flex-wrap: wrap;
+        gap:.2rem;
+        transform: translateY(-8px);
+        opacity: 0; pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease;
+      }
+      .nav-links.open{
+        opacity: 1; pointer-events: auto; transform: translateY(0);
+      }
+      .nav-links a{ flex: 1 1 calc(50% - .4rem); text-align:center; }
+    }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      padding-top: clamp(2rem, 4vw, 3rem);
+      padding-bottom: clamp(2rem, 4vw, 4rem);
+    }
+    .hero-grid{
+      display:grid; gap: 2rem;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+    }
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+    }
+    .hero-title{
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      background: linear-gradient(180deg, var(--brown-700), var(--brown-500));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      margin-bottom: .6rem;
+    }
+    .hero-sub{
+      font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    }
+    .hero-ctas{ display:flex; flex-wrap: wrap; gap:.8rem; margin-top:1rem; }
+
+    .hero-media{
+      position: relative; aspect-ratio: 16 / 11;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background:
+        radial-gradient(1200px 400px at -10% -20%, rgba(255,127,80,.20), rgba(255,127,80,0) 60%),
+        radial-gradient(1200px 400px at 110% 120%, rgba(53,122,189,.18), rgba(53,122,189,0) 50%),
+        linear-gradient(135deg, var(--cream), var(--beige));
+      border: 1px solid rgba(90,62,43,.12);
+    }
+    .hero-media img{
+      width:100%; height:100%; object-fit: cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.02);
+      transform: scale(1.02);
+      transition: transform 1.2s ease;
+    }
+    .hero-media:hover img{ transform: scale(1.06); }
+    .hero-badge{
+      position:absolute; left:1rem; top:1rem;
+    }
+
+    /* Divisores decorativos entre seções */
+    .wave{
+      position:relative; margin-top: -2rem;
+    }
+
+    /* Sobre */
+    .sobre-wrap{
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:2rem; align-items:center;
+    }
+    .sobre-gallery{
+      display:grid; gap:1rem; grid-template-columns: 1fr 1fr;
+    }
+    .sobre-card{
+      border-radius: var(--radius-md);
+      overflow:hidden; box-shadow: var(--shadow); background:#fff;
+      border:1px solid var(--brown-200);
+      position: relative;
+    }
+    .sobre-card img{ width:100%; height:220px; object-fit:cover; display:block; }
+    .sobre-card .tag{
+      position:absolute; top:.6rem; left:.6rem;
+    }
+
+    @media (max-width: 980px){
+      .sobre-wrap{ grid-template-columns: 1fr; }
+      .sobre-card img{ height: 200px; }
+    }
+
+    /* Raças */
+    .grid{
+      display:grid; gap:1rem;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .raca-card{
+      grid-column: span 3;
+      min-height: 100%;
+      border-radius: var(--radius-md);
+      overflow: clip;
+      background:#fff; border:1px solid var(--brown-200);
+      box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .raca-card:hover{ transform: translateY(-4px); box-shadow: 0 14px 34px rgba(0,0,0,.12); }
+    .raca-media{ aspect-ratio: 16/11; overflow:hidden; }
+    .raca-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .raca-body{ padding: .9rem .9rem 1rem; }
+    .raca-body h3{ margin: .2rem 0 .3rem; font-size: 1.15rem; }
+    .raca-meta{ display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.4rem; }
+    .raca-meta .chip{
+      font-size:.8rem; background: var(--cream); border:1px solid var(--brown-200);
+      border-radius: 999px; padding:.25rem .55rem; color: var(--brown-700);
+    }
+
+    @media (max-width: 1200px){
+      .raca-card{ grid-column: span 4; }
+    }
+    @media (max-width: 900px){
+      .raca-card{ grid-column: span 6; }
+    }
+    @media (max-width: 600px){
+      .raca-card{ grid-column: span 12; }
+    }
+
+    /* Cuidados */
+    .tips{
+      display:grid; gap:1rem;
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .tip{
+      grid-column: span 2;
+      background: #fff; border:1px solid var(--brown-200);
+      border-radius: var(--radius-md); padding: 1rem;
+      display:flex; gap:.8rem; align-items:flex-start;
+      box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .tip:hover{ transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.12); }
+    .tip-icon{
+      width:40px; height:40px; border-radius: 12px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--green-400), var(--green-500));
+      color:#fff; flex: 0 0 auto;
+      box-shadow: 0 6px 16px rgba(111,169,106,.35);
+    }
+    .tip h4{ margin:.1rem 0 .2rem; font-size:1.05rem; }
+    .tip p{ margin:0; font-size:.95rem; }
+
+    @media (max-width: 1000px){
+      .tip{ grid-column: span 3; }
+    }
+    @media (max-width: 700px){
+      .tip{ grid-column: span 6; }
+    }
+
+    /* Depoimentos (Carrossel) */
+    .carousel{
+      position:relative;
+      background: #fff; border:1px solid var(--brown-200);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .slides{ display:flex; transition: transform .6s ease; }
+    .slide{
+      min-width: 100%;
+      padding: clamp(1rem, 3vw, 1.6rem);
+      display:grid; grid-template-columns: 80px 1fr; gap:1rem; align-items:center;
+    }
+    .avatar{
+      width:80px; height:80px; border-radius:50%;
+      overflow:hidden; box-shadow: var(--shadow); border: 2px solid #fff;
+    }
+    .avatar img{ width:100%; height:100%; object-fit: cover; display:block; }
+    .quote{
+      font-size:1.05rem; color: var(--text-700);
+    }
+    .author{
+      margin-top:.4rem; color: var(--brown-700); font-weight:700;
+    }
+    .carousel-nav{
+      position:absolute; inset: auto 0 0 0;
+      display:flex; align-items:center; justify-content:center;
+      padding:.6rem; gap:.4rem; background: linear-gradient(180deg, transparent, rgba(0,0,0,.03));
+    }
+    .dot{
+      width:9px; height:9px; border-radius:50%;
+      background: var(--brown-300); opacity:.5; transition: opacity .2s ease, transform .2s ease, background-color .2s ease;
+    }
+    .dot.active{ opacity:1; transform: scale(1.15); background: var(--orange-500); }
+
+    .ctrl{
+      position:absolute; top:50%; transform: translateY(-50%);
+      width:42px; height:42px; border-radius: 999px; display:grid; place-items:center;
+      background:#fff; border:1px solid var(--brown-200); box-shadow: var(--shadow);
+    }
+    .ctrl.left{ left:.6rem; } .ctrl.right{ right:.6rem; }
+    .ctrl svg{ width:20px; height:20px; }
+
+    /* Adoção */
+    .adocao{
+      background: linear-gradient(135deg, rgba(111,169,106,.12), rgba(255,127,80,.10));
+      border:1px solid var(--brown-200);
+      border-radius: var(--radius-lg);
+      padding: clamp(1rem, 3vw, 1.6rem);
+      box-shadow: var(--shadow);
+    }
+    .adocao .cta{ display:flex; gap:.8rem; flex-wrap: wrap; margin-top:.8rem; }
+    .contact{
+      margin-top:.8rem;
+      display:flex; gap:.8rem; flex-wrap:wrap; align-items:center;
+    }
+    .contact a{
+      display:inline-flex; align-items:center; gap:.5rem; text-decoration:none;
+      color: var(--brown-700); background:#fff; border:1px solid var(--brown-200);
+      padding:.55rem .8rem; border-radius:999px; box-shadow: var(--shadow);
+      transition: transform .2s ease, background-color .2s ease;
+    }
+    .contact a:hover{ transform: translateY(-2px); background: var(--cream); }
+
+    /* Rodapé */
+    footer{
+      margin-top: 2rem;
+      background: color-mix(in oklab, var(--beige) 72%, white 28%);
+      border-top: 1px solid rgba(0,0,0,.08);
+      position: relative;
+    }
+    .footer-grid{
+      display:grid; gap:1rem;
+      grid-template-columns: 1.2fr .8fr .8fr .8fr;
+      padding: 2rem 0;
+    }
+    .footer-grid h4{ font-size:1.05rem; margin-bottom:.6rem; }
+    .footer-grid a{
+      display:block; color: var(--text-700); text-decoration:none; margin:.25rem 0;
+    }
+    .socials{ display:flex; gap:.5rem; margin-top:.6rem; }
+    .socials a{
+      width:40px; height:40px; display:grid; place-items:center; border-radius: 999px;
+      background:#fff; border:1px solid var(--brown-200); box-shadow: var(--shadow);
+      color: var(--brown-700);
+      transition: transform .2s ease, background-color .2s ease, color .2s ease;
+    }
+    .socials a:hover{ transform: translateY(-2px); background: var(--orange-500); color:#fff; }
+
+    @media (max-width: 980px){
+      .footer-grid{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px){
+      .footer-grid{ grid-template-columns: 1fr; }
+    }
+    .copyright{
+      padding: .9rem 0; border-top:1px dashed rgba(0,0,0,.08); font-size:.95rem; color: var(--text-600);
+    }
+
+    /* Animações de entrada ao rolar */
+    .reveal{
+      opacity: 0; transform: translateY(14px) scale(.98);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.in-view{
+      opacity: 1; transform: none;
+    }
+
+    /* Respeito ao usuário que prefere menos movimento */
+    @media (prefers-reduced-motion: reduce){
+      .btn, .raca-card, .tip, .slides{ transition: none !important; }
+      .hero-media img{ transition: none !important; }
+      .reveal{ opacity:1; transform:none; }
+      html{ scroll-behavior: auto; }
+    }
+
+    /* Esconde ícones decorativos dos leitores de tela */
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+  </style>
+</head>
+<body>
+  <!-- Sprite de ícones SVG -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-paw" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 14c-2.5 0-5 1.8-5 4s2.5 3 5 3 5-.8 5-3-2.5-4-5-4zM6.5 11A2.5 2.5 0 1 0 6.5 6a2.5 2.5 0 0 0 0 5zm11 0A2.5 2.5 0 1 0 17.5 6a2.5 2.5 0 0 0 0 5zM9 6.5A2.5 2.5 0 1 0 9 1.5 2.5 2.5 0 0 0 9 6.5zm6 0A2.5 2.5 0 1 0 15 1.5 2.5 2.5 0 0 0 15 6.5z"/>
+    </symbol>
+    <symbol id="icon-bone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 9c-1.7 0-3-1.3-3-3s1.3-3 3-3c.6 0 1.1.2 1.6.4C7 3 7.6 3 8.2 3.2L12 7l3.8 3.8c.2.6.2 1.2.8 1.6.2.2.5.3.8.4.5.1 1 .2 1.6.2 1.7 0 3 1.3 3 3s-1.3 3-3 3c-.6 0-1.1-.1-1.6-.3-.3-.1-.6-.2-.8-.4-.6-.4-.6-1-.8-1.6L12 13 8.2 9.2C7.6 9 7 9 6.6 8.6 6.1 8.2 5.6 9 5 9Z"/>
+    </symbol>
+    <symbol id="icon-bowl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 13h18l-2 6H5l-2-6z"/>
+      <path d="M7 9c0 1.7 2 3 5 3s5-1.3 5-3"/>
+    </symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 21s-6.7-4.4-9.2-7C.2 11.4 1 7.5 4 6c2.2-1.1 4.4-.2 5.7 1.1L12 9l2.3-1.9C15.6 5.8 17.8 4.9 20 6c3 1.5 3.8 5.4 1.2 8-2.5 2.6-9.2 7-9.2 7z"/>
+    </symbol>
+    <symbol id="icon-leash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="7" cy="7" r="3"/>
+      <path d="M10 7h7a4 4 0 0 1 0 8h-3M6 10v9a3 3 0 0 0 3 3h1"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8 5v14l11-7-11-7z"/>
+    </symbol>
+    <symbol id="icon-dog" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20 6c-1.5 0-2.3.5-3 .9-1 .6-1.8 1.1-3 .1-1.3-1.1-3-.7-3.8.6-.6.9-1.5 2.9-1.8 4.3-.1.6-.3 1.1-.6 1.5-1 .9-1.8 2.1-1.8 3.6 0 1.7 1.3 3 3 3h6c2.2 0 4-1.8 4-4V6zM7 7a2 2 0 1 1-2.9 2.7A2 2 0 0 1 7 7z"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 6 9 17l-5-5"/>
+    </symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 18l-6-6 6-6"/>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18l6-6-6-6"/>
+    </symbol>
+    <symbol id="icon-whatsapp" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.5 3.5A11.8 11.8 0 0 0 12 1 11 11 0 0 0 1 12a11 11 0 0 0 1.5 5.6L1 23l5.6-1.5A11 11 0 1 0 20.5 3.5zM12 21a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"/>
+      <path d="M16.6 13.6c-.2-.1-1.2-.6-1.3-.7s-.3-.1-.5.1-.6.7-.7.8-.3.1-.5 0a7.2 7.2 0 0 1-2.1-1.3 7.8 7.8 0 0 1-1.4-1.8c-.1-.2 0-.3.1-.5l.4-.5c.1-.2.1-.3 0-.5s-.5-1.1-.7-1.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.7.7-.7 1.8s.8 2.1.9 2.2a8.6 8.6 0 0 0 3.3 3.3c.5.3 1.4.5 1.8.6s1.5.1 2.2-.6.8-1.5.8-1.7-.1-.2-.3-.3z"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 5h18v14H3z"/><path d="M3 7l9 7 9-7"/>
+    </symbol>
+    <symbol id="icon-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/>
+    </symbol>
+    <symbol id="icon-facebook" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M13 22V12h3.5l.5-4H13V6.5c0-1.1.3-1.8 1.8-1.8H17V1.2C16.3 1.1 15.4 1 14.4 1 12 1 10.3 2.5 10.3 5.3V8H7v4h3.3v10h2.7z"/>
+    </symbol>
+    <symbol id="icon-twitter" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23 5.9a8.9 8.9 0 0 1-2.6.7 4.5 4.5 0 0 0 2-2.5 9 9 0 0 1-2.8 1.1A4.5 4.5 0 0 0 12.3 9 12.7 12.7 0 0 1 2 4.9a4.5 4.5 0 0 0 1.4 6A4.4 4.4 0 0 1 1 10v.1a4.5 4.5 0 0 0 3.6 4.4 4.3 4.3 0 0 1-2 .1 4.5 4.5 0 0 0 4.2 3.1 9 9 0 0 1-5.6 1.9c-.4 0-.9 0-1.3-.1A12.7 12.7 0 0 0 8.1 22c8.3 0 12.9-6.9 12.9-12.9v-.6A9 9 0 0 0 23 5.9z"/>
+    </symbol>
+  </svg>
+
+  <!-- Navegação -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#home" class="brand" aria-label="Página inicial Cães & Amigos">
+        <svg aria-hidden="true"><use href="#icon-paw"/></svg> Cães & Amigos
+      </a>
+      <nav aria-label="Principal">
+        <button class="menu-toggle" aria-label="Abrir menu">
+          <svg aria-hidden="true"><use href="#icon-bone"/></svg>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#home">Início</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#racas">Raças</a>
+          <a href="#cuidados">Cuidados</a>
+          <a href="#depoimentos">Depoimentos</a>
+          <a href="#adocao">Adoção</a>
+          <a href="#contato">Contato</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero section">
+    <div class="container hero-grid">
+      <div>
+        <!-- <span class="badge hero-badge"><svg width="16" height="16" aria-hidden="true"><use href="#icon-heart"/></svg> Amor incondicional</span> -->
+        <h1 class="hero-title">Amizade que abana o rabo e aquece o coração</h1>
+        <p class="hero-sub">Cachorros transformam rotinas em aventuras, silenciam a solidão e ensinam lealdade. Aqui, celebramos cada lambida, cada corrida no parque e cada cochilo aos seus pés.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#racas"><svg width="18" height="18" aria-hidden="true"><use href="#icon-dog"/></svg> Conheça as raças</a>
+          <a class="btn btn-secondary" href="#adocao"><svg width="18" height="18" aria-hidden="true"><use href="#icon-check"/></svg> Adote um amigo</a>
+        </div>
+      </div>
+      <figure class="hero-media reveal" aria-labelledby="hero-legend">
+        <!-- Substitua o src abaixo pelo link da sua imagem gerada por IA -->
+        <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=2000&auto=format&fit=crop" alt="Cachorro feliz em um parque ao pôr do sol" />
+        <figcaption id="hero-legend" class="sr-only">Cachorro feliz correndo no gramado do parque, com um degradê suave ao fundo.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" width="100%" height="120" preserveAspectRatio="none">
+      <path d="M0,64 C240,128 480,0 720,32 C960,64 1200,160 1440,64 L1440,160 L0,160 Z" fill="#fff8ee" opacity="0.8"></path>
+    </svg>
+  </div>
+
+  <!-- Sobre os Cachorros -->
+  <section id="sobre" class="section">
+    <div class="container">
+      <span class="badge reveal"><svg width="16" height="16" aria-hidden="true"><use href="#icon-paw"/></svg> Sobre os Cachorros</span>
+      <div class="sobre-wrap">
+        <div class="reveal">
+          <h2>Companheiros de jornada, de sofá e de vida</h2>
+          <p>Desde os primeiros passos até as grandes mudanças, os cachorros caminham ao nosso lado com uma lealdade que dispensa palavras. Eles entendem silêncios, celebram retornos e tornam qualquer casa um lar.</p>
+          <p>Em cada rabo balançando há um convite: brincar agora, amar hoje, viver o presente. E a verdade é que, perto deles, a vida fica mais simples e muito mais bonita.</p>
+        </div>
+        <div class="sobre-gallery">
+          <div class="sobre-card reveal">
+            <span class="badge tag"><svg width="14" height="14" aria-hidden="true"><use href="#icon-bone"/></svg> Brincadeira</span>
+            <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1200&auto=format&fit=crop" alt="Cachorro brincando com um brinquedo em casa" />
+          </div>
+          <div class="sobre-card reveal">
+            <span class="badge tag"><svg width="14" height="14" aria-hidden="true"><use href="#icon-bowl"/></svg> Cuidado</span>
+            <img src="https://images.unsplash.com/photo-1558944351-c5360894aecd?q=80&w=1200&auto=format&fit=crop" alt="Dono oferecendo ração ao cachorro com carinho" />
+          </div>
+          <div class="sobre-card reveal">
+            <span class="badge tag"><svg width="14" height="14" aria-hidden="true"><use href="#icon-leash"/></svg> Passeio</span>
+            <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=1200&auto=format&fit=crop" alt="Passeio com cachorro em uma trilha verde" />
+          </div>
+          <div class="sobre-card reveal">
+            <span class="badge tag"><svg width="14" height="14" aria-hidden="true"><use href="#icon-heart"/></svg> Carinho</span>
+            <img src="https://images.unsplash.com/photo-1525253086316-d0c936c814f8?q=80&w=1200&auto=format&fit=crop" alt="Cachorro recebendo carinho no colo" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Raças -->
+  <section id="racas" class="section">
+    <div class="container">
+      <span class="badge reveal"><svg width="16" height="16" aria-hidden="true"><use href="#icon-dog"/></svg> Raças</span>
+      <h2 class="reveal">Uma coleção de personalidades e jeitos de amar</h2>
+
+      <div class="grid">
+        <!-- Card 1 -->
+        <article class="raca-card reveal">
+          <div class="raca-media">
+            <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1400&auto=format&fit=crop" alt="Golden Retriever em um gramado" />
+          </div>
+          <div class="raca-body">
+            <span class="badge"><svg width="14" height="14" aria-hidden="true"><use href="#icon-heart"/></svg> Família</span>
+            <h3>Golden Retriever</h3>
+            <p>Afetuoso, paciente e fã de brincadeiras ao ar livre. Um coração dourado de verdade.</p>
+            <div class="raca-meta">
+              <span class="chip">Amigável</span>
+              <span class="chip">Treino fácil</span>
+              <span class="chip">Alta energia</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 2 -->
+        <article class="raca-card reveal">
+          <div class="raca-media">
+            <img src="https://images.unsplash.com/photo-1619983081563-430f63602796?q=80&w=1400&auto=format&fit=crop" alt="Border Collie atento em um campo" />
+          </div>
+          <div class="raca-body">
+            <span class="badge"><svg width="14" height="14" aria-hidden="true"><use href="#icon-play"/></svg> Atividade</span>
+            <h3>Border Collie</h3>
+            <p>Inteligente e incansável, adora desafios e aprender comandos novos todos os dias.</p>
+            <div class="raca-meta">
+              <span class="chip">Muito ativo</span>
+              <span class="chip">Obediência</span>
+              <span class="chip">Brincalhão</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 3 -->
+        <article class="raca-card reveal">
+          <div class="raca-media">
+            <img src="https://images.unsplash.com/photo-1525253086316-d0c936c814f8?q=80&w=1400&auto=format&fit=crop" alt="Bulldog francês olhando para a câmera" />
+          </div>
+          <div class="raca-body">
+            <span class="badge"><svg width="14" height="14" aria-hidden="true"><use href="#icon-bowl"/></svg> Aconchego</span>
+            <h3>Bulldog Francês</h3>
+            <p>Companheiro de sofá por excelência: carinhoso, engraçado e ótimo para apartamentos.</p>
+            <div class="raca-meta">
+              <span class="chip">Tranquilo</span>
+              <span class="chip">Afetuoso</span>
+              <span class="chip">Baixa energia</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 4 -->
+        <article class="raca-card reveal">
+          <div class="raca-media">
+            <img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=1400&auto=format&fit=crop" alt="Labrador Retriever brincando" />
+          </div>
+          <div class="raca-body">
+            <span class="badge"><svg width="14" height="14" aria-hidden="true"><use href="#icon-heart"/></svg> Lealdade</span>
+            <h3>Labrador</h3>
+            <p>Parceiro leal e brincalhão, sempre pronto para uma boa aventura e um mergulho.</p>
+            <div class="raca-meta">
+              <span class="chip">Sociável</span>
+              <span class="chip">Família</span>
+              <span class="chip">Energia média</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 5 -->
+        <article class="raca-card reveal">
+          <div class="raca-media">
+            <img src="https://images.unsplash.com/photo-1546173159-315724a31696?q=80&w=1400&auto=format&fit=crop" alt="Shih Tzu deitado em casa" />
+          </div>
+          <div class="raca-body">
+            <span class="badge"><svg width="14" height="14" aria-hidden="true"><use href="#icon-bone"/></svg> Carinho</span>
+            <h3>Shih Tzu</h3>
+            <p>Doce e apegado, adora colo e rotina tranquila — puro charme em quatro patas.</p>
+            <div class="raca-meta">
+              <span class="chip">Carismático</span>
+              <span class="chip">Companheiro</span>
+              <span class="chip">Baixa energia</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 6 -->
+        <article class="raca-card reveal">
+          <div class="raca-media">
+            <img src="https://images.unsplash.com/photo-1556229162-5c63ed9c4efb?q=80&w=1400&auto=format&fit=crop" alt="Vira-lata caramelo sorridente" />
+          </div>
+          <div class="raca-body">
+            <span class="badge"><svg width="14" height="14" aria-hidden="true"><use href="#icon-dog"/></svg> Brasil</span>
+            <h3>Vira-lata Caramelo</h3>
+            <p>Símbolo de amor sem pedigree: amigo fiel, esperto e sempre pronto para te alegrar.</p>
+            <div class="raca-meta">
+              <span class="chip">Resiliente</span>
+              <span class="chip">Carinhoso</span>
+              <span class="chip">Companheiro</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuidados e dicas -->
+  <section id="cuidados" class="section">
+    <div class="container">
+      <span class="badge reveal"><svg width="16" height="16" aria-hidden="true"><use href="#icon-bowl"/></svg> Cuidados & Dicas</span>
+      <h2 class="reveal">Pequenos gestos que viram uma vida inteira de gratidão</h2>
+      <div class="tips">
+        <div class="tip reveal">
+          <div class="tip-icon" aria-hidden="true"><svg width="22" height="22"><use href="#icon-bowl"/></svg></div>
+          <div>
+            <h4>Alimentação equilibrada</h4>
+            <p>Ração de qualidade, água fresca e horários regulares mantêm energia e saúde em dia.</p>
+          </div>
+        </div>
+        <div class="tip reveal">
+          <div class="tip-icon" aria-hidden="true"><svg width="22" height="22"><use href="#icon-leash"/></svg></div>
+          <div>
+            <h4>Passeios diários</h4>
+            <p>Movimento reduz ansiedade, fortalece vínculos e melhora o sono — deles e o seu.</p>
+          </div>
+        </div>
+        <div class="tip reveal">
+          <div class="tip-icon" aria-hidden="true"><svg width="22" height="22"><use href="#icon-play"/></svg></div>
+          <div>
+            <h4>Brincadeiras e estímulos</h4>
+            <p>Brinquedos, cheiros e desafios evitam tédio e incentivam a curiosidade natural.</p>
+          </div>
+        </div>
+        <div class="tip reveal">
+          <div class="tip-icon" aria-hidden="true" style="background:linear-gradient(135deg,var(--blue-500),var(--blue-600))"><svg width="22" height="22"><use href="#icon-check"/></svg></div>
+          <div>
+            <h4>Saúde em dia</h4>
+            <p>Vacinas, vermífugo e check-ups periódicos garantem bem-estar e prevenção.</p>
+          </div>
+        </div>
+        <div class="tip reveal">
+          <div class="tip-icon" aria-hidden="true" style="background:linear-gradient(135deg,var(--orange-500),var(--orange-600))"><svg width="22" height="22"><use href="#icon-bone"/></svg></div>
+          <div>
+            <h4>Treino com carinho</h4>
+            <p>Reforço positivo e paciência criam confiança e tornam a casa mais harmoniosa.</p>
+          </div>
+        </div>
+        <div class="tip reveal">
+          <div class="tip-icon" aria-hidden="true"><svg width="22" height="22"><use href="#icon-heart"/></svg></div>
+          <div>
+            <h4>Socialização</h4>
+            <p>Contato com pessoas e outros cães desde cedo evita medos e comportamentos reativos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Depoimentos -->
+  <section id="depoimentos" class="section">
+    <div class="container">
+      <span class="badge reveal"><svg width="16" height="16" aria-hidden="true"><use href="#icon-heart"/></svg> Depoimentos</span>
+      <h2 class="reveal">Histórias de quem encontrou um amor de quatro patas</h2>
+
+      <div class="carousel reveal" aria-roledescription="carousel">
+        <button class="ctrl left" aria-label="Depoimento anterior"><svg aria-hidden="true"><use href="#icon-arrow-left"/></svg></button>
+        <button class="ctrl right" aria-label="Próximo depoimento"><svg aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+        <div class="slides">
+          <figure class="slide" aria-label="Depoimento 1">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop" alt="Foto da Ana" /></div>
+            <blockquote>
+              <p class="quote">A Nina chegou quando eu mais precisava. Hoje, cada passeio é um respiro e cada abraço é cura.</p>
+              <figcaption class="author">Ana • Piracicaba/SP</figcaption>
+            </blockquote>
+          </figure>
+          <figure class="slide" aria-label="Depoimento 2">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=400&auto=format&fit=crop" alt="Foto do João" /></div>
+            <blockquote>
+              <p class="quote">O Thor me ensinou a viver o agora. Ele não julga, só ama — com toda a força de um rabo abanando.</p>
+              <figcaption class="author">João • São Paulo/SP</figcaption>
+            </blockquote>
+          </figure>
+          <figure class="slide" aria-label="Depoimento 3">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&auto=format&fit=crop" alt="Foto da Luiza" /></div>
+            <blockquote>
+              <p class="quote">Adotar a Bel foi como abrir a janela num dia de chuva. A casa ficou mais leve, e eu também.</p>
+              <figcaption class="author">Luiza • Campinas/SP</figcaption>
+            </blockquote>
+          </figure>
+        </div>
+        <div class="carousel-nav" aria-label="Indicadores do carrossel">
+          <div class="dot" role="button" aria-label="Ir para depoimento 1" tabindex="0"></div>
+          <div class="dot" role="button" aria-label="Ir para depoimento 2" tabindex="0"></div>
+          <div class="dot" role="button" aria-label="Ir para depoimento 3" tabindex="0"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Adoção -->
+  <section id="adocao" class="section">
+    <div class="container adocao reveal">
+      <span class="badge"><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"/></svg> Adoção Responsável</span>
+      <h2>Pronto para encontrar seu melhor amigo?</h2>
+      <p>Adotar é um ato de amor e compromisso. Antes de decidir, pense na rotina, no espaço e no tempo que você pode oferecer. Em troca, você ganha companhia, risadas e um carinho que não tem fim.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#contato"><svg width="18" height="18" aria-hidden="true"><use href="#icon-dog"/></svg> Quero adotar</a>
+        <a class="btn btn-secondary" href="#contato"><svg width="18" height="18" aria-hidden="true"><use href="#icon-heart"/></svg> Quero ajudar/doar</a>
+      </div>
+      <div class="contact" id="contato">
+        <a href="https://wa.me/5500000000000" target="_blank" rel="noopener">
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-whatsapp"/></svg> WhatsApp
+        </a>
+        <a href="mailto:contato@caeseamigos.org">
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-mail"/></svg> contato@caeseamigos.org
+        </a>
+        <a href="#adocao">
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-check"/></svg> Guia de adoção (PDF)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer id="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#home" class="brand"><svg aria-hidden="true"><use href="#icon-paw"/></svg> Cães & Amigos</a>
+        <p>Celebramos a amizade e a lealdade dos cachorros com informação, acolhimento e muito amor.</p>
+        <div class="socials" aria-label="Redes sociais">
+          <a href="#" aria-label="Instagram"><svg width="18" height="18" aria-hidden="true"><use href="#icon-instagram"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="18" height="18" aria-hidden="true"><use href="#icon-facebook"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg width="18" height="18" aria-hidden="true"><use href="#icon-twitter"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Seções</h4>
+        <a href="#sobre">Sobre</a>
+        <a href="#racas">Raças</a>
+        <a href="#cuidados">Cuidados</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#adocao">Adoção</a>
+      </div>
+      <div>
+        <h4>Recursos</h4>
+        <a href="#">Guia de alimentação</a>
+        <a href="#">Treino positivo</a>
+        <a href="#">Checklist de adoção</a>
+        <a href="#">Bem-estar e saúde</a>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <a href="mailto:contato@caeseamigos.org">contato@caeseamigos.org</a>
+        <a href="tel:+5500000000000">+55 (00) 0000-0000</a>
+        <a href="#home">Piracicaba • SP</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      © <span id="year"></span> Cães & Amigos — Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    // Ano dinâmico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu mobile
+    const toggle = document.querySelector('.menu-toggle');
+    const links = document.getElementById('nav-links');
+    toggle?.addEventListener('click', () => {
+      links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', links.classList.contains('open'));
+    });
+    // Fechar ao clicar num link em telas pequenas
+    links?.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => links.classList.remove('open'));
+    });
+
+    // Destaque de seção ativa no menu
+    const navMap = {};
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      const id = a.getAttribute('href');
+      if(id && id.startsWith('#')) navMap[id] = a;
+    });
+    const obsActive = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = '#' + entry.target.id;
+        const link = navMap[id];
+        if(!link) return;
+        if(entry.isIntersecting){
+          document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('section[id]').forEach(sec => obsActive.observe(sec));
+
+    // Animações de entrada ao rolar
+    const revealEls = document.querySelectorAll('.reveal');
+    const obsReveal = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    revealEls.forEach(el => obsReveal.observe(el));
+
+    // Carrossel simples
+    const carousel = document.querySelector('.carousel');
+    const slides = carousel?.querySelector('.slides');
+    const slideEls = carousel?.querySelectorAll('.slide') || [];
+    const dots = carousel?.querySelectorAll('.dot') || [];
+    const prev = carousel?.querySelector('.ctrl.left');
+    const next = carousel?.querySelector('.ctrl.right');
+    let index = 0, timer;
+
+    function goTo(i){
+      if(!slides) return;
+      index = (i + slideEls.length) % slideEls.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d, di) => d.classList.toggle('active', di === index));
+    }
+    function auto(){
+      clearInterval(timer);
+      timer = setInterval(() => goTo(index + 1), 5000);
+    }
+    prev?.addEventListener('click', () => { goTo(index - 1); auto(); });
+    next?.addEventListener('click', () => { goTo(index + 1); auto(); });
+    dots.forEach((d, di) => {
+      d.addEventListener('click', () => { goTo(di); auto(); });
+      d.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(di); auto(); }});
+    });
+    if(slideEls.length){ goTo(0); auto(); }
+
+    // Suaviza ancoragem considerando header fixo
+    function offsetScroll(e){
+      if(this.hash){
+        const el = document.querySelector(this.hash);
+        if(el){
+          e.preventDefault();
+          const rect = el.getBoundingClientRect().top + window.scrollY;
+          const offset = 70; // altura aproximada do header
+          window.scrollTo({ top: rect - offset, behavior: 'smooth' });
+          history.pushState(null, '', this.hash);
+        }
+      }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', offsetScroll));
+  </script>
+</body>
+</html>

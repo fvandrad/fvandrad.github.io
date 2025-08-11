@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="description" content="Página contemporânea e responsiva do Ursinho Pooh — estilo futurista suave, cores de mel e animações elegantes." />
+  <title>Ursinho Pooh — Futurista Suave</title>
+
+  <!-- Tipografia: Baloo 2 (texto e títulos) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================
+       Variáveis & Reset
+       ========================= */
+    :root {
+      /* Paleta inspirada no Pooh com degradês modernos */
+      --gold: #f4c430;          /* amarelo dourado */
+      --honey: #e79a3f;         /* mel caramelo */
+      --amber: #ffb347;         /* laranja suave */
+      --peach: #ffd4a3;         /* pêssego pastel */
+      --mint: #d6f4e6;          /* menta pastel */
+      --lilac: #e9d8fd;         /* lilás pastel */
+      --white: #ffffff;
+      --gray-25: #fbfbfe;
+      --gray-50: #f7f7f9;
+      --gray-100: #eef0f5;
+      --gray-300: #cfd6e4;
+      --gray-500: #7a8599;
+      --gray-700: #2f3747;
+      --gray-900: #121722;
+
+      /* Fundo e texto (claro) */
+      --bg: var(--gray-25);
+      --elev: var(--white);
+      --text: #28313f;
+      --muted: var(--gray-500);
+      --line: rgba(40, 49, 63, 0.08);
+
+      /* Gradientes suaves */
+      --grad-honey: linear-gradient(135deg, var(--gold), var(--honey), var(--amber));
+      --grad-soft: radial-gradient(1200px 600px at 20% -10%, rgba(255, 204, 128, .35), transparent 60%),
+                   radial-gradient(900px 600px at 90% 10%, rgba(234, 179, 8, .25), transparent 60%),
+                   radial-gradient(700px 500px at 50% 110%, rgba(253, 230, 138, .35), transparent 70%);
+
+      /* Tipos */
+      --font-text: 'Baloo 2', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      --font-title: 'Baloo 2', system-ui, sans-serif;
+
+      /* Raio & sombra */
+      --r-sm: 12px;
+      --r-md: 18px;
+      --r-lg: 28px;
+      --r-xl: 36px;
+      --shadow-soft: 0 10px 30px rgba(16, 18, 27, .06);
+      --shadow-glow: 0 10px 40px rgba(247, 181, 0, .25);
+
+      /* Ritmo tipográfico */
+      --h1: clamp(2rem, 1.2rem + 4vw, 4rem);
+      --h2: clamp(1.4rem, 1rem + 2.5vw, 2.6rem);
+      --h3: clamp(1.2rem, 0.9rem + 1.5vw, 1.6rem);
+      --lead: clamp(1rem, 0.9rem + 0.8vw, 1.25rem);
+
+      /* Espaços */
+      --space-1: 8px;
+      --space-2: 12px;
+      --space-3: 16px;
+      --space-4: 24px;
+      --space-5: 32px;
+      --space-6: 48px;
+      --space-7: 72px;
+
+      /* Estado interativo */
+      --accent: var(--gold);
+      --accent-2: #ffd27f;
+
+      /* Dark mode tokens (aplicados via [data-theme="dark"]) */
+      --bg-dark: #0e1218;
+      --elev-dark: #121722;
+      --text-dark: #e6e8ef;
+      --muted-dark: #9aa4b2;
+      --line-dark: rgba(230, 232, 239, 0.08);
+      --grad-soft-dark: radial-gradient(1200px 600px at 20% -10%, rgba(245, 158, 11, .28), transparent 60%),
+                        radial-gradient(900px 600px at 90% 10%, rgba(234, 179, 8, .22), transparent 60%),
+                        radial-gradient(700px 500px at 50% 110%, rgba(253, 230, 138, .22), transparent 70%);
+    }
+
+    /* Dark mode */
+    [data-theme="dark"] {
+      --bg: var(--bg-dark);
+      --elev: var(--elev-dark);
+      --text: var(--text-dark);
+      --muted: var(--muted-dark);
+      --line: var(--line-dark);
+      --grad-soft: var(--grad-soft-dark);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-text);
+      color: var(--text);
+      background: var(--bg);
+      background-image: var(--grad-soft);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    p { margin: 0 0 var(--space-3) 0; }
+    section { scroll-margin-top: 96px; }
+
+    /* =========================
+       Navegação fixa
+       ========================= */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(10px);
+      background: linear-gradient(to bottom, rgba(255,255,255,.65), rgba(255,255,255,.3));
+      border-bottom: 1px solid var(--line);
+    }
+    [data-theme="dark"] .nav {
+      background: linear-gradient(to bottom, rgba(18,23,34,.65), rgba(18,23,34,.3));
+    }
+    .nav__inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-3);
+      padding: 12px 20px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-title);
+      letter-spacing: .5px;
+    }
+    .brand__logo {
+      width: 38px; height: 38px; border-radius: 12px;
+      background: linear-gradient(135deg, #fff, #fff0) padding-box,
+                  linear-gradient(135deg, var(--gold), var(--amber)) border-box;
+      border: 2px solid transparent;
+      display: grid; place-items: center;
+      box-shadow: var(--shadow-soft);
+    }
+    .brand__text {
+      font-weight: 700; font-size: 1.1rem;
+      display: flex; align-items: baseline; gap: 6px;
+    }
+    .brand__text span {
+      background: var(--grad-honey);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      text-shadow: 0 1px 0 rgba(0,0,0,.08);
+    }
+
+    .menu {
+      display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+    }
+    .menu a {
+      padding: 8px 10px; border-radius: 10px; color: var(--muted);
+      font-weight: 600; font-size: .95rem;
+      transition: color .2s ease, background .2s ease;
+    }
+    .menu a:hover { color: var(--text); background: rgba(247, 181, 0, .08); }
+    /* Estilo para o link ativo (scroll spy) */
+    .menu a.active {
+      color: var(--text);
+      background: rgba(247, 181, 0, .15);
+      box-shadow: inset 0 0 0 1px rgba(247, 181, 0, .3);
+    }
+
+    .nav__right { display: flex; align-items: center; gap: 10px; }
+    .btn-theme {
+      appearance: none; border: 0; border-radius: 12px; cursor: pointer;
+      padding: 8px 12px; background: var(--elev);
+      display: inline-flex; align-items: center; gap: 8px; color: var(--text);
+      box-shadow: var(--shadow-soft);
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .btn-theme:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(0,0,0,.08); }
+
+    .hamb {
+      display: none; padding: 8px 10px; border-radius: 12px;
+      background: var(--elev); border: 1px solid var(--line); cursor: pointer;
+    }
+    .hamb span {
+      display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; border-radius: 4px; transition: .2s;
+    }
+
+    @media (max-width: 980px) {
+      .menu { display: none; position: absolute; left: 10px; right: 10px; top: 64px;
+        background: var(--elev); border: 1px solid var(--line); border-radius: 14px; padding: 10px;
+        box-shadow: var(--shadow-soft);
+      }
+      .menu.open { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+      .menu a { background: transparent; }
+      .hamb { display: inline-block; }
+    }
+
+    /* =========================
+       Hero com degradê animado
+       ========================= */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: clamp(48px, 8vw, 96px) 20px;
+      background:
+        radial-gradient(600px 300px at 10% 0%, rgba(255, 245, 235, .65), transparent 70%),
+        radial-gradient(900px 600px at 100% 0%, rgba(255, 215, 128, .35), transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, .2), rgba(255,255,255,0));
+    }
+    [data-theme="dark"] .hero {
+      background:
+        radial-gradient(600px 300px at 10% 0%, rgba(255, 184, 77, .18), transparent 70%),
+        radial-gradient(900px 600px at 100% 0%, rgba(245, 158, 11, .16), transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255,255,255,0));
+    }
+    .hero__grid {
+      max-width: 1200px; margin: 0 auto; display: grid; align-items: center;
+      grid-template-columns: 1.1fr 1fr; gap: var(--space-6);
+    }
+    @media (max-width: 980px) {
+      .hero__grid { grid-template-columns: 1fr; gap: var(--space-5); }
+    }
+    .hero__title {
+      font-family: var(--font-title);
+      font-size: var(--h1);
+      line-height: 1.05;
+      margin: 0 0 var(--space-3) 0;
+      letter-spacing: .6px;
+      background: linear-gradient(180deg, var(--text) 60%, rgba(40,49,63,.8));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero__lead {
+      font-size: var(--lead);
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .hero__cta {
+      display: flex; gap: 12px; align-items: center; margin-top: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .btn {
+      appearance: none; border: 0; border-radius: 14px; padding: 12px 18px; font-weight: 700; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 10px; transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn--primary {
+      color: #221a00; background: var(--grad-honey); box-shadow: var(--shadow-glow);
+    }
+    .btn--primary:hover { transform: translateY(-2px); }
+    .btn--ghost {
+      color: var(--text); background: rgba(247, 181, 0, .12); border: 1px solid rgba(247, 181, 0, .38);
+    }
+    .btn--ghost:hover { background: rgba(247, 181, 0, .2); }
+
+    .hero__art {
+      position: relative; min-height: 380px;
+      display: grid; place-items: center;
+    }
+    .glasmorph {
+      position: relative;
+      width: min(520px, 90vw); aspect-ratio: 1/1;
+      border-radius: 36px;
+      background: linear-gradient(145deg, rgba(255,255,255,.5), rgba(255,255,255,.08));
+      border: 1px solid rgba(255,255,255,.45);
+      box-shadow: 0 30px 80px rgba(247, 181, 0, .12), inset 0 0 0 1px rgba(255,255,255,.2);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    [data-theme="dark"] .glasmorph {
+      background: linear-gradient(145deg, rgba(18,23,34,.6), rgba(18,23,34,.25));
+      border-color: rgba(255,255,255,.05);
+    }
+    .glasmorph::before {
+      content: ""; position: absolute; inset: -20%;
+      background: radial-gradient(600px 300px at 30% 10%, rgba(255, 210, 128, .45), transparent 60%),
+                  radial-gradient(600px 300px at 90% 70%, rgba(255, 238, 170, .35), transparent 70%),
+                  radial-gradient(400px 300px at 10% 80%, rgba(255, 182, 100, .28), transparent 70%);
+      animation: glowShift 16s linear infinite;
+    }
+    @keyframes glowShift {
+      0% { transform: translate3d(0,0,0) rotate(0deg) scale(1); }
+      50% { transform: translate3d(2%, -2%, 0) rotate(10deg) scale(1.02); }
+      100% { transform: translate3d(0,0,0) rotate(0deg) scale(1); }
+    }
+
+    .hero-image {
+      position: relative; z-index: 1;
+      width: 84%; height: 84%; margin: auto;
+      border-radius: 28px;
+      object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+    }
+    .parallax { will-change: transform; }
+
+    /* =========================
+       Seções comuns
+       ========================= */
+    .container { max-width: 1200px; margin: 0 auto; padding: var(--space-6) 20px; }
+    .section__head {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: var(--space-4);
+    }
+    .section__title {
+      font-family: var(--font-title);
+      font-size: var(--h2);
+      letter-spacing: .6px;
+    }
+    .section__muted { color: var(--muted); }
+
+    .card {
+      background: var(--elev);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    /* =========================
+       Sobre o Pooh
+       ========================= */
+    .about {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-5); align-items: center;
+    }
+    @media (max-width: 980px) { .about { grid-template-columns: 1fr; } }
+    .about__img {
+      position: relative; border-radius: var(--r-lg); overflow: hidden;
+      min-height: 320px;
+      border: 1px solid var(--line);
+    }
+    .about__img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* =========================
+       Galeria de Aventuras
+       ========================= */
+    .gallery {
+      display: grid; gap: 14px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .gallery figure {
+      margin: 0; border-radius: 18px; overflow: hidden; position: relative; height: 220px;
+      background: var(--gray-100);
+      border: 1px solid var(--line);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      will-change: transform;
+    }
+    .gallery figure:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,.08); border-color: rgba(247, 181, 0, .35); }
+    .gallery img {
+        width: 100%; height: 100%; object-fit: cover;
+    }
+    .gallery figcaption {
+      position: absolute; bottom: 10px; left: 10px; right: 10px;
+      background: rgba(255,255,255,.75); color: #3a2a00; font-weight: 700;
+      padding: 8px 10px; border-radius: 10px; display: inline-flex;
+      align-items: center; gap: 8px; width: max-content;
+      box-shadow: var(--shadow-soft);
+    }
+    [data-theme="dark"] .gallery figcaption { background: rgba(18,23,34,.6); color: var(--text); }
+    /* Responsividade da grade */
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+    .col-8 { grid-column: span 8; }
+    .col-12 { grid-column: 1 / -1; }
+    @media (max-width: 980px) {
+      .col-8, .col-6, .col-4 { grid-column: 1 / -1; }
+      .gallery figure { height: 200px; }
+    }
+
+    /* =========================
+       Amigos — cartões (REESTILIZADO)
+       ========================= */
+    .friends {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .friend-card {
+      background: var(--elev);
+      border: 1px solid var(--line);
+      border-radius: var(--r-xl);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .friend-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(0,0,0,.1);
+    }
+
+    .friend-card__art {
+      width: 180px; height: 180px;
+      border-radius: var(--r-lg);
+      margin-bottom: 20px;
+      overflow: hidden;
+      background: var(--gray-100);
+      border: 2px solid var(--gold);
+      box-shadow: 0 8px 24px rgba(244, 196, 48, .15);
+    }
+    .friend-card__art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .3s ease;
+    }
+    .friend-card:hover .friend-card__art img {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    .friend-card__title {
+      font-family: var(--font-title);
+      font-size: var(--h3);
+      margin: 0 0 8px 0;
+      color: var(--amber);
+    }
+    .friend-card__description {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 30ch;
+      margin: 0;
+    }
+
+    /* =========================
+       Curiosidades — blocos expansíveis
+       ========================= */
+    .facts { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+    .fact {
+      grid-column: span 6; border-radius: 16px;
+      background: var(--elev); border: 1px solid var(--line);
+      padding: 14px 16px; cursor: pointer;
+      transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease;
+      will-change: transform;
+    }
+    .fact:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); border-color: var(--amber); }
+    .fact__head {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px;
+    }
+    .fact__title { font-size: 1.1rem; font-weight: 700; margin: 0; }
+    .fact__toggle {
+      width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--gray-100); color: var(--text);
+      transition: transform .3s ease;
+    }
+    .fact[aria-expanded="true"] .fact__toggle { transform: rotate(45deg); }
+    .fact__content {
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s ease-out, padding .4s ease-out;
+      padding: 0;
+      color: var(--muted);
+      border-top: 1px solid transparent;
+      margin-top: 0;
+    }
+    .fact[aria-expanded="true"] .fact__content {
+      max-height: 200px; /* Valor arbitrário maior que o conteúdo */
+      padding-top: 14px;
+      margin-top: 14px;
+      border-color: var(--line);
+    }
+    @media (max-width: 980px) { .facts .fact { grid-column: 1 / -1; } }
+
+    /* =========================
+       Formulário de contato
+       ========================= */
+    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
+    .form { display: grid; gap: 14px; padding: 20px; }
+    .form__group { display: grid; gap: 6px; }
+    .form__label { font-weight: 600; color: var(--muted); }
+    .form__input, .form__textarea {
+      width: 100%; padding: 12px 14px; border-radius: 10px;
+      background: var(--elev); border: 1px solid var(--line);
+      color: var(--text); font-family: var(--font-text);
+      transition: box-shadow .2s ease, border-color .2s ease;
+    }
+    .form__input:focus, .form__textarea:focus {
+      outline: none; border-color: var(--gold);
+      box-shadow: 0 0 0 2px rgba(244, 196, 48, .2);
+    }
+    .form__textarea { min-height: 120px; resize: vertical; }
+
+    .toast {
+      position: fixed; bottom: 20px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #222; color: #fff; padding: 12px 24px; border-radius: 12px;
+      font-weight: 600; opacity: 0; visibility: hidden;
+      transition: opacity .3s ease, transform .3s ease, visibility .3s ease;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    }
+    .toast.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+    @media (max-width: 980px) { .contact { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .toast { bottom: 10px; left: 10px; transform: translateX(0) translateY(100px); }
+    .toast.show { transform: translateX(0) translateY(0); } }
+
+    /* =========================
+       Rodapé
+       ========================= */
+    .footer {
+      padding: var(--space-5) 20px;
+      background: var(--elev);
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+  </style>
+
+  <!-- Para ícones SVG inline -->
+  <script>
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+
+    const icons = {
+      sun: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>`,
+      moon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon"><path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`,
+      plus: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>`
+    };
+  </script>
+
+</head>
+<body>
+
+  <!-- Navegação -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="brand">
+        <div class="brand__logo">
+          <img src="https://placehold.co/24x24/f4c430/ffffff?text=P" alt="Logo do Ursinho Pooh" />
+        </div>
+        <div class="brand__text">Ursinho <span>Pooh</span></div>
+      </a>
+      <!-- Menu de navegação atualizado -->
+      <div id="menu" class="menu">
+        <a href="#hero">Home</a>
+        <a href="#about">Sobre</a>
+        <a href="#gallery">Aventuras</a>        
+        <a href="#friends">Amigos</a>
+        <a href="#facts">Curiosidades</a>
+        <a href="#contact">Contato</a>
+      </div>
+      <div class="nav__right">
+        <button id="themeToggle" class="btn-theme">
+          <span id="themeIcon"></span>
+          <span id="themeText">Claro</span>
+        </button>
+        <button id="hamb" class="hamb" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Seção Hero -->
+    <section id="hero" class="hero">
+      <div class="hero__grid">
+        <div class="hero__content">
+          <h1 class="hero__title">
+            O Ursinho Pooh, reimagined for a new era.
+          </h1>
+          <p class="hero__lead">
+            Explore a Hundred Acre Wood como você nunca viu antes. Combinando a magia clássica com um toque futurista suave.
+          </p>
+          <div class="hero__cta">
+            <a href="#about" class="btn btn--primary">
+              Descubra mais
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="#gallery" class="btn btn--ghost">
+              Ver a galeria
+            </a>
+          </div>
+        </div>
+        <div class="hero__art" id="heroArt">
+          <!-- Arte interativa e animada -->
+          <div class="glasmorph parallax" data-speed="2.5">
+            <div id="heroImageContainer">
+              <!-- A imagem do herói será injetada aqui via JavaScript -->
+            </div>
+          </div>
+          <img class="parallax" data-speed="1.2" style="position: absolute; width: 60%; transform: rotate(-12deg); z-index: 10; top: 10%; right: 10%;" src="https://placehold.co/300x300/e79a3f/ffffff?text=Mel" alt="Um pote de mel" />
+          <img class="parallax" data-speed="3.0" style="position: absolute; width: 40%; bottom: 0; left: 0; z-index: 10; transform: rotate(8deg);" src="https://placehold.co/200x200/ffd4a3/2f3747?text=Abelha" alt="Uma abelha" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="about" class="container">
+      <div class="section__head">
+        <h2 class="section__title">Pooh em uma nova luz</h2>
+      </div>
+      <div class="about">
+        <div class="about__content">
+          <p class="section__lead">
+            Inspirados pela magia original, reimaginamos o Ursinho Pooh e seus amigos com um visual contemporâneo. A essência de amizade e aventura permanece, mas a estética é elevada com um design elegante e toques futuristas.
+          </p>
+          <p>
+            Da clareza do Hundred Acre Wood a paisagens digitais, a jornada do Pooh é um testamento à exploração e à imaginação. Cada detalhe, desde as cores de mel até as texturas suaves, foi cuidadosamente considerado para criar uma experiência visual única.
+          </p>
+        </div>
+        <div id="aboutImageContainer" class="about__img">
+          <!-- A imagem da seção "Sobre" será injetada aqui via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeria de Aventuras -->
+    <section id="gallery" class="container">
+      <div class="section__head">
+        <h2 class="section__title">Galeria de Aventuras</h2>
+      </div>
+      <div id="galleryContainer" class="gallery">
+        <!-- As figuras da galeria serão injetadas aqui via JavaScript -->
+      </div>
+    </section>
+
+    <!-- Seção de Amigos -->
+    <section id="friends" class="container">
+      <div class="section__head">
+        <h2 class="section__title">Amigos do Pooh</h2>
+      </div>
+      <div id="friendsContainer" class="friends">
+        <!-- Os cartões de amigos serão injetados aqui via JavaScript -->
+      </div>
+    </section>
+
+    <!-- Seção de Curiosidades -->
+    <section id="facts" class="container">
+      <div class="section__head">
+        <h2 class="section__title">Curiosidades do Bosque dos Cem Acres</h2>
+      </div>
+      <div class="facts">
+        <div class="fact" aria-expanded="false">
+          <div class="fact__head">
+            <h3 class="fact__title">O primeiro livro foi publicado em...</h3>
+            <div class="fact__toggle" id="factToggle1"></div>
+          </div>
+          <div class="fact__content">
+            <p>O primeiro livro do Ursinho Pooh, "Winnie-the-Pooh", foi publicado em 1926. Ele foi um sucesso instantâneo e deu início a uma das franquias mais amadas do mundo.</p>
+          </div>
+        </div>
+        <div class="fact" aria-expanded="false">
+          <div class="fact__head">
+            <h3 class="fact__title">A inspiração para o Bosque</h3>
+            <div class="fact__toggle" id="factToggle2"></div>
+          </div>
+          <div class="fact__content">
+            <p>O Bosque dos Cem Acres foi inspirado na Floresta de Ashdown, em East Sussex, na Inglaterra. O autor A. A. Milne tinha uma casa de campo lá e frequentemente visitava a floresta com seu filho, Christopher Robin.</p>
+          </div>
+        </div>
+        <div class="fact" aria-expanded="false">
+          <div class="fact__head">
+            <h3 class="fact__title">Tigrão era um personagem novo</h3>
+            <div class="fact__toggle" id="factToggle3"></div>
+          </div>
+          <div class="fact__content">
+            <p>Apesar de ser um dos personagens mais famosos, Tigrão não estava no primeiro livro. Ele foi introduzido em "The House at Pooh Corner", em 1928.</p>
+          </div>
+        </div>
+        <div class="fact" aria-expanded="false">
+          <div class="fact__head">
+            <h3 class="fact__title">O nome "Pooh"</h3>
+            <div class="fact__toggle" id="factToggle4"></div>
+          </div>
+          <div class="fact__content">
+            <p>O nome "Pooh" veio de um cisne que o filho de A. A. Milne, Christopher Robin, tinha. Ele o chamava de "Pooh" porque ele "voava mas não voava".</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário de Contato -->
+    <section id="contact" class="container">
+      <div class="section__head">
+        <h2 class="section__title">Entre em Contato</h2>
+      </div>
+      <div class="contact">
+        <div class="card">
+          <form id="contactForm" class="form">
+            <div class="form__group">
+              <label class="form__label" for="name">Nome completo</label>
+              <input class="form__input" type="text" id="name" name="name" placeholder="Ursinho Pooh" required>
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="email">Endereço de e-mail</label>
+              <input class="form__input" type="email" id="email" name="email" placeholder="pooh@100acre.com" required>
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="message">Sua mensagem</label>
+              <textarea class="form__textarea" id="message" name="message" placeholder="Olá, gostaria de saber mais sobre as aventuras de Tigrão!" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary">
+              Enviar mensagem
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4 20-7z"/><path d="M15 15l-6 6"/></svg>
+            </button>
+          </form>
+        </div>
+        <div class="card">
+          <div style="padding: 20px;">
+            <p class="section__lead">
+              Seja para falar sobre mel, compartilhar uma aventura ou apenas dizer olá, o Bosque dos Cem Acres está sempre aberto.
+            </p>
+            <p class="section__muted">
+              Preencha o formulário para enviar uma mensagem. Responderemos assim que possível.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite">
+      Mensagem enviada!
+    </div>
+
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <p>O design desta página é um tributo feito por um fã. O Ursinho Pooh e seus personagens são marcas registradas da Disney.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- Seletor de Tema Claro/Escuro ---
+      const themeToggle = $('#themeToggle');
+      const themeIcon = $('#themeIcon');
+      const themeText = $('#themeText');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+      // Define o tema com base no que está salvo no localStorage ou na preferência do sistema
+      const setTheme = (theme) => {
+        document.body.dataset.theme = theme;
+        if (theme === 'dark') {
+          themeIcon.innerHTML = icons.sun;
+          themeText.textContent = 'Claro';
+        } else {
+          themeIcon.innerHTML = icons.moon;
+          themeText.textContent = 'Escuro';
+        }
+        localStorage.setItem('theme', theme);
+      }
+
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else {
+        setTheme(prefersDark.matches ? 'dark' : 'light');
+      }
+
+      // Escuta a mudança de preferência do sistema
+      prefersDark.addEventListener('change', e => {
+        setTheme(e.matches ? 'dark' : 'light');
+      });
+
+      // Adiciona o evento de clique para alternar o tema manualmente
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.body.dataset.theme;
+        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+
+
+      // --- Parallax (Scroll) ---
+      // Apenas a seção 'hero' usa este efeito de scroll
+      const parallaxElements = $$('#heroArt .parallax');
+      const onScroll = () => {
+        const y = window.scrollY;
+        parallaxElements.forEach(el => {
+          const speed = parseFloat(el.dataset.speed);
+          el.style.transform = `translateY(${y * speed * 0.25}px)`;
+        });
+      };
+      // Usa debounce para otimizar o evento de scroll
+      const debounce = (func, delay) => {
+        let timeout;
+        return function(...args) {
+          const context = this;
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(context, args), delay);
+        };
+      };
+      document.addEventListener('scroll', debounce(onScroll, 10), { passive: true });
+
+
+      // --- Parallax (Mouse Hover na seção Hero) ---
+      const heroArt = $('#heroArt');
+      if (heroArt) {
+        heroArt.addEventListener('mousemove', e => {
+          const { x, y, width, height } = heroArt.getBoundingClientRect();
+          const centerX = x + width / 2;
+          const centerY = y + height / 2;
+          const offsetX = (e.clientX - centerX) / width;
+          const offsetY = (e.clientY - centerY) / height;
+
+          $$('.hero__art .parallax').forEach(el => {
+            const speed = parseFloat(el.dataset.speed);
+            const moveX = offsetX * speed * 20; // 20 é um multiplicador de força
+            const moveY = offsetY * speed * 20;
+            el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+          });
+        });
+
+        // Reseta a transformação quando o mouse sai
+        heroArt.addEventListener('mouseleave', () => {
+          $$('.hero__art .parallax').forEach(el => {
+            el.style.transform = `translate(0, 0)`;
+          });
+        });
+      }
+
+
+      // --- Fatos Interativos (Expandir/Colapsar) ---
+      $$('.fact').forEach(fact => {
+        const toggle = () => {
+          const expanded = fact.getAttribute('aria-expanded') === 'true';
+          fact.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        };
+        const toggleIcon = fact.querySelector('.fact__toggle');
+        if (toggleIcon) {
+          toggleIcon.innerHTML = icons.plus;
+        }
+        fact.addEventListener('click', toggle);
+        fact.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+      });
+
+
+      // --- Formulário de Contato (Mock) ---
+      const form = $('#contactForm');
+      const toast = $('#toast');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        // Verifica a validade do formulário antes de "enviar"
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        // Simula o envio de sucesso
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2400);
+        form.reset();
+      });
+
+
+      // --- Menu Mobile (Hambúrguer) ---
+      const hamb = $('#hamb');
+      const menu = $('#menu');
+      if (hamb && menu) {
+        hamb.addEventListener('click', () => {
+          menu.classList.toggle('open');
+        });
+
+        // Fecha o menu ao clicar em um item
+        const menuLinks = $$('#menu a');
+        menuLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            menu.classList.remove('open');
+          });
+        });
+      }
+      
+      // --- Scroll Spy ---
+      // Esta funcionalidade destaca o link do menu correspondente à seção visível na página.
+      const sections = $$('section');
+      const navLinks = $$('.menu a');
+
+      // A função é executada a cada rolagem da página.
+      const activateLinkOnScroll = () => {
+        let currentSectionId = '';
+
+        // Encontra a seção que está mais visível no centro da tela.
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          // Verifica se o topo da seção está visível e o topo da próxima seção ainda não.
+          // O `window.scrollY` representa o topo do viewport.
+          // `window.scrollY + window.innerHeight` é o fundo do viewport.
+          if (window.scrollY >= sectionTop - 150) { // O -150 é um offset para ativar a seção mais cedo
+            currentSectionId = section.id;
+          }
+        });
+
+        // Remove a classe 'active' de todos os links...
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          // ...e adiciona a classe 'active' apenas ao link que corresponde à seção atual.
+          if (link.getAttribute('href').substring(1) === currentSectionId) {
+            link.classList.add('active');
+          }
+        });
+      };
+
+      // Adiciona o listener de scroll para ativar a função de destaque do menu.
+      document.addEventListener('scroll', activateLinkOnScroll);
+      // Chama a função uma vez ao carregar a página para definir o estado inicial.
+      activateLinkOnScroll();
+
+
+      // =======================================================
+      // FUNÇÃO DE BANCO DE DADOS SIMULADO E CARREGAMENTO DE IMAGENS
+      // =======================================================
+
+      // Nossa "base de dados" de imagens - um array de objetos
+      const imageData = [
+        // Imagem principal do herói
+        { id: 'hero', url: 'https://placehold.co/800x800/ffcd4d/2f3747?text=Pooh+Digital', alt: 'Ursinho Pooh com um visual futurista' },
+        // Imagem da seção "Sobre"
+        { id: 'about', url: 'https://placehold.co/800x600/e79a3f/ffffff?text=Pooh+e+Cristovão+em+3D', alt: 'Ursinho Pooh e Cristovão em uma cena de floresta futurista' },
+        // Imagens da galeria
+        { id: 'gallery1', url: 'https://placehold.co/600x400/96d0d2/1f2937?text=Clássicas', alt: 'Cena de floresta clássica', class: 'col-6' },
+        { id: 'gallery2', url: 'https://placehold.co/400x400/98d0e7/1f2937?text=Holográficas', alt: 'Pooh em uma paisagem holográfica', class: 'col-4' },
+        { id: 'gallery3', url: 'https://placehold.co/800x600/c7a2e3/1f2937?text=Ciber+Floresta', alt: 'Pooh e seus amigos em uma ciber floresta', class: 'col-8' },
+        { id: 'gallery4', url: 'https://placehold.co/600x400/f6bb97/1f2937?text=Submarina', alt: 'Ursinho Pooh em uma aventura subaquática', class: 'col-6' },
+        // Imagens dos amigos
+        {
+          id: 'friend1',
+          url: 'https://placehold.co/300x300/a3e635/121722?text=Abel+Robô',
+          alt: 'Abel',
+          description: 'Um robô abelha analítico e organizado, sempre pronto para otimizar as tarefas no Bosque.'
+        },
+        {
+          id: 'friend2',
+          url: 'https://placehold.co/300x300/fecaca/121722?text=Porquinho+IA',
+          alt: 'Leitão',
+          description: 'Uma IA de Porquinho que, apesar da timidez, é um mestre da empatia e da amizade virtual.'
+        },
+        {
+          id: 'friend3',
+          url: 'https://placehold.co/300x300/fcd34d/121722?text=Tigrão+Quântico',
+          alt: 'Tigrão',
+          description: 'Uma entidade quântica de Tigrão que pula através das dimensões, trazendo energia e caos controlados.'
+        },
+        {
+          id: 'friend4',
+          url: 'https://placehold.co/300x300/b9e7a2/121722?text=Coruja+Drone',
+          alt: 'Coruja',
+          description: 'Um drone Coruja que planeja as aventuras e garante que todos os amigos estejam a salvo.'
+        }
+      ];
+
+      // Função para carregar as imagens da nossa "base de dados"
+      const loadImagesFromDatabase = () => {
+        // Hero Image
+        const heroImageContainer = $('#heroImageContainer');
+        const heroData = imageData.find(img => img.id === 'hero');
+        if (heroImageContainer && heroData) {
+          heroImageContainer.innerHTML = `<img src="${heroData.url}" alt="${heroData.alt}" loading="lazy" class="hero-image">`;
+        }
+
+        // About Image
+        const aboutImageContainer = $('#aboutImageContainer');
+        const aboutData = imageData.find(img => img.id === 'about');
+        if (aboutImageContainer && aboutData) {
+          aboutImageContainer.innerHTML = `<img src="${aboutData.url}" alt="${aboutData.alt}" loading="lazy">`;
+        }
+
+        // Gallery Images
+        const galleryContainer = $('#galleryContainer');
+        const galleryData = imageData.filter(img => img.id.startsWith('gallery'));
+        if (galleryContainer && galleryData.length > 0) {
+          galleryContainer.innerHTML = galleryData.map(img => `
+            <figure class="${img.class}">
+              <img src="${img.url}" alt="${img.alt}" loading="lazy">
+              <figcaption>${img.alt}</figcaption>
+            </figure>
+          `).join('');
+        }
+
+        // Friends Images (Lógica atualizada para a nova estrutura)
+        const friendsContainer = $('#friendsContainer');
+        const friendsData = imageData.filter(img => img.id.startsWith('friend'));
+        if (friendsContainer && friendsData.length > 0) {
+          friendsContainer.innerHTML = friendsData.map(friend => `
+            <div class="friend-card">
+              <div class="friend-card__art">
+                <img src="${friend.url}" alt="${friend.alt}" loading="lazy">
+              </div>
+              <h3 class="friend-card__title">${friend.alt}</h3>
+              <p class="friend-card__description">${friend.description}</p>
+            </div>
+          `).join('');
+        }
+      };
+
+      // Chama a função para carregar as imagens
+      loadImagesFromDatabase();
+
+      // =======================================================
+      // FIM DO CÓDIGO DO BANCO DE DADOS E CARREGAMENTO DE IMAGENS
+      // =======================================================
+
+    });
+  </script>
+
+</body>
+</html>

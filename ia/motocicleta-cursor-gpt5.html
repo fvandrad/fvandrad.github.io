@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0d0f12" />
+  <title>Universo das Motocicletas — Velocidade, Cultura e Paixão</title>
+  <meta name="description" content="Uma experiência imersiva e responsiva celebrando o universo das motocicletas: história, tipos, segurança, galeria, curiosidades e contato." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0d0f12;            /* preto fosco */
+      --bg-2: #11141a;          /* variação de fundo */
+      --graphite: #2a2e35;      /* cinza grafite */
+      --surface: #151a22;       /* superfície cards */
+      --surface-2: #1b202b;     /* superfície 2 */
+      --primary: #ff3b30;       /* vermelho vivo */
+      --accent: #ff6a00;        /* laranja queimado */
+      --electric: #00b3ff;      /* azul elétrico */
+      --text: #e9edf1;          /* texto claro */
+      --text-dim: #a8b0bb;      /* texto suave */
+      --success: #19c37d;
+      --warning: #f7b500;
+      --shadow-1: 0 10px 30px rgba(0,0,0,.5);
+      --shadow-2: 0 30px 60px rgba(0,0,0,.55);
+      --radius-l: 18px;
+      --radius-m: 14px;
+      --radius-s: 10px;
+      --maxw: 1200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(0,179,255,.12), transparent 60%),
+                  radial-gradient(800px 600px at 10% 10%, rgba(255,58,48,.08), transparent 55%),
+                  linear-gradient(180deg, var(--bg), var(--bg-2));
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Utilitários */
+    .container { width: min(100% - 2rem, var(--maxw)); margin-inline: auto; }
+    .grid { display: grid; gap: 1.2rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; border: 0; padding: .9rem 1.1rem; border-radius: 999px;
+      font-weight: 700; letter-spacing: .2px; text-decoration: none;
+      box-shadow: 0 10px 25px rgba(255,106,0,.3);
+      transform: translateZ(0);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(255,106,0,.35); filter: saturate(1.15); }
+    .btn-outline {
+      background: transparent; border: 2px solid var(--electric); color: var(--electric);
+      padding: .7rem 1rem; border-radius: 999px; font-weight: 700; text-decoration: none;
+    }
+
+    h1, h2, h3 { font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; line-height: 1.1; margin: 0 0 .6rem; }
+    h1 { font-size: clamp(2.2rem, 4.5vw + .5rem, 5rem); letter-spacing: .5px; }
+    h2 { font-size: clamp(1.6rem, 2.5vw + .4rem, 2.8rem); }
+    h3 { font-size: clamp(1.1rem, 1.2vw + .6rem, 1.6rem); }
+    p { margin: 0 0 .9rem; color: var(--text-dim); }
+
+    /* Cabeçalho */
+    header.site-header {
+      position: fixed; inset: 0 0 auto 0; height: 64px; z-index: 40;
+      display: flex; align-items: center;
+      background: linear-gradient(180deg, rgba(13,15,18,.85), rgba(13,15,18,0));
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 800; }
+    .brand span { font-family: 'Oswald'; letter-spacing: .8px; }
+    nav a { color: var(--text-dim); text-decoration: none; font-weight: 600; margin: 0 .6rem; }
+    nav a:hover { color: var(--text); }
+    .spacer { flex: 1; }
+
+    /* Hero com parallax e diagonal */
+    .hero {
+      position: relative; min-height: 92vh; display: grid; align-items: center;
+      background: radial-gradient(1200px 800px at 85% 10%, rgba(0,179,255,.13), transparent 60%),
+                  linear-gradient(180deg, rgba(21,26,34,.85), rgba(21,26,34,.6)),
+                  url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat fixed;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5vw), 0 100%);
+      overflow: hidden;
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(120deg, rgba(255,59,48,.14), rgba(255,106,0,.06) 50%, rgba(0,179,255,.12));
+      mix-blend-mode: screen;
+    }
+    .hero .content { position: relative; z-index: 1; }
+    .hero .kicker { color: var(--electric); font-weight: 800; letter-spacing: .5px; text-transform: uppercase; font-size: .9rem; }
+    .hero p.lead { font-size: clamp(1rem, 1.1vw + .7rem, 1.4rem); max-width: 60ch; }
+    .hero-cta { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: .8rem; }
+
+    .moto-icon {
+      width: clamp(68px, 9vw, 110px); height: auto; filter: drop-shadow(0 10px 18px rgba(0,0,0,.4));
+    }
+
+    /* Linhas de velocidade laterais */
+    .speed-lines { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .speed-lines i {
+      position: absolute; width: 40vw; max-width: 580px; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+      opacity: .35; transform: translateX(-120%);
+      animation: fly 4s linear infinite; filter: blur(.3px);
+    }
+    .speed-lines i:nth-child(odd) { animation-duration: 5s; opacity: .25; }
+    .speed-lines i:nth-child(1) { top: 16%; }
+    .speed-lines i:nth-child(2) { top: 32%; }
+    .speed-lines i:nth-child(3) { top: 48%; }
+    .speed-lines i:nth-child(4) { top: 64%; }
+    .speed-lines i:nth-child(5) { top: 80%; }
+    @keyframes fly { to { transform: translateX(160%); } }
+
+    /* Seções diagonais */
+    section.diagonal {
+      position: relative; padding: clamp(2.8rem, 4vw, 5rem) 0; isolation: isolate;
+    }
+    section.diagonal::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(180deg, var(--surface), var(--surface-2));
+      clip-path: polygon(0 5vw, 100% 0, 100% calc(100% - 5vw), 0 100%);
+      border-top: 1px solid rgba(255,255,255,.04);
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+
+    /* História e Cultura */
+    .icon-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: 1.2rem; }
+    .icon-card {
+      display: grid; grid-template-columns: 56px 1fr; gap: .9rem; align-items: center;
+      padding: .9rem; border-radius: var(--radius-m);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .icon-card svg { width: 40px; height: 40px; }
+
+    /* Tipos de Motos */
+    .cards { grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+    .card {
+      grid-column: span 12; position: relative; overflow: hidden; border-radius: var(--radius-l);
+      background: var(--surface);
+      box-shadow: var(--shadow-1);
+      min-height: 260px; display: grid; align-content: end;
+    }
+    .card .bg {
+      position: absolute; inset: 0; background-size: cover; background-position: center; filter: contrast(1.05) saturate(1.05);
+      transform: scale(1.02); transition: transform .6s ease, filter .6s ease;
+    }
+    .card::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.42) 40%, rgba(0,0,0,.75));
+    }
+    .card:hover .bg { transform: scale(1.08); filter: contrast(1.08) saturate(1.12); }
+    .card .body { position: relative; z-index: 1; padding: 1.1rem; }
+    .card .k { display: inline-flex; align-items: center; gap: .5rem; font-weight: 800; color: var(--electric); text-transform: uppercase; font-size: .8rem; }
+    .card h3 { margin-top: .3rem; }
+
+    /* Segurança */
+    .safety-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .safety-item {
+      display: grid; grid-template-columns: 48px 1fr; gap: .8rem; align-items: center;
+      padding: .9rem; border-radius: var(--radius-m);
+      border: 1px solid rgba(255,255,255,.06); background: rgba(255,255,255,.02);
+    }
+    .badge { display: inline-flex; width: 42px; height: 42px; align-items: center; justify-content: center; border-radius: 12px; background: rgba(0,179,255,.12); }
+
+    /* Galeria */
+    .gallery { grid-template-columns: repeat(12, 1fr); gap: .8rem; }
+    .gallery figure {
+      position: relative; overflow: hidden; margin: 0; border-radius: 16px; grid-column: span 12;
+      background: #0c0e11; border: 1px solid rgba(255,255,255,.05);
+    }
+    .gallery img, .gallery video { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(.08) contrast(1.05); transition: transform .6s ease, filter .6s ease; }
+    .gallery figure:hover img, .gallery figure:hover video { transform: scale(1.06); filter: grayscale(0) contrast(1.08) saturate(1.1); }
+
+    /* Curiosidades */
+    .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1rem; text-align: center; }
+    .stat { padding: 1.2rem; border-radius: var(--radius-m); background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); border: 1px solid rgba(255,255,255,.06); }
+    .stat .num { font-family: 'Oswald'; font-size: clamp(1.6rem, 3vw + .6rem, 3rem); color: var(--primary); }
+
+    /* Contato */
+    form.contact { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .8rem; margin-top: 1rem; }
+    .field { display: grid; gap: .35rem; }
+    .field input, .field textarea {
+      background: #0f141b; border: 1px solid rgba(255,255,255,.08); color: var(--text);
+      padding: .9rem .9rem; border-radius: 12px; outline: none; font: inherit;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .field input:focus, .field textarea:focus { border-color: var(--electric); box-shadow: 0 0 0 3px rgba(0,179,255,.15); }
+    .field textarea { min-height: 140px; grid-column: span 2; resize: vertical; }
+
+    /* Rodapé */
+    footer { padding: 2rem 0; color: var(--text-dim); border-top: 1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); }
+
+    /* Responsividade */
+    @media (min-width: 640px) {
+      .card { grid-column: span 6; }
+      .gallery figure.small { grid-column: span 6; height: 280px; }
+      .gallery figure.wide { grid-column: span 12; height: 360px; }
+    }
+    @media (min-width: 960px) {
+      .icon-row { grid-template-columns: repeat(4, 1fr); }
+      .cards { gap: 1.2rem; }
+      .card { grid-column: span 4; min-height: 320px; }
+      .safety-list { grid-template-columns: repeat(3, 1fr); }
+      .gallery figure.tall { grid-column: span 4; height: 420px; }
+      .gallery figure.wide { grid-column: span 8; height: 420px; }
+    }
+
+    /* Entradas animadas e reveal */
+    .reveal { opacity: 0; transform: translateY(18px); }
+    .reveal.visible { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
+
+    /* Acessibilidade/motion */
+    @media (prefers-reduced-motion: reduce) {
+      .speed-lines i { display: none; }
+      .gallery img, .gallery video, .card .bg { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Biblioteca de ícones SVG -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <!-- Moto -->
+      <symbol id="i-moto" viewBox="0 0 64 32">
+        <circle cx="14" cy="24" r="6" fill="none" stroke="currentColor" stroke-width="3" />
+        <circle cx="48" cy="24" r="6" fill="none" stroke="currentColor" stroke-width="3" />
+        <path d="M18 24l6-9h8l6 6h6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M26 15l-4-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <path d="M22 9h8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      </symbol>
+      <!-- Capacete -->
+      <symbol id="i-helmet" viewBox="0 0 48 48">
+        <path d="M8 28c0-9.94 8.06-18 18-18 8.84 0 16 7.16 16 16v2H30c-3.31 0-6-2.69-6-6v-2l-8 4 4 4H8z" fill="currentColor" />
+        <path d="M8 28h36" stroke="#000" stroke-opacity=".25" />
+      </symbol>
+      <!-- Estrada -->
+      <symbol id="i-road" viewBox="0 0 48 48">
+        <rect x="20" y="0" width="8" height="48" fill="currentColor" />
+        <rect x="22" y="6" width="4" height="6" fill="#0d0f12" />
+        <rect x="22" y="18" width="4" height="6" fill="#0d0f12" />
+        <rect x="22" y="30" width="4" height="6" fill="#0d0f12" />
+      </symbol>
+      <!-- Aventura/Viagem (bússola) -->
+      <symbol id="i-compass" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="3" />
+        <polygon points="24,10 18,30 24,28 30,18" fill="currentColor" />
+      </symbol>
+      <!-- Comunidade (pessoas) -->
+      <symbol id="i-people" viewBox="0 0 48 48">
+        <circle cx="16" cy="18" r="6" fill="currentColor" />
+        <circle cx="32" cy="18" r="6" fill="currentColor" />
+        <rect x="10" y="26" width="28" height="12" rx="6" fill="currentColor" />
+      </symbol>
+      <!-- Escudo (segurança) -->
+      <symbol id="i-shield" viewBox="0 0 48 48">
+        <path d="M24 4l16 6v10c0 10-7 18-16 22C15 38 8 30 8 20V10l16-6z" fill="currentColor" />
+      </symbol>
+      <!-- Chave inglesa (manutenção) -->
+      <symbol id="i-wrench" viewBox="0 0 48 48">
+        <path d="M34 6a10 10 0 0 0-8 3l7 7a6 6 0 0 1-9 8l-7-7a10 10 0 1 0 9-11z" fill="currentColor" />
+        <circle cx="36" cy="8" r="2" fill="#0d0f12" />
+      </symbol>
+      <!-- Velocímetro -->
+      <symbol id="i-speed" viewBox="0 0 48 48">
+        <path d="M8 32a16 16 0 1 1 32 0" fill="none" stroke="currentColor" stroke-width="3" />
+        <line x1="24" y1="24" x2="36" y2="20" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <circle cx="24" cy="24" r="3" fill="currentColor" />
+      </symbol>
+      <!-- Mão/Luva (equipamento) -->
+      <symbol id="i-glove" viewBox="0 0 48 48">
+        <path d="M14 12h4v10h2V8h4v14h2V10h4v16h2V14h4v16c0 6-4 8-10 8H16c-4 0-6-2-6-6v-8h4V12z" fill="currentColor" />
+      </symbol>
+      <!-- Social -->
+      <symbol id="i-instagram" viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+        <circle cx="12" cy="12" r="5" fill="#0d0f12" />
+        <circle cx="18" cy="6" r="1.5" fill="#0d0f12" />
+      </symbol>
+      <symbol id="i-youtube" viewBox="0 0 24 24">
+        <rect x="2" y="6" width="20" height="12" rx="3" fill="currentColor" />
+        <polygon points="10,9 16,12 10,15" fill="#0d0f12" />
+      </symbol>
+      <symbol id="i-facebook" viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="20" rx="4" fill="currentColor" />
+        <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v5h3v-5h2l1-3h-3V9c0-.6.4-1 1-1z" fill="#0d0f12" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="site-header">
+    <div class="container" style="display:flex; align-items:center; gap:1rem;">
+      <a href="#inicio" class="brand" aria-label="Ir ao início">
+        <svg aria-hidden="true" width="28" height="28" viewBox="0 0 64 32" style="color: var(--electric)"><use href="#i-moto" /></svg>
+        <span>MotorVisão</span>
+      </a>
+      <nav style="display:none; margin-left:1rem;" aria-label="Navegação principal">
+        <a href="#historia">História</a>
+        <a href="#tipos">Tipos</a>
+        <a href="#seguranca">Segurança</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#curiosidades">Curiosidades</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <span class="spacer"></span>
+      <a href="#contato" class="btn-outline">Participar de Eventos</a>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <!-- HERO -->
+    <section class="hero" aria-label="Destaque">
+      <div class="speed-lines" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="container content">
+        <div class="grid" style="grid-template-columns: 1.1fr .9fr; align-items: end; gap: 1rem;">
+          <div class="reveal">
+            <p class="kicker">Estrada, liberdade e precisão</p>
+            <h1>Motocicletas: onde a <span style="color:var(--primary)">paixão</span> encontra a <span style="color:var(--electric)">velocidade</span></h1>
+            <p class="lead">Explore a cultura que move gerações, dos modelos clássicos às máquinas esportivas. Sinta o vento, viva a aventura e descubra tudo para pilotar com segurança.</p>
+            <div class="hero-cta">
+              <a href="#tipos" class="btn">Descobrir Modelos
+                <svg width="20" height="20" viewBox="0 0 48 48" style="color:#fff"><use href="#i-speed" /></svg>
+              </a>
+              <a href="#galeria" class="btn-outline">Ver Galeria</a>
+            </div>
+          </div>
+          <div class="reveal" style="justify-self:end; align-self:center;">
+            <!-- Ícone animado de moto -->
+            <svg class="moto-icon" viewBox="0 0 64 32" aria-hidden="true">
+              <g id="wheels" style="transform-origin:center; animation: wheels 2.2s linear infinite;">
+                <circle cx="14" cy="24" r="8" fill="none" stroke="var(--electric)" stroke-width="3" />
+                <circle cx="48" cy="24" r="8" fill="none" stroke="var(--electric)" stroke-width="3" />
+              </g>
+              <use href="#i-moto" style="color: var(--primary)" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      @keyframes wheels { to { transform: rotate(1turn); } }
+    </style>
+
+    <!-- HISTÓRIA E CULTURA -->
+    <section id="historia" class="diagonal" aria-labelledby="historia-title">
+      <div class="container">
+        <div class="grid" style="grid-template-columns: 1fr; gap: 1rem;">
+          <div class="reveal">
+            <h2 id="historia-title">História e cultura da motocicleta</h2>
+            <p>Das primeiras máquinas do início do século XX às superbikes tecnológicas, as motos inspiram liberdade e comunidade. Elas conectam pessoas, lugares e estilos de vida — do <em>café racer</em> urbano às viagens épicas em estradas abertas.</p>
+            <div class="icon-row">
+              <div class="icon-card"><svg viewBox="0 0 48 48" style="color:var(--primary)"><use href="#i-road" /></svg><div><strong>Estrada</strong><p>Traçados lendários e rotas que contam histórias.</p></div></div>
+              <div class="icon-card"><svg viewBox="0 0 48 48" style="color:var(--electric)"><use href="#i-compass" /></svg><div><strong>Aventura</strong><p>Exploração, autoconhecimento e novos horizontes.</p></div></div>
+              <div class="icon-card"><svg viewBox="0 0 64 32" style="color:#ffa24a"><use href="#i-moto" /></svg><div><strong>Movimento</strong><p>Design, velocidade e a sensação de vento no rosto.</p></div></div>
+              <div class="icon-card"><svg viewBox="0 0 48 48" style="color:#9fdc5c"><use href="#i-people" /></svg><div><strong>Comunidade</strong><p>Eventos, clubes e amizades na mesma sintonia.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIPOS DE MOTOS -->
+    <section id="tipos" class="diagonal" aria-labelledby="tipos-title" style="--surface: #131821; --surface-2:#10151d;">
+      <div class="container">
+        <div class="reveal">
+          <h2 id="tipos-title">Tipos de motocicletas</h2>
+          <p>Do uso urbano à aventura total, cada categoria tem um propósito e uma personalidade única.</p>
+        </div>
+        <div class="grid cards">
+          <!-- Custom -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1800&auto=format&fit=crop');"></div>
+            <div class="body">
+              <span class="k"><svg width="18" height="18" viewBox="0 0 64 32"><use href="#i-moto" /></svg>Custom</span>
+              <h3>Estilo e personalidade</h3>
+              <p>Feitas sob medida, carregam identidade forte, cromados e linhas únicas que contam a história do piloto.</p>
+            </div>
+          </article>
+          <!-- Esportiva -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1518655048521-f130df041f66?q=80&w=1800&auto=format&fit=crop');"></div>
+            <div class="body">
+              <span class="k"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#i-speed" /></svg>Esportiva</span>
+              <h3>Desempenho e precisão</h3>
+              <p>Aerodinâmica, posição agressiva e potência para pistas e curvas perfeitas.</p>
+            </div>
+          </article>
+          <!-- Touring -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1502872364588-894d7d6ddfab?q=80&w=1800&auto=format&fit=crop');"></div>
+            <div class="body">
+              <span class="k"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#i-compass" /></svg>Touring</span>
+              <h3>Conforto para longas distâncias</h3>
+              <p>Bagageiros, carenagens e ergonomia pensadas para cruzar países com tranquilidade.</p>
+            </div>
+          </article>
+          <!-- Scooter -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1641365669618-715605be5d62?q=80&w=1800&auto=format&fit=crop');"></div>
+            <div class="body">
+              <span class="k"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#i-people" /></svg>Scooter</span>
+              <h3>Mobilidade urbana</h3>
+              <p>Praticidade, economia e agilidade para o dia a dia nas cidades.</p>
+            </div>
+          </article>
+          <!-- Off-road -->
+          <article class="card reveal">
+            <div class="bg" style="background-image:url('https://images.unsplash.com/photo-1558980664-10ef1c06efae?q=80&w=1800&auto=format&fit=crop');"></div>
+            <div class="body">
+              <span class="k"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#i-shield" /></svg>Off-road</span>
+              <h3>Trilhas e desafios</h3>
+              <p>Suspensão alta, pneus cravados e estrutura preparada para encarar o terreno.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEGURANÇA E DICAS -->
+    <section id="seguranca" class="diagonal" aria-labelledby="seguranca-title">
+      <div class="container">
+        <div class="reveal">
+          <h2 id="seguranca-title">Segurança e dicas</h2>
+          <p>Equipamentos, manutenção e direção defensiva são essenciais para pilotar bem e com confiança.</p>
+        </div>
+        <div class="safety-list">
+          <div class="safety-item reveal"><span class="badge" style="background:rgba(255,59,48,.14); color:var(--primary)"><svg width="24" height="24" viewBox="0 0 48 48"><use href="#i-helmet" /></svg></span><div><strong>Capacete e EPI</strong><p>Capacete certificado, luvas, jaqueta com proteções, calça e botas.</p></div></div>
+          <div class="safety-item reveal"><span class="badge" style="background:rgba(0,179,255,.14); color:var(--electric)"><svg width="24" height="24" viewBox="0 0 48 48"><use href="#i-wrench" /></svg></span><div><strong>Manutenção</strong><p>Cheque pneus, freios, corrente, óleo e iluminação antes de partir.</p></div></div>
+          <div class="safety-item reveal"><span class="badge" style="background:rgba(255,106,0,.14); color:var(--accent)"><svg width="24" height="24" viewBox="0 0 48 48"><use href="#i-shield" /></svg></span><div><strong>Direção defensiva</strong><p>Mantenha distância, antecipe riscos e seja sempre visível.</p></div></div>
+          <div class="safety-item reveal"><span class="badge" style="background:rgba(159,220,92,.18); color:#9fdc5c"><svg width="24" height="24" viewBox="0 0 48 48"><use href="#i-glove" /></svg></span><div><strong>Adaptação ao clima</strong><p>Chuva, frio ou calor: ajuste a pilotagem e o equipamento.</p></div></div>
+          <div class="safety-item reveal"><span class="badge" style="background:rgba(255,255,255,.12); color:#ffcd1a"><svg width="24" height="24" viewBox="0 0 48 48"><use href="#i-speed" /></svg></span><div><strong>Controle de velocidade</strong><p>Respeite limites e aumente gradualmente sua técnica.</p></div></div>
+          <div class="safety-item reveal"><span class="badge" style="background:rgba(255,255,255,.12); color:#c7d2e1"><svg width="24" height="24" viewBox="0 0 48 48"><use href="#i-road" /></svg></span><div><strong>Posição e traçado</strong><p>Olhar para onde quer ir, corpo relaxado e curvas com suavidade.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section id="galeria" class="diagonal" aria-labelledby="galeria-title" style="--surface:#10131a; --surface-2:#0d1016;">
+      <div class="container">
+        <div class="reveal">
+          <h2 id="galeria-title">Galeria</h2>
+          <p>Imagens e vídeos com efeito de zoom e estética moderna.</p>
+        </div>
+        <div class="grid gallery">
+          <figure class="small reveal">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1400&auto=format&fit=crop" alt="Moto clássica em ambiente urbano" />
+          </figure>
+          <figure class="small reveal">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1502872364588-894d7d6ddfab?q=80&w=1400&auto=format&fit=crop" alt="Esportiva em pista" />
+          </figure>
+          <figure class="wide reveal">
+            <video preload="metadata" playsinline muted loop controls poster="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop">
+              <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4" />
+              Seu navegador não suporta vídeo HTML5.
+            </video>
+          </figure>
+          <figure class="tall reveal">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1558980664-10ef1c06efae?q=80&w=1200&auto=format&fit=crop" alt="Off-road levantando poeira" />
+          </figure>
+          <figure class="tall reveal">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1465310477141-6fb93167a273?q=80&w=1200&auto=format&fit=crop" alt="Paisagem de montanha com motociclista" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CURIOSIDADES -->
+    <section id="curiosidades" class="diagonal" aria-labelledby="curiosidades-title">
+      <div class="container">
+        <div class="reveal">
+          <h2 id="curiosidades-title">Curiosidades</h2>
+        </div>
+        <div class="stats">
+          <div class="stat reveal">
+            <div style="display:flex; justify-content:center; color:var(--electric); margin-bottom:.3rem"><svg width="28" height="28" viewBox="0 0 48 48"><use href="#i-speed" /></svg></div>
+            <div class="num">320 km/h+</div>
+            <p>Velocidade máxima em superbikes de produção.</p>
+          </div>
+          <div class="stat reveal">
+            <div style="display:flex; justify-content:center; color:var(--accent); margin-bottom:.3rem"><svg width="28" height="28" viewBox="0 0 64 32"><use href="#i-moto" /></svg></div>
+            <div class="num">1901</div>
+            <p>Primeira moto moderna reconhecida mundialmente.</p>
+          </div>
+          <div class="stat reveal">
+            <div style="display:flex; justify-content:center; color:#9fdc5c; margin-bottom:.3rem"><svg width="28" height="28" viewBox="0 0 48 48"><use href="#i-compass" /></svg></div>
+            <div class="num">+80%</div>
+            <p>Dos motociclistas priorizam viagens e experiências.</p>
+          </div>
+          <div class="stat reveal">
+            <div style="display:flex; justify-content:center; color:#ffcd1a; margin-bottom:.3rem"><svg width="28" height="28" viewBox="0 0 48 48"><use href="#i-shield" /></svg></div>
+            <div class="num">+60%</div>
+            <p>Redução de risco com EPI adequado e manutenção.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="diagonal" aria-labelledby="contato-title" style="--surface:#141923; --surface-2:#11151e;">
+      <div class="container">
+        <div class="reveal">
+          <h2 id="contato-title">Contato e redes</h2>
+          <p>Mande uma mensagem, entre nos grupos e fique de olho nos eventos de motos perto de você.</p>
+        </div>
+
+        <form class="contact reveal" aria-label="Formulário de contato" onsubmit="return handleFormSubmit(event)">
+          <div class="field">
+            <label for="nome"><strong>Nome</strong></label>
+            <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
+          </div>
+          <div class="field">
+            <label for="email"><strong>E-mail</strong></label>
+            <input id="email" name="email" type="email" placeholder="voce@email.com" required />
+          </div>
+          <div class="field" style="grid-column: span 2;">
+            <label for="mensagem"><strong>Mensagem</strong></label>
+            <textarea id="mensagem" name="mensagem" placeholder="Conte sua ideia, dúvida ou sugestão..." required></textarea>
+          </div>
+          <div style="grid-column: span 2; display:flex; gap:.6rem; align-items:center;">
+            <button type="submit" class="btn">Enviar</button>
+            <a class="btn-outline" href="https://www.google.com/search?q=eventos+de+motos+perto+de+mim" target="_blank" rel="noopener">Eventos de Motos ↗</a>
+          </div>
+        </form>
+
+        <div class="grid" style="grid-template-columns: repeat(3, minmax(0,1fr)); gap:.8rem; margin-top:1rem;">
+          <a class="icon-card reveal" href="#" style="display:flex; align-items:center; gap:.7rem; text-decoration:none; color:inherit">
+            <svg viewBox="0 0 24 24" style="color:#ff4f7b"><use href="#i-instagram" /></svg>
+            <div><strong>Instagram</strong><p>@motorvisao</p></div>
+          </a>
+          <a class="icon-card reveal" href="#" style="display:flex; align-items:center; gap:.7rem; text-decoration:none; color:inherit">
+            <svg viewBox="0 0 24 24" style="color:#ff2d1c"><use href="#i-youtube" /></svg>
+            <div><strong>YouTube</strong><p>/motorvisao</p></div>
+          </a>
+          <a class="icon-card reveal" href="#" style="display:flex; align-items:center; gap:.7rem; text-decoration:none; color:inherit">
+            <svg viewBox="0 0 24 24" style="color:#47a3ff"><use href="#i-facebook" /></svg>
+            <div><strong>Facebook</strong><p>/motorvisao</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; gap:1rem; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+      <div style="display:flex; gap:.6rem; align-items:center">
+        <svg width="22" height="22" viewBox="0 0 64 32" style="color: var(--electric)"><use href="#i-moto" /></svg>
+        <span>MotorVisão • Feito com velocidade e segurança</span>
+      </div>
+      <small>© <span id="year"></span> Todos os direitos reservados.</small>
+    </div>
+  </footer>
+
+  <!-- JS: Parallax, reveal e UX -->
+  <script>
+    // Atualiza o ano do rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Parallax suave para o hero e efeitos de vento
+    const hero = document.querySelector('.hero');
+    let lastY = window.scrollY;
+    function onScroll() {
+      const y = window.scrollY;
+      const delta = y * 0.25;
+      hero.style.backgroundPosition = `center calc(50% + ${delta}px)`;
+      lastY = y;
+    }
+    const mediaReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!mediaReduce.matches) {
+      document.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    // Reveal nas seções
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // Manipulador do formulário
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      // Simulação de envio
+      form.querySelector('button[type="submit"]').disabled = true;
+      setTimeout(() => {
+        form.querySelector('button[type="submit"]').disabled = false;
+        alert(`Obrigado, ${data.nome}! Sua mensagem foi enviada.`);
+        form.reset();
+      }, 900);
+      return false;
+    }
+    window.handleFormSubmit = handleFormSubmit;
+  </script>
+</body>
+</html>
+
+

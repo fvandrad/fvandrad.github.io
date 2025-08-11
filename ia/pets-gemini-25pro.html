@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universo Pet - Celebrando a Diversidade e Alegria</title>
+    
+    <!-- Google Fonts: Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 🎨 VARIÁVEIS DE ESTILO E CONFIGURAÇÕES GERAIS --- */
+        :root {
+            --cor-primaria: #40E0D0;      /* Azul Turquesa */
+            --cor-secundaria: #FFFACD;    /* Amarelo Claro */
+            --cor-acento-1: #98FB98;      /* Verde Menta */
+            --cor-acento-2: #FFB6C1;      /* Rosa Suave */
+            --cor-acento-3: #FFA07A;      /* Laranja Suave */
+            --cor-texto: #4F4F4F;
+            --cor-fundo: #FFFFFF;
+            --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --borda-raio: 15px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+            background-image: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M16.5 29.5c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5zm-8 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm16 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-8-12c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5zM30 15c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm16.5-1.5c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5zm-8 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm16 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-8-12c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z" fill="rgba(64, 224, 208, 0.1)"/></svg>');
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* --- ✨ ANIMAÇÕES DE ENTRADA --- */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 📌 MENU DE NAVEGAÇÃO --- */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--sombra-suave);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--cor-primaria);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo svg {
+            margin-right: 8px;
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--cor-texto);
+            font-weight: 700;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background-color: var(--cor-primaria);
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .nav-links a.active,
+        .nav-links a:hover {
+            color: var(--cor-primaria);
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- 🐶 HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(64, 224, 208, 0.8), rgba(255, 182, 193, 0.8)), 
+                        url('https://images.pexels.com/photos/5749137/pexels-photo-5749137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        }
+
+        /* --- 📖 SEÇÃO SOBRE --- */
+        #sobre {
+            padding-top: 80px; /* Offset for fixed nav */
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--cor-primaria);
+        }
+
+        .sobre-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .sobre-texto {
+            flex: 1;
+        }
+        
+        .sobre-texto svg {
+            color: var(--cor-acento-2);
+            float: right;
+            margin: 0 0 10px 10px;
+        }
+
+        .sobre-imagem {
+            flex: 1;
+            position: relative;
+        }
+
+        .sobre-imagem img {
+            width: 100%;
+            border-radius: var(--borda-raio);
+            box-shadow: var(--sombra-suave);
+        }
+        
+        .sobre-imagem::before { /* Decorative shape */
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 5px solid var(--cor-acento-1);
+            top: -20px;
+            left: 20px;
+            border-radius: var(--borda-raio);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        
+        .sobre-imagem:hover::before {
+             transform: translate(-5px, 5px);
+        }
+
+        /* --- 🐾 GRADE DE ESPÉCIES --- */
+        #especies {
+            padding-top: 80px;
+            background-color: var(--cor-secundaria);
+        }
+        
+        .especies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .especie-card {
+            background-color: var(--cor-fundo);
+            border-radius: var(--borda-raio);
+            box-shadow: var(--sombra-suave);
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .especie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .especie-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--cor-primaria);
+            background-color: var(--cor-secundaria);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .especie-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--cor-texto);
+        }
+
+        /* --- 🩺 ÁREA DE CUIDADOS --- */
+        #cuidados {
+            padding-top: 80px;
+        }
+        
+        .cuidados-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .cuidado-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--borda-raio);
+            transition: background-color 0.3s ease;
+        }
+        
+        .cuidado-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .cuidado-item .icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+            padding: 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cuidado-item .icon svg {
+             width: 32px;
+             height: 32px;
+        }
+
+        .cuidado-item:nth-child(1) .icon { background-color: var(--cor-primaria-leve); color: var(--cor-primaria); }
+        .cuidado-item:nth-child(2) .icon { background-color: var(--cor-acento-1-leve); color: var(--cor-acento-1); }
+        .cuidado-item:nth-child(3) .icon { background-color: var(--cor-acento-2-leve); color: var(--cor-acento-2); }
+        
+        /* Definindo cores leves para os icones */
+        :root {
+          --cor-primaria-leve: rgba(64, 224, 208, 0.2);
+          --cor-acento-1-leve: rgba(152, 251, 152, 0.2);
+          --cor-acento-2-leve: rgba(255, 182, 193, 0.2);
+        }
+
+
+        .cuidado-item h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* --- 🖼️ GALERIA DE MOMENTOS --- */
+        #galeria {
+            padding-top: 80px;
+            background-color: var(--cor-acento-2-leve);
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .galeria-item {
+            overflow: hidden;
+            border-radius: var(--borda-raio);
+            box-shadow: var(--sombra-suave);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease-out, filter 0.4s ease-out;
+        }
+
+        .galeria-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.9);
+        }
+
+        .galeria-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease-out;
+        }
+        
+        .galeria-item:hover .overlay {
+            transform: translateY(0);
+        }
+
+
+        /* --- ❤️ SEÇÃO DE ADOÇÃO --- */
+        #adocao {
+            padding: 80px 2rem;
+            background-color: var(--cor-primaria);
+            text-align: center;
+            color: white;
+        }
+
+        #adocao h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        #adocao p {
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .btn-adocao {
+            display: inline-block;
+            background-color: var(--cor-fundo);
+            color: var(--cor-primaria);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: var(--sombra-suave);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .btn-adocao:hover {
+            transform: scale(1.05);
+            background-color: var(--cor-secundaria);
+        }
+
+        /* --- 🦶 RODAPÉ --- */
+        footer {
+            background-color: var(--cor-texto);
+            color: #f0f0f0;
+            padding: 3rem 2rem 1rem 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--cor-primaria);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--cor-primaria);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icons a svg {
+            width: 24px;
+            height: 24px;
+            fill: #f0f0f0;
+            transition: fill 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover svg {
+            fill: var(--cor-primaria);
+            transform: scale(1.2);
+        }
+
+        .footer-credits {
+            text-align: center;
+            border-top: 1px solid #666;
+            padding-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        /* --- 📱 RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Simplificado: em um projeto real, aqui entraria um menu hamburguer */
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .sobre-content {
+                flex-direction: column;
+            }
+            
+            .sobre-imagem::before {
+                display: none;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .footer-section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- 📌 MENU DE NAVEGAÇÃO -->
+    <header class="main-nav">
+        <a href="#hero" class="nav-logo">
+            <!-- Ícone de Patinha -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 13c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-7 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.5-7c-1.93 0-3.5 1.57-3.5 3.5S10.07 12 12 12s3.5-1.57 3.5-3.5S13.93 8 12 8z"></path></svg>
+            Universo Pet
+        </a>
+        <ul class="nav-links">
+            <li><a href="#sobre" class="nav-link">Sobre</a></li>
+            <li><a href="#especies" class="nav-link">Espécies</a></li>
+            <li><a href="#cuidados" class="nav-link">Cuidados</a></li>
+            <li><a href="#galeria" class="nav-link">Galeria</a></li>
+            <li><a href="#adocao" class="nav-link">Adoção</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <!-- 🐶 HERO SECTION -->
+        <section id="hero" class="hero">
+            <div class="hero-content fade-in-element is-visible">
+                <h1>Onde cada Pet é uma Estrela</h1>
+                <p>Explore um universo de alegria, diversidade e amor incondicional por todos os animais.</p>
+            </div>
+        </section>
+
+        <!-- 📖 SEÇÃO SOBRE -->
+        <section id="sobre" class="container">
+             <div class="sobre-content">
+                <div class="sobre-texto fade-in-element">
+                     <h2 class="section-title">Bem-vindo ao Nosso Mundo!</h2>
+                    <!-- Ícone de Coração -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <p>No Universo Pet, celebramos a conexão única que compartilhamos com nossos amigos de todas as espécies. Acreditamos que cada cachorro, gato, pássaro, peixe e todos os outros pets trazem uma alegria contagiante para nossas vidas. Nossa missão é ser um ponto de encontro para amantes de animais, oferecendo informações, dicas de cuidados e, acima de tudo, um espaço para compartilhar o amor e a felicidade que eles nos proporcionam.</p>
+                </div>
+                <div class="sobre-imagem fade-in-element">
+                    <img src="https://images.pexels.com/photos/8434679/pexels-photo-8434679.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Criança abraçando um cachorro Golden Retriever">
+                </div>
+            </div>
+        </section>
+        
+        <!-- 🐾 GRADE DE ESPÉCIES -->
+        <section id="especies" class="container-fluid">
+            <div class="container">
+                <h2 class="section-title fade-in-element">Conheça as Espécies</h2>
+                <div class="especies-grid">
+                    <!-- Card Cachorro -->
+                    <div class="especie-card fade-in-element">
+                        <div class="icon">🐶</div>
+                        <h3>Cachorros</h3>
+                        <p>Leais, energéticos e cheios de amor, os cães são os melhores amigos que alguém pode ter.</p>
+                    </div>
+                    <!-- Card Gato -->
+                    <div class="especie-card fade-in-element">
+                        <div class="icon">🐱</div>
+                        <h3>Gatos</h3>
+                        <p>Independentes, misteriosos e donos de uma elegância única, os gatos conquistam corações.</p>
+                    </div>
+                    <!-- Card Pássaro -->
+                    <div class="especie-card fade-in-element">
+                        <div class="icon">🐦</div>
+                        <h3>Pássaros</h3>
+                        <p>Com seus cantos e cores, os pássaros trazem a beleza e a melodia da natureza para perto de nós.</p>
+                    </div>
+                    <!-- Card Peixe -->
+                    <div class="especie-card fade-in-element">
+                        <div class="icon">🐠</div>
+                        <h3>Peixes</h3>
+                        <p>Silenciosos e graciosos, os peixes criam um ambiente de calma e tranquilidade em qualquer lar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🩺 ÁREA DE CUIDADOS E DICAS -->
+        <section id="cuidados" class="container">
+            <h2 class="section-title fade-in-element">Cuidados Essenciais</h2>
+            <div class="cuidados-grid">
+                <!-- Item Alimentação -->
+                <div class="cuidado-item fade-in-element">
+                    <div class="icon">
+                        <!-- Ícone de Comedouro -->
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V3H7v8H5L9.66 7.34 8.25 5.93 2 12.18V21h20v-8c0-.55-.45-1-1-1z"/></svg>
+                    </div>
+                    <div>
+                        <h3>Alimentação</h3>
+                        <p>Uma dieta balanceada é a chave para a saúde e longevidade do seu pet. Escolha rações de qualidade.</p>
+                    </div>
+                </div>
+                <!-- Item Saúde -->
+                <div class="cuidado-item fade-in-element">
+                    <div class="icon" style="color: var(--cor-acento-3); background-color: rgba(255, 160, 122, 0.2);">
+                        <!-- Ícone de Estetoscópio/Saúde -->
+                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm15.5 2.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                    </div>
+                    <div>
+                        <h3>Saúde e Higiene</h3>
+                        <p>Visitas regulares ao veterinário, vacinas em dia e banhos são fundamentais para o bem-estar.</p>
+                    </div>
+                </div>
+                <!-- Item Brincadeiras -->
+                <div class="cuidado-item fade-in-element">
+                    <div class="icon" style="color: #BA55D3; background-color: rgba(186, 85, 211, 0.2);">
+                        <!-- Ícone de Brinquedo (Osso) -->
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5s-1.27.33-1.63.84L12 9l-2.37-3.16C9.27 5.33 8.67 5 8 5s-1.27.33-1.63.84L2 12l4.37 6.16c.36.51.96.84 1.63.84s1.27-.33 1.63-.84L12 15l2.37 3.16c.36.51.96.84 1.63.84s1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg>
+                    </div>
+                    <div>
+                        <h3>Brincadeiras</h3>
+                        <p>Estimule a mente e o corpo do seu animal com brincadeiras e atividades diárias. É diversão para todos!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 🖼️ GALERIA DE MOMENTOS -->
+        <section id="galeria" class="container-fluid">
+            <div class="container">
+                <h2 class="section-title fade-in-element">Momentos Fofos</h2>
+                <div class="galeria-grid">
+                    <div class="galeria-item fade-in-element">
+                        <img src="https://images.pexels.com/photos/4587993/pexels-photo-4587993.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Gato olhando para a câmera">
+                        <div class="overlay">Curiosidade Felina</div>
+                    </div>
+                    <div class="galeria-item fade-in-element">
+                        <img src="https://images.pexels.com/photos/2253275/pexels-photo-2253275.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cachorro pug deitado na cama">
+                        <div class="overlay">Soninho Gostoso</div>
+                    </div>
+                    <div class="galeria-item fade-in-element">
+                        <img src="https://images.pexels.com/photos/1485805/pexels-photo-1485805.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pássaro calopsita no ombro de uma pessoa">
+                         <div class="overlay">Companhia Alada</div>
+                    </div>
+                     <div class="galeria-item fade-in-element">
+                        <img src="https://images.pexels.com/photos/2156311/pexels-photo-2156311.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Peixe beta em um aquário">
+                         <div class="overlay">Dança das Águas</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ❤️ SEÇÃO DE ADOÇÃO -->
+        <section id="adocao" class="fade-in-element">
+            <h2>Adoção Responsável</h2>
+            <p>Milhares de pets esperam por um lar. Adotar é um ato de amor que transforma vidas, a sua e a deles. Encontre um amigo para a vida toda!</p>
+            <a href="#" class="btn-adocao">Quero Adotar um Amigo</a>
+        </section>
+    </main>
+
+    <!-- 🦶 RODAPÉ -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Universo Pet</div>
+                <p>Celebrando a vida ao lado dos melhores amigos.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#especies">Espécies</a></li>
+                    <li><a href="#cuidados">Dicas de Cuidados</a></li>
+                    <li><a href="#adocao">Adoção</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Siga-nos</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></svg>
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.81C10.44 7.31 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10,10 0 0,0 12,2.04Z" /></svg>
+                    </a>
+                     <a href="#" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" /></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-credits">
+            <p>&copy; 2025 Universo Pet. Criado com ❤️ para todos os amantes de animais. Design por IA e Desenvolvedor.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- ✨ ANIMAÇÃO DE ENTRADA AO ROLAR ---
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-element').forEach(element => {
+                observer.observe(element);
+            });
+            
+            // --- 📌 DESTAQUE DO MENU ATIVO NA ROLAGEM ---
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(a => {
+                    a.classList.remove('active');
+                    if (a.getAttribute('href').includes(current)) {
+                        a.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

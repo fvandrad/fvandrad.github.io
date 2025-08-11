@@ -1,0 +1,906 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <style>
+                body {
+                  background-color: white; /* Ensure the iframe has a white background */
+                }
+    
+                
+              </style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maria, Mãe de Jesus</title>
+    <meta name="description" content="Uma homenagem à Maria, Mãe de Jesus - símbolo de fé, pureza e amor incondicional.">
+    <meta property="og:title" content="Maria, Mãe de Jesus">
+    <meta property="og:description" content="Uma homenagem à Maria, Mãe de Jesus - símbolo de fé, pureza e amor incondicional.">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4a90e2;
+            --secondary-gold: #f5d678;
+            --light-blue: #e6f2ff;
+            --dark-blue: #2c3e50;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-blue) 0%, #f8f9fa 100%);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-blue);
+            margin: 3px 0;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.1) 0%, rgba(245, 214, 120, 0.1) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%234a90e2" opacity="0.3"/><circle cx="80" cy="30" r="1.5" fill="%23f5d678" opacity="0.4"/><circle cx="40" cy="70" r="1" fill="%234a90e2" opacity="0.2"/></svg>');
+            background-size: 200px 200px;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-20px) translateX(20px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+            font-style: italic;
+        }
+
+        .hero-image {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-blue), var(--secondary-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            animation: fadeIn 1s ease-out, pulse 3s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(74, 144, 226, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 144, 226, 0); }
+        }
+
+        .hero-image svg {
+            width: 180px;
+            height: 180px;
+            fill: white;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-blue), var(--secondary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary-blue), var(--secondary-gold));
+            border-radius: 2px;
+        }
+
+        /* History Section */
+        .history-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .history-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .history-text p {
+            margin-bottom: 20px;
+        }
+
+        .history-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 400px;
+            background: linear-gradient(45deg, var(--primary-blue), var(--secondary-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-image svg {
+            width: 80%;
+            height: 80%;
+            fill: white;
+        }
+
+        /* Virtues Section */
+        .virtues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .virtue-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+        }
+
+        .virtue-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .virtue-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, var(--primary-blue), var(--secondary-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .virtue-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        .virtue-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 300px;
+            background: linear-gradient(45deg, var(--primary-blue), var(--secondary-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item svg {
+            width: 80%;
+            height: 80%;
+            fill: white;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(100%);
+            transition: var(--transition);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Quotes Section */
+        .quotes-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-slide {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin: 0 20px;
+        }
+
+        .quote-text {
+            font-size: 1.4rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+            line-height: 1.6;
+        }
+
+        .quote-reference {
+            font-weight: 500;
+            color: var(--primary-blue);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-gold);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--secondary-gold);
+            transform: translateY(-3px);
+        }
+
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-gold);
+            transform: translateY(-5px);
+        }
+
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .history-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 50px;
+                transition: var(--transition);
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Maria<span>.</span></a>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#history">História</a></li>
+                    <li><a href="#virtues">Virtudes</a></li>
+                    <li><a href="#gallery">Galeria</a></li>
+                    <li><a href="#quotes">Citações</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-image">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                </svg>
+            </div>
+            <h1>Maria, Mãe de Jesus</h1>
+            <p>"Eis aqui a serva do Senhor; cumpra-se em mim segundo a tua palavra." - Lucas 1:38</p>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history">
+        <div class="container">
+            <div class="section-title">
+                <h2>História de Maria</h2>
+            </div>
+            <div class="history-content">
+                <div class="history-text">
+                    <p>Maria foi uma jovem judia da cidade de Nazaré, escolhida por Deus para ser a mãe do Salvador do mundo. Sua história começa com a visita do anjo Gabriel, que lhe anunciou que ela conceberia um filho por obra do Espírito Santo.</p>
+                    <p>Conhecida por sua humildade e obediência, Maria aceitou a vontade de Deus com as palavras: "Eis aqui a serva do Senhor". Sua fé inabalável a tornou um modelo de devoção para cristãos ao redor do mundo.</p>
+                    <p>Durante a jornada para Belém, Maria deu à luz Jesus em uma manjedoura, marcando o início da redenção da humanidade. Sua presença foi constante na vida de Cristo, desde sua infância até o momento de sua crucificação.</p>
+                </div>
+                <div class="history-image">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtues Section -->
+    <section id="virtues" style="background: linear-gradient(135deg, rgba(230, 242, 255, 0.5) 0%, rgba(248, 249, 250, 0.5) 100%);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Virtudes e Mensagens</h2>
+            </div>
+            <div class="virtues-grid">
+                <div class="virtue-card">
+                    <div class="virtue-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/>
+                        </svg>
+                    </div>
+                    <h3>Fé Inabalável</h3>
+                    <p>Maria demonstrou uma fé extraordinária ao aceitar a vontade de Deus mesmo diante do desconhecido.</p>
+                </div>
+                <div class="virtue-card">
+                    <div class="virtue-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z"/>
+                        </svg>
+                    </div>
+                    <h3>Obediência</h3>
+                    <p>Sua resposta "Eis aqui a serva do Senhor" é um exemplo de total obediência à vontade divina.</p>
+                </div>
+                <div class="virtue-card">
+                    <div class="virtue-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/>
+                        </svg>
+                    </div>
+                    <h3>Amor Maternal</h3>
+                    <p>O amor incondicional que Maria demonstrou por Jesus é um modelo para todas as mães.</p>
+                </div>
+                <div class="virtue-card">
+                    <div class="virtue-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z"/>
+                        </svg>
+                    </div>
+                    <h3>Humildade</h3>
+                    <p>Maria se considerava apenas uma serva de Deus, demonstrando profunda humildade diante do Criador.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Galeria de Arte</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                    </svg>
+                    <div class="gallery-caption">Anunciação</div>
+                </div>
+                <div class="gallery-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                    </svg>
+                    <div class="gallery-caption">Natividade</div>
+                </div>
+                <div class="gallery-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                    </svg>
+                    <div class="gallery-caption">Apresentação</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quotes Section -->
+    <section id="quotes" style="background: linear-gradient(135deg, rgba(74, 144, 226, 0.05) 0%, rgba(245, 214, 120, 0.05) 100%);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Citações Bíblicas</h2>
+            </div>
+            <div class="quotes-container">
+                <div class="quote-slide">
+                    <p class="quote-text">"E Maria guardava todas essas coisas, meditando-as em seu coração."</p>
+                    <p class="quote-reference">- Lucas 2:19</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Maria, Mãe de Jesus</h3>
+                    <p>Uma homenagem à figura mais venerada do cristianismo, símbolo de fé, pureza e amor maternal.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Úteis</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Bíblia Online</a></li>
+                        <li><a href="#">Devocionais</a></li>
+                        <li><a href="#">Orações</a></li>
+                        <li><a href="#">Estudos Bíblicos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre este site</a></li>
+                        <li><a href="#">Contribua</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Maria, Mãe de Jesus. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <svg viewBox="0 0 24 24">
+            <path d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z"/>
+        </svg>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('nav ul');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Simple quote carousel
+        let currentQuote = 0;
+        const quotes = [
+            {
+                text: "E Maria guardava todas essas coisas, meditando-as em seu coração.",
+                reference: "Lucas 2:19"
+            },
+            {
+                text: "Eis aqui a serva do Senhor; cumpra-se em mim segundo a tua palavra.",
+                reference: "Lucas 1:38"
+            },
+            {
+                text: "Todas as gerações me chamarão bem-aventurada.",
+                reference: "Lucas 1:48"
+            }
+        ];
+
+        function rotateQuotes() {
+            const quoteContainer = document.querySelector('.quotes-container');
+            currentQuote = (currentQuote + 1) % quotes.length;
+            
+            const quoteSlide = document.createElement('div');
+            quoteSlide.className = 'quote-slide';
+            quoteSlide.innerHTML = `
+                <p class="quote-text">"${quotes[currentQuote].text}"</p>
+                <p class="quote-reference">- ${quotes[currentQuote].reference}</p>
+            `;
+            
+            quoteContainer.innerHTML = '';
+            quoteContainer.appendChild(quoteSlide);
+        }
+
+        // Rotate quotes every 5 seconds
+        setInterval(rotateQuotes, 5000);
+
+        // Initial quote
+        window.addEventListener('load', () => {
+            const quoteContainer = document.querySelector('.quotes-container');
+            const quoteSlide = document.createElement('div');
+            quoteSlide.className = 'quote-slide';
+            quoteSlide.innerHTML = `
+                <p class="quote-text">"${quotes[0].text}"</p>
+                <p class="quote-reference">- ${quotes[0].reference}</p>
+            `;
+            quoteContainer.appendChild(quoteSlide);
+        });
+    </script>
+</body>
+</html>
+
+
+    
+              <script>
+                              
+              </script>
+                        </body>
+                        </html>
+                    

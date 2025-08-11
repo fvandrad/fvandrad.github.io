@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universo das Motocicletas</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --preto-fosco: #1a1a1a;
+            --cinza-grafite: #333333;
+            --vermelho-vivo: #ff1e00;
+            --laranja-queimado: #e65100;
+            --azul-eletrico: #00e5ff;
+            --branco: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--preto-fosco);
+            color: var(--branco);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* --- Seção Hero --- */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--preto-fosco);
+            clip-path: polygon(0 100%, 100% 0, 100% 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            z-index: 1;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            background-color: var(--vermelho-vivo);
+            color: var(--branco);
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--laranja-queimado);
+            transform: scale(1.05);
+        }
+
+        .animated-moto-icon {
+            position: absolute;
+            bottom: 30px;
+            left: -100px;
+            width: 80px;
+            animation: ride 15s linear infinite;
+            z-index: 3;
+        }
+
+        @keyframes ride {
+            0% { left: -100px; transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { left: 110%; transform: translateY(0); }
+        }
+
+        /* --- Seções Gerais --- */
+        section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-divider {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--cinza-grafite);
+            clip-path: polygon(0 0, 100% 100%, 100% 0);
+            z-index: 1;
+        }
+
+        .section-divider-bottom {
+            bottom: -1px;
+            top: auto;
+            clip-path: polygon(0 100%, 100% 0, 100% 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--vermelho-vivo);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- História e Cultura --- */
+        .historia {
+            background-color: var(--cinza-grafite);
+        }
+
+        .historia-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .historia-content p {
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .cultura-icons {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .cultura-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInUp 1s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .cultura-item:nth-child(2) { animation-delay: 0.2s; }
+        .cultura-item:nth-child(3) { animation-delay: 0.4s; }
+        .cultura-item:nth-child(4) { animation-delay: 0.6s; }
+
+        .cultura-item svg {
+            width: 60px;
+            height: 60px;
+            fill: var(--azul-eletrico);
+            margin-bottom: 15px;
+        }
+
+        /* --- Tipos de Motocicletas --- */
+        .tipos {
+            background-color: var(--preto-fosco);
+        }
+        
+        .tipos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tipo-card {
+            background: var(--cinza-grafite);
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+            clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
+        }
+
+        .tipo-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        
+        .tipo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .tipo-card-content {
+            padding: 25px;
+        }
+        
+        .tipo-card-content h3 {
+            color: var(--laranja-queimado);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .tipo-card-content svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--vermelho-vivo);
+            margin-bottom: 15px;
+        }
+
+        /* --- Segurança e Dicas --- */
+        .seguranca {
+            background-color: var(--cinza-grafite);
+        }
+
+        .dicas-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            list-style: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dica-item {
+            background-color: rgba(0,0,0,0.2);
+            padding: 25px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .dica-item:hover {
+            background-color: rgba(255, 30, 0, 0.2);
+        }
+
+        .dica-item svg {
+            width: 50px;
+            height: 50px;
+            fill: var(--azul-eletrico);
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        /* --- Galeria --- */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .galeria-item {
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .galeria-item img, .galeria-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s, filter 0.5s;
+        }
+
+        .galeria-item:hover img, .galeria-item:hover video {
+            transform: scale(1.1);
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        .galeria-item::before {
+            content: '+';
+            font-family: 'Roboto Condensed', sans-serif;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 4rem;
+            color: var(--branco);
+            background: rgba(255, 30, 0, 0.7);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+            z-index: 1;
+        }
+
+        .galeria-item:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* --- Curiosidades --- */
+        .curiosidades {
+            background-color: var(--cinza-grafite);
+        }
+
+        .curiosidades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .curiosidade-item span {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--vermelho-vivo);
+            display: block;
+        }
+
+        .curiosidade-item p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        .curiosidade-item svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--laranja-queimado);
+            margin-bottom: 15px;
+        }
+
+        /* --- Contato --- */
+        .contato-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 50px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contato-form, .contato-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contato-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .contato-form input, .contato-form textarea {
+            width: 100%;
+            padding: 15px;
+            background: var(--cinza-grafite);
+            border: 1px solid var(--laranja-queimado);
+            border-radius: 5px;
+            color: var(--branco);
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .contato-form textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .contato-info p {
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .social-icons a {
+            margin-right: 20px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+
+        .social-icons svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--branco);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #111;
+            text-align: center;
+            padding: 30px 0;
+            border-top: 2px solid var(--vermelho-vivo);
+        }
+        
+        /* --- Animações de Entrada --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            position: relative;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+            .cultura-icons { flex-direction: column; gap: 30px; }
+            .contato-wrapper { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Seção Hero -->
+    <header class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Sinta a Liberdade Sobre Duas Rodas</h1>
+            <p>Uma jornada de velocidade, paixão e aventura sem limites.</p>
+            <a href="#tipos" class="cta-button">Explore os Modelos</a>
+        </div>
+        <div class="animated-moto-icon">
+            <svg viewBox="0 0 24 24" fill="#ff1e00"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+        </div>
+    </header>
+
+    <main>
+        <!-- História e Cultura -->
+        <section class="historia reveal" id="historia">
+            <div class="section-divider"></div>
+            <div class="container">
+                <h2 class="section-title">Cultura Sobre Rodas</h2>
+                <div class="historia-content">
+                    <p>Mais do que um meio de transporte, a motocicleta é um símbolo. Ela representa a busca pela liberdade, a emoção da aventura, a conexão com a estrada e a formação de uma comunidade unida pela mesma paixão.</p>
+                    <div class="cultura-icons">
+                        <div class="cultura-item">
+                             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                            <h3>Liberdade</h3>
+                        </div>
+                        <div class="cultura-item">
+                            <svg viewBox="0 0 24 24"><path d="M14.59 7.41L18.17 11H6v2h12.17l-3.59 3.59L16 18l6-6-6-6-1.41 1.41z"/></svg>
+                            <h3>Aventura</h3>
+                        </div>
+                        <div class="cultura-item">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v4H9.5c-1.93 0-3.5 1.57-3.5 3.5S7.57 18 9.5 18H12v2c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-2h1.5c1.93 0 3.5-1.57 3.5-3.5S22.43 11 20.5 11z"/></svg>
+                            <h3>Viagens</h3>
+                        </div>
+                        <div class="cultura-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V18h14v-1.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V18h6v-1.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            <h3>Comunidade</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-divider section-divider-bottom"></div>
+        </section>
+
+        <!-- Tipos de Motocicletas -->
+        <section class="tipos reveal" id="tipos">
+            <div class="container">
+                <h2 class="section-title">Encontre Sua Máquina</h2>
+                <div class="tipos-grid">
+                    <!-- Card Custom -->
+                    <div class="tipo-card">
+                        <img src="https://images.unsplash.com/photo-1620875722423-4135d1436574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Moto Custom">
+                        <div class="tipo-card-content">
+                            <svg viewBox="0 0 512 512" fill="currentColor"><path d="M416 192c0-88.3-80.1-160-160-160S96 103.7 96 192c0 68.4 46.5 131.7 112 153.3V448H96c-17.7 0-32 14.3-32 32s14.3 32 32 32h320c17.7 0 32-14.3 32-32s-14.3-32-32-32h-12V345.3c65.5-21.6 112-84.9 112-153.3zm-224 0c0-44.1 35.9-80 80-80s80 35.9 80 80-35.9 80-80 80-80-35.9-80-80z"/></svg>
+                            <h3>Custom</h3>
+                            <p>Estilo clássico, posição de pilotagem relaxada e muito cromo. Perfeita para longos passeios com conforto.</p>
+                        </div>
+                    </div>
+                    <!-- Card Esportiva -->
+                    <div class="tipo-card">
+                        <img src="https://images.unsplash.com/photo-1590237996387-e0705a646c3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="Moto Esportiva">
+                        <div class="tipo-card-content">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5L12 2zm0 7.5L4 5l8-3 8 3-8 4.5zM4 17h16v2H4z"/></svg>
+                            <h3>Esportiva</h3>
+                            <p>Design aerodinâmico, alta performance e tecnologia de ponta. Feita para quem busca adrenalina e velocidade.</p>
+                        </div>
+                    </div>
+                    <!-- Card Touring -->
+                    <div class="tipo-card">
+                        <img src="https://images.unsplash.com/photo-1599839690184-18a8925b3577?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Moto Touring">
+                        <div class="tipo-card-content">
+                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 13v-2h-2V9h2V7h-2V5h-2v2h-2v2h-2v2H9v2H7v2H5v2H3v2h2v-2h2v-2h2v-2h2v-2h2v2h2v2h2v2h2v-2h-2v-2h2zm-4 4h-2v-2h2v2zm-4 0h-2v-2h2v2z"/></svg>
+                            <h3>Touring</h3>
+                            <p>Conforto máximo para longas distâncias, com grande capacidade de bagagem e proteção aerodinâmica.</p>
+                        </div>
+                    </div>
+                     <!-- Card Off-Road -->
+                    <div class="tipo-card">
+                        <img src="https://images.unsplash.com/photo-1575086399124-ff5f7686a54b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Moto Off-Road">
+                        <div class="tipo-card-content">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 21c.83 0 1.5-.67 1.5-1.5S6.33 18 5.5 18 4 18.67 4 19.5 4.67 21 5.5 21zM12 3c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm-1-8h2v4h-2zm0-4h2v2h-2z"/></svg>
+                            <h3>Off-Road</h3>
+                            <p>Leves, ágeis e resistentes. Projetadas para superar terrenos difíceis como terra, lama e trilhas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Segurança e Dicas -->
+        <section class="seguranca reveal" id="seguranca">
+            <div class="section-divider"></div>
+            <div class="container">
+                <h2 class="section-title">Pilote com Segurança</h2>
+                <ul class="dicas-list">
+                    <li class="dica-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                        <div>
+                            <h3>Equipamento Completo</h3>
+                            <p>Capacete, jaqueta, luvas, calça e botas são essenciais para sua proteção.</p>
+                        </div>
+                    </li>
+                    <li class="dica-item">
+                        <svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+                        <div>
+                            <h3>Manutenção Preventiva</h3>
+                            <p>Verifique pneus, freios, óleo e luzes regularmente para garantir o bom funcionamento.</p>
+                        </div>
+                    </li>
+                    <li class="dica-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        <div>
+                            <h3>Direção Defensiva</h3>
+                            <p>Esteja sempre atento, antecipe os movimentos dos outros veículos e mantenha distância segura.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="section-divider section-divider-bottom"></div>
+        </section>
+
+        <!-- Galeria -->
+        <section class="galeria reveal" id="galeria">
+            <div class="container">
+                <h2 class="section-title">Galeria de Paixões</h2>
+                <div class="galeria-grid">
+                    <div class="galeria-item"><img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Moto 1"></div>
+                    <div class="galeria-item"><img src="https://images.unsplash.com/photo-1618362369742-93836a439e6a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Moto 2"></div>
+                    <div class="galeria-item"><img src="https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=908&q=80" alt="Moto 3"></div>
+                    <div class="galeria-item"><img src="https://images.unsplash.com/photo-1625041312388-c891a2743841?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" alt="Moto 4"></div>
+                    <div class="galeria-item"><img src="https://images.unsplash.com/photo-1591784949033-e5d7d337a402?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="Moto 5"></div>
+                    <div class="galeria-item"><img src="https://images.unsplash.com/photo-1504194957936-7c873335703a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Moto 6"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curiosidades -->
+        <section class="curiosidades reveal" id="curiosidades">
+            <div class="section-divider"></div>
+            <div class="container">
+                <h2 class="section-title">Fatos e Números</h2>
+                <div class="curiosidades-grid">
+                    <div class="curiosidade-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        <span>1885</span>
+                        <p>Ano da primeira motocicleta, a Daimler Reitwagen.</p>
+                    </div>
+                    <div class="curiosidade-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zM11 7h2v5h-2zm0 7h2v2h-2z"/></svg>
+                        <span>+380</span>
+                        <p>Velocidade (km/h) das motos mais rápidas do mundo.</p>
+                    </div>
+                    <div class="curiosidade-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        <span>Milhões</span>
+                        <p>De motociclistas espalhados pelo globo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section-divider section-divider-bottom"></div>
+        </section>
+
+        <!-- Contato -->
+        <section class="contato reveal" id="contato">
+            <div class="container">
+                <h2 class="section-title">Faça Parte do Pelotão</h2>
+                <div class="contato-wrapper">
+                    <!-- <div class="contato-form">
+                        <form action="#">
+                            <input type="text" placeholder="Seu Nome" required>
+                            <input type="email" placeholder="Seu E-mail" required>
+                            <textarea placeholder="Sua Mensagem" required></textarea>
+                            <button type="submit" class="cta-button">Enviar Mensagem</button>
+                        </form>
+                    </div> -->
+                    <div class="contato-info">
+                        <h3>Conecte-se conosco</h3>
+                        <p>Tem dúvidas, sugestões ou quer compartilhar sua história? Entre em contato ou nos siga nas redes sociais para ficar por dentro de eventos e encontros.</p>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2m13 2h-2.5A3.5 3.5 0 0 0 12 8.5V11h-2v3h2v7h3v-7h2.5L18 11h-3V8.5c0-.83.67-1.5 1.5-1.5H18V5z"/></svg></a>
+                            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8A3.6 3.6 0 0 0 20 16.4V7.6A3.6 3.6 0 0 0 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
+                            <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98-3.54-.18-6.69-1.88-8.8-4.48-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.58-.7-.02-1.37-.22-1.95-.55v.05c0 2.08 1.48 3.82 3.44 4.21-.36.1-.74.15-1.14.15-.28 0-.55-.03-.81-.08.55 1.7 2.14 2.94 4.03 2.97-1.47 1.15-3.32 1.83-5.33 1.83-.35 0-.69-.02-1.03-.06 1.9 1.23 4.16 1.95 6.56 1.95 7.88 0 12.2-6.54 12.2-12.2 0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.22z"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Universo das Motocicletas. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Efeito de revelação ao rolar a página
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                } else {
+                    reveals[i].classList.remove("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Para verificar a posição no carregamento inicial
+    </script>
+
+</body>
+</html>

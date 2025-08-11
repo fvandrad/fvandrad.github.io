@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Horizon — Consultoria Criativa</title>
+  <meta name="description" content="Horizon — Página minimalista e moderna para consultoria, com navegação fluida, seções limpas e tipografia elegante." />
+  <!-- Adicionado Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CV7LK9s6A2qD8WpXz4b9qG/W4K4aP8nE6jB9Iq0zT7a1gBf6uI6n/zP0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Adicionado para rolagem suave ao clicar nos links de âncora */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root{
+      --bg:#f9f9fb;
+      --fg:#1e1e2f;
+      --accent:#4f46e5;
+      --radius:12px;
+      --maxw:1100px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    /* Alterado o background para um degradê radial */
+    body{
+      background: radial-gradient(circle at center, #ffffff, #f0f0f5);
+      color:var(--fg);
+      display:flex;
+      justify-content:center;
+      padding:24px;
+    }
+    .container{width:100%;max-width:var(--maxw)}
+
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+    .brand{font-weight:700;font-size:1.2rem;color:var(--accent)}
+    /* Oculta o menu hambúrguer por padrão em desktops */
+    .hamburger-menu { display: none; }
+    nav ul{display:flex;list-style:none;gap:16px}
+    nav a{text-decoration:none;color:var(--fg);font-weight:500}
+    nav a:hover{color:var(--accent)}
+    /* Novo estilo para o link ativo (scroll-spy) */
+    nav a.active {
+      color: var(--accent);
+      font-weight: 700;
+      position: relative;
+    }
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--accent);
+      animation: underline-grow 0.3s forwards;
+    }
+    @keyframes underline-grow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:32px;
+      align-items:center;
+      margin-bottom:80px; /* Aumentado o espaçamento */
+      position:relative;
+      overflow:hidden;
+      padding: 40px 0;
+    }
+    .hero h1{font-size:2.5rem;margin-bottom:14px}
+    .hero p{color:#555;margin-bottom:20px}
+    .btn{background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:var(--radius);cursor:pointer;font-weight:600}
+    .btn:hover{opacity:0.9}
+
+    .services, .portfolio, .testimonials, .features{margin-bottom:80px} /* Aumentado o espaçamento */
+    h2{margin-bottom:16px;font-size:1.6rem}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .card{background:#fff;padding:18px;border-radius:var(--radius);box-shadow:0 2px 10px rgba(0,0,0,0.04)}
+    
+    /* Estilos para os ícones */
+    .card h3 i, .feature-card h3 i {
+        margin-right: 8px;
+        color: var(--accent);
+    }
+    /* Estilos para o container do ícone na seção de diferenciais */
+    .feature-icon-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: rgba(79, 70, 229, 0.1);
+        margin-bottom: 12px;
+    }
+    .feature-icon-container i {
+        font-size: 1.5rem;
+        color: var(--accent);
+        margin: 0;
+    }
+
+    /* Novos estilos para a seção de depoimentos */
+    .testimonial-card{
+      /* Alterado o background para uma borda, com linha mais fina */
+      background: #fff;
+      border: 1px solid var(--accent);
+      color: var(--fg); /* Alterado para uma cor legível */
+      padding:24px;
+      border-radius:var(--radius);
+      font-style:italic;
+      position:relative;
+    }
+    /* Removido o pseudo-elemento com as aspas para combinar com o novo estilo */
+    .testimonial-card p{
+      font-size:1.1rem;
+      margin-bottom:10px;
+    }
+    .testimonial-author{
+      font-weight:600;
+      font-style:normal;
+      text-align:right;
+      display:block;
+      color: var(--accent); /* Cor do autor para se destacar */
+    }
+
+    /* Novos estilos para a seção de diferenciais */
+    .features-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:24px;
+    }
+    .feature-card{
+      background:linear-gradient(135deg, #fefeff, #f0f0f5);
+      padding:24px;
+      border-radius:var(--radius);
+      box-shadow:0 8px 25px rgba(0,0,0,0.08);
+      text-align:center;
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 12px 30px rgba(0,0,0,0.12);
+    }
+    .feature-card h3{
+      color:var(--fg);
+      margin-bottom:8px;
+    }
+    .feature-card p{
+      color:#666;
+    }
+
+    /* Estilos para as bolas de linha abstratas no hero */
+    .hero-bg-circle {
+      position: absolute;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      opacity: 0.1;
+      z-index: -1;
+      box-sizing: border-box;
+      animation: float 20s infinite ease-in-out;
+    }
+    .circle-1 { width: 100px; height: 100px; top: -20px; left: -20px; animation-delay: 0s; }
+    .circle-2 { width: 150px; height: 150px; bottom: 50px; right: 50px; animation-delay: 5s; }
+    .circle-3 { width: 80px; height: 80px; top: 80px; right: 10%; animation-delay: 10s; }
+    .circle-4 { width: 120px; height: 120px; bottom: 10px; left: 15%; animation-delay: 15s; }
+    /* Adicionado novo círculo maior */
+    .circle-5 { 
+      width: 250px; 
+      height: 250px; 
+      bottom: 20px; 
+      right: 200px; 
+      animation-delay: 20s; 
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(20px, 30px) scale(1.1); }
+      50% { transform: translate(0, 50px) scale(0.9); }
+      75% { transform: translate(-30px, 20px) scale(1.2); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    footer{text-align:center;font-size:0.9rem;color:#777;margin-top:20px}
+
+    /* Estilos para o botão flutuante de voltar ao topo */
+    #back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--accent);
+      color: #fff;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+    }
+    #back-to-top:hover {
+      background: #3c34c5;
+    }
+    #back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media(max-width:800px){
+      .hero{grid-template-columns:1fr;text-align:center}
+      .grid-3, .grid-2{grid-template-columns:1fr}
+      .features-grid{grid-template-columns:1fr}
+      .hero-bg-circle{display:none;} /* Esconde as bolas em telas pequenas */
+      #back-to-top {
+        bottom: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+      }
+      /* Estilos para o menu hambúrguer */
+      header{
+        position: relative; /* Garante que o menu flutue sobre o resto */
+        z-index: 10; /* Adicionado para garantir que o header fique acima do hero */
+      }
+      header nav{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--fg);
+        color: var(--bg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 99; /* Adicionado para garantir que o menu fique acima de tudo */
+      }
+
+      /* Classe que ativa a exibição do menu */
+      header nav.open {
+        transform: translateX(0);
+      }
+
+      header nav ul{
+        flex-direction: column;
+        gap: 24px;
+      }
+      header nav a{
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--bg);
+      }
+      header nav a.active {
+        color: var(--accent); /* Cor do link ativo no menu mobile */
+      }
+
+      /* Ícone do menu hambúrguer */
+      .hamburger-menu {
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 100;
+        font-size: 1.5rem;
+        color: var(--accent);
+        transition: color 0.3s ease;
+      }
+      .hamburger-menu:hover{
+        color: #665ae3;
+      }
+      /* Rotação do ícone para o "X" quando o menu está aberto */
+      .hamburger-menu.active i.fa-bars {
+        display: none;
+      }
+      .hamburger-menu.active i.fa-times {
+        display: block;
+      }
+      .hamburger-menu i.fa-times {
+        display: none;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">Horizon</div>
+      <!-- Botão para o menu hambúrguer -->
+      <button class="hamburger-menu" aria-label="Abrir menu de navegação">
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-times"></i>
+      </button>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#portfolio">Portfólio</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero" id="hero"> <!-- Adicionado id para a seção inicial -->
+      <div class="hero-bg-circle circle-1"></div>
+      <div class="hero-bg-circle circle-2"></div>
+      <div class="hero-bg-circle circle-3"></div>
+      <div class="hero-bg-circle circle-4"></div>
+      <!-- Adicionado o novo círculo -->
+      <div class="hero-bg-circle circle-5"></div>
+      <div>
+        <h1>Consultoria Criativa para Marcas Modernas</h1>
+        <p>Estratégia, design e tecnologia reunidos para impulsionar sua marca no mundo digital.</p>
+        <button class="btn">Começar agora</button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800" alt="Horizon" style="width:100%;border-radius:var(--radius)" />
+    </section>
+
+    <section id="servicos" class="services">
+      <h2>Serviços</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3><i class="fa-solid fa-award"></i>Branding</h3>
+          <p>Construímos identidades únicas e consistentes para sua marca.</p>
+        </div>
+        <div class="card">
+          <h3><i class="fa-solid fa-laptop-code"></i>Design Web</h3>
+          <p>Sites modernos, responsivos e focados na experiência do usuário.</p>
+        </div>
+        <div class="card">
+          <h3><i class="fa-solid fa-chart-line"></i>Marketing Digital</h3>
+          <p>Campanhas estratégicas para aumentar sua presença online.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+      <h2>Portfólio</h2>
+      <div class="grid-3">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800" alt="Projeto 1" style="width:100%;border-radius:var(--radius);margin-bottom:10px" />
+          <p>Identidade visual para startup de tecnologia.</p>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="Projeto 2" style="width:100%;border-radius:var(--radius);margin-bottom:10px" />
+          <p>Website responsivo para consultoria financeira.</p>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=800" alt="Projeto 3" style="width:100%;border-radius:var(--radius);margin-bottom:10px" />
+          <p>Campanha de marketing digital para e-commerce.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção: Depoimentos -->
+    <section id="depoimentos" class="testimonials">
+      <h2>Depoimentos</h2>
+      <div class="grid-2">
+        <div class="testimonial-card">
+          <p>O trabalho da Horizon transformou a nossa presença digital. O novo website superou todas as nossas expectativas, e o suporte foi impecável. Recomendo muito!</p>
+          <span class="testimonial-author">— Ana P., CEO TechInnov</span>
+        </div>
+        <div class="testimonial-card">
+          <p>Profissionais extremamente competentes e dedicados. A identidade visual criada para nossa empresa se destaca e reflete exatamente a nossa essência.</p>
+          <span class="testimonial-author">— Bruno M., Founder Finança Fácil</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção: Diferenciais -->
+    <section id="diferenciais" class="features">
+      <h2>Nossos Diferenciais</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-container"><i class="fa-solid fa-user-check"></i></div>
+          <h3>Abordagem Personalizada</h3>
+          <p>Cada projeto é único, e a nossa estratégia é construída sob medida para as suas necessidades.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-container"><i class="fa-solid fa-lightbulb"></i></div>
+          <h3>Inovação Contínua</h3>
+          <p>Estamos sempre atualizados com as últimas tendências para oferecer as melhores soluções.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-container"><i class="fa-solid fa-bullseye"></i></div>
+          <h3>Foco em Resultados</h3>
+          <p>Nossa prioridade é o crescimento do seu negócio e o retorno sobre o seu investimento.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-container"><i class="fa-solid fa-eye"></i></div>
+          <h3>Transparência Total</h3>
+          <p>Você acompanha cada passo do projeto, com comunicação clara e aberta.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <h2>Contato</h2>
+      <form style="display:grid;gap:12px;max-width:500px">
+        <input type="text" placeholder="Nome" required style="padding:10px;border-radius:var(--radius);border:1px solid #ccc" />
+        <input type="email" placeholder="E-mail" required style="padding:10px;border-radius:var(--radius);border:1px solid #ccc" />
+        <textarea placeholder="Mensagem" required style="padding:10px;border-radius:var(--radius);border:1px solid #ccc;min-height:100px"></textarea>
+        <button class="btn" type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <footer>
+      © 2025 Horizon — Todos os direitos reservados
+    </footer>
+  </div>
+  <!-- Novo botão flutuante para voltar ao topo -->
+  <button id="back-to-top" aria-label="Voltar ao topo">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburgerButton = document.querySelector('.hamburger-menu');
+      const nav = document.getElementById('main-nav');
+      const navLinks = nav.querySelectorAll('a');
+      const backToTopButton = document.getElementById('back-to-top');
+
+      // Lógica do menu hambúrguer
+      hamburgerButton.addEventListener('click', () => {
+        nav.classList.toggle('open');
+        hamburgerButton.classList.toggle('active');
+      });
+
+      // Fechar o menu quando um link for clicado
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('open');
+          hamburgerButton.classList.remove('active');
+        });
+      });
+
+      // Lógica do botão de voltar ao topo
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) { // Mostra o botão após rolar 200px
+          backToTopButton.classList.add('show');
+        } else {
+          backToTopButton.classList.remove('show');
+        }
+      });
+
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Nova lógica para o scroll-spy
+      const sections = document.querySelectorAll('section[id]');
+      const headerHeight = document.querySelector('header').offsetHeight;
+      
+      function updateActiveLink() {
+        const scrollPosition = window.scrollY;
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - headerHeight;
+          const sectionBottom = sectionTop + section.offsetHeight;
+          const sectionId = section.getAttribute('id');
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            // Remove a classe 'active' de todos os links
+            navLinks.forEach(link => link.classList.remove('active'));
+            // Adiciona a classe 'active' ao link correspondente
+            const activeLink = document.querySelector(`nav a[href="#${sectionId}"]`);
+            if (activeLink) {
+              activeLink.classList.add('active');
+            }
+          }
+        });
+      }
+      
+      // Adiciona o listener de scroll e chama a função na carga da página
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink();
+
+    });
+  </script>
+</body>
+</html>

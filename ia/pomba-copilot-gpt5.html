@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A Pomba — Símbolo de Paz e Esperança</title>
+  <meta name="description" content="Uma página moderna, elegante e responsiva celebrando a pomba — símbolo universal de paz, pureza e esperança." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f7f9fb;
+      --bg-soft: #ffffffcc;
+      --text: #2e3440;
+      --muted: #64748b;
+      --brand: #6aaad6;
+      --brand-2:#b9d6e8;
+      --accent:#e6d9c8;
+      --shadow: 0 10px 30px rgba(18, 38, 63, .08);
+      --glass: rgba(255,255,255,.65);
+      --card: #ffffff;
+      --border: #e6eff8;
+      --ring: #c6e2f5;
+      --success:#58a26a;
+    }
+    [data-theme="dark"]{
+      --bg: #0f172a;
+      --bg-soft: #0b1324cc;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --brand: #7fb8e4;
+      --brand-2:#34597a;
+      --accent:#2a2a2a;
+      --shadow: 0 8px 28px rgba(0,0,0,.35);
+      --glass: rgba(15,23,42,.55);
+      --card: #0b1324;
+      --border: #132136;
+      --ring: #1f3c59;
+      --success:#71c287;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 80% -10%, var(--brand-2) 0%, transparent 45%),
+                  radial-gradient(1000px 700px at -10% 10%, var(--accent) 0%, transparent 40%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg) 100%);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      line-height:1.2;
+      margin:0 0 .6rem;
+      letter-spacing:.2px;
+    }
+    p{line-height:1.7; color:var(--muted); margin:0 0 1rem}
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:100%; max-width:1100px; padding:0 20px; margin:0 auto}
+    /* NAV */
+    .nav{
+      position:fixed; top:0; left:0; right:0; z-index:50;
+      backdrop-filter:saturate(180%) blur(14px);
+      background:var(--glass);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      height:64px; gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:600;
+      letter-spacing:.3px;
+    }
+    .brand svg{width:28px; height:28px; color:var(--brand)}
+    .menu{
+      display:flex; align-items:center; gap:6px;
+      background:transparent;
+    }
+    .menu a{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px; border-radius:10px; color:var(--muted);
+      transition:color .25s ease, background .25s ease, transform .2s ease;
+      position:relative;
+    }
+    .menu a.active{ color:var(--text); background:var(--bg-soft)}
+    .menu a:hover{ color:var(--text); transform:translateY(-1px) }
+    .menu a svg{width:18px; height:18px; opacity:.9}
+    .actions{display:flex; align-items:center; gap:8px}
+    .icon-btn{
+      border:1px solid var(--border); background:var(--card); color:var(--text);
+      width:40px; height:40px; border-radius:12px; display:inline-grid; place-items:center;
+      box-shadow:var(--shadow); cursor:pointer; transition:transform .2s ease, background .2s ease;
+    }
+    .icon-btn:hover{ transform:translateY(-1px) }
+    .icon-btn svg{width:18px; height:18px}
+    .sound-toggle.on{ outline:2px solid var(--ring) }
+    /* HERO */
+    section{scroll-margin-top:80px}
+    .hero{
+      position:relative; padding-top:120px; padding-bottom:80px; overflow:hidden;
+      background: linear-gradient(180deg, rgba(186, 213, 232, .35), transparent 55%);
+    }
+    .hero-grid{
+      display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:24px;
+    }
+    .hero h1{font-size: clamp(2rem, 3.6vw, 3.4rem)}
+    .hero p{font-size: clamp(1rem, 1.4vw, 1.125rem)}
+    .cta{
+      margin-top:18px; display:inline-flex; align-items:center; gap:10px;
+      background:var(--brand); color:white; border:none; padding:12px 16px; border-radius:12px;
+      box-shadow:0 10px 25px rgba(80, 150, 200, .3); cursor:pointer; font-weight:600;
+      transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+    }
+    .cta:hover{ transform:translateY(-1px); filter:saturate(1.05); box-shadow:0 12px 30px rgba(80,150,200,.35) }
+    .cta svg{width:18px; height:18px}
+    .dove-wrap{position:relative}
+    .dove-hero{width:100%; height:auto; filter: drop-shadow(0 12px 28px rgba(0,0,0,.12))}
+    .wing{ transform-origin: 70% 50%; animation: flap 3.6s ease-in-out infinite }
+    .wing--back{ animation-delay:.2s; opacity:.9 }
+    @keyframes flap{
+      0%,100%{ transform: rotate(0deg) translateY(0) }
+      50%{ transform: rotate(-6deg) translateY(-2px) }
+    }
+    .float{ animation: float 8s ease-in-out infinite; will-change: transform }
+    @keyframes float{
+      0%,100%{ transform: translateY(0) }
+      50%{ transform: translateY(-8px) }
+    }
+    /* SECTIONS */
+    .section{ padding:80px 0 }
+    .section.intro .items{
+      display:grid; gap:22px; grid-template-columns:repeat(3, minmax(0,1fr));
+    }
+    .chip{
+      display:flex; align-items:flex-start; gap:12px; padding:18px; border-radius:16px;
+      background:var(--card); border:1px solid var(--border); box-shadow:var(--shadow);
+    }
+    .chip svg{width:20px; height:20px; color:var(--brand); flex:0 0 20px; margin-top:2px}
+    .muted{ color:var(--muted) }
+    /* CURIOSIDADES */
+    .grid{
+      display:grid; gap:16px; grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+    .card{
+      background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px;
+      box-shadow:var(--shadow); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      position:relative; overflow:hidden;
+    }
+    .card:hover{ transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,.08); border-color:var(--ring) }
+    .card h3{font-size:1.05rem}
+    .card .icon{
+      width:26px; height:26px; color:var(--brand);
+    }
+    /* GALERIA */
+    .gallery{
+      display:grid; gap:10px; grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+    .gallery figure{
+      margin:0; border-radius:16px; overflow:hidden; position:relative; border:1px solid var(--border);
+      background:var(--card); cursor:zoom-in;
+    }
+    .gallery img{ width:100%; height:220px; object-fit:cover; transition: transform .4s ease }
+    .gallery figure:hover img{ transform: scale(1.04) }
+    .badge{
+      position:absolute; bottom:10px; right:10px; background:var(--bg-soft); color:var(--text);
+      padding:6px 10px; border-radius:999px; font-size:.75rem; border:1px solid var(--border)
+    }
+    /* LIGHTBOX */
+    .lightbox{
+      position:fixed; inset:0; background:rgba(0,0,0,.75); display:none; align-items:center; justify-content:center;
+      z-index:90; padding:20px;
+    }
+    .lightbox.open{ display:flex }
+    .lightbox img{ max-width:90vw; max-height:80vh; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,.5) }
+    .lb-close,.lb-prev,.lb-next{
+      position:absolute; top:20px; background:var(--glass); color:var(--text); border:1px solid var(--border);
+      width:42px; height:42px; border-radius:12px; display:grid; place-items:center; cursor:pointer;
+      backdrop-filter:blur(10px);
+    }
+    .lb-close{ right:20px }
+    .lb-prev{ left:20px; top:50%; transform:translateY(-50%) }
+    .lb-next{ right:20px; top:50%; transform:translateY(-50%) }
+    .lb-prev svg, .lb-next svg, .lb-close svg{ width:18px; height:18px }
+    /* CONTATO */
+    form{
+      display:grid; gap:12px; grid-template-columns:1fr 1fr;
+      background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; box-shadow:var(--shadow);
+    }
+    form .full{ grid-column: 1 / -1 }
+    label{ display:block; font-size:.9rem; color:var(--muted); margin-bottom:6px }
+    input, textarea{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:var(--bg);
+      color:var(--text); outline:none; transition:border-color .2s ease, box-shadow .2s ease;
+    }
+    input:focus, textarea:focus{ border-color:var(--ring); box-shadow:0 0 0 4px rgba(100, 180, 230, .15) }
+    textarea{ min-height:120px; resize:vertical }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px;
+      border:1px solid var(--border); background:var(--brand); color:#fff; font-weight:600; cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+    .socials{ display:flex; gap:10px; margin-top:12px }
+    .socials a{
+      width:40px; height:40px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--border);
+      background:var(--card); color:var(--text); box-shadow:var(--shadow); transition:transform .2s ease;
+    }
+    .socials a:hover{ transform:translateY(-2px) }
+    .note{
+      margin-top:8px; font-size:.95rem; color:var(--muted);
+    }
+    /* FOOTER */
+    footer{
+      padding:26px 0; border-top:1px solid var(--border); margin-top:40px; background:linear-gradient(180deg, transparent, rgba(255,255,255,.04));
+    }
+    .foot{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      font-size:.95rem; color:var(--muted);
+    }
+    .foot .mini-dove{ width:22px; height:22px; margin-left:6px; animation: flap 3.6s ease-in-out infinite }
+    /* DECOR */
+    .bg-blob{
+      position:absolute; inset:auto auto -140px -120px; width:600px; height:600px; opacity:.25; pointer-events:none;
+      filter: blur(10px);
+    }
+    .feather{
+      position:fixed; top:-10vh; width:24px; height:24px; opacity:.65; z-index:0; pointer-events:none;
+      animation: fall linear infinite, sway ease-in-out infinite;
+    }
+    @keyframes fall{
+      to{ transform: translateY(120vh) rotate(180deg) }
+    }
+    @keyframes sway{
+      0%,100%{ margin-left: -10px }
+      50%{ margin-left: 10px }
+    }
+    /* MEDIA */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns:1fr; gap:12px }
+      .section.intro .items{ grid-template-columns:1fr }
+      .grid{ grid-template-columns:1fr 1fr }
+      .gallery{ grid-template-columns:1fr 1fr }
+      form{ grid-template-columns:1fr }
+    }
+    @media (max-width: 560px){
+      .menu a span{ display:none }
+      .grid{ grid-template-columns:1fr }
+      .gallery{ grid-template-columns:1fr }
+      .lb-prev,.lb-next{ width:46px; height:46px }
+      .lb-prev{ left:10px } .lb-next{ right:10px }
+    }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important }
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Sprite (ícones e formas) -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0; overflow:hidden">
+    <defs>
+      <symbol id="i-home" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3.2 3 10v10a1 1 0 0 0 1 1h6v-6h4v6h6a1 1 0 0 0 1-1V10L12 3.2z"/>
+      </symbol>
+      <symbol id="i-book" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6 3h9a3 3 0 0 1 3 3v13a2 2 0 0 1-2 2H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3zm0 3v12a1 1 0 0 0 1 1h9V6a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/>
+      </symbol>
+      <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3.3 14.6 9l6.1.5-4.6 3.9 1.4 5.9L12 16.7l-5.5 2.6 1.4-5.9-4.6-3.9L9.4 9 12 3.3z"/>
+      </symbol>
+      <symbol id="i-image" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2v10h14V7H5zm2 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm11 6-4-4-3 3-2-2-5 5h14z"/>
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm0 3.2V18h16V8.2l-8 5.3L4 8.2zm.7-2.2 7.3 4.8L19.4 6H4.7z"/>
+      </symbol>
+      <symbol id="i-olive" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.5 6.5c-2.5.2-5.7 1.6-7.9 3.8C10.4 12.5 9 15.7 8.8 18.2c2.5-.2 5.7-1.6 7.9-3.8 2.2-2.2 3.6-5.4 3.8-7.9zM6 12c-1.7 0-3 1.3-3 3 0 1.6 1.3 3 3 3s4-1.3 4-3c0-1.6-2.3-3-4-3z"/>
+      </symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 21s-7.2-4.5-9.3-8.1C.7 9.8 2.3 6 6.1 6c2 0 3.2 1.1 3.9 2.2.7-1.1 1.9-2.2 3.9-2.2 3.8 0 5.4 3.8 3.4 6.9C19.2 16.5 12 21 12 21z"/>
+      </symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3s4 3 4 7-3 6-3 6 2-5-2-8c0 4-3 4-3 7 0 3 2.5 6 6 6s6-3 6-7c0-5-4-8-8-11z"/>
+      </symbol>
+      <symbol id="i-cloud" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7 18h10a4 4 0 0 0 .5-7.9A6 6 0 0 0 6 9a4 4 0 0 0 1 9z"/>
+      </symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 4V1m0 22v-3M4.2 4.2 2.1 2.1M21.9 21.9l-2.1-2.1M4 12H1m22 0h-3M4.2 19.8l-2.1 2.1M21.9 2.1l-2.1 2.1M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M21 12.5A9 9 0 1 1 11.5 3 7 7 0 0 0 21 12.5z"/>
+      </symbol>
+      <symbol id="i-arrow-down" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 4v13l5-5 2 2-8 8-8-8 2-2 5 5V4z"/>
+      </symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M14 7l-5 5 5 5 1.5-1.5L12 12l3.5-3.5L14 7z"/>
+      </symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M10 7l5 5-5 5-1.5-1.5L12 12 8.5 8.5 10 7z"/>
+      </symbol>
+      <symbol id="i-facebook" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M13 9h3V6h-3c-2.2 0-4 1.8-4 4v2H7v3h2v6h3v-6h3l1-3h-4v-2a1 1 0 0 1 1-1z"/>
+      </symbol>
+      <symbol id="i-instagram" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm0 3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H7zm5 2.5A4.5 4.5 0 1 1 7.5 13 4.5 4.5 0 0 1 12 8.5zm5-1.5a1 1 0 1 1-1-1 1 1 0 0 1 1 1z"/>
+      </symbol>
+      <symbol id="i-twitter" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M22 6.1c-.7.3-1.5.6-2.3.7.8-.5 1.4-1.3 1.7-2.2-.8.5-1.7.8-2.6 1A4 4 0 0 0 12 9.3c0 .3 0 .6.1.9-3.3-.2-6.2-1.7-8.2-4.1-.3.6-.5 1.3-.5 2a4 4 0 0 0 1.8 3.3c-.6 0-1.2-.2-1.7-.5v.1c0 2 1.5 3.7 3.4 4-.3.1-.7.1-1 .1-.2 0-.5 0-.7-.1a4 4 0 0 0 3.7 2.8A8.1 8.1 0 0 1 2 19.3a11.4 11.4 0 0 0 6.2 1.8c7.5 0 11.6-6.2 11.6-11.6V9c.8-.6 1.4-1.3 1.9-2.1z"/>
+      </symbol>
+      <symbol id="i-email" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 8L4.5 7h15L12 13z"/>
+      </symbol>
+      <!-- PENA -->
+      <symbol id="feather" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.7 3.3c-3.1-3.1-9 1.1-12.3 4.4C5.1 11 3.4 14.7 4 16l.4.4c1.4.6 5-1.1 8.3-4.4 3.3-3.3 7.5-9.3 8-8.7zM5 19l4-1-3-3-1 4z"/>
+      </symbol>
+      <!-- POMBINHA -->
+      <symbol id="mini-dove" viewBox="0 0 24 24" fill="currentColor">
+        <path class="wing" d="M4 8c3 1 5 3 7 6-3-1-5-2-7-6z" />
+        <path d="M12 6c2 1 5 3 5 6s-2 6-6 6-6-2-6-5 3-6 7-7z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Navegação -->
+  <nav class="nav" role="navigation" aria-label="Navegação principal">
+    <div class="container nav-inner">
+      <a href="#inicio" class="brand">
+        <svg aria-hidden="true" viewBox="0 0 64 64">
+          <g class="float">
+            <path fill="currentColor" d="M42 12c5 2 14 7 14 16s-6 15-16 15S24 38 24 31s8-16 18-19z" opacity=".85"/>
+            <path fill="currentColor" d="M22 30c6 2 10 6 14 12-6-2-10-4-14-12z" opacity=".9"/>
+          </g>
+        </svg>
+        <span>Pomba</span>
+      </a>
+      <div class="menu" id="menu">
+        <a href="#inicio"><svg><use href="#i-home"/></svg><span>Início</span></a>
+        <a href="#significado"><svg><use href="#i-book"/></svg><span>Significado</span></a>
+        <a href="#curiosidades"><svg><use href="#i-star"/></svg><span>Curiosidades</span></a>
+        <a href="#galeria"><svg><use href="#i-image"/></svg><span>Galeria</span></a>
+        <a href="#contato"><svg><use href="#i-mail"/></svg><span>Contato</span></a>
+      </div>
+      <div class="actions">
+        <button class="icon-btn sound-toggle" id="soundToggle" aria-pressed="false" title="Ativar sons suaves">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M11 5 7 9H4v6h3l4 4V5zm6.5 1.5a1 1 0 0 0-1.4 1.4 5 5 0 0 1 0 7.1 1 1 0 1 0 1.4 1.4 7 7 0 0 0 0-9.9z"/></svg>
+        </button>
+        <button class="icon-btn theme-toggle" id="themeToggle" title="Alternar modo claro/escuro" aria-pressed="false">
+          <svg id="iconSun" style="display:none"><use href="#i-sun"/></svg>
+          <svg id="iconMoon"><use href="#i-moon"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section id="inicio" class="hero" aria-label="Introdução">
+      <svg class="bg-blob" viewBox="0 0 600 600" aria-hidden="true">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#cfe4f3"/>
+            <stop offset="100%" stop-color="#f2eadf"/>
+          </linearGradient>
+        </defs>
+        <path d="M96,363Q75,126,310,109Q545,92,517,319Q489,546,274,528Q59,510,96,363Z" fill="url(#g1)" opacity=".5"/>
+      </svg>
+      <div class="container hero-grid">
+        <div>
+          <h1>A Pomba — Símbolo de Paz e Esperança</h1>
+          <p>Conheça a beleza e a história dessa ave que transcende culturas e gerações. Suas asas leves sussurram sobre recomeços; seu voo suave desenha no céu a promessa de um amanhã mais sereno.</p>
+          <button class="cta" id="exploreBtn">
+            Explorar
+            <svg aria-hidden="true"><use href="#i-arrow-down"/></svg>
+          </button>
+        </div>
+        <div class="dove-wrap">
+          <!-- Ilustração SVG central -->
+          <svg class="dove-hero" viewBox="0 0 400 320" role="img" aria-label="Pomba voando com ramo de oliveira">
+            <defs>
+              <radialGradient id="bodyGrad" cx="50%" cy="40%" r="70%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#e8f1f7"/>
+              </radialGradient>
+              <linearGradient id="beakGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#e4b078"/>
+                <stop offset="100%" stop-color="#c69154"/>
+              </linearGradient>
+              <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#72b482"/>
+                <stop offset="100%" stop-color="#579b6b"/>
+              </linearGradient>
+            </defs>
+            <!-- nuvens -->
+            <g opacity=".35">
+              <use href="#i-cloud" x="20" y="20" width="48" height="48"/>
+              <use href="#i-cloud" x="320" y="40" width="40" height="40"/>
+            </g>
+            <!-- corpo -->
+            <g transform="translate(50,40)">
+              <path fill="url(#bodyGrad)" d="M210 80c36 14 80 52 80 95 0 51-59 85-118 85-60 0-112-36-112-88s52-106 128-116z"/>
+              <circle cx="260" cy="98" r="6" fill="#222" opacity=".7"/>
+              <path d="M274 108c6 3 10 8 10 10 0 2-8 0-13-3s-7-7-5-9 4-1 8 2z" fill="url(#beakGrad)"/>
+              <!-- asa traseira -->
+              <g class="wing wing--back" transform="translate(40,40)">
+                <path fill="url(#bodyGrad)" d="M0 60c28-18 66-42 118-46-30 20-38 48-36 80C52 96 18 80 0 60z"/>
+              </g>
+              <!-- asa dianteira -->
+              <g class="wing" transform="translate(12,28)">
+                <path fill="url(#bodyGrad)" d="M0 60c28-18 86-56 138-60-30 20-56 58-54 90C52 96 18 80 0 60z"/>
+              </g>
+              <!-- ramo de oliveira -->
+              <g transform="translate(240,126)">
+                <path d="M0 0c28 8 52 24 76 40" stroke="#447a57" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <ellipse cx="20" cy="-8" rx="10" ry="6" fill="url(#leafGrad)" transform="rotate(-20 20 -8)"/>
+                <ellipse cx="38" cy="0" rx="10" ry="6" fill="url(#leafGrad)" transform="rotate(10 38 0)"/>
+                <ellipse cx="56" cy="10" rx="11" ry="7" fill="url(#leafGrad)" transform="rotate(20 56 10)"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Significado e História -->
+    <section id="significado" class="section intro" aria-label="Significado e história">
+      <div class="container">
+        <h2>Significado e história</h2>
+        <p class="muted">Da Antiguidade aos dias de hoje, a pomba surge como mensageira de boas novas. Ela costura tempos e fronteiras com um fio invisível de esperança — um convite silencioso à concórdia.</p>
+        <div class="items" style="margin-top:14px">
+          <div class="chip">
+            <svg aria-hidden="true"><use href="#i-olive"/></svg>
+            <div>
+              <h3>Ramo de oliveira</h3>
+              <p>Em tradições antigas, o ramo no bico anuncia terra firme após a tormenta. É o sinal de que o coração pode descansar.</p>
+            </div>
+          </div>
+          <div class="chip">
+            <svg aria-hidden="true"><use href="#i-heart"/></svg>
+            <div>
+              <h3>Pureza e afeto</h3>
+              <p>O branco das penas evoca clareza e verdade. No gesto simples do voo, há ternura e a vontade de cuidar.</p>
+            </div>
+          </div>
+          <div class="chip">
+            <svg aria-hidden="true"><use href="#i-flame"/></svg>
+            <div>
+              <h3>Chama da esperança</h3>
+              <p>Ao cruzar o céu, a pomba acende a chama interior que nos guia — um farol sereno para tempos incertos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curiosidades -->
+    <section id="curiosidades" class="section" aria-label="Curiosidades">
+      <div class="container">
+        <h2>Curiosidades</h2>
+        <div class="grid" style="margin-top:16px">
+          <article class="card">
+            <div style="display:flex; align-items:flex-start; gap:12px">
+              <svg class="icon" aria-hidden="true"><use href="#i-cloud"/></svg>
+              <div>
+                <h3>Memória de rota apurada</h3>
+                <p class="muted">Pombas-correio foram célebres por retornar ao lar a longas distâncias, guiando-se por pistas do Sol, do campo magnético e da paisagem.</p>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <div style="display:flex; align-items:flex-start; gap:12px">
+              <svg class="icon" aria-hidden="true"><use href="#i-olive"/></svg>
+              <div>
+                <h3>Emblema universal</h3>
+                <p class="muted">Do Mediterrâneo ao Oriente, a pomba aparece como emblema de paz, reconciliação e recomeço após a tempestade.</p>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <div style="display:flex; align-items:flex-start; gap:12px">
+              <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+              <div>
+                <h3>Vínculos duradouros</h3>
+                <p class="muted">Muitas espécies formam pares estáveis e cuidam da prole de modo cooperativo, simbolizando afeto e parceria.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria" class="section" aria-label="Galeria">
+      <div class="container">
+        <h2>Galeria</h2>
+        <p class="muted">Imagens reais e ilustrações artísticas que celebram a leveza e a presença serena das pombas.</p>
+        <div class="gallery" style="margin-top:14px">
+          <!-- Para diversidade, usamos imagens do Unsplash por palavra-chave -->
+          <figure tabindex="0" data-src="https://source.unsplash.com/featured/800x600/?dove,white&sig=1" aria-label="Pomba branca em voo">
+            <img src="https://source.unsplash.com/featured/400x300/?dove,white&sig=1" alt="Pomba branca em voo" />
+            <span class="badge">Real</span>
+          </figure>
+          <figure tabindex="0" data-src="https://source.unsplash.com/featured/800x600/?olive-branch,minimal&sig=2" aria-label="Ramo de oliveira sobre fundo claro">
+            <img src="https://source.unsplash.com/featured/400x300/?olive-branch,minimal&sig=2" alt="Ramo de oliveira" />
+            <span class="badge">Detalhe</span>
+          </figure>
+          <figure tabindex="0" data-src="https://source.unsplash.com/featured/800x600/?dove,art,illustration&sig=3" aria-label="Ilustração artística de pomba">
+            <img src="https://source.unsplash.com/featured/400x300/?dove,art,illustration&sig=3" alt="Ilustração artística de pomba" />
+            <span class="badge">Arte</span>
+          </figure>
+          <figure tabindex="0" data-src="https://source.unsplash.com/featured/800x600/?white-bird,sky&sig=4" aria-label="Ave branca sobre céu azul">
+            <img src="https://source.unsplash.com/featured/400x300/?white-bird,sky&sig=4" alt="Ave branca e céu" />
+            <span class="badge">Céu</span>
+          </figure>
+          <figure tabindex="0" data-src="https://source.unsplash.com/featured/800x600/?dove,peace&sig=5" aria-label="Pomba e símbolo de paz">
+            <img src="https://source.unsplash.com/featured/400x300/?dove,peace&sig=5" alt="Pomba e paz" />
+            <span class="badge">Paz</span>
+          </figure>
+          <figure tabindex="0" data-src="https://source.unsplash.com/featured/800x600/?feather,white&sig=6" aria-label="Pena branca em fundo minimalista">
+            <img src="https://source.unsplash.com/featured/400x300/?feather,white&sig=6" alt="Pena branca" />
+            <span class="badge">Pena</span>
+          </figure>
+        </div>
+      </div>
+      <!-- Lightbox -->
+      <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Visualização de imagem">
+        <button class="lb-close" aria-label="Fechar" id="lbClose"><svg><use href="#i-close"/></svg></button>
+        <button class="lb-prev" aria-label="Anterior" id="lbPrev"><svg><use href="#i-arrow-left"/></svg></button>
+        <img id="lbImg" alt="Imagem ampliada" />
+        <button class="lb-next" aria-label="Próxima" id="lbNext"><svg><use href="#i-arrow-right"/></svg></button>
+      </div>
+    </section>
+
+    <!-- Contato / Apoie a Natureza -->
+    <section id="contato" class="section" aria-label="Contato e apoio à natureza">
+      <div class="container">
+        <h2>Contato • Apoie a natureza</h2>
+        <p class="muted">Ajude a proteger as pombas e sua natureza — seu apoio faz a diferença.</p>
+        <!-- <form id="contactForm" novalidate>
+          <div class="full">
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
+          </div>
+          <div>
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" placeholder="voce@email.com" required />
+          </div>
+          <div>
+            <label for="assunto">Assunto</label>
+            <input id="assunto" name="assunto" type="text" placeholder="Ex.: Apoiar projeto de preservação" />
+          </div>
+          <div class="full">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem..." required></textarea>
+          </div>
+          <div class="full" style="display:flex; align-items:center; gap:10px; justify-content:space-between; flex-wrap:wrap">
+            <button class="btn" type="submit" id="sendBtn">
+              Enviar
+              <svg aria-hidden="true"><use href="#i-arrow-right"/></svg>
+            </button>
+            <div>
+              <div class="socials" aria-label="Redes sociais">
+                <a href="#" aria-label="Facebook"><svg><use href="#i-facebook"/></svg></a>
+                <a href="#" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+                <a href="#" aria-label="Twitter"><svg><use href="#i-twitter"/></svg></a>
+                <a href="mailto:" aria-label="E-mail"><svg><use href="#i-email"/></svg></a>
+              </div>
+              <p class="note">Preferir silêncio? Os sons suaves podem ser ativados no topo ao lado do tema.</p>
+            </div>
+          </div>
+        </form> -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div>© <span id="year"></span> Pomba — paz, pureza e esperança.</div>
+      <div style="display:flex; align-items:center">Com leveza
+        <svg class="mini-dove" aria-hidden="true"><use href="#mini-dove"/></svg>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tema claro/escuro
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const sun = document.getElementById('iconSun');
+      const moon = document.getElementById('iconMoon');
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      function setTheme(mode){
+        root.setAttribute('data-theme', mode === 'dark' ? 'dark' : 'light');
+        btn.setAttribute('aria-pressed', mode === 'dark');
+        if(mode === 'dark'){ sun.style.display='block'; moon.style.display='none'; }
+        else { sun.style.display='none'; moon.style.display='block'; }
+        localStorage.setItem('theme', mode);
+      }
+      setTheme(stored || (prefersDark ? 'dark' : 'light'));
+      btn.addEventListener('click', ()=>{
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        setTheme(isDark ? 'light' : 'dark');
+        ping();
+      });
+    })();
+
+    // Smooth scroll + realce ativo ao rolar (scrollspy)
+    (function(){
+      const links = Array.from(document.querySelectorAll('.menu a'));
+      const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      // Smooth click
+      links.forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const id = a.getAttribute('href');
+          document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+          setActive(id);
+          ping();
+        });
+      });
+      function setActive(id){
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+      }
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            const id = '#'+entry.target.id;
+            setActive(id);
+          }
+        })
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: .01 });
+      sections.forEach(sec => obs.observe(sec));
+    })();
+
+    // Botão Explorar
+    document.getElementById('exploreBtn').addEventListener('click', ()=>{
+      document.getElementById('significado').scrollIntoView({behavior:'smooth'});
+      ping();
+    });
+
+    // Lightbox da galeria
+    (function(){
+      const figs = Array.from(document.querySelectorAll('.gallery figure'));
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lbImg');
+      const btnPrev = document.getElementById('lbPrev');
+      const btnNext = document.getElementById('lbNext');
+      const btnClose = document.getElementById('lbClose');
+      let idx = 0;
+
+      function open(i){
+        idx = i;
+        const src = figs[idx].dataset.src || figs[idx].querySelector('img').src;
+        img.src = src;
+        lb.classList.add('open');
+        document.body.style.overflow='hidden';
+      }
+      function close(){
+        lb.classList.remove('open');
+        document.body.style.overflow='';
+      }
+      function prev(){ idx = (idx - 1 + figs.length) % figs.length; open(idx); }
+      function next(){ idx = (idx + 1) % figs.length; open(idx); }
+
+      figs.forEach((f,i)=>{
+        const openHandler = ()=>{ open(i); ping(); }
+        f.addEventListener('click', openHandler);
+        f.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openHandler(); }});
+      });
+      btnPrev.addEventListener('click', ()=>{ prev(); ping(); });
+      btnNext.addEventListener('click', ()=>{ next(); ping(); });
+      btnClose.addEventListener('click', ()=>{ close(); ping(); });
+      lb.addEventListener('click', (e)=>{ if(e.target===lb){ close(); }});
+      window.addEventListener('keydown', (e)=>{
+        if(!lb.classList.contains('open')) return;
+        if(e.key==='Escape') close();
+        if(e.key==='ArrowLeft') prev();
+        if(e.key==='ArrowRight') next();
+      });
+    })();
+
+    // Pena caindo (geração dinâmica)
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced) return;
+      const count = 12;
+      for(let i=0;i<count;i++){
+        const el = document.createElementNS('http://www.w3.org/2000/svg','svg');
+        el.classList.add('feather');
+        el.style.left = Math.random()*100+'vw';
+        const dur = 12 + Math.random()*12;
+        el.style.animationDuration = dur+'s, '+(4+Math.random()*4)+'s';
+        el.style.animationDelay = (Math.random()*-dur)+'s, '+(Math.random()*-4)+'s';
+        el.style.opacity = (0.35 + Math.random()*0.4).toFixed(2);
+        el.setAttribute('viewBox','0 0 24 24');
+        el.innerHTML = '<use href="#feather" />';
+        document.body.appendChild(el);
+      }
+    })();
+
+    // Sons suaves com WebAudio (desativado por padrão)
+    let audioCtx = null, soundOn = false;
+    const soundToggle = document.getElementById('soundToggle');
+    soundToggle.addEventListener('click', ()=>{
+      soundOn = !soundOn;
+      soundToggle.classList.toggle('on', soundOn);
+      soundToggle.setAttribute('aria-pressed', String(soundOn));
+      if(soundOn && !audioCtx){
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      ping(); // toque curto para feedback
+    });
+    function ping(){
+      if(!soundOn || !audioCtx) return;
+      // whoosh/ping suave: ruído filtrado e ganho curto
+      const duration = 0.18;
+      const now = audioCtx.currentTime;
+      const noise = audioCtx.createBufferSource();
+      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * duration, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for(let i=0;i<data.length;i++){
+        data[i] = (Math.random()*2 - 1) * Math.pow(1 - i/data.length, 1.8); // decaimento
+      }
+      noise.buffer = buffer;
+      const biquad = audioCtx.createBiquadFilter();
+      biquad.type = 'bandpass';
+      biquad.frequency.value = 1800;
+      biquad.Q.value = 0.6;
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.08, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+      noise.connect(biquad).connect(gain).connect(audioCtx.destination);
+      noise.start(now);
+      noise.stop(now + duration);
+    }
+    // Aplicar som a botões principais
+    document.getElementById('sendBtn').addEventListener('click', ()=> ping() );
+
+    // Formulário (feedback simples)
+    (function(){
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        // Validação mínima
+        const nome = form.nome.value.trim();
+        const email = form.email.value.trim();
+        const mensagem = form.mensagem.value.trim();
+        if(!nome || !email || !mensagem){
+          alert('Preencha nome, e-mail e mensagem.');
+          return;
+        }
+        ping();
+        // Simulação de envio
+        const btn = document.getElementById('sendBtn');
+        const old = btn.innerHTML;
+        btn.disabled = true;
+        btn.style.opacity = .8;
+        btn.innerHTML = 'Enviado ✓';
+        setTimeout(()=>{
+          btn.disabled = false; btn.style.opacity = 1; btn.innerHTML = old;
+          form.reset();
+        }, 1200);
+      });
+    })();
+
+    // Ano no rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Acessibilidade: foco visível para figures
+    document.querySelectorAll('figure[tabindex]').forEach(f=>{
+      f.addEventListener('focus', ()=> f.style.boxShadow='0 0 0 4px rgba(100,180,230,.2)');
+      f.addEventListener('blur', ()=> f.style.boxShadow='none');
+    });
+  </script>
+</body>
+</html>

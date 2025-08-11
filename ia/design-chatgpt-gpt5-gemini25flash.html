@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aurora UI — Design Moderno com 3D</title>
+  <meta name="description" content="Uma página demo moderna e responsiva, agora com um fundo 3D animado e interativo." />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial'],
+          },
+        }
+      }
+    }
+  </script>
+  
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    /* Estilos personalizados para o fundo do corpo e a transparência do menu */
+    :root {
+      --accent: #7c5cff;
+      --accent-2: #37d6c0;
+      --glass-bg: rgba(255, 255, 255, 0.06);
+    }
+    
+    body {
+      background: #0f172a;
+      color: #e6eef8;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .nav-wrap {
+      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(10,12,22,0.55), rgba(10,12,22,0.35));
+    }
+
+    /* Estilo para a borda com brilho sutil no hover */
+    .gradient-border-glow {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .gradient-border-glow::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(to right, var(--accent), var(--accent-2));
+      z-index: -1;
+      border-radius: 20px;
+      opacity: 0;
+      filter: blur(4px);
+      transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+
+    .gradient-border-glow:hover::before {
+        opacity: 0.8; /* Torna o brilho visível */
+        filter: blur(2px); /* Efeito de brilho mais sutil e contido */
+    }
+
+    .gradient-border-glow:hover {
+        /* Aumenta a caixa levemente no hover */
+        transform: scale(1.01);
+    }
+    
+    /* Novo estilo: muda a cor do texto para branco no hover */
+    .gradient-border-glow:hover h4,
+    .gradient-border-glow:hover p {
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+        /* Aumenta o botão principal levemente no hover */
+        transform: scale(1.05);
+    }
+  </style>
+
+</head>
+<body class="bg-[#0f172a] text-[#e6eef8] font-sans min-h-screen">
+
+  <!-- Cabeçalho (Header) -->
+  <header class="sticky top-3 z-50 w-full">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <div class="nav-wrap rounded-2xl p-2">
+        <div class="flex items-center gap-3 p-2">
+          <div class="flex items-center gap-2">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-2)] flex items-center justify-center shadow-lg shadow-indigo-500/20" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><path d="M2 12c4-6 8-8 10-8s6 2 10 8" stroke="#fff" stroke-opacity="0.9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16c3-4 6-5 8-5s5 1 8 5" stroke="#fff" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h1 class="text-base font-bold m-0">Aurora UI</h1>
+              <p class="m-0 text-xs text-slate-400">Design moderno • experiências memoráveis</p>
+            </div>
+          </div>
+
+          <nav aria-label="Navegação principal" class="hidden md:flex ml-6">
+            <ul class="flex gap-4 items-center">
+              <li><a href="#" class="hover:text-white transition-colors">Início</a></li>
+              <li><a href="#recursos" class="hover:text-white transition-colors">Recursos</a></li>
+              <li><a href="#galeria" class="hover:text-white transition-colors">Galeria</a></li>
+              <li><a href="#depoimentos" class="hover:text-white transition-colors">Depoimentos</a></li>
+              <li><a href="#contato" class="hover:text-white transition-colors">Contato</a></li>
+            </ul>
+          </nav>
+
+          <div class="flex gap-2 ml-auto">
+            <button class="px-4 py-2 rounded-xl font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition-colors">Demo</button>
+            <button class="px-4 py-2 rounded-xl font-semibold text-[#021024] bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-shadow">Começar</button>
+          </div>
+
+          <!-- Menu responsivo (mobile) -->
+          <button class="menu-toggle flex items-center justify-center p-2 md:hidden" aria-expanded="false" aria-controls="mobile-menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </div>
+
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden bg-[var(--glass-bg)] rounded-xl p-3 mt-2">
+          <ul class="flex flex-col gap-2 p-0 m-0">
+            <li><a href="#" class="block py-2 px-4 rounded hover:bg-white/10 transition-colors">Início</a></li>
+            <li><a href="#recursos" class="block py-2 px-4 rounded hover:bg-white/10 transition-colors">Recursos</a></li>
+            <li><a href="#galeria" class="block py-2 px-4 rounded hover:bg-white/10 transition-colors">Galeria</a></li>
+            <li><a href="#depoimentos" class="block py-2 px-4 rounded hover:bg-white/10 transition-colors">Depoimentos</a></li>
+            <li><a href="#contato" class="block py-2 px-4 rounded hover:bg-white/10 transition-colors">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 max-w-7xl">
+    <!-- HERO SECTION -->
+    <section id="home" class="relative overflow-hidden pt-14 pb-28 md:pt-28 md:pb-36 flex items-center min-h-[70vh]">
+      <!-- Fundo 3D animado -->
+      <canvas id="hero-canvas" class="absolute inset-0 z-0 opacity-40"></canvas>
+      
+      <div class="relative z-10 grid gap-6 md:grid-cols-2 md:items-center">
+        <!-- Conteúdo do lado esquerdo -->
+        <div class="fade-up">
+          <span class="inline-block px-3 py-1 rounded-full text-sm font-bold bg-white/5">Design • UI • Experiência</span>
+          <h2 class="text-4xl lg:text-5xl font-extrabold mt-3 mb-2 leading-tight">Crie experiências digitais que as pessoas lembram — elegante, acessível e moderno.</h2>
+          <p class="text-slate-300 max-w-2xl">Aurora UI é um protótipo de página com paleta contemporânea, microinterações suaves e foco em conteúdo. Ideal para portfolios, produtos e landing pages com personalidade.</p>
+          <div class="flex gap-3 mt-6">
+            <a class="px-5 py-3 rounded-xl font-semibold text-[#021024] bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-shadow" href="#contato">Quero experimentar</a>
+            <a href="#recursos" class="px-5 py-3 rounded-xl font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition-colors">Ver recursos</a>
+          </div>
+        </div>
+
+        <!-- Conteúdo do lado direito (manter o mock para demonstração) -->
+        <div class="hidden md:flex justify-center fade-up">
+          <div class="gradient-border-glow w-full max-w-md p-4 rounded-[22px] bg-white/5 shadow-2xl shadow-slate-900/60" role="img" aria-label="Preview do produto">
+            <div class="h-80 rounded-xl bg-gradient-to-br from-[var(--accent)]/20 to-[var(--accent-2)]/10 flex items-center justify-center text-slate-800 font-bold text-lg">Preview interativo — Aurora</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seções de conteúdo -->
+    <!-- Seção de Recursos -->
+    <section id="recursos" class="py-24">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h3 class="text-3xl font-bold">Recursos que acompanham a experiência</h3>
+          <p class="text-slate-400 mt-2">Componentes prontos, sistema de cores, acessibilidade e integração fácil — tudo pensado para acelerar o desenvolvimento sem perder personalidade.</p>
+          <ul class="mt-4 leading-relaxed text-slate-400">
+            <li>Paleta dinâmica com gradientes harmônicos</li>
+            <li>Componentes modulares: cards, modais, tables</li>
+            <li>Formulários com validação simples e feedback visual</li>
+            <li>Pronto para exportar em HTML/CSS/JS ou converter para React/Vue</li>
+          </ul>
+        </div>
+        <div>
+          <div class="gradient-border-glow p-6 rounded-2xl bg-white/5 shadow-lg shadow-slate-900/60">
+            <h4 class="text-xl font-bold">Design tokens</h4>
+            <p class="text-sm text-slate-400 mt-1">Cores, espaçamentos, sombras e tipografia definidos como variáveis para facilitar personalização.</p>
+          </div>
+          <div class="flex gap-4 mt-4">
+            <div class="gradient-border-glow p-6 rounded-2xl bg-white/5 shadow-lg shadow-slate-900/60 flex-1">
+              <h4 class="text-xl font-bold">Animações sutis</h4>
+              <p class="text-sm text-slate-400 mt-1">Microinterações que valorizam a experiência sem distrair.</p>
+            </div>
+            <div class="gradient-border-glow p-6 rounded-2xl bg-white/5 shadow-lg shadow-slate-900/60 flex-1">
+              <h4 class="text-xl font-bold">Foco em acessibilidade</h4>
+              <p class="text-sm text-slate-400 mt-1">Contrastes, navegação por teclado e labels claras.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Galeria -->
+    <section id="galeria" class="py-24">
+      <h3 class="text-3xl font-bold">Galeria de layouts</h3>
+      <p class="text-slate-400 mt-2">Exemplos de componentes e composições com a paleta Aurora.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
+        <!-- Substituir os links 'placehold.co' aqui com os links das imagens geradas -->
+        <div class="gallery-item h-40 rounded-xl bg-cover bg-center shadow-lg shadow-slate-900/60 cursor-pointer transition-transform duration-300 hover:scale-105" aria-label="Layout de dashboard escuro com gráfico de linha" style="background-image:linear-gradient(135deg, rgba(124,92,255,0.18), rgba(55,214,192,0.06)), url('https://placehold.co/600x400/1e293b/d1d5db?text=Layout+Dashboard')"></div>
+        <div class="gallery-item h-40 rounded-xl bg-cover bg-center shadow-lg shadow-slate-900/60 cursor-pointer transition-transform duration-300 hover:scale-105" aria-label="Layout de uma página de perfil de usuário" style="background-image:linear-gradient(135deg, rgba(55,214,192,0.08), rgba(124,92,255,0.06)), url('https://placehold.co/600x400/1e293b/d1d5db?text=Layout+Perfil')"></div>
+        <div class="gallery-item h-40 rounded-xl bg-cover bg-center shadow-lg shadow-slate-900/60 cursor-pointer transition-transform duration-300 hover:scale-105" aria-label="Layout de uma loja virtual com destaque para um produto" style="background-image:linear-gradient(135deg, rgba(124,92,255,0.08), rgba(55,214,192,0.04)), url('https://placehold.co/600x400/1e293b/d1d5db?text=Layout+E-commerce')"></div>
+        <div class="gallery-item h-40 rounded-xl bg-cover bg-center shadow-lg shadow-slate-900/60 cursor-pointer transition-transform duration-300 hover:scale-105" aria-label="Layout de uma landing page com formulário de inscrição" style="background-image:linear-gradient(135deg, rgba(55,214,192,0.08), rgba(124,92,255,0.04)), url('https://placehold.co/600x400/1e293b/d1d5db?text=Layout+Landing+Page')"></div>
+      </div>
+    </section>
+
+    <!-- Seção de Depoimentos -->
+    <section id="depoimentos" class="py-24">
+      <h3 class="text-3xl font-bold">O que nossos clientes dizem</h3>
+      <div class="grid md:grid-cols-3 gap-4 mt-4">
+        <div class="gradient-border-glow p-6 rounded-xl bg-white/5 shadow-lg shadow-slate-900/60">
+          <p class="text-slate-300">“O design transformou a nossa comunicação com clientes — simples, elegante e objetivo.”</p>
+          <p class="text-sm text-slate-400 mt-4">— Marina Costa, Produtora</p>
+        </div>
+        <div class="gradient-border-glow p-6 rounded-xl bg-white/5 shadow-lg shadow-slate-900/60">
+          <p class="text-slate-300">“Rápido para implementar e com uma estética moderna que conversa com o nosso público jovem.”</p>
+        <p class="text-sm text-slate-400 mt-4">— João Silva, Founder</p>
+        </div>
+        <div class="gradient-border-glow p-6 rounded-xl bg-white/5 shadow-lg shadow-slate-900/60">
+          <p class="text-slate-300">“A atenção aos detalhes fez toda a diferença no nosso produto.”</p>
+          <p class="text-sm text-slate-400 mt-4">— Pedro Almeida, Diretor de Produto</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Preços -->
+    <section id="precos" class="py-24">
+      <h3 class="text-3xl font-bold">Planos</h3>
+      <p class="text-slate-400 mt-2">Escolha um plano e comece hoje mesmo.</p>
+      <div class="grid md:grid-cols-3 gap-4 mt-4">
+        <div class="gradient-border-glow p-6 rounded-xl bg-white/5 shadow-lg shadow-slate-900/60">
+          <h4 class="text-xl font-bold">Básico</h4>
+          <p class="text-sm text-slate-400 mt-1">Kit inicial — layout, tipografia e componentes.</p>
+          <p class="text-2xl font-bold mt-4">Grátis</p>
+          <a class="mt-4 block text-center px-4 py-2 rounded-xl font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition-colors">Escolher</a>
+        </div>
+        <div class="gradient-border-glow p-6 rounded-xl bg-white/5 shadow-lg shadow-slate-900/60">
+          <h4 class="text-xl font-bold">Profissional</h4>
+          <p class="text-sm text-slate-400 mt-1">Recursos avançados e suporte prioritário.</p>
+          <p class="text-2xl font-bold mt-4">R$49/mês</p>
+          <a class="mt-4 block text-center px-4 py-2 rounded-xl font-semibold text-[#021024] bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-shadow">Assinar</a>
+        </div>
+        <div class="gradient-border-glow p-6 rounded-xl bg-white/5 shadow-lg shadow-slate-900/60">
+          <h4 class="text-xl font-bold">Agência</h4>
+          <p class="text-sm text-slate-400 mt-1">Licença para times e entrega customizada.</p>
+          <p class="text-2xl font-bold mt-4">Sob consulta</p>
+          <a class="mt-4 block text-center px-4 py-2 rounded-xl font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition-colors">Contato</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Contato -->
+    <section id="contato" class="py-24">
+      <h3 class="text-3xl font-bold">Fale conosco</h3>
+      <p class="text-slate-400 mt-2">Envie uma mensagem e nós responderemos em breve.</p>
+      <div class="mt-4 max-w-3xl mx-auto">
+        <form id="contactForm" class="p-6 rounded-2xl bg-white/5 shadow-lg shadow-slate-900/60" onsubmit="return false;">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="name" class="block text-sm font-medium text-slate-300">Seu nome</label>
+              <input id="name" placeholder="Nome completo" class="mt-1 block w-full bg-white/5 border border-white/10 p-3 rounded-xl text-white focus:outline-none focus:border-white/20" required />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-slate-300">Seu e-mail</label>
+              <input id="email" placeholder="nome@exemplo.com" type="email" class="mt-1 block w-full bg-white/5 border border-white/10 p-3 rounded-xl text-white focus:outline-none focus:border-white/20" required />
+            </div>
+          </div>
+          
+          <div class="mt-3">
+            <label for="subject" class="block text-sm font-medium text-slate-300">Assunto</label>
+            <input id="subject" placeholder="Assunto da mensagem" class="mt-1 block w-full bg-white/5 border border-white/10 p-3 rounded-xl text-white focus:outline-none focus:border-white/20" />
+          </div>
+
+          <div class="mt-3">
+            <label for="message" class="block text-sm font-medium text-slate-300">Mensagem</label>
+            <textarea id="message" placeholder="Escreva sua mensagem aqui" class="mt-1 block w-full min-h-[120px] bg-white/5 border border-white/10 p-3 rounded-xl text-white focus:outline-none focus:border-white/20" required></textarea>
+          </div>
+          
+          <div class="flex gap-2 items-center justify-end mt-4">
+            <button class="px-4 py-2 rounded-xl font-semibold border border-white/10 bg-white/5 hover:bg-white/10 transition-colors" type="reset">Limpar</button>
+            <button class="btn-primary px-4 py-2 rounded-xl font-semibold text-[#021024] bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-shadow" id="sendBtn">Enviar mensagem</button>
+          </div>
+          <p id="formMsg" class="text-sm text-slate-400 mt-2"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="container mx-auto px-4 max-w-7xl py-10 text-slate-400 text-sm">
+    <div class="flex flex-wrap gap-3 items-center justify-between">
+      <div>© Aurora UI — Feito com ♥ por designers cuidadosos.</div>
+      <div class="flex gap-2 items-center">
+        <a class="px-3 py-1 rounded-full bg-white/5 font-semibold text-white/70 hover:bg-white/10 transition-colors" href="#">Termos</a>
+        <a class="px-3 py-1 rounded-full bg-white/5 font-semibold text-white/70 hover:bg-white/10 transition-colors" href="#">Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal para visualização de imagem em tela cheia -->
+  <div id="image-modal" class="hidden fixed inset-0 z-[100] bg-black bg-opacity-80 flex items-center justify-center p-4">
+    <button id="close-modal-btn" class="absolute top-6 right-6 text-white text-3xl font-bold" aria-label="Fechar visualizador de imagem">
+      &times;
+    </button>
+    <!-- O alt da imagem será preenchido com a descrição da imagem da galeria -->
+    <img id="modal-image" class="max-w-full max-h-full rounded-xl shadow-2xl transition-transform duration-300 scale-95" src="" alt="Imagem em destaque da galeria" />
+  </div>
+
+  <script>
+    // --- Lógica JavaScript ---
+
+    // 1. Animação 3D com Three.js para o fundo
+    const canvas = document.getElementById('hero-canvas');
+    let scene, camera, renderer, particles, time = 0;
+    let mouse = new THREE.Vector2();
+
+    const init = () => {
+      // Scene
+      scene = new THREE.Scene();
+      
+      // Camera
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 2.5;
+      
+      // Renderer
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true, // Permitir fundo transparente
+        antialias: true
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // Criar a geometria das partículas
+      const particleCount = 2000;
+      const positions = new Float32Array(particleCount * 3);
+      const velocities = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+      
+      const color1 = new THREE.Color(0x7c5cff); // Cor 1 do gradiente
+      const color2 = new THREE.Color(0x37d6c0); // Cor 2 do gradiente
+
+      for (let i = 0; i < particleCount; i++) {
+        // Posição inicial aleatória dentro de uma esfera
+        const r = 1.5 * Math.random() + 0.5;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.random() * Math.PI;
+
+        positions[i * 3 + 0] = r * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+        positions[i * 3 + 2] = r * Math.cos(phi);
+
+        // Velocidade inicial para o movimento
+        velocities[i * 3 + 0] = (Math.random() - 0.5) * 0.005;
+        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.005;
+        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.005;
+
+        // Misturar as cores para cada partícula
+        const mix = i / particleCount;
+        const mixedColor = new THREE.Color().copy(color1).lerp(color2, mix);
+        colors[i * 3 + 0] = mixedColor.r;
+        colors[i * 3 + 1] = mixedColor.g;
+        colors[i * 3 + 2] = mixedColor.b;
+      }
+      
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      // Material para as partículas
+      const material = new THREE.PointsMaterial({
+        size: 0.03,
+        vertexColors: true, // Usa as cores definidas na geometria
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending // Efeito de brilho
+      });
+
+      // Criar o objeto de partículas
+      particles = new THREE.Points(geometry, material);
+      scene.add(particles);
+
+      // Adicionar luzes
+      const light1 = new THREE.PointLight(0x7c5cff, 1, 100);
+      light1.position.set(-10, 10, 10);
+      scene.add(light1);
+
+      const light2 = new THREE.PointLight(0x37d6c0, 1, 100);
+      light2.position.set(10, -10, -10);
+      scene.add(light2);
+
+      // Manipular a câmera na redimensionamento da janela
+      window.addEventListener('resize', onWindowResize, false);
+      
+      // Animar os objetos
+      animate();
+    };
+
+    const onWindowResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      
+      time += 0.005;
+
+      // Animar a nuvem de partículas
+      particles.rotation.y += 0.0005;
+      
+      const positions = particles.geometry.attributes.position.array;
+      const originalPositions = particles.geometry.attributes.position.array;
+      
+      // Loop para animar cada partícula
+      for (let i = 0; i < positions.length; i += 3) {
+        // Aplica um movimento suave e aleatório
+        positions[i] += Math.sin(time * 0.2 + i * 0.01) * 0.0005;
+        positions[i + 1] += Math.cos(time * 0.3 + i * 0.01) * 0.0005;
+        positions[i + 2] += Math.sin(time * 0.4 + i * 0.01) * 0.0005;
+      }
+
+      particles.geometry.attributes.position.needsUpdate = true;
+
+      // Animação reagindo ao mouse
+      particles.rotation.y += (mouse.x * 0.005 - particles.rotation.y) * 0.05;
+      particles.rotation.x += (mouse.y * 0.005 - particles.rotation.x) * 0.05;
+
+      renderer.render(scene, camera);
+    };
+
+    // Atualizar a posição do mouse
+    document.addEventListener('mousemove', (e) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    // Iniciar a animação quando a janela estiver carregada
+    window.onload = init;
+
+    // 2. Lógica para o menu mobile
+    const toggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    toggle && toggle.addEventListener('click', () => {
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isExpanded));
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+      }
+    });
+
+    // 3. Smooth scroll para links de âncora
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        
+        if (targetId === '#') {
+          // Lida especificamente com o link "Início" para rolar para o topo
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          // Lida com todos os outros links de âncora
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+        
+        // Fechar o menu mobile após o clique, independentemente do link
+        if (window.innerWidth < 768 && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+           mobileMenu.classList.add('hidden');
+           toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // 4. Lógica para a visualização de imagem em tela cheia (modal)
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const imageModal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Extrai a URL da imagem de fundo
+        const style = window.getComputedStyle(item);
+        const imageUrl = style.backgroundImage.slice(5, -2); // Remove 'url("' e '")'
+
+        // Define a imagem no modal e a descrição (alt text)
+        modalImage.src = imageUrl;
+        modalImage.alt = item.getAttribute('aria-label');
+        
+        // Mostra o modal com um efeito de escala
+        imageModal.classList.remove('hidden');
+        setTimeout(() => {
+          modalImage.classList.remove('scale-95');
+          modalImage.classList.add('scale-100');
+        }, 10);
+      });
+    });
+
+    // Fecha o modal ao clicar no botão de fechar ou no fundo
+    const closeModal = () => {
+      modalImage.classList.remove('scale-100');
+      modalImage.classList.add('scale-95');
+      setTimeout(() => {
+        imageModal.classList.add('hidden');
+        modalImage.src = ''; // Limpa a imagem
+      }, 300);
+    };
+
+    closeModalBtn.addEventListener('click', closeModal);
+    imageModal.addEventListener('click', (e) => {
+      // Fecha se o clique for no fundo do modal, não na imagem
+      if (e.target === imageModal) {
+        closeModal();
+      }
+    });
+    
+    // 5. Feedback simples para o formulário de contato
+    const form = document.getElementById('contactForm');
+    const sendBtn = document.getElementById('sendBtn');
+    const formMsg = document.getElementById('formMsg');
+    sendBtn && sendBtn.addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('message').value.trim();
+      
+      if (!name || !email || !msg) {
+        formMsg.textContent = 'Por favor preencha nome, e-mail e mensagem.';
+        return;
+      }
+      
+      sendBtn.textContent = 'Enviando...';
+      sendBtn.disabled = true;
+      
+      setTimeout(() => {
+        sendBtn.textContent = 'Enviar mensagem';
+        sendBtn.disabled = false;
+        form.reset();
+        formMsg.textContent = 'Mensagem enviada (simulada). Obrigado!';
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>A Vida — Uma página para respirar</title>
+  <meta name="description" content="A Vida — um espaço digital poético e moderno para presença, criação e cuidado. Leve, acessível (WCAG AA) e responsivo." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="A Vida — Uma página para respirar" />
+  <meta property="og:description" content="Um espaço poético e moderno para presença, criação e cuidado." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Canonical & robots -->
+  <link rel="canonical" href="https://example.com/a-vida" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- JSON-LD basic -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"A Vida",
+    "url":"https://example.com/a-vida"
+  }
+  </script>
+
+  <!-- Tokens: cores, tipografia, espaçamentos -->
+  <style>
+    :root{
+      /* Paleta tokens (usadas em variantes) */
+      --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-6:1.5rem; --space-8:2rem;
+      --radius-sm:6px; --radius-md:12px; --radius-lg:20px;
+
+      /* Calm (default) */
+      --calm-bg: #fffaf4; /* marfim */
+      --calm-ink: #22303a; /* azul-acinzentado */
+      --calm-accent: #f7c6b6; /* salmão suave */
+      --calm-accent-2:#9fb9a8; /* verde sálvia */
+      --calm-strong: #22252a; /* carvão */
+
+      /* Vivid */
+      --vivid-bg: #0f0f12; --vivid-ink:#e6eaf0; --vivid-magenta:#ff2d95; --vivid-teal:#00d1c1; --vivid-amber:#ffb020; --vivid-electric:#1e90ff;
+
+      /* Earthy */
+      --earthy-bg:#f6efe6; --earthy-ink:#2b2a26; --earthy-sand:#dcc7a1; --earthy-terracotta:#b85a32; --earthy-moss:#6a744f;
+
+      /* UI tokens */
+      --max-width:1200px;
+      --text-ff: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --display-ff: "Playfair Display", "Georgia", serif;
+
+      /* shadows & motion */
+      --soft-shadow: 0 6px 18px rgba(18,24,30,0.06);
+      --soft-glow: 0 8px 28px rgba(34,48,58,0.08);
+
+      /* accessibility */
+      --focus-ring: 3px solid rgba(34,48,58,0.12);
+
+      /* theme switch */
+      color-scheme: light;
+      --bg: var(--calm-bg);
+      --ink: var(--calm-ink);
+      --accent: var(--calm-accent);
+      --accent-2: var(--calm-accent-2);
+      --panel: rgba(255,255,255,0.6);
+    }
+
+    /* dark theme tokens (will be toggled via .theme--dark) */
+    .theme--dark{
+      color-scheme: dark;
+      --bg: #0b0d0e; /* neutral deep */
+      --ink: #e8eef6;
+      --accent: var(--vivid-magenta);
+      --accent-2: var(--vivid-teal);
+      --panel: rgba(10,12,14,0.6);
+    }
+
+    /* Prefers reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      :root{ --motion-scale: 0; }
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0; font-family:var(--text-ff); background:var(--bg); color:var(--ink);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.6; font-weight:400; font-size:clamp(15px, 1.6vw, 18px);
+    }
+
+    /* Container */
+    .container{max-width:var(--max-width); margin:0 auto; padding: clamp(1rem, 3vw, 2.5rem);}
+
+    /* Accessible focus */
+    :focus{outline: none}
+    .focus-ring:focus{ box-shadow: var(--focus-ring); border-radius: 8px }
+
+    /* Header - glass */
+    header.site-header{
+      position:sticky; top:0; z-index:40; backdrop-filter: blur(8px); background:linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.28));
+      border-bottom:1px solid rgba(34,48,58,0.06);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .theme--dark header.site-header{ background: linear-gradient(180deg, rgba(10,12,14,0.6), rgba(10,12,14,0.35)); border-bottom:1px solid rgba(255,255,255,0.04); }
+
+    .site-header .inner{ display:flex; gap:1rem; align-items:center; justify-content:space-between; }
+    .brand{ display:flex; gap:0.75rem; align-items:center; font-family:var(--display-ff); font-weight:700; letter-spacing:0.6px; font-size:clamp(1.05rem, 2.6vw, 1.3rem);}
+    .brand .logo-mark{ width:42px; height:42px; display:inline-grid; place-items:center; border-radius:10px; background:linear-gradient(135deg,var(--accent), var(--accent-2)); color:white; font-weight:700; }
+
+    nav.primary{ display:flex; gap:0.75rem; align-items:center; }
+    nav.primary a{ text-decoration:none; color:var(--ink); padding:8px 10px; border-radius:8px; font-weight:500; }
+    nav.primary a:focus{ box-shadow: var(--focus-ring); }
+
+    /* CTA */
+    .cta{ background: linear-gradient(90deg,var(--accent), var(--accent-2)); color: white; border:none; padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600; min-height:44px; }
+    .btn-ghost{ background:transparent; border:1px solid rgba(34,48,58,0.06); padding:8px 12px; border-radius:12px; }
+
+    /* Hero */
+    .hero{ padding: clamp(2rem, 8vw, 6rem) 0; display:grid; gap:1.25rem; align-items:center; }
+    .hero-inner{ display:grid; gap:1rem; }
+    .hero h1{ font-family:var(--display-ff); font-weight:700; font-size:clamp(1.8rem, 6vw, 4rem); line-height:1.02; letter-spacing: -0.02em; margin:0; }
+    .hero p.lead{ margin:0; font-size:clamp(0.95rem, 2.2vw, 1.15rem); color:color-mix(in srgb, var(--ink) 75%, transparent); max-width:60ch; }
+
+    .hero-visual{ position:relative; min-height:160px; }
+    .svg-orbit{ position:absolute; inset:0; pointer-events:none; }
+
+    /* Cards: Valores essenciais */
+    .values{ display:grid; gap:clamp(0.75rem, 2vw,1rem); grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); }
+    .card{ background:var(--panel); padding:1rem; border-radius:var(--radius-md); box-shadow:var(--soft-shadow); border:1px solid rgba(34,48,58,0.03); display:flex; gap:0.75rem; align-items:flex-start; }
+    .card h3{ margin:0; font-size:1.05rem; }
+    .card p{ margin:0; opacity:0.9; font-size:0.95rem }
+    .card .icon{ width:44px; height:44px; flex:0 0 44px; display:grid; place-items:center; border-radius:10px; }
+
+    /* Timeline */
+    .timeline{ display:grid; gap:1rem; }
+    .timeline-item{ display:flex; gap:0.75rem; align-items:flex-start; }
+    .timeline-dot{ width:14px; height:14px; border-radius:50%; background:linear-gradient(180deg,var(--accent), var(--accent-2)); box-shadow: 0 3px 8px rgba(0,0,0,0.12); flex:0 0 14px; }
+
+    /* Gallery */
+    .masonry{ display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:12px; }
+    .masonry-item{ border-radius:12px; overflow:hidden; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03)); min-height:120px; display:block; }
+    .masonry-item img, .masonry-item video{ width:100%; height:100%; object-fit:cover; display:block; }
+    .masonry-item .caption{ padding:0.6rem; font-size:0.9rem; }
+
+    /* Stats */
+    .stats{ display:grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:12px; }
+    .stat{ background:var(--panel); padding:1rem; border-radius:12px; text-align:center; }
+    .stat strong{ display:block; font-size:1.4rem; }
+
+    /* Testimonials carousel minimal */
+    .carousel{ position:relative; overflow:hidden; }
+    .carousel-list{ display:flex; gap:12px; transition: transform 380ms cubic-bezier(.2,.8,.2,1); }
+    .carousel-card{ min-width:280px; flex:0 0 100%; padding:1rem; border-radius:12px; background:var(--panel); }
+
+    /* Practices */
+    .chips{ display:flex; gap:8px; flex-wrap:wrap; }
+    .chip{ padding:8px 12px; border-radius:999px; border:1px solid rgba(34,48,58,0.06); background:transparent; cursor:pointer; }
+
+    /* Blog grid */
+    .articles{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    .article-card{ padding:1rem; border-radius:12px; background:var(--panel); }
+
+    footer{ padding:2rem 0; font-size:0.9rem; opacity:0.9 }
+
+    /* Responsive behavior */
+    @media(min-width:900px){
+      .hero{ grid-template-columns: 1fr 420px; align-items:center; }
+      .hero p.lead{ font-size:1.1rem }
+      .card{ padding:1.25rem }
+    }
+
+    @media(min-width:1200px){
+      :root{ --max-width:1400px; }
+      .hero{ padding: clamp(3rem, 6vw, 8rem) 0; }
+    }
+
+    /* Utility */
+    .sr-only{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden }
+  </style>
+
+  <!-- Minimal Icons + Inline SVG defs -->
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <linearGradient id="gAccent" x1="0" x2="1">
+        <stop offset="0" stop-color="var(--accent)" />
+        <stop offset="1" stop-color="var(--accent-2)" />
+      </linearGradient>
+
+      <!-- simple line icon for "coração" (care) -->
+      <symbol id="icon-heart" viewBox="0 0 24 24">
+        <path d="M12 21s-7-4.35-9-6.75C-0.5 10 4 5 7 6.75 9 8 10 10 12 12c2-2 3-4 5-5.25C20 5 24.5 10 21 14.25 19 16.65 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+
+      <!-- quote mark -->
+      <symbol id="icon-quote" viewBox="0 0 24 24">
+        <path d="M7 7h4v6H6V9a3 3 0 0 1 1-2zM17 7h4v6h-5V9a3 3 0 0 1 1-2z" fill="currentColor" />
+      </symbol>
+
+    </defs>
+  </svg>
+
+</head>
+<body class="theme--calm">
+
+  <header class="site-header" role="banner">
+    <div class="container inner">
+      <div class="brand" aria-hidden="false">
+        <div class="logo-mark" aria-hidden="true">AV</div>
+        <div>
+          <div style="font-size:0.85rem; opacity:0.9">A Vida</div>
+          <div style="font-size:0.72rem; opacity:0.65">Uma página para respirar</div>
+        </div>
+      </div>
+
+      <nav class="primary" role="navigation" aria-label="Navegação principal">
+        <a href="#valores">Valores</a>
+        <a href="#linha-do-tempo">Linha do tempo</a>
+        <a href="#momentos">Momentos</a>
+        <a href="#praticas">Práticas</a>
+        <button class="btn-ghost focus-ring" id="themeToggle" aria-pressed="false" aria-label="Alternar tema">Tema</button>
+        <a class="cta" href="#começar">Começar</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <div>
+          <h1 id="hero-title">A vida cabe em um instante.</h1>
+          <p class="lead">Um espaço para notar, escrever e seguir — com calma. Respire. Observe o que importa. Deixe o resto suavizar.</p>
+
+          <div style="display:flex; gap:0.75rem; margin-top:1rem;">
+            <a class="cta" href="#momentos">Explorar</a>
+            <a class="btn-ghost" href="#refletir">Refletir</a>
+          </div>
+
+          <div style="margin-top:1.5rem; display:flex; gap:12px; align-items:center;">
+            <div class="sr-only" aria-hidden="false">Citações</div>
+            <blockquote style="margin:0; padding:0; font-style:italic; opacity:0.85;">“Cada respiração guarda uma página por escrever.”</blockquote>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <!-- subtle parallax blobs and orbit icons -->
+          <svg class="svg-orbit" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" focusable="false" aria-hidden="true">
+            <defs>
+              <radialGradient id="blobGrad" cx="30%" cy="30%">
+                <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.65"/>
+                <stop offset="100%" stop-color="var(--accent-2)" stop-opacity="0.18"/>
+              </radialGradient>
+            </defs>
+            <g style="transform-origin:center;">
+              <ellipse cx="160" cy="140" rx="120" ry="80" fill="url(#blobGrad)" opacity="0.9">
+                <animate attributeName="cx" dur="20s" values="140;170;150;140" repeatCount="indefinite" />
+                <animate attributeName="cy" dur="26s" values="140;150;130;140" repeatCount="indefinite" />
+              </ellipse>
+              <ellipse cx="420" cy="210" rx="90" ry="60" fill="rgba(155,185,168,0.12)">
+                <animate attributeName="cx" dur="28s" values="420;400;430;420" repeatCount="indefinite" />
+              </ellipse>
+
+              <!-- orbit icons -->
+              <g transform="translate(300 180)">
+                <circle r="48" fill="none" stroke="rgba(255,255,255,0.06)" stroke-dasharray="2 8" />
+                <g transform="rotate(0)">
+                  <use href="#icon-heart" width="22" height="22" x="-11" y="-11" fill="none" stroke="white" stroke-width="1.2" opacity="0.95" />
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Valores -->
+    <section id="valores" class="container" aria-labelledby="valores-title">
+      <h2 id="valores-title">Valores essenciais</h2>
+      <div class="values" style="margin-top:1rem;">
+        <!-- card template repeat -->
+        <article class="card" aria-labelledby="v1">
+          <div class="icon" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><use href="#icon-heart" stroke="var(--ink)"/></svg>
+          </div>
+          <div>
+            <h3 id="v1">Presença</h3>
+            <p>Ficar, notar, ouvir o que não precisa ser consertado — apenas conhecido.</p>
+            <a class="btn-ghost" href="#" style="margin-top:8px; display:inline-block">Saiba mais</a>
+          </div>
+        </article>
+
+        <article class="card" aria-labelledby="v2">
+          <div class="icon" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5" /></svg>
+          </div>
+          <div>
+            <h3 id="v2">Conexão</h3>
+            <p>Relações que resistem ao tempo são cultivadas em gentileza e curiosidade.</p>
+            <a class="btn-ghost" href="#">Saiba mais</a>
+          </div>
+        </article>
+
+        <article class="card" aria-labelledby="v3">
+          <div class="icon" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5" /></svg>
+          </div>
+          <div>
+            <h3 id="v3">Criação</h3>
+            <p>Pequenos atos de criação que deixam vestígios bons.</p>
+            <a class="btn-ghost" href="#">Saiba mais</a>
+          </div>
+        </article>
+
+        <article class="card" aria-labelledby="v4">
+          <div class="icon" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3 id="v4">Coragem</h3>
+            <p>A coragem não é barulho; às vezes é apenas continuar existindo.</p>
+            <a class="btn-ghost" href="#">Saiba mais</a>
+          </div>
+        </article>
+
+        <article class="card" aria-labelledby="v5">
+          <div class="icon" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3 id="v5">Cuidado</h3>
+            <p>Gestos que sustentam — simples, constantes, reparadores.</p>
+            <a class="btn-ghost" href="#">Saiba mais</a>
+          </div>
+        </article>
+
+        <article class="card" aria-labelledby="v6">
+          <div class="icon" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><path d="M4 20c4-4 8-4 16 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3 id="v6">Propósito</h3>
+            <p>Um norte pequeno e flexível — que acolhe desvios e aprendizados.</p>
+            <a class="btn-ghost" href="#">Saiba mais</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Linha do tempo -->
+    <section id="linha-do-tempo" class="container" aria-labelledby="timeline-title" style="margin-top:2rem;">
+      <h2 id="timeline-title">Linha do tempo</h2>
+      <div class="timeline" style="margin-top:1rem;">
+        <div class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true"></div>
+          <div>
+            <strong>Começos</strong>
+            <div style="opacity:0.9;">Primeiros passos, escolhas pequenas que viram caminhos.</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true"></div>
+          <div>
+            <strong>Quedas</strong>
+            <div style="opacity:0.9;">Momentos que ensinam a suavizar e recomeçar.</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true"></div>
+          <div>
+            <strong>Recomeços</strong>
+            <div style="opacity:0.9;">Voltas com menos pressa e mais clareza.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeria de momentos -->
+    <section id="momentos" class="container" aria-labelledby="moments-title" style="margin-top:2rem;">
+      <h2 id="moments-title">Galeria de momentos</h2>
+      <div class="masonry" style="margin-top:1rem;">
+        <a class="masonry-item" href="#" aria-label="Momento 1: manhã calma">
+          <img loading="lazy" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23f7e9df'/><text x='50' y='100' font-size='40' fill='%23303336'>Manhã calma</text></svg>" alt="Manhã calma"/>
+          <div class="caption">Manhã calma — café na varanda.</div>
+        </a>
+
+        <a class="masonry-item" href="#" aria-label="Momento 2: página virada">
+          <img loading="lazy" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23e8f2ef'/><text x='50' y='100' font-size='40' fill='%231a2b2b'>Página virada</text></svg>" alt="Página virada"/>
+          <div class="caption">Página virada — metade da história escrita.</div>
+        </a>
+
+        <a class="masonry-item" href="#" aria-label="Vídeo curto: caminho">
+          <video controls preload="metadata" playsinline muted style="background:#000; min-height:140px;" aria-label="Vídeo: caminho">
+            <source src="#" type="video/mp4">
+            Seu navegador não suporta este vídeo.
+          </video>
+          <div class="caption">Pequeno vídeo — um caminho entre árvores.</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section id="numeros" class="container" style="margin-top:2rem;">
+      <h2>Números com alma</h2>
+      <div class="stats" style="margin-top:1rem;">
+        <div class="stat" aria-hidden="false">
+          <div style="font-size:0.9rem; opacity:0.9">Dias de sol</div>
+          <strong aria-label="120 dias de sol">120</strong>
+        </div>
+        <div class="stat">
+          <div style="font-size:0.9rem; opacity:0.9">Cafés compartilhados</div>
+          <strong aria-label="874 cafés compartilhados">874</strong>
+        </div>
+        <div class="stat">
+          <div style="font-size:0.9rem; opacity:0.9">Páginas viradas</div>
+          <strong aria-label="3.240 páginas viradas">3.240</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="depoimentos" class="container" style="margin-top:2rem;">
+      <h2>Depoimentos</h2>
+      <div class="carousel" aria-roledescription="carousel" aria-label="Depoimentos">
+        <div class="carousel-list" id="carouselList">
+          <div class="carousel-card" tabindex="0">
+            <svg width="24" height="24" aria-hidden="true"><use href="#icon-quote"/></svg>
+            <p style="margin-top:0.5rem;">"Silêncio que fez sentido — e o mundo pareceu menor."</p>
+            <div style="margin-top:0.5rem;">— L.</div>
+          </div>
+
+          <div class="carousel-card" tabindex="0">
+            <svg width="24" height="24" aria-hidden="true"><use href="#icon-quote"/></svg>
+            <p style="margin-top:0.5rem;">"Um espaço leve para recolher meus dias."</p>
+            <div style="margin-top:0.5rem;">— M.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Práticas diárias -->
+    <section id="praticas" class="container" style="margin-top:2rem;">
+      <h2>Práticas diárias</h2>
+      <div class="chips" style="margin-top:1rem;">
+        <button class="chip" data-filter="all">Todas</button>
+        <button class="chip" data-filter="respirar">Respirar</button>
+        <button class="chip" data-filter="escrever">Escrever</button>
+        <button class="chip" data-filter="caminhar">Caminhar</button>
+      </div>
+
+      <ul style="margin-top:1rem; list-style:none; padding:0; display:grid; gap:8px;">
+        <li style="background:var(--panel); padding:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; gap:10px; align-items:center;"><svg width="24" height="24" aria-hidden="true"><use href="#icon-heart"/></svg><div><strong>Respirar</strong><div style="opacity:0.9; font-size:0.95rem">2–3 minutos</div></div></div>
+          <button class="chip" aria-pressed="false">Ok</button>
+        </li>
+
+        <li style="background:var(--panel); padding:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; gap:10px; align-items:center;"><svg width="24" height="24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.2"/></svg><div><strong>Escrever</strong><div style="opacity:0.9; font-size:0.95rem">10–15 minutos</div></div></div>
+          <button class="chip" aria-pressed="false">Ok</button>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Blog / Ensaios -->
+    <section id="blog" class="container" style="margin-top:2rem; margin-bottom:2rem;">
+      <h2>Ensaios curtos</h2>
+      <div class="articles" style="margin-top:1rem;">
+        <article class="article-card" aria-labelledby="a1">
+          <h3 id="a1">Sobre o silêncio que aprende</h3>
+          <p style="opacity:0.9;">Palavras que não inventam; apenas descrevem o que resta ao redor.</p>
+          <a class="btn-ghost" href="#">Ler</a>
+        </article>
+
+        <article class="article-card" aria-labelledby="a2">
+          <h3 id="a2">Mapas de manhã</h3>
+          <p style="opacity:0.9;">Uma rota curta para reencontrar o ritmo.</p>
+          <a class="btn-ghost" href="#">Ler</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- CTA final / newsletter -->
+    <section id="começar" class="container" style="margin-bottom:3rem;">
+      <div style="display:grid; gap:0.75rem; align-items:center;">
+        <h2>Escreva sua próxima página</h2>
+        <p style="margin:0; opacity:0.9">Um convite suave: receba pequenos prompts e exercícios para praticar presença.</p>
+
+        <form id="newsletter" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:0.75rem;" aria-label="Inscrição newsletter">
+          <label class="sr-only" for="email">E-mail</label>
+          <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="seu@exemplo.com" required style="min-width:220px; padding:10px; border-radius:10px; border:1px solid rgba(34,48,58,0.06);" />
+          <button class="cta" type="submit">Inscrever-se</button>
+        </form>
+        <div id="newsletterMessage" role="status" aria-live="polite" style="opacity:0.95; margin-top:0.5rem"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container" role="contentinfo">
+    <div style="display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+      <div style="display:flex; gap:12px; align-items:center;">
+        <small>© “A Vida” — feito com calma</small>
+        <small style="opacity:0.7">• <a href="#">Política de privacidade</a></small>
+      </div>
+
+      <div style="display:flex; gap:10px; align-items:center;">
+        <small aria-hidden="true">Selos:</small>
+        <div style="font-size:0.75rem; padding:6px; border-radius:6px; background:var(--panel);">WCAG AA</div>
+        <div style="font-size:0.75rem; padding:6px; border-radius:6px; background:var(--panel);">Feito com calma</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Minimal JS: theme toggle, carousel, forms, accessibility helpers -->
+  <script>
+    (function(){
+      const root = document.documentElement;
+      const body = document.body;
+      const themeToggle = document.getElementById('themeToggle');
+      // Start with Calm theme class
+      body.classList.remove('theme--dark');
+
+      // Accessible theme toggle
+      themeToggle.addEventListener('click', ()=>{
+        const isDark = body.classList.toggle('theme--dark');
+        themeToggle.setAttribute('aria-pressed', String(isDark));
+      });
+
+      // Simple carousel: keyboard accessible (left/right)
+      const list = document.getElementById('carouselList');
+      let idx = 0;
+      function showIndex(i){
+        i = Math.max(0, Math.min(i, list.children.length-1));
+        idx = i; list.style.transform = `translateX(-${idx * 100}%)`;
+      }
+      // keyboard
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight') showIndex(idx+1);
+        if(e.key === 'ArrowLeft') showIndex(idx-1);
+      });
+
+      // newsletter minimal validation & accessible feedback
+      const form = document.getElementById('newsletter');
+      const email = document.getElementById('email');
+      const msg = document.getElementById('newsletterMessage');
+      form.addEventListener('submit', (ev)=>{
+        ev.preventDefault();
+        if(!email.checkValidity()){
+          msg.textContent = 'Digite um e‑mail válido.'; email.focus(); return;
+        }
+        msg.textContent = 'Obrigadx! Um pequeno prompt chegará ao seu e‑mail.';
+        form.reset();
+      });
+
+      // Respect reduced motion: remove animations for users who prefer
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduced){ document.querySelectorAll('.svg-orbit animate').forEach(a=>a.remove()); }
+
+      // chip filters (progressive enhancement)
+      document.querySelectorAll('.chip[data-filter]').forEach(b=>{
+        b.addEventListener('click', ()=>{
+          document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+          b.setAttribute('aria-pressed','true');
+          // demo: no heavy filtering; place hook here
+        });
+      });
+
+      // small perf hints: defer heavy things (images/videos are lazy) - use content-visibility where supported
+      document.querySelectorAll('.article-card, .card, .stat').forEach(n=>{ n.style.contain = 'content'; n.style.contentVisibility = 'auto'; });
+
+      // small a11y: ensure all interactive items have target size
+      document.querySelectorAll('button, .cta, .chip').forEach(el=>{ el.style.minHeight='44px'; el.style.minWidth='44px'; });
+
+    })();
+  </script>
+
+  <!-- 3 Quotes originais curtas (até 120 caracteres) -->
+  <!--
+    1) "Cada respiração guarda uma página por escrever."
+    2) "Silêncio que fez sentido — e o mundo pareceu menor."
+    3) "Um gesto pequeno que repete: cuidado, presença, luz."
+  -->
+
+</body>
+</html>

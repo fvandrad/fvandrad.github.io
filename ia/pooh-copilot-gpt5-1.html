@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ursinho Pooh — Mundo Encantado</title>
+  <meta name="description" content="Uma página moderna e responsiva dedicada ao mundo encantado do Ursinho Pooh: amigos, aventuras, galeria e contato." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Fredoka:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Paleta acolhedora */
+      --amber-50:#FFF8E1;
+      --amber-100:#FFECB3;
+      --amber-200:#FFE082;
+      --amber-300:#FFD54F;
+      --amber-400:#FFCA28;
+      --amber-500:#FFC107; /* mel */
+      --orange-400:#FFA726;
+      --orange-500:#FB8C00;
+      --brown-600:#6D4C41;
+      --brown-700:#5D4037;
+      --green-400:#81C784;
+      --green-500:#66BB6A;
+      --cream:#FFF7E8;
+      --ink:#2E2A26;
+      --muted:#7A6F69;
+      --white:#FFFFFF;
+
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+
+      --shadow-1: 0 6px 24px rgba(0,0,0,.08);
+      --shadow-2: 0 12px 36px rgba(0,0,0,.12);
+
+      --nav-h: 72px;
+      --maxw: 1200px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:linear-gradient(180deg, var(--cream), #FFF);
+      font-family:"Fredoka", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+      line-height:1.4;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    svg{shape-rendering:geometricPrecision}
+
+    /* Skip link */
+    .skip-link{
+      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
+    }
+    .skip-link:focus{
+      position:fixed;left:16px;top:16px;width:auto;height:auto;padding:10px 14px;
+      background:var(--amber-500);color:var(--ink);border-radius:8px;z-index:9999;
+      box-shadow:var(--shadow-2);
+    }
+
+    /* Header / Nav */
+    header{
+      position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:999;
+      transition: background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;
+      background:rgba(255, 247, 232, .25);
+      backdrop-filter: blur(6px);
+      border-bottom:1px solid rgba(0,0,0,.05);
+    }
+    header.scrolled{
+      background:rgba(255, 247, 232, .9);
+      box-shadow: var(--shadow-1);
+    }
+    .nav{
+      max-width:var(--maxw);margin:0 auto;height:100%;
+      display:flex;align-items:center;justify-content:space-between;padding:0 20px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;font-family:"Baloo 2", cursive;font-weight:700;
+      color:var(--brown-700);
+    }
+    .brand svg{width:34px;height:34px}
+    .menu{
+      display:flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.05);
+      padding:6px;border-radius:999px;
+    }
+    .menu a{
+      display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;
+      color:var(--brown-700);font-weight:600;font-size:.95rem;position:relative;
+      transition: background .25s ease, transform .25s ease, color .25s ease;
+    }
+    .menu a:hover{background:var(--amber-100)}
+    .menu a.active{
+      background:var(--amber-200); color:#3d2f29;
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,.05);
+    }
+    .menu svg{width:18px;height:18px;flex:0 0 18px}
+
+    /* Hamburger */
+    .hamburger{
+      display:none;width:40px;height:40px;border-radius:50%;
+      border:1px solid rgba(0,0,0,.06);background:#fff;align-items:center;justify-content:center;
+    }
+    .hamburger span{
+      width:20px;height:2px;background:var(--brown-700);display:block;position:relative;border-radius:2px;
+    }
+    .hamburger span:before,.hamburger span:after{
+      content:"";position:absolute;left:0;right:0;height:2px;background:var(--brown-700);border-radius:2px;
+    }
+    .hamburger span:before{top:-6px}
+    .hamburger span:after{bottom:-6px}
+
+    /* Mobile menu panel */
+    .menu-panel{
+      display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:998;
+      background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .menu-panel.open{display:block}
+    .menu-panel .menu-col{
+      max-width:var(--maxw);margin:0 auto;padding:12px 20px 18px;display:grid;gap:10px;
+      grid-template-columns:1fr 1fr; /* two columns on small tablets */
+    }
+    .menu-panel a{
+      display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;background:var(--amber-50);
+      border:1px solid rgba(0,0,0,.06); font-weight:600;
+    }
+
+    /* Hero */
+    .hero{
+      position:relative;padding-top:calc(var(--nav-h) + 32px);padding-bottom:80px;overflow:hidden;
+      background: radial-gradient(1200px 600px at 80% 0%, rgba(255, 202, 40, .25), transparent 60%),
+                  linear-gradient(180deg, #FFF7E8 0%, #FFF1D6 60%, #FFF 100%);
+    }
+    .hero-inner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:36px;padding:0 20px;align-items:center}
+    .hero h1{
+      font-family:"Baloo 2", cursive;font-size: clamp(28px, 5vw, 52px);line-height:1.1;margin:0 0 14px;color:#3d2f29;
+    }
+    .hero p{color:var(--muted);font-size: clamp(14px, 2.2vw, 18px);margin:0 0 22px}
+    .cta{
+      display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border-radius:999px;font-weight:700;
+      color:#3d2f29;background:linear-gradient(180deg, var(--amber-400), var(--orange-400));
+      box-shadow:0 8px 20px rgba(251,140,0,.25); transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .cta:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(251,140,0,.3)}
+    .cta svg{width:18px;height:18px}
+
+    .pooh-illustration{
+      width:100%;max-width:520px;margin:0 auto;filter: drop-shadow(0 14px 28px rgba(0,0,0,.12));
+    }
+
+    /* Decorative floating shapes */
+    .decor{position:absolute;opacity:.55}
+    .leaf{animation: float 7s ease-in-out infinite}
+    .honey{animation: float 9s ease-in-out infinite -2s}
+    .balloon{animation: float 11s ease-in-out infinite -1s}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+    /* Sections */
+    main section{scroll-margin-top: calc(var(--nav-h) + 16px);}
+    .section{
+      max-width:var(--maxw);margin:0 auto;padding:70px 20px;
+    }
+    .section h2{
+      font-family:"Baloo 2", cursive; font-size: clamp(22px, 3.6vw, 36px);margin:0 0 12px;color:#3d2f29;
+    }
+    .section .lead{color:var(--muted);margin:0 0 28px}
+
+    /* Sobre Pooh */
+    .about{
+      display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;
+      background:linear-gradient(180deg, #fff, #FFF9EC); border:1px solid rgba(0,0,0,.04);
+      border-radius:var(--radius-lg); padding:24px;box-shadow: var(--shadow-1);
+    }
+    .about figure{margin:0}
+    .about img{border-radius:16px;box-shadow: var(--shadow-1)}
+
+    /* Amigos */
+    .friends{
+      display:grid;grid-template-columns:repeat(6,1fr);gap:16px;
+    }
+    .friend-card{
+      background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:16px;box-shadow:var(--shadow-1);
+      display:flex;flex-direction:column;gap:10px; transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .friend-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-2)}
+    .friend-head{display:flex;align-items:center;gap:10px}
+    .friend-icon{width:34px;height:34px;border-radius:12px;display:grid;place-items:center}
+    .friend-name{font-weight:700;color:var(--brown-700)}
+    .friend-desc{color:var(--muted);font-size:.95rem}
+
+    /* Aventuras - carousel */
+    .carousel-wrap{
+      position:relative;
+      background:linear-gradient(180deg, #FFFDF7, #FFF9EC);
+      border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-lg);padding:16px;
+      box-shadow:var(--shadow-1);
+    }
+    .carousel{
+      display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;
+      scrollbar-width:none;-ms-overflow-style:none;
+    }
+    .carousel::-webkit-scrollbar{display:none}
+    .slide{
+      min-width:300px;max-width:360px;flex:0 0 auto;background:#fff;border:1px solid rgba(0,0,0,.06);
+      border-radius:16px;box-shadow:var(--shadow-1);scroll-snap-align:start;overflow:hidden;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .slide:hover{transform:translateY(-4px);box-shadow:var(--shadow-2)}
+    .slide img{height:180px;width:100%;object-fit:cover}
+    .slide .info{padding:14px}
+    .slide h3{margin:0 0 6px;font-size:1.1rem;color:var(--brown-700)}
+    .slide p{margin:0;color:var(--muted);font-size:.95rem}
+    .car-btn{
+      position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border:none;border-radius:50%;
+      background:#fff;box-shadow:var(--shadow-1);display:grid;place-items:center;cursor:pointer;
+    }
+    .car-prev{left:8px}
+    .car-next{right:8px}
+    .car-btn:hover{box-shadow:var(--shadow-2)}
+
+    /* Galeria */
+    .gallery{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+    }
+    .tile{
+      position:relative;border-radius:16px;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,.06);
+      box-shadow:var(--shadow-1); aspect-ratio: 4/3;
+    }
+    .tile img{width:100%;height:100%;object-fit:cover;transition: transform .35s ease;}
+    .tile:after{
+      content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,.08));
+      opacity:0;transition:opacity .3s ease;
+    }
+    .tile:hover img{transform:scale(1.05)}
+    .tile:hover:after{opacity:1}
+
+    /* Contato */
+    .contact{
+      background:linear-gradient(180deg, #fff, #FFF7E8);
+      border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow-1);
+      display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;
+    }
+    form{display:grid;gap:12px}
+    label{font-weight:600;color:var(--brown-700)}
+    input, textarea{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#fff;
+      font:inherit; color:var(--ink); transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    textarea{min-height:140px;resize:vertical}
+    input:focus, textarea:focus{outline:none;border-color:var(--orange-500);box-shadow:0 0 0 3px rgba(251,140,0,.15)}
+    .btn{
+      justify-self:start;display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;
+      border:none;background:linear-gradient(180deg, var(--green-400), var(--green-500));color:#1d2a22;font-weight:700;cursor:pointer;
+      box-shadow:0 8px 20px rgba(102,187,106,.25);
+    }
+    .btn:hover{transform:translateY(-1px)}
+
+    /* Footer */
+    footer{
+      margin-top:40px;background:linear-gradient(180deg, #FFF1D6, #FFE4B3);
+      border-top:1px solid rgba(0,0,0,.06);
+    }
+    .footer-inner{
+      max-width:var(--maxw);margin:0 auto;padding:26px 20px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;
+    }
+    .socials{display:flex;gap:10px;flex-wrap:wrap}
+    .social{
+      display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;background:#fff;border:1px solid rgba(0,0,0,.06);
+      box-shadow:var(--shadow-1);font-weight:600;color:var(--brown-700)
+    }
+
+    /* Back to top */
+    .back-top{
+      position:fixed;right:16px;bottom:16px;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+      display:grid;place-items:center;background:linear-gradient(180deg, var(--amber-400), var(--amber-500));color:#3d2f29;
+      box-shadow:0 10px 22px rgba(255,193,7,.35);opacity:0;pointer-events:none;transform:translateY(12px);
+      transition: opacity .25s ease, transform .25s ease;
+      z-index:998;
+    }
+    .back-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+
+    /* Utilities */
+    .muted{color:var(--muted)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* Responsividade */
+    @media (max-width: 1100px){
+      .friends{grid-template-columns:repeat(3,1fr)}
+      .hero-inner{grid-template-columns:1fr;gap:8px}
+    }
+    @media (max-width: 900px){
+      .about{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+      .gallery{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width: 720px){
+      .menu{display:none}
+      .hamburger{display:flex}
+      .friends{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+      .section{padding:56px 20px}
+      .hero{padding-bottom:56px}
+    }
+    @media (max-width: 420px){
+      .menu-panel .menu-col{grid-template-columns:1fr}
+      .friends{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr}
+    }
+
+    /* Motion preferences */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    }
+  </style>
+</head>
+<body>
+  <a href="#conteudo" class="skip-link">Ir para o conteúdo principal</a>
+
+  <!-- Reusable SVG symbols -->
+  <svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;left:-9999px;overflow:hidden">
+    <symbol id="i-home" viewBox="0 0 24 24"><path fill="currentColor" d="M10.9 3.2a2 2 0 0 1 2.2 0l6.8 4.5a2 2 0 0 1 .9 1.7V20a2 2 0 0 1-2 2h-4.5a1 1 0 0 1-1-1v-5.2a2 2 0 0 0-2-2h-.8a2 2 0 0 0-2 2V21a1 1 0 0 1-1 1H3.9a2 2 0 0 1-2-2V9.4a2 2 0 0 1 .9-1.7l6.8-4.5Z"/></symbol>
+    <symbol id="i-pooh" viewBox="0 0 24 24"><path fill="currentColor" d="M7 3a2 2 0 0 1 2 2v1.2a8 8 0 0 1 6 0V5a2 2 0 1 1 4 0c0 1-.4 2-1.3 2.8A8.5 8.5 0 0 1 21 13c0 4.4-4 8-9 8s-9-3.6-9-8a8.5 8.5 0 0 1 3.3-5.2C5.4 7 5 6 5 5a2 2 0 0 1 2-2Z"/><circle cx="9" cy="12" r="1.2" fill="#2E2A26"/><circle cx="15" cy="12" r="1.2" fill="#2E2A26"/><path d="M9 15c1.8 1.3 4.2 1.3 6 0" stroke="#2E2A26" stroke-width="1.2" stroke-linecap="round" fill="none"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.2-4.5-9.6-8A5.5 5.5 0 0 1 12 6.7 5.5 5.5 0 0 1 21.6 13c-2.4 3.5-9.6 8-9.6 8Z"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path fill="currentColor" d="M9 4 15 2l6 2v16l-6 2-6-2-6 2V6l6-2 0 16 6 2 0-16"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3V3Zm10 0h8v8h-8V3ZM3 13h8v8H3v-8Zm10 0h8v8h-8v-8Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm9 7 10-7H2l10 7Zm0 2L2 7v10h20V7l-10 7Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="currentColor" d="M5 12h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 6v12M6 12l6-6 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+    <!-- Friend icons -->
+    <symbol id="i-tigger" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="8" fill="#FFB74D"/><path d="M5 8h14M5 12h14M5 16h14" stroke="#6D4C41" stroke-width="1.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-piglet" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="#F8BBD0"/><circle cx="9" cy="9" r="2.2" fill="#F48FB1"/><circle cx="15" cy="9" r="2.2" fill="#F48FB1"/></symbol>
+    <symbol id="i-eeyore" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="6" fill="#90CAF9"/><path d="M8 6v12" stroke="#5C6BC0" stroke-width="1.2"/><circle cx="8" cy="12" r="1" fill="#5C6BC0"/></symbol>
+    <symbol id="i-owl" viewBox="0 0 24 24"><circle cx="8.5" cy="10" r="3" fill="#FFE082"/><circle cx="15.5" cy="10" r="3" fill="#FFE082"/><path d="M5 12c2 4 12 4 14 0v6H5v-6Z" fill="#8D6E63"/><circle cx="8.5" cy="10" r="1.2"/><circle cx="15.5" cy="10" r="1.2"/></symbol>
+    <symbol id="i-rabbit" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="10" rx="5" fill="#C5E1A5"/><rect x="8" y="3" width="3" height="6" rx="1.5" fill="#AED581"/><rect x="13" y="3" width="3" height="6" rx="1.5" fill="#AED581"/></symbol>
+    <symbol id="i-kanga" viewBox="0 0 24 24"><path d="M6 18c0-4 3-7 6-7s6 3 6 7H6Z" fill="#FFCC80"/><circle cx="12" cy="9" r="3" fill="#FFB74D"/></symbol>
+    <!-- Social custom icons -->
+    <symbol id="i-honey" viewBox="0 0 24 24"><path d="M7 8c0-2 2-4 5-4s5 2 5 4v5c0 3-2 5-5 5s-5-2-5-5V8Z" fill="#FFC107"/><path d="M9 10h6" stroke="#6D4C41" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-stripes" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="8" fill="#FFAB40"/><path d="M6 4v16M12 4v16M18 4v16" stroke="#5D4037" stroke-width="2"/></symbol>
+    <symbol id="i-snout" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="7" ry="5" fill="#F48FB1"/><circle cx="10" cy="12" r="1.2" fill="#AD1457"/><circle cx="14" cy="12" r="1.2" fill="#AD1457"/></symbol>
+  </svg>
+
+  <header id="topo">
+    <nav class="nav" aria-label="Navegação principal">
+      <a class="brand" href="#home" aria-label="Página inicial - Pooh">
+        <svg aria-hidden="true"><use href="#i-pooh"/></svg>
+        <span>Pooh • Encantado</span>
+      </a>
+
+      <button class="hamburger" id="hamburger" aria-label="Abrir menu"><span></span></button>
+
+      <div class="menu" role="menubar" aria-label="Menu principal">
+        <a role="menuitem" href="#home"><svg aria-hidden="true"><use href="#i-home"/></svg> Home</a>
+        <a role="menuitem" href="#sobre"><svg aria-hidden="true"><use href="#i-pooh"/></svg> Sobre Pooh</a>
+        <a role="menuitem" href="#amigos"><svg aria-hidden="true"><use href="#i-heart"/></svg> Amigos</a>
+        <a role="menuitem" href="#aventuras"><svg aria-hidden="true"><use href="#i-map"/></svg> Aventuras</a>
+        <a role="menuitem" href="#galeria"><svg aria-hidden="true"><use href="#i-grid"/></svg> Galeria</a>
+        <a role="menuitem" href="#contato"><svg aria-hidden="true"><use href="#i-mail"/></svg> Contato</a>
+      </div>
+    </nav>
+
+    <!-- Mobile panel -->
+    <div class="menu-panel" id="menu-panel">
+      <div class="menu-col">
+        <a href="#home"><svg aria-hidden="true" width="20" height="20"><use href="#i-home"/></svg> Home</a>
+        <a href="#sobre"><svg aria-hidden="true" width="20" height="20"><use href="#i-pooh"/></svg> Sobre Pooh</a>
+        <a href="#amigos"><svg aria-hidden="true" width="20" height="20"><use href="#i-heart"/></svg> Amigos</a>
+        <a href="#aventuras"><svg aria-hidden="true" width="20" height="20"><use href="#i-map"/></svg> Aventuras</a>
+        <a href="#galeria"><svg aria-hidden="true" width="20" height="20"><use href="#i-grid"/></svg> Galeria</a>
+        <a href="#contato"><svg aria-hidden="true" width="20" height="20"><use href="#i-mail"/></svg> Contato</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- Hero -->
+    <section id="home" class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div>
+          <h1 id="hero-title">Bem-vindo ao mundo encantado do Ursinho Pooh</h1>
+          <p class="lead">Um lugar de doçura, amizade e pequenas grandes aventuras na floresta dos Cem Acres — aconchegue-se e venha sonhar.</p>
+          <a class="cta" href="#aventuras" aria-label="Ir para aventuras">
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+            Descubra as Aventuras
+          </a>
+        </div>
+
+        <!-- Ilustração SVG estilizada do Pooh -->
+        <figure class="pooh-illustration" aria-label="Ilustração amigável do Ursinho Pooh">
+          <svg viewBox="0 0 520 420" role="img" aria-label="Ursinho Pooh estilizado sorrindo com um pote de mel">
+            <defs>
+              <linearGradient id="gBody" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FFD54F"/>
+                <stop offset="100%" stop-color="#FFB300"/>
+              </linearGradient>
+              <linearGradient id="gShirt" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FB8C00"/>
+                <stop offset="100%" stop-color="#F57C00"/>
+              </linearGradient>
+            </defs>
+            <!-- Orelhas -->
+            <circle cx="170" cy="120" r="38" fill="url(#gBody)"/>
+            <circle cx="350" cy="120" r="38" fill="url(#gBody)"/>
+            <!-- Cabeça -->
+            <ellipse cx="260" cy="170" rx="130" ry="110" fill="url(#gBody)" />
+            <!-- Rosto -->
+            <circle cx="220" cy="165" r="10" fill="#2E2A26"/>
+            <circle cx="300" cy="165" r="10" fill="#2E2A26"/>
+            <path d="M240 195c14 12 32 12 46 0" stroke="#2E2A26" stroke-width="6" stroke-linecap="round" fill="none"/>
+            <circle cx="268" cy="180" r="6" fill="#2E2A26"/>
+            <!-- Corpo -->
+            <ellipse cx="260" cy="320" rx="160" ry="120" fill="url(#gBody)"/>
+            <!-- Camiseta -->
+            <path d="M100 260c40-30 90-50 160-50s120 20 160 50v50H100v-50Z" fill="url(#gShirt)"/>
+            <!-- Pote de mel -->
+            <g transform="translate(360,260)">
+              <ellipse cx="0" cy="40" rx="52" ry="42" fill="#6D4C41"/>
+              <rect x="-50" y="-4" width="100" height="36" rx="12" fill="#8D6E63"/>
+              <path d="M-40 16h80" stroke="#5D4037" stroke-width="6" stroke-linecap="round"/>
+              <path d="M-22 -8c0 10 8 18 18 18s18-8 18-18" fill="#FFC107"/>
+            </g>
+            <!-- Sombra -->
+            <ellipse cx="260" cy="390" rx="170" ry="18" fill="rgba(0,0,0,.08)"/>
+          </svg>
+        </figure>
+      </div>
+
+      <!-- Formas decorativas -->
+      <svg class="decor leaf" width="140" height="140" style="left:4%; top:12%" aria-hidden="true">
+        <path d="M20 120C20 70 70 20 120 20" stroke="#81C784" stroke-width="26" stroke-linecap="round" fill="none"/>
+      </svg>
+      <svg class="decor honey" width="120" height="120" style="right:8%; top:18%" aria-hidden="true">
+        <path d="M20 60c0-20 20-40 40-40s40 20 40 40v30c0 20-20 40-40 40S20 110 20 90V60Z" fill="rgba(255,193,7,.35)"/>
+      </svg>
+      <svg class="decor balloon" width="120" height="160" style="left:10%; bottom:-10px" aria-hidden="true">
+        <ellipse cx="60" cy="60" rx="42" ry="54" fill="rgba(251,140,0,.3)"/>
+        <path d="M60 110v40" stroke="#5D4037" stroke-width="2"/>
+      </svg>
+    </section>
+
+    <!-- Sobre Pooh -->
+    <section id="sobre" class="section" aria-labelledby="title-sobre">
+      <h2 id="title-sobre">Sobre o Pooh</h2>
+      <p class="lead">Pooh é um ursinho de coração doce e simples que ama mel, passeios tranquilos e conversas sinceras com seus amigos. Sua curiosidade gentil transforma cada dia em um convite para a imaginação.</p>
+
+      <div class="about">
+        <div>
+          <h3 style="margin:0 0 8px;font-size:1.25rem;color:#4b3b34">Quem ele é</h3>
+          <p style="margin:0 0 10px">Com um sorriso fácil e passos descomplicados, Pooh nos lembra de saborear a vida devagar. Ele encontra beleza nos pequenos gestos: uma canção inventada, um pote de mel compartilhado, um caminho entre árvores que parecem sussurrar histórias.</p>
+          <p style="margin:0">Na floresta dos Cem Acres, tudo é mais leve quando estamos juntos. Pooh nos ensina que coragem pode ser silenciosa e que amizade é um lugar macio para descansar.</p>
+        </div>
+        <figure>
+          <img src="https://images.unsplash.com/photo-1542401886-65d6c61db217?q=80&w=1200&auto=format&fit=crop" alt="Um cenário de floresta iluminada por sol, evocando a floresta dos Cem Acres" />
+          <figcaption class="sr-only">Luz suave atravessando árvores de uma floresta</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Amigos -->
+    <section id="amigos" class="section" aria-labelledby="title-amigos">
+      <h2 id="title-amigos">Amigos</h2>
+      <p class="lead">Eles são o coração do caminho: cada um com sua cor, seu ritmo e seu jeito de expressar cuidado.</p>
+
+      <div class="friends" role="list">
+        <article class="friend-card" role="listitem">
+          <div class="friend-head">
+            <div class="friend-icon" style="background:#FFE0B2"><svg aria-hidden="true"><use href="#i-tigger"/></svg></div>
+            <div class="friend-name">Tigrão</div>
+          </div>
+          <p class="friend-desc">Saltitante e entusiasmado, lembra que alegria também é movimento — e que abraços podem ser acrobáticos.</p>
+        </article>
+
+        <article class="friend-card" role="listitem">
+          <div class="friend-head">
+            <div class="friend-icon" style="background:#F8BBD0"><svg aria-hidden="true"><use href="#i-piglet"/></svg></div>
+            <div class="friend-name">Leitão</div>
+          </div>
+          <p class="friend-desc">Pequeno no tamanho, grande na delicadeza. Ensina que coragem pode falar baixinho.</p>
+        </article>
+
+        <article class="friend-card" role="listitem">
+          <div class="friend-head">
+            <div class="friend-icon" style="background:#BBDEFB"><svg aria-hidden="true"><use href="#i-eeyore"/></svg></div>
+            <div class="friend-name">Bisonho (Ió)</div>
+          </div>
+          <p class="friend-desc">Com ternura melancólica, mostra que até nos dias nublados é possível caminhar junto.</p>
+        </article>
+
+        <article class="friend-card" role="listitem">
+          <div class="friend-head">
+            <div class="friend-icon" style="background:#FFE082"><svg aria-hidden="true"><use href="#i-owl"/></svg></div>
+            <div class="friend-name">Corujão</div>
+          </div>
+          <p class="friend-desc">Sábio e prolixo, prova que histórias longas cabem em ouvidos atentos — e risadas chegam no fim.</p>
+        </article>
+
+        <article class="friend-card" role="listitem">
+          <div class="friend-head">
+            <div class="friend-icon" style="background:#C5E1A5"><svg aria-hidden="true"><use href="#i-rabbit"/></svg></div>
+            <div class="friend-name">Coelho</div>
+          </div>
+          <p class="friend-desc">Organizado e cuidador do jardim, lembra que plantar paciência também dá frutos.</p>
+        </article>
+
+        <article class="friend-card" role="listitem">
+          <div class="friend-head">
+            <div class="friend-icon" style="background:#FFE0B2"><svg aria-hidden="true"><use href="#i-kanga"/></svg></div>
+            <div class="friend-name">Cangu (Kanga & Roo)</div>
+          </div>
+          <p class="friend-desc">Acolhimento em forma de bolso: colo, mimo e espaço para aprender brincando.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Aventuras -->
+    <section id="aventuras" class="section" aria-labelledby="title-aventuras">
+      <h2 id="title-aventuras">Aventuras</h2>
+      <p class="lead">Histórias que começam com um passo curioso e terminam com risos, mel e um pôr do sol tranquilo.</p>
+
+      <div class="carousel-wrap">
+        <button class="car-btn car-prev" aria-label="Anterior"><svg width="22" height="22" aria-hidden="true" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg></button>
+        <button class="car-btn car-next" aria-label="Próxima"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+
+        <div class="carousel" id="carousel" aria-label="Carrossel de aventuras">
+          <article class="slide">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Trilha na floresta com luz dourada" />
+            <div class="info">
+              <h3>O trilho do mel dourado</h3>
+              <p>Seguindo um perfume doce, Pooh descobre que amizade é o caminho que sempre leva de volta pra casa.</p>
+            </div>
+          </article>
+
+          <article class="slide">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop" alt="Campo gramado sob céu amplo" />
+            <div class="info">
+              <h3>Piquenique de risos</h3>
+              <p>Entre migalhas e canções inventadas, cada gargalhada vira ingrediente secreto.</p>
+            </div>
+          </article>
+
+          <article class="slide">
+            <img src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?q=80&w=1200&auto=format&fit=crop" alt="Balão vermelho no céu" />
+            <div class="info">
+              <h3>O balão aventureiro</h3>
+              <p>Um balão, um vento gentil e a certeza de que mãos dadas são âncoras leves.</p>
+            </div>
+          </article>
+
+          <article class="slide">
+            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop" alt="Caminho entre árvores altas" />
+            <div class="info">
+              <h3>Segredos das árvores</h3>
+              <p>As folhas cochicham histórias antigas para quem chega sem pressa.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria" class="section" aria-labelledby="title-galeria">
+      <h2 id="title-galeria">Galeria</h2>
+      <p class="lead">Momentos que aquecem a memória — um mosaico de cores, cheiros e abraços.</p>
+
+      <div class="gallery">
+        <div class="tile"><img src="https://images.unsplash.com/photo-1504194104404-433180773017?q=80&w=1200&auto=format&fit=crop" alt="Árvore sob sol do final da tarde" /></div>
+        <div class="tile"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop" alt="Trilha em floresta com folhas verdes" /></div>
+        <div class="tile"><img src="https://images.unsplash.com/photo-1455218873509-8097305ee378?q=80&w=1200&auto=format&fit=crop" alt="Piquenique com cesta e toalha xadrez" /></div>
+        <div class="tile"><img src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=1200&auto=format&fit=crop" alt="Balão colorido flutuando" /></div>
+        <div class="tile"><img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1200&auto=format&fit=crop" alt="Campo dourado ao entardecer" /></div>
+        <div class="tile"><img src="https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?q=80&w=1200&auto=format&fit=crop" alt="Caminho de madeira na floresta" /></div>
+        <div class="tile"><img src="https://images.unsplash.com/photo-1496545672447-f699b503d270?q=80&w=1200&auto=format&fit=crop" alt="Riacho entre pedras" /></div>
+        <div class="tile"><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop" alt="Trilha com folhas amarelas" /></div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="section" aria-labelledby="title-contato">
+      <h2 id="title-contato">Contato</h2>
+      <p class="lead">Tem uma lembrança doce, uma história para contar, ou quer dizer “olá”? Escreva para a floresta.</p>
+
+      <div class="contact">
+        <form id="form" aria-label="Formulário de contato">
+          <div>
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required />
+          </div>
+          <div>
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" placeholder="voce@exemplo.com" autocomplete="email" required />
+          </div>
+          <div>
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui..." required></textarea>
+          </div>
+          <button class="btn" type="submit" aria-label="Enviar mensagem">
+            <svg aria-hidden="true" width="18" height="18"><use href="#i-mail"/></svg>
+            Enviar
+          </button>
+          <p id="status" class="muted" role="status" aria-live="polite" style="margin:6px 0 0"></p>
+        </form>
+
+        <figure style="margin:0">
+          <img src="https://images.unsplash.com/photo-1445633883498-7f9922d37a3b?q=80&w=1200&auto=format&fit=crop" alt="Carta sobre mesa de madeira com luz quente" />
+          <figcaption class="sr-only">Carta com caneta em ambiente aconchegante</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="muted">© <span id="year"></span> Mundo Encantado do Pooh — feito com carinho.</div>
+      <div class="socials" aria-label="Redes sociais">
+        <a class="social" href="#" aria-label="Pooh - Página de mel">
+          <svg width="18" height="18" aria-hidden="true"><use href="#i-honey"/></svg>
+          Pooh
+        </a>
+        <a class="social" href="#" aria-label="Tigrão - Saltos e risos">
+          <svg width="18" height="18" aria-hidden="true"><use href="#i-stripes"/></svg>
+          Tigrão
+        </a>
+        <a class="social" href="#" aria-label="Leitão - Gentilezas">
+          <svg width="18" height="18" aria-hidden="true"><use href="#i-snout"/></svg>
+          Leitão
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-top" id="backTop" aria-label="Voltar ao topo">
+    <svg width="22" height="22" aria-hidden="true"><use href="#i-up"/></svg>
+  </button>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Navbar transparency on scroll + back to top
+    const header = document.querySelector('header');
+    const backTop = document.getElementById('backTop');
+    const onScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      header.classList.toggle('scrolled', y > 10);
+      backTop.classList.toggle('show', y > 300);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+
+    // Smooth scroll active link highlight with IntersectionObserver
+    const sections = document.querySelectorAll('main section[id]');
+    const menuLinks = Array.from(document.querySelectorAll('.menu a, .menu-panel a'));
+    const setActive = (id) => {
+      menuLinks.forEach(a => {
+        const active = a.getAttribute('href') === '#' + id;
+        if (active) { a.classList.add('active'); a.setAttribute('aria-current','page'); }
+        else { a.classList.remove('active'); a.removeAttribute('aria-current'); }
+      });
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, {rootMargin: "-50% 0px -40% 0px", threshold: 0.1});
+    sections.forEach(s => io.observe(s));
+
+    // Mobile menu toggle
+    const burger = document.getElementById('hamburger');
+    const panel = document.getElementById('menu-panel');
+    const closePanel = () => { panel.classList.remove('open'); burger.setAttribute('aria-expanded','false'); };
+    burger.addEventListener('click', () => {
+      const open = panel.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    panel.querySelectorAll('a').forEach(a => a.addEventListener('click', closePanel));
+
+    // Carousel controls
+    const car = document.getElementById('carousel');
+    document.querySelector('.car-prev').addEventListener('click', () => car.scrollBy({left: -360, behavior:'smooth'}));
+    document.querySelector('.car-next').addEventListener('click', () => car.scrollBy({left: 360, behavior:'smooth'}));
+
+    // Back to top
+    backTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Form submit (demo)
+    const form = document.getElementById('form');
+    const statusEl = document.getElementById('status');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nome = form.nome.value.trim();
+      statusEl.textContent = `Obrigado, ${nome || 'amigo(a)'}! Recebemos sua mensagem.`;
+      form.reset();
+    });
+  </script>
+</body>
+</html>

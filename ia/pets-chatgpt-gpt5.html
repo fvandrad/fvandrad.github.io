@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PetJoy — Celebrando a Alegria dos Pets</title>
+  <meta name="description" content="PetJoy — Uma página vibrante e responsiva sobre pets: cachorros, gatos, pássaros, peixes e mais. Dicas, adoção, galeria e muito afeto!" />
+  <style>
+    /* --- Reset e base --- */
+    :root{
+      --bg:#FAFCFF; --card:#FFFFFF; --muted:#6B7280;
+      --accent1:#06b6d4; /* turquesa */
+      --accent2:#FDE68A; /* amarelo claro */
+      --accent3:#A7F3D0; /* verde menta */
+      --accent4:#FBCFE8; /* rosa suave */
+      --accent5:#FB923C; /* laranja */
+      --glass: rgba(255,255,255,0.6);
+      --radius:16px;
+      --shadow: 0 8px 24px rgba(16,24,40,0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:linear-gradient(180deg,var(--bg),#F2FBFF 60%);
+      color:#0f172a; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.45; padding-top:72px;
+      background-image: radial-gradient(circle at 10% 10%, rgba(6,182,212,0.03) 0, transparent 20%), radial-gradient(circle at 90% 90%, rgba(251,146,60,0.02) 0, transparent 18%);
+      background-repeat:no-repeat;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .container{max-width:1200px;margin:0 auto;padding:28px}
+
+    /* --- Top nav --- */
+    header{position:fixed;left:0;right:0;top:0;height:72px;display:flex;align-items:center;backdrop-filter:blur(6px);z-index:60}
+    .nav-inner{display:flex;align-items:center;gap:18px;padding:10px 20px}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo .mark{width:44px;height:44px;background:linear-gradient(135deg,var(--accent1),var(--accent5));border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;box-shadow:var(--shadow)}
+    nav{margin-left:auto}
+    .menu{display:flex;gap:12px;align-items:center}
+    .menu a{padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:600;color:#0f172a;opacity:.9}
+    .menu a.active{background:linear-gradient(90deg,var(--accent1),var(--accent3));color:white;box-shadow:var(--shadow)}
+    .cta{background:var(--accent5);color:white;padding:9px 14px;border-radius:12px;font-weight:700}
+
+    /* --- Hero --- */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:48px 0}
+    .hero h1{font-size:2.2rem;margin:0 0 10px;font-weight:800;letter-spacing:-0.02em;color:#07204a}
+    .hero p{margin:0 0 18px;color:var(--muted)}
+    .hero .actions{display:flex;gap:12px}
+    .pill{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:var(--glass);box-shadow:inset 0 -2px 0 rgba(0,0,0,0.02)}
+
+    /* hero image card */
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.5));border-radius:20px;padding:12px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center}
+    .hero-card img{width:100%;height:100%;max-width:380px;border-radius:12px;object-fit:cover;display:block}
+
+    /* --- Sections --- */
+    section{padding:40px 0}
+    h2.section-title{font-size:1.25rem;margin:0 0 18px;font-weight:800}
+    .muted{color:var(--muted)}
+
+    /* --- Cards grid --- */
+    .grid{display:grid;gap:16px}
+    .species-grid{grid-template-columns:repeat(3,1fr)}
+    .card{background:var(--card);padding:18px;border-radius:14px;box-shadow:var(--shadow);display:flex;gap:14px;align-items:flex-start}
+    .card .icon{width:64px;height:64px;border-radius:12px;display:grid;place-items:center;font-size:24px}
+    .card h3{margin:0;font-size:1rem}
+    .card p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
+
+    /* care tips */
+    .tips{display:flex;flex-wrap:wrap;gap:12px}
+    .tip{flex:1 1 200px;background:linear-gradient(180deg,var(--card),#FFF);padding:14px;border-radius:12px}
+    .tip h4{margin:0 0 8px}
+
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .photo{position:relative;overflow:hidden;border-radius:12px;min-height:110px}
+    .photo img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1);transition:transform .45s cubic-bezier(.2,.9,.3,1),filter .45s}
+    .photo:hover img{transform:scale(1.07);filter:brightness(.95)}
+
+    /* adoption */
+    .adopt-card{background:linear-gradient(90deg,var(--accent4),#FFF);padding:20px;border-radius:16px;display:flex;gap:18px;align-items:center}
+    .adopt-card button{padding:10px 14px;border-radius:12px;border:0;font-weight:700}
+
+    /* footer */
+    footer{padding:28px 0;border-top:1px solid rgba(10,10,10,0.04);margin-top:20px}
+    .socials{display:flex;gap:10px}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr 320px}
+      .species-grid{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width:680px){
+      body{padding-top:84px}
+      .hero{grid-template-columns:1fr;gap:18px}
+      header{height:84px}
+      .menu{display:none}
+      .hero-card img{max-width:100%}
+      .species-grid{grid-template-columns:1fr}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* small interactions */
+    .fade-up{transform:translateY(8px);opacity:0;transition:transform .6s ease,opacity .6s}
+    .fade-up.visible{transform:none;opacity:1}
+    .btn{cursor:pointer}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner container">
+      <div class="logo">
+        <div class="mark">PJ</div>
+        <div>
+          <div style="font-weight:800">PetJoy</div>
+          <div style="font-size:12px;color:var(--muted)">Alegria, cuidado e adoção</div>
+        </div>
+      </div>
+      <nav>
+        <div class="menu">
+          <a href="#home" class="active">Início</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#especies">Espécies</a>
+          <a href="#dicas">Cuidados</a>
+          <a href="#galeria">Galeria</a>
+          <a href="#adocao" class="cta">Adoção</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section id="home" class="hero" aria-label="Hero">
+      <div>
+        <div class="pill" style="margin-bottom:12px">🐶 🐱 🐦 Celebrando a diversidade pet</div>
+        <h1>PetJoy — Onde todo pet encontra carinho e cuidado</h1>
+        <p class="muted">Dicas práticas, perfis de raças e espécies, galeria de fofuras e locais para adoção responsável. Feito com amor e pensado para todas as telas.</p>
+        <div class="actions">
+          <a class="btn" href="#especies"><button class="cta">Ver espécies</button></a>
+          <a class="btn" href="#adocao"><button style="background:transparent;border:1px solid var(--accent1);padding:9px 14px;border-radius:12px">Adoção responsável</button></a>
+        </div>
+
+        <!-- decorative svgs (paws, bone) -->
+        <div style="margin-top:20px;display:flex;gap:8px;align-items:center">
+          <!-- paw SVG -->
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M7 9C7 10.1046 6.10457 11 5 11C3.89543 11 3 10.1046 3 9C3 7.89543 3.89543 7 5 7C6.10457 7 7 7.89543 7 9Z" fill="#FB923C"/>
+            <path d="M12 9.5C12 10.8807 10.8807 12 9.5 12C8.11929 12 7 10.8807 7 9.5C7 8.11929 8.11929 7 9.5 7C10.8807 7 12 8.11929 12 9.5Z" fill="#06B6D4"/>
+            <path d="M18 9C18 10.1046 17.1046 11 16 11C14.8954 11 14 10.1046 14 9C14 7.89543 14.8954 7 16 7C17.1046 7 18 7.89543 18 9Z" fill="#A7F3D0"/>
+            <path d="M12 20C8 20 6 18 6 14C6 10 8 8 12 8C16 8 18 10 18 14C18 18 16 20 12 20Z" fill="#FBCFE8"/>
+          </svg>
+          <div class="muted">Fundo com padrões leves e formas que lembram carinho</div>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-hidden>
+        <!-- Placeholder: imagem gerada por IA -->
+        <img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Grupo de pets felizes - cachorro, gato, pássaro e peixe"/>
+      </aside>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+      <h2 class="section-title">Sobre Pets</h2>
+      <p class="muted">Animais de estimação trazem companhia, responsabilidade e alegria. Nesta página celebramos diferentes espécies — com informações práticas para cuidar melhor dos seus amigos.</p>
+      <div style="display:flex;gap:14px;margin-top:14px;flex-wrap:wrap">
+        <div style="flex:1;min-width:220px">
+          <img src="https://images.unsplash.com/photo-1507149833265-60c372daea22?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="closeup pet" style="width:100%;border-radius:12px;box-shadow:var(--shadow)"/>
+        </div>
+        <div style="flex:2;min-width:260px">
+          <p class="muted">Aqui você encontra: perfis de espécies, dicas rápidas de cuidados, ideias de brincadeiras, curiosidades e uma área dedicada à adoção responsável — com contatos e orientações para receber um novo membro na família com segurança.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPECIES GRID -->
+    <section id="especies">
+      <h2 class="section-title">Espécies & Raças</h2>
+      <div class="grid species-grid" style="margin-top:12px">
+        <!-- Card 1 - Cachorros -->
+        <article class="card fade-up">
+          <div class="icon" style="background:linear-gradient(180deg,var(--accent1),#E0FCFF)">
+            <!-- dog icon -->
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M12 2c1.657 0 3 1.343 3 3v1h-6V5c0-1.657 1.343-3 3-3z" fill="#0f172a" opacity=".9"/>
+              <path d="M5 10c0 3 2 5 7 5s7-2 7-5v-1H5v1z" fill="#06B6D4"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Cachorros</h3>
+            <p class="muted">Leais e brincalhões. Dicas: socialização, exercícios diários e cuidados com saúde dental.</p>
+          </div>
+        </article>
+
+        <!-- Card 2 - Gatos -->
+        <article class="card fade-up">
+          <div class="icon" style="background:linear-gradient(180deg,var(--accent4),#FFF0F7)">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M12 3l2 3 3 1-2 2 1 3-3-1-3 1 1-3-2-2 3-1 2-3z" fill="#07204A"/></svg>
+          </div>
+          <div>
+            <h3>Gatos</h3>
+            <p class="muted">Independentes e carinhosos. Dicas: enriquecimento ambiental, arranhadores e vacinação em dia.</p>
+          </div>
+        </article>
+
+        <!-- Card 3 - Pássaros -->
+        <article class="card fade-up">
+          <div class="icon" style="background:linear-gradient(180deg,var(--accent3),#ECFFF7)">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M4 12c2-2 6-4 10-4s8 2 10 4v2c-2-1-6-2-10-2s-8 1-10 2v-2z" fill="#065F46"/></svg>
+          </div>
+          <div>
+            <h3>Pássaros</h3>
+            <p class="muted">Cores e sons que encantam. Dicas: espaço para voar, alimentação balanceada e enriquecimento com brinquedos.</p>
+          </div>
+        </article>
+
+        <!-- Card 4 - Peixes -->
+        <article class="card fade-up">
+          <div class="icon" style="background:linear-gradient(180deg,var(--accent2),#FFFBEA)">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M2 12c4-4 12-6 18 0-6 6-14 4-18 0z" fill="#0b7b9f"/></svg>
+          </div>
+          <div>
+            <h3>Peixes</h3>
+            <p class="muted">Calmos e decorativos. Dicas: qualidade da água, temperatura estável e manutenção do aquário.</p>
+          </div>
+        </article>
+
+        <!-- Card 5 - Pequenos mamíferos -->
+        <article class="card fade-up">
+          <div class="icon" style="background:linear-gradient(180deg,var(--accent4),#FFF0F7)">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M6 14c2-2 6-3 10-2 0 0 3 2 3 4s-3 3-6 3-9-3-7-5z" fill="#8B5CF6"/></svg>
+          </div>
+          <div>
+            <h3>Pequenos mamíferos</h3>
+            <p class="muted">Hamsters, porquinhos-da-índia e coelhos. Dicas: brinquedos, habitação adequada e dieta específica.</p>
+          </div>
+        </article>
+
+        <!-- Card 6 - Reptéis & Outros -->
+        <article class="card fade-up">
+          <div class="icon" style="background:linear-gradient(180deg,var(--accent1),#E0FCFF)">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M4 16c3-6 10-8 16-5-4 5-9 7-16 5z" fill="#16A34A"/></svg>
+          </div>
+          <div>
+            <h3>Répteis & Outros</h3>
+            <p class="muted">Cuidado com temperatura, umidade e alimentação especializada.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CUIDADOS E DICAS -->
+    <section id="dicas">
+      <h2 class="section-title">Cuidados & Dicas Rápidas</h2>
+      <div class="tips" style="margin-top:12px">
+        <div class="tip fade-up">
+          <h4>Alimentação equilibrada</h4>
+          <p class="muted">Consulte um profissional para dieta adequada à espécie, idade e condição de saúde.</p>
+        </div>
+        <div class="tip fade-up">
+          <h4>Atividade e estímulo</h4>
+          <p class="muted">Brinquedos, passeios e enriquecimento ambiental evitam tédio e problemas comportamentais.</p>
+        </div>
+        <div class="tip fade-up">
+          <h4>Higiene e saúde</h4>
+          <p class="muted">Vacinação, limpeza de viveiros e visitas regulares ao veterinário.</p>
+        </div>
+        <div class="tip fade-up">
+          <h4>Adoção responsável</h4>
+          <p class="muted">Pense no compromisso a longo prazo. Informe-se sobre custos e adaptações necessárias.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section id="galeria">
+      <h2 class="section-title">Galeria de Momentos Fofos</h2>
+      <div class="gallery" style="margin-top:12px">
+        <div class="photo fade-up"><img src="https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="pet 1"/></div>
+        <div class="photo fade-up"><img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="pet 2"/></div>
+        <div class="photo fade-up"><img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="pet 3"/></div>
+        <div class="photo fade-up"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="pet 4"/></div>
+        <div class="photo fade-up"><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="pet 5"/></div>
+        <div class="photo fade-up"><img src="https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="pet 6"/></div>
+        <div class="photo fade-up"><img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="pet 7"/></div>
+        <div class="photo fade-up"><img src="https://images.unsplash.com/photo-1507149833265-60c372daea22?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="pet 8"/></div>
+      </div>
+    </section>
+
+    <!-- ADOÇÃO -->
+    <section id="adocao">
+      <h2 class="section-title">Adoção Responsável</h2>
+      <div class="adopt-card fade-up" style="margin-top:12px">
+        <div style="flex:1">
+          <h3 style="margin:0">Adote um amigo hoje</h3>
+          <p class="muted">Conheça pets esperando por um lar. Preencha o formulário e entraremos em contato para combinar a visita.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button style="background:var(--accent1);color:white">Quero adotar</button>
+          <button style="background:transparent;border:1px solid rgba(0,0,0,0.06)">Doar</button>
+        </div>
+      </div>
+
+      <!-- simple contact form -->
+      <form style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <input placeholder="Seu nome" aria-label="Nome" style="padding:12px;border-radius:10px;border:1px solid rgba(12,12,12,0.06)" />
+        <input placeholder="Telefone ou WhatsApp" aria-label="Contato" style="padding:12px;border-radius:10px;border:1px solid rgba(12,12,12,0.06)" />
+        <input placeholder="Espécie de interesse" style="padding:12px;border-radius:10px;border:1px solid rgba(12,12,12,0.06)" />
+        <input placeholder="Cidade / Estado" style="padding:12px;border-radius:10px;border:1px solid rgba(12,12,12,0.06)" />
+        <textarea placeholder="Mensagem" style="grid-column:1/3;padding:12px;border-radius:10px;border:1px solid rgba(12,12,12,0.06)"></textarea>
+        <button type="submit" style="grid-column:1/3;padding:12px;border-radius:12px;background:var(--accent5);color:white;border:0;font-weight:700">Enviar</button>
+      </form>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+        <div style="display:flex;gap:10px;align-items:center">
+          <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent3));display:grid;place-items:center;color:white;font-weight:700">PJ</div>
+          <div>
+            <strong>PetJoy</strong>
+            <div class="muted">© " + new Date().getFullYear() + " PetJoy — Todos os direitos</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:8px">
+          <div class="socials">
+            <!-- SVG icons social -->
+            <a href="#" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z" stroke="#0f172a" stroke-width="1.2"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M13 3h3v4h-3v14h-4V7H8V3h5z" fill="#0f172a"/></svg></a>
+            <a href="#" aria-label="X"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 3l18 18M21 3L3 21" stroke="#0f172a" stroke-width="1.2" stroke-linecap="round"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',function(e){
+        e.preventDefault();
+        const id=this.getAttribute('href').slice(1);
+        const el=document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      })
+    });
+
+    // Active link on scroll
+    const sections = document.querySelectorAll('main section');
+    const navLinks = document.querySelectorAll('.menu a');
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        const id = entry.target.id;
+        const link = document.querySelector('.menu a[href="#'+id+'"]');
+        if(entry.isIntersecting){
+          navLinks.forEach(l=>l.classList.remove('active'));
+          if(link) link.classList.add('active');
+        }
+      });
+    },{root:null,threshold:0.35});
+    sections.forEach(s=>obs.observe(s));
+
+    // reveal animations
+    const reveal = (el)=>{ el.classList.add('visible') }
+    const rObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) reveal(e.target) });
+    },{threshold:0.15});
+    document.querySelectorAll('.fade-up').forEach(n=>rObserver.observe(n));
+
+    // simple form submit handler (demo)
+    document.querySelector('form')?.addEventListener('submit',e=>{
+      e.preventDefault();
+      alert('Obrigado! Recebemos seu interesse — entraremos em contato.');
+      e.target.reset();
+    })
+  </script>
+</body>
+</html>
