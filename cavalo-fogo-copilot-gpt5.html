@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cavalo de Fogo — Firehorse</title>
+
+  <!-- Tipografia: Orbitron (títulos) + Poppins (texto) -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN (com filtros, sombras e animações) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Configuração do Tailwind para cores temáticas
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            coal: "#0b0b0f",
+            anthracite: "#111218",
+            ember: "#ff6a00",
+            crimson: "#d81b60",
+            nebula: "#6a00ff",
+            galaxy: "#2a0a4a"
+          },
+          boxShadow: {
+            glow: "0 0 20px rgba(255,106,0,.25), 0 0 40px rgba(106,0,255,.15)"
+          },
+          backgroundImage: {
+            'grid': "radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 1px)"
+          },
+          animation: {
+            'float-slow': 'float 8s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s ease-in-out infinite',
+            'gradient-x': 'gradient-x 12s ease infinite',
+            'spin-slow': 'spin 12s linear infinite'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            'gradient-x': {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' }
+            }
+          }
+        }
+      },
+      darkMode: 'class'
+    }
+  </script>
+
+  <style>
+    /* Estilos base e resets leves */
+    :root {
+      --bg: #0b0b0f;
+      --ink: #e8e8f0;
+      --muted: #a0a3b1;
+      --accent: #ff6a00;
+      --accent-2: #d81b60;
+      --accent-3: #6a00ff;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji';
+      color: var(--ink);
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(106,0,255,.12), transparent 60%),
+                  radial-gradient(800px 400px at 10% 10%, rgba(216,27,96,.10), transparent 60%),
+                  #0b0b0f;
+      background-attachment: fixed;
+    }
+    h1,h2,h3,.font-orbitron { font-family: 'Orbitron', sans-serif; letter-spacing: .02em; }
+    /* Gradiente dinâmico reutilizável */
+    .gradient-anim {
+      background: linear-gradient(100deg,
+        rgba(255,106,0,.9), rgba(216,27,96,.9), rgba(106,0,255,.9));
+      background-size: 300% 300%;
+      animation: gradient-x 18s ease infinite;
+    }
+
+    /* Navbar blur ao rolar */
+    .navbar-blur {
+      backdrop-filter: saturate(160%) blur(10px);
+      background: rgba(10,10,15,.55);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    /* Scroll reveal básico */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+
+    /* Destaque da seção ativa */
+    .nav-link.active { color: var(--accent); }
+    .underline-glow { box-shadow: inset 0 -2px 0 0 rgba(255,106,0,.8); }
+
+    /* Canvas overlay para partículas/fogo */
+    #fx-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+    /* Hero IA image container fallback ratio */
+    .hero-image {
+      aspect-ratio: 16/9;
+      background-position: center;
+      background-size: cover;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 80px rgba(106,0,255,.15);
+    }
+
+    /* Cards vítreos */
+    .glass {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Preferência de usuário: reduz movimento */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; transform: none; opacity: 1; }
+      .gradient-anim { animation: none; }
+    }
+  </style>
+</head>
+
+<body class="relative min-h-screen overflow-x-hidden">
+  <!-- Canvas de partículas/fogo -->
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
+
+  <!-- Navegação fixa -->
+  <header id="top" class="fixed top-0 left-0 right-0 z-40 navbar-blur">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <!-- Logo / Marca -->
+        <a href="#top" class="flex items-center gap-2 group">
+          <span class="inline-block h-8 w-8 rounded-lg gradient-anim"></span>
+          <span class="font-orbitron text-lg tracking-wide">Cavalo de Fogo</span>
+        </a>
+
+        <!-- Menu desktop -->
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="#sobre" class="nav-link hover:text-ember transition">Sobre</a>
+          <a href="#galeria" class="nav-link hover:text-ember transition">Galeria</a>
+          <a href="#poderes" class="nav-link hover:text-ember transition">Poderes</a>
+          <a href="#video" class="nav-link hover:text-ember transition">Trailer</a>
+          <a href="#contato" class="nav-link hover:text-ember transition">Contato</a>
+          <!-- Dark mode toggle -->
+          <button id="darkToggle" aria-label="Alternar tema" class="ml-2 p-2 rounded-md glass hover:shadow-glow transition">
+            <!-- Ícone sol/lua -->
+            <svg id="iconSun" class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="4" stroke-width="2"/>
+              <path stroke-width="2" d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
+            </svg>
+            <svg id="iconMoon" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+            </svg>
+          </button>
+        </nav>
+
+        <!-- Menu mobile -->
+        <div class="md:hidden">
+          <button id="menuBtn" class="p-2 rounded-md glass" aria-label="Abrir menu">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer mobile -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 backdrop-blur bg-black/60">
+      <nav class="px-4 py-4 space-y-2">
+        <a href="#sobre" class="block nav-link py-2">Sobre</a>
+        <a href="#galeria" class="block nav-link py-2">Galeria</a>
+        <a href="#poderes" class="block nav-link py-2">Poderes</a>
+        <a href="#video" class="block nav-link py-2">Trailer</a>
+        <a href="#contato" class="block nav-link py-2">Contato</a>
+        <button id="darkToggleMobile" class="mt-2 w-full p-2 rounded-md glass">Alternar tema</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Espaço para compensar a navbar fixa -->
+  <div class="h-16"></div>
+
+  <!-- HERO -->
+  <section class="relative z-10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="reveal">
+          <h1 class="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+            Cavalo de Fogo
+            <span class="block text-transparent bg-clip-text gradient-anim">lenda, chama e horizonte</span>
+          </h1>
+          <p class="mt-4 text-lg text-gray-300">
+            Um ser mítico que cavalga entre mundos, moldando brasas em constelações. Sua passada ecoa como trovão,
+            e sua crina é aurora. Contemple o rastro incandescente.
+          </p>
+          <div class="mt-6 flex gap-3">
+            <a href="#poderes" class="px-5 py-3 rounded-lg gradient-anim text-white font-semibold shadow-glow">Explorar Poderes</a>
+            <a href="#sobre" class="px-5 py-3 rounded-lg glass hover:shadow-glow">Conhecer a lenda</a>
+          </div>
+        </div>
+
+        <!-- Imagem IA hero (substitua a URL da imagem gerada) -->
+        <div class="reveal hero-image relative ring-1 ring-white/10"
+             style="background-image:url('hero-firehorse.jpg');">
+          <!-- Overlay com grade sutil e brilhos -->
+          <div class="absolute inset-0 bg-grid bg-[size:24px_24px] opacity-20"></div>
+          <div class="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-black/40"></div>
+          <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+            <span class="text-sm text-gray-300">Imagem: IA — Cavalo de Fogo</span>
+            <span class="px-3 py-1 rounded-md text-xs glass">cinematográfico</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="relative z-10 py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <div class="reveal space-y-4">
+          <h2 class="font-orbitron text-3xl sm:text-4xl">Sobre o Cavalo de Fogo</h2>
+          <p class="text-gray-300">
+            Muitos dizem que nasceu no coração de uma estrela moribunda, outros juram tê-lo visto na neblina entre vales.
+            O Cavalo de Fogo percorre fronteiras do possível, guardião de trilhas onde brasas viram poeira estelar.
+          </p>
+          <p class="text-gray-400">
+            Na tradição, ele surge quando coragem encontra destino. Onde pisa, brotam centelhas; onde olha, abre-se um
+            caminho. Seus olhos guardam mapas de constelações esquecidas.
+          </p>
+        </div>
+        <div class="reveal grid grid-cols-2 gap-4">
+          <!-- Ícones SVG místicos -->
+          <div class="glass p-4 rounded-xl hover:shadow-glow transition">
+            <svg class="h-10 w-10 text-ember mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2s4 4 4 8a4 4 0 0 1-8 0c0-4 4-8 4-8z" stroke-width="2"/>
+              <path d="M12 14v8" stroke-width="2"/>
+              <circle cx="12" cy="22" r="1" fill="currentColor"/>
+            </svg>
+            <div class="font-semibold">Chama Ancestral</div>
+            <p class="text-sm text-gray-400">A origem incandescente que guia sua jornada entre mundos.</p>
+          </div>
+          <div class="glass p-4 rounded-xl hover:shadow-glow transition">
+            <svg class="h-10 w-10 text-nebula mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="3" stroke-width="2"/>
+              <path d="M2 12h8M14 12h8M12 2v8M12 14v8" stroke-width="2"/>
+            </svg>
+            <div class="font-semibold">Porta Estelar</div>
+            <p class="text-sm text-gray-400">Rasga véus, conectando terras a constelações perdidas.</p>
+          </div>
+          <div class="glass p-4 rounded-xl hover:shadow-glow transition">
+            <svg class="h-10 w-10 text-crimson mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z" stroke-width="2"/>
+            </svg>
+            <div class="font-semibold">Aster Bravio</div>
+            <p class="text-sm text-gray-400">Força bruta moldada em luz, impactando como meteoros.</p>
+          </div>
+          <div class="glass p-4 rounded-xl hover:shadow-glow transition">
+            <svg class="h-10 w-10 text-ember mb-2 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 3c3 3 3 6 0 9s-3 6 0 9" stroke-width="2"/>
+              <path d="M6 12c3-3 9-3 12 0" stroke-width="2"/>
+            </svg>
+            <div class="font-semibold">Sopro Solar</div>
+            <p class="text-sm text-gray-400">O hálito que escreve auroras no céu noturno.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="galeria" class="relative z-10 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="reveal font-orbitron text-3xl sm:text-4xl mb-8">Galeria</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Substitua os src pelas imagens geradas -->
+        <figure class="reveal group relative overflow-hidden rounded-2xl ring-1 ring-white/10">
+          <img src="gallery-firehorse-1.jpg" alt="Cavalo de Fogo no deserto estelar" class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"/>
+          <figcaption class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4 flex items-end text-sm">Deserto Estelar</figcaption>
+        </figure>
+        <figure class="reveal group relative overflow-hidden rounded-2xl ring-1 ring-white/10">
+          <img src="gallery-firehorse-2.jpg" alt="Cavalo de Fogo em floresta mística" class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"/>
+          <figcaption class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4 flex items-end text-sm">Floresta de Névoa</figcaption>
+        </figure>
+        <figure class="reveal group relative overflow-hidden rounded-2xl ring-1 ring-white/10">
+          <img src="gallery-firehorse-3.jpg" alt="Cavalo de Fogo em ruínas lunares" class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"/>
+          <figcaption class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4 flex items-end text-sm">Ruínas Lunares</figcaption>
+        </figure>
+        <figure class="reveal group relative overflow-hidden rounded-2xl ring-1 ring-white/10">
+          <img src="gallery-firehorse-4.jpg" alt="Cavalo de Fogo atravessando oceano de lava" class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"/>
+          <figcaption class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4 flex items-end text-sm">Mar de Lava</figcaption>
+        </figure>
+        <figure class="reveal group relative overflow-hidden rounded-2xl ring-1 ring-white/10">
+          <img src="gallery-firehorse-5.jpg" alt="Cavalo de Fogo em planícies aurorais" class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"/>
+          <figcaption class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4 flex items-end text-sm">Planícies Aurorais</figcaption>
+        </figure>
+        <figure class="reveal group relative overflow-hidden rounded-2xl ring-1 ring-white/10">
+          <img src="gallery-firehorse-6.jpg" alt="Cavalo de Fogo em catedral de gelo" class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"/>
+          <figcaption class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4 flex items-end text-sm">Catedral de Gelo</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- PODERES E SIMBOLOGIA -->
+  <section id="poderes" class="relative z-10 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="reveal font-orbitron text-3xl sm:text-4xl mb-10">Poderes e Simbologia</h2>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Card -->
+        <div class="reveal glass rounded-2xl p-6 relative overflow-hidden">
+          <span class="absolute -right-10 -top-10 h-24 w-24 rounded-full gradient-anim opacity-30 animate-pulse"></span>
+          <div class="flex items-center gap-3">
+            <!-- Ícone fogo místico -->
+            <svg class="h-10 w-10 text-ember" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2s5 4 5 9a5 5 0 1 1-10 0c0-5 5-9 5-9z"/>
+            </svg>
+            <div>
+              <div class="font-semibold">Fulgor Arcano</div>
+              <div class="text-sm text-gray-400">Chamas que entendem o idioma do cosmos.</div>
+            </div>
+          </div>
+          <p class="mt-4 text-gray-300">A chama do Cavalo canta frequências que alinham estrelas e abrem estradas.</p>
+        </div>
+
+        <div class="reveal glass rounded-2xl p-6 relative overflow-hidden">
+          <span class="absolute -right-10 -top-10 h-24 w-24 rounded-full gradient-anim opacity-30 animate-pulse"></span>
+          <div class="flex items-center gap-3">
+            <!-- Ícone proteção -->
+            <svg class="h-10 w-10 text-crimson" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z" stroke-width="2"/>
+            </svg>
+            <div>
+              <div class="font-semibold">Manto Rubro</div>
+              <div class="text-sm text-gray-400">Escudo de brasas contra a escuridão.</div>
+            </div>
+          </div>
+          <p class="mt-4 text-gray-300">Quando invocado, envolve aliados em uma auréola cálida e impenetrável.</p>
+        </div>
+
+        <div class="reveal glass rounded-2xl p-6 relative overflow-hidden">
+          <span class="absolute -right-10 -top-10 h-24 w-24 rounded-full gradient-anim opacity-30 animate-pulse"></span>
+          <div class="flex items-center gap-3">
+            <!-- Ícone constelação -->
+            <svg class="h-10 w-10 text-nebula" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="6" cy="6" r="2" fill="currentColor"/>
+              <circle cx="18" cy="8" r="2" fill="currentColor"/>
+              <circle cx="9" cy="18" r="2" fill="currentColor"/>
+              <path d="M6 6l12 2-9 10" stroke-width="2"/>
+            </svg>
+            <div>
+              <div class="font-semibold">Traçado Celeste</div>
+              <div class="text-sm text-gray-400">Mapeia rotas entre luas e lendas.</div>
+            </div>
+          </div>
+          <p class="mt-4 text-gray-300">Seu galope escreve linhas de luz, guiando viajantes em noites sem farol.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VÍDEO / TRAILER -->
+  <section id="video" class="relative z-10 py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <h2 class="reveal font-orbitron text-3xl sm:text-4xl mb-6">Vídeo / Trailer</h2>
+      <div class="reveal relative rounded-2xl overflow-hidden ring-1 ring-white/10">
+        <div class="absolute inset-0 gradient-anim opacity-20 mix-blend-soft-light"></div>
+        <!-- Substitua o src pelo seu vídeo (YouTube/Vimeo) -->
+        <div class="relative" style="padding-top:56.25%">
+          <iframe class="absolute inset-0 w-full h-full"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&color=white"
+            title="Trailer Cavalo de Fogo" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO / CURIOSIDADES -->
+  <section id="contato" class="relative z-10 py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <h2 class="reveal font-orbitron text-3xl sm:text-4xl mb-8">Contato & Curiosidades</h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Formulário -->
+        <form class="reveal glass rounded-2xl p-6 space-y-4" onsubmit="event.preventDefault(); alert('Mensagem enviada ao estábulo estelar!');">
+          <div>
+            <label for="nome" class="block text-sm text-gray-300 mb-1">Seu nome</label>
+            <input id="nome" type="text" required class="w-full rounded-md bg-black/40 border border-white/10 p-3 focus:outline-none focus:ring-2 focus:ring-ember" placeholder="Digite seu nome">
+          </div>
+          <div>
+            <label for="email" class="block text-sm text-gray-300 mb-1">E-mail</label>
+            <input id="email" type="email" required class="w-full rounded-md bg-black/40 border border-white/10 p-3 focus:outline-none focus:ring-2 focus:ring-ember" placeholder="voce@exemplo.com">
+          </div>
+          <div>
+            <label for="mensagem" class="block text-sm text-gray-300 mb-1">Mensagem</label>
+            <textarea id="mensagem" rows="4" class="w-full rounded-md bg-black/40 border border-white/10 p-3 focus:outline-none focus:ring-2 focus:ring-ember" placeholder="Sua pergunta ou curiosidade..."></textarea>
+          </div>
+          <button class="w-full py-3 rounded-lg gradient-anim font-semibold shadow-glow">Enviar</button>
+        </form>
+
+        <!-- Curiosidades interativas -->
+        <div class="reveal grid gap-4">
+          <details class="glass rounded-xl p-4">
+            <summary class="cursor-pointer font-semibold">A crina do Cavalo canta?</summary>
+            <p class="mt-2 text-gray-300">Diz-se que cada fio entoa uma frequência — juntas, compõem constelações sonoras.</p>
+          </details>
+          <details class="glass rounded-xl p-4">
+            <summary class="cursor-pointer font-semibold">Ele deixa pegadas?</summary>
+            <p class="mt-2 text-gray-300">Apenas quando deseja ser seguido. As marcas brilham como brasas no vento.</p>
+          </details>
+          <details class="glass rounded-xl p-4">
+            <summary class="cursor-pointer font-semibold">Pode atravessar o mar?</summary>
+            <p class="mt-2 text-gray-300">Corre sobre ondas de fogo-fátuo, sem molhar um só casco.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="relative z-10 py-12 border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-gray-400">© <span id="year"></span> Cavalo de Fogo — Todos os direitos reservados.</div>
+      <div class="flex items-center gap-4">
+        <!-- Ícones sociais -->
+        <a href="#" aria-label="Instagram" class="glass p-2 rounded-md hover:shadow-glow">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="3" width="18" height="18" rx="5" ry="5" stroke-width="2"/>
+            <circle cx="12" cy="12" r="4" stroke-width="2"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="YouTube" class="glass p-2 rounded-md hover:shadow-glow">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23 7s-.2-1.4-.8-2c-.8-.8-1.7-.8-2.2-.9C16.8 3.8 12 3.8 12 3.8h0s-4.8 0-8 .3c-.5.1-1.4.1-2.2.9C1.2 5.6 1 7 1 7s-.2 1.6-.2 3.1v1.8C.8 13.4 1 15 1 15s.2 1.4.8 2c.8.8 1.9.8 2.4.9 1.7.2 7.8.3 7.8.3s4.8 0 8-.3c.5-.1 1.4-.1 2.2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.1V10C23.2 8.6 23 7 23 7zM9.8 14.5V8.9l6 2.8-6 2.8z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="Github" class="glass p-2 rounded-md hover:shadow-glow">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 .5C5.7.5.9 5.3.9 11.6c0 4.9 3.2 9 7.6 10.4.6.1.8-.2.8-.6V19.7c-3.1.7-3.8-1.5-3.8-1.5-.6-1.3-1.4-1.7-1.4-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.9 1.3 3.6 1 .1-.8.4-1.3.7-1.6-2.5-.3-5.1-1.2-5.1-5.4 0-1.2.4-2.1 1.1-2.9-.1-.3-.5-1.5.1-3.1 0 0 .9-.3 3 .1.9-.2 1.9-.3 2.9-.3s2 .1 2.9.3c2.1-.4 3-.1 3-.1.6 1.6.2 2.8.1 3.1.7.8 1.1 1.7 1.1 2.9 0 4.2-2.6 5.1-5.1 5.4.4.3.8 1 .8 2.2v3.3c0 .4.2.7.8.6 4.3-1.4 7.6-5.5 7.6-10.4C23.1 5.3 18.3.5 12 .5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: navegação, destaque de seção, dark mode, scroll reveal e partículas -->
+  <script>
+    // Anos dinâmico no rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu mobile
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    // Fechar menu ao clicar em um link
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // Dark mode (salva preferência)
+    const root = document.documentElement;
+    const darkToggle = document.getElementById('darkToggle');
+    const darkToggleMobile = document.getElementById('darkToggleMobile');
+    const iconSun = document.getElementById('iconSun');
+    const iconMoon = document.getElementById('iconMoon');
+
+    function applyTheme(dark) {
+      root.classList.toggle('dark', dark);
+      iconSun.classList.toggle('hidden', !dark);
+      iconMoon.classList.toggle('hidden', dark);
+      // Ajustes de cores com tema
+      document.body.style.setProperty('--bg', dark ? '#0b0b0f' : '#fbfbfe');
+      document.body.style.setProperty('--ink', dark ? '#e8e8f0' : '#1a1b22');
+    }
+    const saved = localStorage.getItem('theme-dark') === 'true';
+    applyTheme(saved);
+
+    function toggleTheme() {
+      const willDark = !root.classList.contains('dark');
+      applyTheme(willDark);
+      localStorage.setItem('theme-dark', willDark);
+    }
+    darkToggle.addEventListener('click', toggleTheme);
+    darkToggleMobile.addEventListener('click', toggleTheme);
+
+    // Scroll reveal com IntersectionObserver
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('on');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Destaque da seção ativa no menu
+    const sections = [...document.querySelectorAll('section[id]')];
+    const navLinks = [...document.querySelectorAll('.nav-link')];
+    const mo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+            a.classList.toggle('underline-glow', a.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+    sections.forEach(s => mo.observe(s));
+
+    // Partículas: brasas leves no canvas
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let W, H, embers = [];
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize); resize();
+
+    function spawnEmber() {
+      return {
+        x: Math.random() * W,
+        y: H + Math.random() * 50,
+        r: Math.random() * 2 + 0.5,
+        vy: - (Math.random() * 0.6 + 0.2),
+        vx: (Math.random() - 0.5) * 0.2,
+        life: Math.random() * 200 + 100,
+        hue: 20 + Math.random() * 40 // laranja a carmesim
+      };
+    }
+    for (let i = 0; i < 120; i++) embers.push(spawnEmber());
+
+    function step() {
+      ctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < embers.length; i++) {
+        const e = embers[i];
+        e.x += e.vx;
+        e.y += e.vy;
+        e.life -= 1;
+        // brilho pulsante
+        const alpha = Math.max(0, Math.min(1, e.life / 200));
+        ctx.beginPath();
+        const grad = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.r * 4);
+        grad.addColorStop(0, `hsla(${e.hue}, 90%, 60%, ${alpha})`);
+        grad.addColorStop(1, `hsla(${e.hue}, 90%, 10%, 0)`);
+        ctx.fillStyle = grad;
+        ctx.arc(e.x, e.y, e.r * 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (e.y < -10 || e.life <= 0) embers[i] = spawnEmber();
+      }
+      requestAnimationFrame(step);
+    }
+    step();
+  </script>
+</body>
+</html>
