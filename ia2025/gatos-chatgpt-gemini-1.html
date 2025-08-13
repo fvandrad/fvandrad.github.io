@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gatos & Amigos — Independência e Charme</title>
+  <meta name="description" content="Uma página vibrante celebrando o charme e a independência dos gatos — raças, cuidados, adoção e histórias." />
+  <meta name="color-scheme" content="light" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      /* New Warm & Cozy Color Palette */
+      --bg-main: #fcf9f6;
+      --bg-secondary: #ffffff;
+      --text-dark: #312a22;
+      --text-light: #6d6256;
+      --primary: #ff7b54;
+      --primary-light: #ff9a7f;
+      --accent: #4e8d7c;
+      --border-color: #efe6dc;
+      --shadow-color-light: rgba(49, 42, 34, 0.08);
+      --shadow-color-heavy: rgba(49, 42, 34, 0.12);
+
+      --shadow-soft: 0 4px 12px var(--shadow-color-light), 0 1px 3px var(--shadow-color-light);
+      --shadow-medium: 0 8px 24px var(--shadow-color-light), 0 2px 6px var(--shadow-color-light);
+      --shadow-hard: 0 12px 30px var(--shadow-color-heavy), 0 4px 8px var(--shadow-color-heavy);
+
+      --radius-xl: 24px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+
+      --container: 1140px;
+      --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-medium: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Base & Typography */
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      color: var(--text-light);
+      background-color: var(--bg-main);
+      position: relative;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::before {
+      content: none;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Baloo 2", cursive;
+      line-height: 1.2;
+      letter-spacing: .1px;
+      color: var(--text-dark);
+      margin: 0 0 .8rem 0;
+      font-weight: 700;
+    }
+    h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); text-align: center; }
+    p { line-height: 1.75; margin: .4rem 0 1.2rem; }
+    p.section-intro { max-width: 650px; margin: 0 auto 2.5rem; text-align: center; font-size: 1.05rem; }
+
+    /* Utilitários */
+    .container {
+      width: min(100% - 2.5rem, var(--container));
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .section {
+      padding: clamp(4rem, 6vw, 8rem) 0;
+      position: relative;
+    }
+
+    /* Botões */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      padding: .9rem 1.8rem;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-soft);
+      border: 2px solid transparent;
+      will-change: transform;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-medium);
+    }
+    .btn:active {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--primary-light);
+    }
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-dark);
+      border-color: var(--border-color);
+    }
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .4rem .9rem; border-radius: var(--radius-sm); font-size: .85rem;
+      background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* Navbar (Glassmorphism) */
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: saturate(180%) blur(15px);
+      -webkit-backdrop-filter: saturate(180%) blur(15px);
+      background: rgba(252, 249, 246, 0.85);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .nav-inner {
+      height: 70px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      display: flex; align-items: center; gap: .7rem; font-family: "Baloo 2", cursive;
+      color: var(--text-dark); text-decoration: none; font-size: 1.3rem; font-weight: 700;
+      transition: transform var(--transition-fast);
+    }
+    .brand:hover { transform: scale(1.03); }
+    .brand i { font-size: 1.8rem; color: var(--primary); }
+
+    .nav-links {
+      display: flex; gap: .5rem; align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--text-light);
+      padding: .6rem 1rem; border-radius: var(--radius-md); font-weight: 600; font-size: .95rem;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: var(--text-dark);
+      background-color: var(--bg-secondary);
+    }
+    .nav-links a.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Menu Mobile */
+    .menu-toggle {
+      display: none; background: #fff; border: 1px solid var(--border-color);
+      width: 44px; height: 44px; border-radius: 50%; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-soft); color: var(--text-dark);
+    }
+    .menu-toggle i { font-size: 1.4rem; }
+
+    @media (max-width: 900px) {
+      .menu-toggle { display: flex; }
+      .nav-links {
+        position: fixed; top: 80px; right: 1.25rem; left: 1.25rem;
+        background: var(--bg-secondary); border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg); box-shadow: var(--shadow-medium);
+        padding: .8rem; flex-direction: column; gap: .4rem;
+        transform: translateY(-10px) scale(0.98); opacity: 0; pointer-events: none;
+        transition: opacity var(--transition-fast), transform var(--transition-fast);
+        transform-origin: top right;
+      }
+      .nav-links.open {
+        opacity: 1; pointer-events: auto; transform: translateY(0) scale(1);
+      }
+      .nav-links a { width: 100%; text-align: center; padding: .8rem; }
+    }
+
+    /* Hero Section (New Design) */
+    .hero {
+      padding-top: clamp(2rem, 4vw, 3rem);
+      padding-bottom: clamp(3rem, 5vw, 6rem);
+    }
+    .hero-grid {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: 1.5rem;
+    }
+    .hero-content { max-width: 750px; }
+    .hero-badge { margin-bottom: 1rem; }
+    .hero-title {
+      color: var(--text-dark);
+      background: none; -webkit-background-clip: unset; background-clip: unset;
+    }
+    .hero-sub {
+      font-size: clamp(1.1rem, 1.8vw, 1.25rem);
+      color: var(--text-light);
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem; justify-content: center; }
+
+    .hero-media {
+      position: relative;
+      width: 100%; max-width: 700px;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-hard);
+      margin-top: 2rem;
+      border: 4px solid var(--bg-secondary);
+    }
+    .hero-media img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform var(--transition-medium);
+    }
+    .hero-media:hover img { transform: scale(1.05); }
+    .hero-media .badge { display: none; }
+
+    /* Wave Divider */
+    .wave { margin-top: -1px; }
+    .wave path { fill: var(--bg-secondary); }
+
+    /* Sobre Section */
+    #sobre { background: var(--bg-secondary); }
+    .sobre-wrap {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .sobre-gallery {
+      display: grid; gap: 1.5rem; grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+    .sobre-card {
+      border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: var(--shadow-medium); background: #fff;
+      border: 1px solid var(--border-color); position: relative;
+      transition: all var(--transition-medium);
+    }
+    .sobre-card:hover { transform: translateY(-8px) rotate(-1deg); box-shadow: var(--shadow-hard); }
+    .sobre-card:nth-child(2) { margin-top: 2rem; }
+    .sobre-card:nth-child(2):hover { transform: translateY(-8px) rotate(1deg); }
+    .sobre-card img { width: 100%; height: 260px; object-fit: cover; display: block; }
+    .sobre-card .tag { position: absolute; top: .8rem; left: .8rem; backdrop-filter: blur(4px); background: rgba(255,255,255,0.7); }
+
+    @media (max-width: 980px) {
+      .sobre-wrap { grid-template-columns: 1fr; }
+      .sobre-gallery { grid-template-rows: auto; }
+      .sobre-card img { height: 220px; }
+    }
+
+    /* Raças Section */
+    .grid {
+      display: grid; gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    .raca-card {
+      height: 100%; border-radius: var(--radius-lg);
+      overflow: hidden; background: #fff; border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-soft);
+      transition: all var(--transition-medium);
+      display: flex; flex-direction: column;
+    }
+    .raca-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-medium); }
+    .raca-media { aspect-ratio: 4/3; overflow: hidden; }
+    .raca-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .raca-body { padding: 1rem 1.2rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .raca-body h3 { margin: .2rem 0 .4rem; font-size: 1.2rem; }
+    .raca-body p { font-size: 0.95rem; flex-grow: 1; margin-bottom: 0.8rem; }
+    .raca-meta { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .raca-meta .chip {
+      font-size: .8rem; background: var(--bg-main); border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm); padding: .3rem .6rem; color: var(--text-light);
+    }
+
+    /* Cuidados Section */
+    #cuidados { background-color: var(--bg-secondary); }
+    .tips {
+      display: grid; gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+    .tip {
+      background: var(--bg-main); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); padding: 1.5rem;
+      display: flex; gap: 1rem; align-items: center;
+      box-shadow: none;
+      transition: all var(--transition-medium);
+    }
+    .tip:hover { transform: scale(1.03); background: #fff; box-shadow: var(--shadow-medium); }
+    .tip-icon {
+      width: 50px; height: 50px; border-radius: var(--radius-md);
+      display: grid; place-items: center;
+      background: var(--primary-light);
+      color: #fff; flex: 0 0 auto;
+      box-shadow: 0 4px 12px rgba(255, 123, 84, 0.3);
+    }
+    .tip-icon i { font-size: 1.8rem; }
+    .tip h4 { margin: .1rem 0 .2rem; font-size: 1.1rem; }
+    .tip p { margin: 0; font-size: .95rem; color: var(--text-light); }
+
+    /* Depoimentos (Carrossel) */
+    .carousel-wrapper {
+      position: relative;
+      max-width: 800px; margin: 0 auto;
+    }
+    .carousel {
+      position: relative; background: #fff; border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-medium);
+      overflow: hidden;
+    }
+    .slides { display: flex; transition: transform var(--transition-medium); }
+    .slide {
+      min-width: 100%;
+      padding: clamp(2rem, 5vw, 3rem);
+      text-align: center;
+    }
+    .avatar {
+      width: 90px; height: 90px; border-radius: 50%;
+      overflow: hidden; box-shadow: var(--shadow-soft); border: 3px solid #fff;
+      margin: 0 auto 1rem;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .quote {
+      font-size: 1.1rem; color: var(--text-dark); font-weight: 500; font-style: italic;
+      max-width: 600px; margin: 0 auto;
+    }
+    .author {
+      margin-top: 1rem; color: var(--text-light); font-weight: 600;
+      font-style: normal;
+    }
+    .carousel-nav {
+      position: absolute; bottom: 1rem; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: center;
+      gap: .6rem;
+    }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--border-color); transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+    .dot.active { background: var(--primary); transform: scale(1.2); }
+
+    .ctrl {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+      background: rgba(255, 255, 255, 0.8); border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-soft); backdrop-filter: blur(4px);
+      color: var(--text-dark); transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+    .ctrl:hover { background-color: #fff; transform: translateY(-50%) scale(1.1); }
+    .ctrl.left { left: -23px; }
+    .ctrl.right { right: -23px; }
+    .ctrl i { font-size: 1.1rem; }
+
+    @media(max-width: 900px) {
+      .ctrl { display: none; }
+    }
+
+    /* Adoção */
+    #adocao { padding-top: 0; }
+    .adocao {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      border-radius: var(--radius-xl);
+      padding: clamp(2rem, 5vw, 4rem);
+      box-shadow: var(--shadow-hard);
+      text-align: center; color: #fff;
+    }
+    .adocao h2 { color: #fff; }
+    .adocao p { color: rgba(255,255,255,0.9); max-width: 600px; margin: 0 auto 1.5rem; }
+    .adocao .cta { display: flex; gap: .8rem; flex-wrap: wrap; justify-content: center; margin-top: .8rem; }
+    .adocao .btn-primary { background: #fff; color: var(--primary); }
+    .adocao .btn-primary:hover { background: var(--bg-main); }
+    .adocao .contact { display: none; }
+
+    /* Rodapé */
+    footer {
+      margin-top: 4rem;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      position: relative;
+      color: var(--text-light);
+    }
+    .footer-grid {
+      display: grid; gap: 2rem;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 3rem 0;
+    }
+    .footer-grid h4 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-dark); }
+    .footer-grid a {
+      display: block; color: var(--text-light); text-decoration: none; margin: .5rem 0;
+      transition: color var(--transition-fast);
+    }
+    .footer-grid a:hover { color: var(--primary); }
+    .socials { display: flex; gap: .6rem; margin-top: 1rem; }
+    .socials a {
+      width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%;
+      background: var(--bg-main); border: 1px solid var(--border-color);
+      color: var(--text-light); transition: all var(--transition-fast);
+    }
+    .socials a:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+
+    @media (max-width: 980px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+    .copyright {
+      padding: 1.5rem 0; border-top: 1px solid var(--border-color); text-align: center;
+      font-size: .9rem; color: var(--text-light);
+    }
+
+    /* Animações de entrada ao rolar */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in-view { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="brand">
+        <i class="fa-solid fa-paw" aria-hidden="true"></i>
+        <span>Gatos & Amigos</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#racas">Raças</a>
+        <a href="#cuidados">Cuidados</a>
+        <a href="#adocao">Adoção</a>
+        <a href="#historias">Histórias</a>
+      </nav>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        <span class="sr-only">Abrir menu de navegação</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="badge hero-badge">Gatos — Aventura & Carinho</span>
+          <h1 class="hero-title">
+            O Universo Felino Espera por Você
+          </h1>
+          <p class="hero-sub">
+            Descubra os segredos, a independência e o carinho dos nossos amigos de quatro patas. Um mundo de elegância e mistério.
+          </p>
+          <div class="hero-ctas">
+            <a href="#adocao" class="btn btn-primary">
+              <i class="fa-solid fa-heart" aria-hidden="true"></i>
+              Adote um Amigo
+            </a>
+            <a href="#racas" class="btn btn-secondary">
+              <i class="fa-solid fa-paw" aria-hidden="true"></i>
+              Explore as Raças
+            </a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <img src="https://github.com/fvandrad/fvandrad.github.io/blob/main/images/gato-pulando.png?raw=true" alt="Um gato brincando e pulando alegremente" />
+          <span class="badge hero-badge">
+            <i class="fa-solid fa-paw" aria-hidden="true"></i>
+            Vida Felina
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <svg class="wave" viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 50.155C148.618 64.9189 313.208 72.8091 480 72.8091C809.814 72.8091 1060.03 14.8692 1440 0V100H0V50.155Z" fill-opacity="1"/>
+    </svg>
+
+    <section id="sobre" class="section reveal">
+      <div class="container sobre-wrap">
+        <div class="sobre-content">
+          <h2>Sobre o Charme Felino</h2>
+          <p>
+            Gatos são conhecidos por sua independência, agilidade e inteligência. Mais do que simples animais de estimação, eles se tornam membros da família, trazendo alegria e uma dose de mistério para a casa.
+          </p>
+          <p>
+            Esta página é um tributo a esses companheiros elegantes, oferecendo insights sobre suas raças, necessidades e o laço único que eles formam com seus humanos.
+          </p>
+        </div>
+        <div class="sobre-gallery">
+          <div class="sobre-card">
+            <img src="https://github.com/fvandrad/fvandrad.github.io/blob/main/images/gato-curioso.png?raw=true" alt="Um gato curioso olhando para o lado" />
+            <span class="badge tag">
+              <i class="fa-solid fa-heart" aria-hidden="true"></i>
+              Companhia
+            </span>
+          </div>
+          <div class="sobre-card">
+            <img src="https://github.com/fvandrad/fvandrad.github.io/blob/main/images/gato-brincalhao.png?raw=true" alt="Um gato brincando com um brinquedo" />
+            <span class="badge tag">
+              <i class="fa-solid fa-puzzle-piece" aria-hidden="true"></i>
+              Brincalhão
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="racas" class="section reveal">
+      <div class="container">
+        <h2>Raças de Gatos Populares</h2>
+        <p class="section-intro">
+          Conheça algumas das raças de gatos mais amadas, cada uma com sua personalidade e características únicas.
+        </p>
+        <div class="grid">
+          <div class="raca-card reveal">
+            <div class="raca-media">
+              <img src="https://github.com/fvandrad/fvandrad.github.io/blob/main/images/gato-maine-coon.png?raw=true" alt="Um gato da raça Maine Coon" />
+            </div>
+            <div class="raca-body">
+              <h3>Maine Coon</h3>
+              <p>Conhecido como o "gigante gentil", é amigável e sociável.</p>
+              <div class="raca-meta">
+                <span class="chip">Sociável</span>
+                <span class="chip">Grande</span>
+                <span class="chip">Gentil</span>
+              </div>
+            </div>
+          </div>
+          <div class="raca-card reveal">
+            <div class="raca-media">
+              <img src="https://github.com/fvandrad/fvandrad.github.io/blob/main/images/gato-siames.png?raw=true" alt="Um gato da raça Siamês" />
+            </div>
+            <div class="raca-body">
+              <h3>Siamês</h3>
+              <p>Curioso, extrovertido e muito comunicativo. Adora interagir com os humanos.</p>
+              <div class="raca-meta">
+                <span class="chip">Comunicativo</span>
+                <span class="chip">Inteligente</span>
+                <span class="chip">Extrovertido</span>
+              </div>
+            </div>
+          </div>
+          <div class="raca-card reveal">
+            <div class="raca-media">
+              <img src="https://github.com/fvandrad/fvandrad.github.io/blob/main/images/gato-persa.png?raw=true" alt="Um gato da raça Persa" />
+            </div>
+            <div class="raca-body">
+              <h3>Persa</h3>
+              <p>Calmo, majestoso e com uma pelagem exuberante. Requer cuidados diários.</p>
+              <div class="raca-meta">
+                <span class="chip">Calmo</span>
+                <span class="chip">Exuberante</span>
+                <span class="chip">Afetuoso</span>
+              </div>
+            </div>
+          </div>
+          <div class="raca-card reveal">
+            <div class="raca-media">
+              <img src="https://github.com/fvandrad/fvandrad.github.io/blob/main/images/gato-bengal.png?raw=true" alt="Um gato da raça Bengal" />
+            </div>
+            <div class="raca-body">
+              <h3>Bengal</h3>
+              <p>Com um visual selvagem e energia de sobra. Adora brincar e escalar.</p>
+              <div class="raca-meta">
+                <span class="chip">Energético</span>
+                <span class="chip">Atlético</span>
+                <span class="chip">Brincalhão</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cuidados" class="section reveal">
+      <div class="container">
+        <h2>Dicas Essenciais para o Cuidado Felino</h2>
+        <p class="section-intro">
+          Garantir a saúde e a felicidade do seu gato é uma jornada gratificante.
+        </p>
+        <div class="tips">
+          <div class="tip reveal">
+            <div class="tip-icon">
+              <i class="fa-solid fa-fish" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4>Nutrição</h4>
+              <p>Uma dieta equilibrada é fundamental para a saúde e bem-estar do seu gato.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon">
+              <i class="fa-solid fa-soap" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4>Higiene</h4>
+              <p>Caixa de areia limpa e escovação regular da pelagem são essenciais.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon">
+              <i class="fa-solid fa-puzzle-piece" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4>Brincadeiras</h4>
+              <p>Enriqueça o ambiente com brinquedos e arranhadores para mantê-lo ativo.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon">
+              <i class="fa-solid fa-syringe" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4>Saúde</h4>
+              <p>Visitas regulares ao veterinário e vacinação em dia são cruciais.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon">
+              <i class="fa-solid fa-heart" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4>Afeto</h4>
+              <p>Mostre carinho e dedique tempo para construir um forte laço com seu gato.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon">
+              <i class="fa-solid fa-shield-cat" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4>Segurança</h4>
+              <p>Mantenha o ambiente seguro, especialmente janelas e varandas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="historias" class="section reveal">
+      <div class="container">
+        <h2>Histórias Inspiradoras</h2>
+        <p class="section-intro">
+          Ouvir de outros tutores é uma ótima maneira de entender o impacto que os gatos têm em nossas vidas.
+        </p>
+        <div class="carousel-wrapper">
+          <div class="carousel">
+            <div class="slides">
+              <div class="slide">
+                <div class="avatar">
+                  <img src="https://placehold.co/100x100/e6e6f0/3a3a4a?text=Tutora+1" alt="Foto da tutora Maria" />
+                </div>
+                <div class="quote-content">
+                  <p class="quote">"Adotar o Tobias mudou minha vida. Ele é o gato mais independente e carinhoso que já conheci. A companhia dele é insubstituível."</p>
+                  <p class="author">— Maria S., tutora de um gato vira-lata.</p>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="avatar">
+                  <img src="https://placehold.co/100x100/e6e6f0/3a3a4a?text=Tutor+2" alt="Foto do tutor João" />
+                </div>
+                <div class="quote-content">
+                  <p class="quote">"O Simba é pura energia! Ele adora explorar e brincar com os mais diversos objetos. É um prazer tê-lo em casa."</p>
+                  <p class="author">— João P., tutor de um gato Bengal.</p>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="avatar">
+                  <img src="https://placehold.co/100x100/e6e6f0/3a3a4a?text=Tutora+3" alt="Foto da tutora Ana" />
+                </div>
+                <div class="quote-content">
+                  <p class="quote">"Minha gata Luna é a mais calma e serena. Ela adora tirar sonecas e receber carinho. Me traz uma paz imensa!"</p>
+                  <p class="author">— Ana C., tutora de uma gata Persa.</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-nav">
+              <div class="dot active" tabindex="0" role="button" aria-label="Slide 1"></div>
+              <div class="dot" tabindex="0" role="button" aria-label="Slide 2"></div>
+              <div class="dot" tabindex="0" role="button" aria-label="Slide 3"></div>
+            </div>
+          </div>
+          <button class="ctrl left" aria-label="Slide anterior">
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          <button class="ctrl right" aria-label="Próximo slide">
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="adocao" class="section reveal">
+      <div class="container adocao">
+        <h2>Adoção de Gatos</h2>
+        <p>
+          Abrir seu lar para um gato é um ato de amor.
+          Descubra como você pode fazer a diferença na vida de um felino.
+        </p>
+        <div class="cta">
+          <a href="#" class="btn btn-primary">
+            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+            Quero Adotar
+          </a>
+          <div class="contact">
+            Entre em contato:
+            <a href="#" aria-label="Whatsapp">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+              <span>WhatsApp</span>
+            </a>
+            <a href="#" aria-label="Email">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <span>Email</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Gatos & Amigos</h4>
+          <p style="font-size:.95rem;">
+            Seu guia completo para o universo felino.
+          </p>
+          <div class="socials">
+            <a href="#" aria-label="Facebook">
+              <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4>Navegação</h4>
+          <a href="#">Início</a>
+          <a href="#racas">Raças</a>
+          <a href="#cuidados">Cuidados</a>
+          <a href="#adocao">Adoção</a>
+        </div>
+        <div>
+          <h4>Recursos</h4>
+          <a href="#">Blog</a>
+          <a href="#">Perguntas Frequentes</a>
+          <a href="#">Contato</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Termos de Uso</a>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2024 Gatos & Amigos. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Código para o carrossel de depoimentos
+    const carouselWrapper = document.querySelector('.carousel-wrapper');
+    if (carouselWrapper) {
+      const slides = carouselWrapper.querySelector('.slides');
+      const slideEls = slides ? Array.from(slides.children) : [];
+      const dots = carouselWrapper.querySelectorAll('.dot');
+      const prev = carouselWrapper.querySelector('.ctrl.left');
+      const next = carouselWrapper.querySelector('.ctrl.right');
+      let index = 0, timer;
+
+      function goTo(i){
+        if(!slides || !dots || !slideEls.length) return;
+        index = (i + slideEls.length) % slideEls.length;
+        slides.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((d, di) => d.classList.toggle('active', di === index));
+      }
+      function auto(){
+        clearInterval(timer);
+        timer = setInterval(() => goTo(index + 1), 5000);
+      }
+      
+      prev?.addEventListener('click', (e) => { e.preventDefault(); goTo(index - 1); auto(); });
+      next?.addEventListener('click', (e) => { e.preventDefault(); goTo(index + 1); auto(); });
+      dots?.forEach((d, di) => {
+        d.addEventListener('click', () => { goTo(di); auto(); });
+        d.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(di); auto(); }});
+      });
+      
+      if(slideEls.length){ goTo(0); auto(); }
+    }
+
+    // Código para o menu de navegação responsivo
+    const navLinks = document.getElementById('nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
+    menuToggle?.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+      menuToggle.setAttribute('aria-expanded', !isExpanded);
+      navLinks.classList.toggle('open');
+    });
+
+    // Código para a animação de entrada (revelar ao rolar)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // Suaviza ancoragem considerando header fixo
+    function offsetScroll(e){
+      const targetId = this.getAttribute('href');
+      if (targetId.startsWith('#')) {
+        const el = document.querySelector(targetId);
+        if(el){
+          e.preventDefault();
+          const rect = el.getBoundingClientRect().top + window.scrollY;
+          const offset = 70; // altura aproximada do header
+          window.scrollTo({
+            top: rect - offset,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', offsetScroll);
+    });
+  </script>
+</body>
+</html>
