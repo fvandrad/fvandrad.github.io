@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gatos & Amigos — Mistério e Elegância</title>
+  <meta name="description" content="Uma página vibrante celebrando o charme e a independência dos gatos — raças, cuidados, adoção e histórias." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      /* Paleta de cores mais escura e vibrante, inspirada no universo noturno dos gatos */
+      --dark-blue: #0A192F;
+      --slate-blue: #1B2B4A;
+      --light-slate: #8892B0;
+      --gray-cyan: #CCD6F6;
+      --electric-cyan: #64FFDA;
+      --soft-purple: #B686E0;
+      --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      --inner-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+      --radius-lg: 12px;
+      --radius-md: 8px;
+      --container: 1120px;
+
+      font-family: 'Poppins', sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-size: 16px;
+      color: var(--light-slate);
+      background-color: var(--dark-blue);
+      position: relative;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Utilitários */
+    .container {
+      width: min(100% - 2rem, var(--container));
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: var(--box-shadow);
+      border: 2px solid transparent;
+      will-change: transform, box-shadow;
+    }
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+    .btn:active { transform: translateY(0); box-shadow: var(--box-shadow); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--soft-purple), var(--electric-cyan));
+      color: var(--dark-blue);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #cc94ff, #83ffe4);
+    }
+    .btn-secondary {
+      background: var(--slate-blue);
+      color: var(--electric-cyan);
+      border-color: var(--electric-cyan);
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.4rem 0.9rem; border-radius: 999px; font-size: 0.8rem;
+      background-color: var(--slate-blue); border: 1px solid var(--light-slate); color: var(--electric-cyan);
+    }
+    .section {
+      padding: clamp(4rem, 8vw, 8rem) 0;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.1;
+      letter-spacing: 0.5px;
+      color: var(--gray-cyan);
+      margin: 0 0 0.8rem 0;
+    }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.2rem); }
+    h2 { font-size: clamp(2rem, 4.5vw, 3rem); }
+    p { margin: 0.4rem 0 1.2rem; }
+
+    /* Navbar */
+    .nav {
+      position: sticky;
+      top: 0; z-index: 10;
+      backdrop-filter: blur(15px);
+      background-color: rgba(10, 25, 47, 0.8);
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      box-shadow: var(--box-shadow);
+    }
+    .nav-inner {
+      height: 70px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 0.6rem; font-family: 'Montserrat', sans-serif;
+      color: var(--electric-cyan); text-decoration: none; font-size: 1.4rem; font-weight: 700;
+      text-shadow: 0 0 10px rgba(100, 255, 218, 0.4);
+    }
+    .brand i { font-size: 1.9rem; }
+    .nav-links {
+      display: flex; gap: 1rem; align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--light-slate);
+      padding: 0.6rem 1rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+    .nav-links a:hover {
+      background: var(--slate-blue);
+      color: var(--electric-cyan);
+    }
+    .nav-links a.active {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--electric-cyan);
+    }
+
+    .menu-toggle {
+      display: none; background: var(--slate-blue); border: 1px solid var(--electric-cyan);
+      width: 45px; height: 45px; border-radius: 999px; align-items: center; justify-content: center;
+      box-shadow: var(--box-shadow);
+    }
+    .menu-toggle i { font-size: 1.6rem; color: var(--electric-cyan); }
+
+    @media (max-width: 900px) {
+      .menu-toggle { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 80px; right: 1rem; left: 1rem;
+        background-color: var(--slate-blue);
+        border: 1px solid var(--light-slate);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--box-shadow);
+        padding: 0.8rem;
+        flex-direction: column;
+        gap: 0.4rem;
+        transform: translateY(-10px);
+        opacity: 0; pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .nav-links.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+      .nav-links a { width: 100%; text-align: center; }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding-top: clamp(3rem, 6vw, 4rem);
+      padding-bottom: clamp(3rem, 6vw, 5rem);
+    }
+    .hero-grid {
+      display: grid; gap: 3rem;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+    .hero-title {
+      font-size: clamp(3rem, 7vw, 4.5rem);
+      background: linear-gradient(135deg, var(--soft-purple), var(--electric-cyan));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      margin-bottom: 1rem;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+
+    .hero-media {
+      position: relative; aspect-ratio: 16 / 11;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      background: var(--slate-blue);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      transform: perspective(1000px) rotateY(5deg);
+      transition: transform 0.6s ease;
+    }
+    .hero-media:hover { transform: perspective(1000px) rotateY(0deg); }
+    .hero-media img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      filter: saturate(1.1) contrast(1.05);
+      transform: scale(1.05);
+      transition: transform 1.2s ease;
+    }
+    .hero-media:hover img { transform: scale(1.02); }
+
+    .hero-badge { margin-bottom: 1rem; }
+
+    /* Divisores decorativos */
+    .wave {
+      position: relative; margin-top: -4rem;
+      background: linear-gradient(to top, var(--slate-blue), var(--dark-blue));
+    }
+
+    /* Sobre */
+    .sobre-wrap {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: center;
+    }
+    .sobre-gallery {
+      display: grid; gap: 1.5rem; grid-template-columns: 1fr 1fr;
+    }
+    .sobre-card {
+      border-radius: var(--radius-md);
+      overflow: hidden; box-shadow: var(--box-shadow); background: var(--slate-blue);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .sobre-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); }
+    .sobre-card img {
+      width: 100%; height: 220px; object-fit: cover; display: block;
+      transition: transform 0.6s ease;
+    }
+    .sobre-card:hover img { transform: scale(1.05); }
+    .sobre-card .tag {
+      position: absolute; top: 0.8rem; left: 0.8rem;
+    }
+
+    @media (max-width: 980px) {
+      .sobre-wrap { grid-template-columns: 1fr; }
+      .sobre-card img { height: 200px; }
+    }
+
+    /* Raças */
+    .grid {
+      display: grid; gap: 1.5rem;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .raca-card {
+      grid-column: span 3;
+      min-height: 100%;
+      border-radius: var(--radius-md);
+      overflow: clip;
+      background: var(--slate-blue); border: 1px solid rgba(100, 255, 218, 0.1);
+      box-shadow: var(--box-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .raca-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5); }
+    .raca-media { aspect-ratio: 16/11; overflow: hidden; }
+    .raca-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .raca-body { padding: 1rem; }
+    .raca-body h3 { margin: 0.2rem 0 0.4rem; font-size: 1.25rem; }
+    .raca-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem; }
+    .raca-meta .chip {
+      font-size: 0.85rem; background: var(--dark-blue); border: 1px solid var(--light-slate);
+      border-radius: 999px; padding: 0.3rem 0.7rem; color: var(--light-slate);
+    }
+
+    @media (max-width: 1200px) {
+      .raca-card { grid-column: span 4; }
+    }
+    @media (max-width: 900px) {
+      .raca-card { grid-column: span 6; }
+    }
+    @media (max-width: 600px) {
+      .raca-card { grid-column: span 12; }
+    }
+
+    /* Cuidados */
+    .tips {
+      display: grid; gap: 1.5rem;
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .tip {
+      grid-column: span 2;
+      background: var(--slate-blue); border: 1px solid rgba(100, 255, 218, 0.1);
+      border-radius: var(--radius-md); padding: 1.2rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      box-shadow: var(--box-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .tip:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); }
+    .tip-icon {
+      width: 50px; height: 50px; border-radius: 12px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--electric-cyan), var(--soft-purple));
+      color: var(--dark-blue); flex: 0 0 auto;
+      box-shadow: 0 8px 20px rgba(100, 255, 218, 0.4);
+    }
+    .tip-icon i { font-size: 1.8rem; }
+    .tip h4 { margin: 0.1rem 0 0.3rem; font-size: 1.15rem; color: var(--gray-cyan); }
+    .tip p { margin: 0; font-size: 0.9rem; }
+
+    @media (max-width: 1000px) {
+      .tip { grid-column: span 3; }
+    }
+    @media (max-width: 700px) {
+      .tip { grid-column: span 6; }
+    }
+
+    /* Depoimentos (Carrossel) */
+    .carousel-wrapper {
+      position: relative;
+      margin: 0 60px;
+    }
+    .carousel {
+      position: relative;
+      background: var(--slate-blue); border: 1px solid rgba(100, 255, 218, 0.1);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+    .slides { display: flex; transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    .slide {
+      min-width: 100%;
+      padding: clamp(1.5rem, 4vw, 2rem);
+      display: grid; grid-template-columns: 90px 1fr; gap: 1.5rem; align-items: center;
+    }
+    .avatar {
+      width: 90px; height: 90px; border-radius: 50%;
+      overflow: hidden; box-shadow: var(--box-shadow); border: 3px solid var(--electric-cyan);
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .quote { font-size: 1.15rem; color: var(--gray-cyan); }
+    .author { margin-top: 0.5rem; color: var(--electric-cyan); font-weight: 700; }
+    .carousel-nav {
+      position: absolute; inset: auto 0 0 0;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0.8rem; gap: 0.6rem;
+    }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--light-slate); opacity: 0.5; transition: all 0.3s ease;
+    }
+    .dot.active { opacity: 1; transform: scale(1.2); background: var(--electric-cyan); }
+
+    .ctrl {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 50px; height: 50px; border-radius: 999px; display: grid; place-items: center;
+      background: var(--slate-blue); border: 1px solid var(--electric-cyan); box-shadow: var(--box-shadow);
+      color: var(--electric-cyan);
+    }
+    .ctrl.left { left: -60px; }
+    .ctrl.right { right: -60px; }
+    .ctrl i { font-size: 1.2rem; }
+
+    /* Adoção */
+    .adocao {
+      background: var(--slate-blue);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      border-radius: var(--radius-lg);
+      padding: clamp(2rem, 5vw, 3rem);
+      box-shadow: var(--box-shadow);
+    }
+    .adocao .cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.2rem; }
+    .contact {
+      margin-top: 1rem;
+      display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+    }
+    .contact a {
+      display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none;
+      color: var(--electric-cyan); background: var(--dark-blue); border: 1px solid var(--electric-cyan);
+      padding: 0.6rem 1rem; border-radius: 999px; box-shadow: var(--inner-shadow);
+      transition: all 0.3s ease;
+    }
+    .contact a:hover {
+      transform: translateY(-2px);
+      background: var(--slate-blue);
+    }
+
+    /* Rodapé */
+    footer {
+      margin-top: 4rem;
+      background-color: var(--slate-blue);
+      border-top: 1px solid rgba(100, 255, 218, 0.1);
+      position: relative;
+    }
+    .footer-grid {
+      display: grid; gap: 2rem; grid-template-columns: 1.2fr .8fr .8fr .8fr; padding: 3rem 0;
+    }
+    .footer-grid h4 { font-size: 1.15rem; margin-bottom: 0.8rem; color: var(--gray-cyan); }
+    .footer-grid a {
+      display: block; color: var(--light-slate); text-decoration: none; margin: 0.3rem 0;
+    }
+    .socials { display: flex; gap: 0.6rem; margin-top: 0.8rem; }
+    .socials a {
+      width: 45px; height: 45px; display: grid; place-items: center; border-radius: 999px;
+      background: var(--dark-blue); border: 1px solid var(--electric-cyan); box-shadow: var(--inner-shadow);
+      color: var(--electric-cyan); transition: all 0.3s ease;
+    }
+    .socials a:hover { transform: translateY(-3px); background: var(--soft-purple); color: var(--dark-blue); }
+    @media (max-width: 980px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+    .copyright {
+      padding: 1.2rem 0; border-top: 1px solid rgba(100, 255, 218, 0.1); font-size: 0.9rem; color: var(--light-slate);
+    }
+
+    /* Animações de entrada ao rolar */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .btn, .raca-card, .tip, .slides, .hero-media {
+        transition: none !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="brand">
+        <i class="fa-solid fa-cat" aria-hidden="true"></i>
+        <span>Gatos & Mistério</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#racas">Raças</a>
+        <a href="#cuidados">Cuidados</a>
+        <a href="#adocao">Adoção</a>
+        <a href="#historias">Histórias</a>
+      </nav>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        <span class="sr-only">Abrir menu de navegação</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Seção Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <span class="badge hero-badge">Gatos — Aventura & Carinho</span>
+          <h1 class="hero-title">
+            Descubra a Elegância e o Mistério Felino
+          </h1>
+          <p class="hero-sub">
+            Mergulhe no universo dos nossos amigos de quatro patas. Um mundo de independência, charme e histórias fascinantes.
+          </p>
+          <div class="hero-ctas">
+            <a href="#adocao" class="btn btn-primary">
+              <i class="fa-solid fa-heart" aria-hidden="true"></i> Adote um Amigo
+            </a>
+            <a href="#racas" class="btn btn-secondary">
+              <i class="fa-solid fa-paw" aria-hidden="true"></i> Explore as Raças
+            </a>
+          </div>
+        </div>
+        <div class="hero-media reveal">
+          <img src="https://placehold.co/900x600/0A192F/CCD6F6?text=Gatos+e+Amigos" alt="Gatos em um ambiente moderno" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Divisor com SVG de uma pata de gato estilizada -->
+    <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200" preserveAspectRatio="none" style="display: block;">
+      <path fill="var(--slate-blue)" fill-opacity="1" d="M0,64L120,85.3C240,107,480,149,720,149.3C960,149,1200,107,1320,85.3L1440,64L1440,210L1320,210C1200,210,960,210,720,210C480,210,240,210,120,210L0,210Z"></path>
+      <g transform="translate(600, 20)">
+        <path d="M 0 0 L 20 0 L 20 20 L 0 20 Z" fill="var(--electric-cyan)" opacity="0.2"/>
+        <path d="M 50 10 L 70 10 L 70 30 L 50 30 Z" fill="var(--soft-purple)" opacity="0.2"/>
+        <path d="M 25 50 L 45 50 L 45 70 L 25 70 Z" fill="var(--electric-cyan)" opacity="0.2"/>
+      </g>
+    </svg>
+
+    <!-- Sobre -->
+    <section class="section" id="sobre">
+      <div class="container sobre-wrap">
+        <div class="sobre-content reveal">
+          <h2 class="sub-heading">Mais que Amigos, Família</h2>
+          <p>
+            Gatos são criaturas de hábitos e rotinas. Eles nos ensinam a viver o momento, a apreciar a calma e a buscar o conforto. Sua natureza independente não diminui seu amor, apenas o torna mais precioso.
+          </p>
+          <p>
+            Mergulhe nas histórias de gatos que transformaram vidas e descubra como a adoção pode trazer alegria e uma nova perspectiva para o seu lar.
+          </p>
+        </div>
+        <div class="sobre-gallery reveal">
+          <div class="sobre-card">
+            <span class="badge tag">Curioso</span>
+            <img src="https://placehold.co/400x300/1B2B4A/64FFDA?text=Gato+Curioso" alt="Um gato curioso olhando para a câmera" />
+          </div>
+          <div class="sobre-card">
+            <span class="badge tag">Carinhoso</span>
+            <img src="https://placehold.co/400x300/1B2B4A/64FFDA?text=Gato+Carinhoso" alt="Um gato aconchegado em um colo" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Raças -->
+    <section class="section" id="racas">
+      <div class="container">
+        <h2 class="text-center reveal">As Mais Belas Raças Felinas</h2>
+        <p class="text-center lead reveal">
+          De majestosos gigantes a pequenos brincalhões. Conheça as características únicas de cada raça.
+        </p>
+        <div class="grid" style="margin-top: 2rem;">
+          <div class="raca-card reveal">
+            <div class="raca-media">
+              <img src="https://placehold.co/500x350/1B2B4A/64FFDA?text=Maine+Coon" alt="Maine Coon" />
+            </div>
+            <div class="raca-body">
+              <h3>Maine Coon</h3>
+              <p>Gigantes gentis, conhecidos por sua natureza amigável e pelagem exuberante.</p>
+              <div class="raca-meta">
+                <span class="chip">EUA</span>
+                <span class="chip">Gigante</span>
+                <span class="chip">Gentil</span>
+              </div>
+            </div>
+          </div>
+          <div class="raca-card reveal">
+            <div class="raca-media">
+              <img src="https://placehold.co/500x350/1B2B4A/64FFDA?text=Siamês" alt="Siamês" />
+            </div>
+            <div class="raca-body">
+              <h3>Siamês</h3>
+              <p>Inteligentes e comunicativos, com olhos azuis profundos e elegantes.</p>
+              <div class="raca-meta">
+                <span class="chip">Tailândia</span>
+                <span class="chip">Vocal</span>
+                <span class="chip">Social</span>
+              </div>
+            </div>
+          </div>
+          <div class="raca-card reveal">
+            <div class="raca-media">
+              <img src="https://placehold.co/500x350/1B2B4A/64FFDA?text=Persa" alt="Persa" />
+            </div>
+            <div class="raca-body">
+              <h3>Persa</h3>
+              <p>Dócil e sereno, famoso por sua face achatada e pelagem longa e sedosa.</p>
+              <div class="raca-meta">
+                <span class="chip">Irã</span>
+                <span class="chip">Calmo</span>
+                <span class="chip">Luxuoso</span>
+              </div>
+            </div>
+          </div>
+          <div class="raca-card reveal">
+            <div class="raca-media">
+              <img src="https://placehold.co/500x350/1B2B4A/64FFDA?text=Sphynx" alt="Sphynx" />
+            </div>
+            <div class="raca-body">
+              <h3>Sphynx</h3>
+              <p>Conhecido por sua ausência de pelos, são extrovertidos, brincalhões e muito afetuosos.</p>
+              <div class="raca-meta">
+                <span class="chip">Canadá</span>
+                <span class="chip">Sem Pelo</span>
+                <span class="chip">Alegre</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cuidados -->
+    <section class="section" id="cuidados">
+      <div class="container">
+        <h2 class="text-center reveal">Um Guia de Cuidados Essenciais</h2>
+        <p class="text-center lead reveal">
+          Garanta que seu gato tenha uma vida feliz e saudável com as dicas certas.
+        </p>
+        <div class="tips" style="margin-top: 2rem;">
+          <div class="tip reveal">
+            <div class="tip-icon"><i class="fa-solid fa-bone"></i></div>
+            <div class="tip-body">
+              <h4>Alimentação</h4>
+              <p>Escolha rações de alta qualidade, adequadas à idade e ao estilo de vida do seu gato.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon"><i class="fa-solid fa-pump-soap"></i></div>
+            <div class="tip-body">
+              <h4>Higiene</h4>
+              <p>Mantenha a caixa de areia limpa e escove a pelagem do seu gato regularmente.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon"><i class="fa-solid fa-shield-cat"></i></div>
+            <div class="tip-body">
+              <h4>Saúde</h4>
+              <p>Visitas regulares ao veterinário e vacinas em dia são cruciais para a longevidade.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon"><i class="fa-solid fa-gamepad"></i></div>
+            <div class="tip-body">
+              <h4>Brincadeiras</h4>
+              <p>Gatos precisam de estímulo mental e físico. Invista em brinquedos e arranhadores.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon"><i class="fa-solid fa-house-chimney-medical"></i></div>
+            <div class="tip-body">
+              <h4>Ambiente Seguro</h4>
+              <p>Certifique-se de que sua casa é segura, com janelas teladas e plantas não tóxicas.</p>
+            </div>
+          </div>
+          <div class="tip reveal">
+            <div class="tip-icon"><i class="fa-solid fa-comment-dots"></i></div>
+            <div class="tip-body">
+              <h4>Atenção</h4>
+              <p>Dedique tempo para interagir com seu gato. O carinho fortalece o vínculo entre vocês.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Depoimentos (Carrossel) -->
+    <section class="section" id="historias">
+      <div class="container">
+        <h2 class="text-center reveal">O que Nossos Amigos Dizem</h2>
+        <p class="text-center lead reveal">
+          Histórias reais de amor e adoção que transformaram vidas.
+        </p>
+        <div class="carousel-wrapper" style="margin-top: 2rem;">
+          <div class="carousel reveal">
+            <div class="slides">
+              <div class="slide">
+                <div class="avatar"><img src="https://placehold.co/200x200/1B2B4A/64FFDA?text=Maria" alt="Foto de Maria" /></div>
+                <div class="quote-content">
+                  <blockquote class="quote">"Adotar o Félix mudou minha vida! Ele é a companhia perfeita para os meus dias, sempre me esperando na porta com um miado carinhoso."</blockquote>
+                  <p class="author">Maria Silva</p>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="avatar"><img src="https://placehold.co/200x200/1B2B4A/64FFDA?text=João" alt="Foto de João" /></div>
+                <div class="quote-content">
+                  <blockquote class="quote">"Luna é a gata mais inteligente que já conheci. Sua curiosidade e agilidade me surpreendem todos os dias. Uma verdadeira aventureira!"</blockquote>
+                  <p class="author">João Oliveira</p>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="avatar"><img src="https://placehold.co/200x200/1B2B4A/64FFDA?text=Fernanda" alt="Foto de Fernanda" /></div>
+                <div class="quote-content">
+                  <blockquote class="quote">"Nunca imaginei ter um gato tão dócil. O Pingo é um gigante peludo que adora um bom cafuné. Recomendo a adoção!"</blockquote>
+                  <p class="author">Fernanda Costa</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-nav">
+              <div class="dot active" data-slide-to="0"></div>
+              <div class="dot" data-slide-to="1"></div>
+              <div class="dot" data-slide-to="2"></div>
+            </div>
+          </div>
+          <button class="ctrl left"><i class="fa-solid fa-chevron-left"></i><span class="sr-only">Anterior</span></button>
+          <button class="ctrl right"><i class="fa-solid fa-chevron-right"></i><span class="sr-only">Próximo</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Adoção -->
+    <section class="section" id="adocao">
+      <div class="container adocao reveal">
+        <h2>Pronto para Mudar uma Vida?</h2>
+        <p>
+          Adoção é um ato de amor. Nossos gatinhos esperam por um lar. Clique no botão abaixo para iniciar o processo e encontrar seu novo melhor amigo.
+        </p>
+        <div class="cta">
+          <a href="#" class="btn btn-primary">
+            <i class="fa-solid fa-hand-holding-heart"></i> Quero Adotar
+          </a>
+        </div>
+        <p style="margin-top: 1.5rem; color: var(--gray-cyan);">Ou entre em contato diretamente:</p>
+        <div class="contact">
+          <a href="mailto:contato@gatosamigos.com">
+            <i class="fa-solid fa-envelope"></i>
+            <span>contato@gatosamigos.com</span>
+          </a>
+          <a href="tel:+5511999999999">
+            <i class="fa-solid fa-phone"></i>
+            <span>(11) 99999-9999</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Gatos & Amigos</h4>
+          <p>Sua comunidade felina, com conteúdo e guias completos para o bem-estar do seu pet.</p>
+          <div class="socials">
+            <a href="#"><i class="fa-brands fa-facebook"></i><span class="sr-only">Facebook</span></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i><span class="sr-only">Instagram</span></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i><span class="sr-only">Twitter</span></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navegação</h4>
+          <a href="#racas">Raças</a>
+          <a href="#cuidados">Cuidados</a>
+          <a href="#adocao">Adoção</a>
+          <a href="#historias">Histórias</a>
+        </div>
+        <div>
+          <h4>Recursos</h4>
+          <a href="#">Blog</a>
+          <a href="#">FAQ</a>
+          <a href="#">Parceiros</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="#">Termos de Uso</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2024 Gatos & Amigos. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // JavaScript para o carrossel de depoimentos
+    const carousel = document.querySelector('.carousel');
+    const slides = carousel?.querySelector('.slides');
+    const slideEls = carousel?.querySelectorAll('.slide');
+    const dots = carousel?.querySelectorAll('.dot');
+    const leftCtrl = carousel?.querySelector('.ctrl.left');
+    const rightCtrl = carousel?.querySelector('.ctrl.right');
+
+    if (slides && slideEls.length) {
+      let currentIndex = 0;
+
+      function goTo(index) {
+        currentIndex = index;
+        const offset = -currentIndex * 100;
+        slides.style.transform = `translateX(${offset}%)`;
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentIndex].classList.add('active');
+      }
+
+      function next() {
+        goTo((currentIndex + 1) % slideEls.length);
+      }
+
+      function prev() {
+        goTo((currentIndex - 1 + slideEls.length) % slideEls.length);
+      }
+
+      leftCtrl?.addEventListener('click', prev);
+      rightCtrl?.addEventListener('click', next);
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => goTo(index));
+      });
+
+      // Autoplay
+      let autoPlay = setInterval(next, 5000);
+      carousel.addEventListener('mouseover', () => clearInterval(autoPlay));
+      carousel.addEventListener('mouseleave', () => autoPlay = setInterval(next, 5000));
+    }
+
+
+    // Código para o menu de navegação responsivo
+    const navLinks = document.getElementById('nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
+    menuToggle?.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+      menuToggle.setAttribute('aria-expanded', !isExpanded);
+      navLinks.classList.toggle('open');
+    });
+
+    // Código para a animação de entrada (revelar ao rolar)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // Suaviza ancoragem considerando header fixo
+    function offsetScroll(e){
+      if(this.hash){
+        const el = document.querySelector(this.hash);
+        if(el){
+          e.preventDefault();
+          const rect = el.getBoundingClientRect().top + window.scrollY;
+          const offset = 70; // altura aproximada do header
+          window.scrollTo({
+            top: rect - offset,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', offsetScroll);
+    });
+  </script>
+
+</body>
+</html>
