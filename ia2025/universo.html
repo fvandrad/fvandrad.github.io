@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Universo — IA 2025</title>
+  <meta name="description" content="Página simples sobre o universo com imagem e informações básicas.">
+  <style>
+    :root{--bg:#071021;--card:#0b2340;--accent:#7dd3fc;--muted:#94a3b8;color-scheme:dark}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;color:#e6eef8;background:radial-gradient(ellipse at 20% 10%, rgba(125,211,252,0.06), transparent 10%), radial-gradient(ellipse at 90% 70%, rgba(125,211,252,0.03), transparent 15%), var(--bg);}
+    .container{max-width:920px;margin:48px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);border-radius:12px;box-shadow:0 4px 30px rgba(2,6,23,0.6)}
+    h1{margin:0 0 8px;font-size:2rem;color:var(--accent)}
+    p.lead{margin:0 0 18px;color:var(--muted);line-height:1.5}
+    .hero{display:block;width:100%;height:420px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,0.04);margin-bottom:16px}
+    .credit{font-size:12px;color:var(--muted);margin-bottom:18px}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:0 0 18px}
+  .thumb{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);text-align:center}
+  .thumb img{width:100%;height:140px;object-fit:cover;border-radius:6px;display:block}
+  .thumb figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+    ul.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding:0;list-style:none;margin:0}
+    li.fact{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
+    .back{display:inline-block;margin-top:18px;color:var(--accent);text-decoration:none;border:1px solid rgba(125,211,252,0.08);padding:8px 12px;border-radius:8px}
+    footer{margin-top:22px;color:var(--muted);font-size:13px}
+    @media (max-width:520px){.hero{height:220px}}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Universo</h1>
+    <p class="lead">Uma breve página sobre o universo com uma imagem de alta resolução e fatos rápidos — ideal para mostrar no seu site IA 2025.</p>
+
+    <img class="hero" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=3f3f9f7b6a2e5e4d8d2a8f8b4f8b6c1b" alt="Universo - galáxia e estrelas" />
+    <div class="credit">Imagem: Unsplash (fotógrafo <a href="https://unsplash.com/@space" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">Space</a>)</div>
+
+    <div class="gallery" aria-label="Galeria de ilustrações do céu">
+      <figure class="thumb">
+        <svg width="100%" height="140" viewBox="0 0 160 90" role="img" aria-label="Ilustração nebulosa">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#2b0b3a" />
+              <stop offset="1" stop-color="#0b2340" />
+            </linearGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#g1)" rx="6" />
+          <!-- estrelas -->
+          <g fill="#fff">
+            <circle cx="20" cy="20" r="0.9" />
+            <circle cx="38" cy="12" r="1.2" />
+            <circle cx="60" cy="30" r="0.7" />
+            <circle cx="90" cy="18" r="1.1" />
+            <circle cx="130" cy="40" r="0.9" />
+            <circle cx="110" cy="60" r="0.8" />
+            <circle cx="140" cy="15" r="0.7" />
+          </g>
+          <g fill="rgba(125,211,252,0.14)">
+            <ellipse cx="56" cy="48" rx="30" ry="12" />
+          </g>
+        </svg>
+        <figcaption>Nebulosa (ilustração SVG) — substitua por foto local se quiser</figcaption>
+      </figure>
+      <figure class="thumb">
+        <svg width="100%" height="140" viewBox="0 0 160 90" role="img" aria-label="Ilustração galáxia">
+          <defs>
+            <radialGradient id="g2">
+              <stop offset="0" stop-color="#ffd6a5" stop-opacity="0.9" />
+              <stop offset="1" stop-color="#3b1f5b" stop-opacity="0.6" />
+            </radialGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="#071021" rx="6" />
+          <g transform="translate(60,40)">
+            <ellipse rx="34" ry="12" fill="url(#g2)" transform="rotate(-20)" />
+            <ellipse rx="22" ry="6" fill="rgba(255,255,255,0.06)" transform="rotate(25)" />
+          </g>
+          <g fill="#fff">
+            <circle cx="18" cy="15" r="0.8" />
+            <circle cx="138" cy="68" r="0.9" />
+            <circle cx="100" cy="22" r="0.7" />
+          </g>
+        </svg>
+        <figcaption>Galáxia (ilustração SVG) — substitua por foto local se desejar</figcaption>
+      </figure>
+      <figure class="thumb">
+        <svg width="100%" height="140" viewBox="0 0 160 90" role="img" aria-label="Ilustração céu estrelado">
+          <rect width="100%" height="100%" fill="#021226" rx="6" />
+          <g fill="#fff">
+            <circle cx="12" cy="20" r="0.6" />
+            <circle cx="28" cy="35" r="0.7" />
+            <circle cx="44" cy="10" r="0.5" />
+            <circle cx="68" cy="26" r="0.9" />
+            <circle cx="84" cy="14" r="0.6" />
+            <circle cx="120" cy="32" r="0.7" />
+            <circle cx="140" cy="18" r="0.6" />
+            <circle cx="100" cy="50" r="0.8" />
+          </g>
+        </svg>
+        <figcaption>Céu estrelado (ilustração SVG)</figcaption>
+      </figure>
+      <figure class="thumb">
+        <svg width="100%" height="140" viewBox="0 0 160 90" role="img" aria-label="Ilustração Via Láctea">
+          <rect width="100%" height="100%" fill="#081426" rx="6" />
+          <g transform="translate(0,10)" fill="#cfeffd">
+            <ellipse cx="80" cy="40" rx="50" ry="10" opacity="0.12" />
+            <ellipse cx="80" cy="44" rx="40" ry="6" opacity="0.08" />
+          </g>
+          <g fill="#fff">
+            <circle cx="22" cy="22" r="0.6" />
+            <circle cx="52" cy="18" r="0.7" />
+            <circle cx="92" cy="26" r="0.9" />
+            <circle cx="132" cy="34" r="0.6" />
+          </g>
+        </svg>
+        <figcaption>Via Láctea (ilustração SVG)</figcaption>
+      </figure>
+    </div>
+
+    <ul class="facts">
+      <li class="fact"><strong>Idade estimada:</strong> ~13,8 bilhões de anos</li>
+      <li class="fact"><strong>Diâmetro observável:</strong> ~93 bilhões de anos-luz</li>
+      <li class="fact"><strong>Componentes:</strong> Galáxias, estrelas, planetas, poeira, matéria escura</li>
+      <li class="fact"><strong>Expansão:</strong> O universo está em expansão acelerada</li>
+      <li class="fact"><strong>Energia escura:</strong> Responde por ~68% da energia total do universo</li>
+      <li class="fact"><strong>Matéria escura:</strong> Influencia a formação das galáxias mas ainda é desconhecida</li>
+    </ul>
+
+    <a class="back" href="/">← Voltar à página principal</a>
+
+    <footer>Conteúdo gerado para o repositório — sinta-se livre para editar o texto e substituir a imagem por uma local em <code>images/</code>.</footer>
+  </main>
+</body>
+</html>
