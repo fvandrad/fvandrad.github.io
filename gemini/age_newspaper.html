@@ -26,24 +26,24 @@
             color: var(--color-ink-dark);
             margin: 0;
             line-height: 1.9;
-            font-size: 18px;
-            /* Novas propriedades para o scroll horizontal */
-            height: 100vh;
-            overflow-x: auto; /* Permite o scroll horizontal */
-            overflow-y: hidden; /* Esconde o scroll vertical */
-            white-space: nowrap; /* Impede que os elementos quebrem linha */
+            font-size: 18px; 
+            /* Layout vertical */
+            overflow-y: auto; /* Scroll vertical padrão */
         }
 
         .newspaper-container {
-            display: inline-block; /* Permite que o container se expanda horizontalmente */
-            height: 100vh;
-            padding: 3rem 4rem;
+            /* Layout de página centralizado */
+            display: block;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 4rem 3rem; /* Padding ajustado, o header terá o seu */
             background-color: var(--color-parchment);
             background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
             border: 15px solid transparent;
             border-image: url('data:image/svg+xml;charset=utf-8,%3Csvg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cstyle%3Epath%7Bstroke:%235a3d2b;stroke-width:5;%7D%3C/style%3E%3Cpath d="M0 5 V100" /%3E%3Cpath d="M5 0 H100" /%3E%3Cpath d="M100 95 V0" /%3E%3Cpath d="M95 100 H0" /%3E%3Cpath d="M5 5 H95 V95 H5Z" /%3E%3C/svg%3E') 15;
             box-shadow: 0 10px 30px var(--color-shadow);
             box-sizing: border-box;
+            min-height: 100vh;
         }
 
         header {
@@ -51,15 +51,16 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
             z-index: 10;            
             text-align: center;
             border-bottom: 4px double var(--color-ink-dark);
             background-color: var(--color-parchment);
             background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
-            padding: 1rem 4rem;
+            padding: 1rem 2rem;
             box-sizing: border-box;
             transition: transform 0.4s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .header-toggle-btn {
@@ -120,42 +121,43 @@
         }
 
         main {
-            /* Transforma o main em um container flexível horizontal */
-            display: flex;
-            gap: 40px;
-            height: calc(100% - 150px); /* Ajusta a altura para caber o header e footer */
-            /* Ajustado para considerar o header fixo */
-            height: calc(100% - 220px); /* Altura do header é ~220px */
-            margin-top: 220px;
-            transition: margin-top 0.4s ease-in-out, height 0.4s ease-in-out; /* Adicionado para a animação */
-            align-items: flex-start;
+            /* Layout de grid para as colunas de texto */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            padding-top: 220px; /* Espaço para o header fixo */
+            transition: padding-top 0.4s ease-in-out;
         }
 
         main.main-expanded {
-            margin-top: 0;
-            height: 100%;
+            padding-top: 25px; /* Altura do botão de toggle */
         }
 
-        main > div {
-            /* Cada div dentro do main será uma coluna */
-            width: 450px; /* Largura fixa para cada coluna */
-            height: 100%; /* Ocupa a altura do container 'main' */
-            overflow-y: auto; /* ADICIONADO: Permite scroll vertical APENAS na coluna, se necessário */
-            white-space: normal; /* Permite que o texto quebre linha dentro da coluna */
+        main > div, main > footer {
+            /* Estilo das seções de conteúdo */
             text-align: justify;
-            padding-right: 40px;
-            border-right: 1px solid var(--color-ink-light);
+            padding-top: 1.5rem; /* Espaçamento para o título da seção */
+        }
+
+        /* Elementos que ocupam a largura total do grid */
+        #col-inicio, #col-fim {
+            grid-column: 1 / -1;
+        }
+
+        #col-inicio {
+            border-bottom: 1px solid var(--color-ink-light);
+            padding-bottom: 2rem;
         }
 
         /* Estilização da barra de rolagem para um visual mais integrado */
-        main > div::-webkit-scrollbar {
+        ::-webkit-scrollbar {
             width: 8px;
         }
-        main > div::-webkit-scrollbar-track {
+        ::-webkit-scrollbar-track {
             background: rgba(0,0,0,0.05);
             border-radius: 4px;
         }
-        main > div::-webkit-scrollbar-thumb {
+        ::-webkit-scrollbar-thumb {
             background: var(--color-ink-light);
             border-radius: 4px;
         }
@@ -164,7 +166,7 @@
             font-family: var(--font-title);
             font-size: 2em;
             color: var(--color-ink-medium);
-            margin-top: 1.5rem;
+            margin-top: 0;
             margin-bottom: 1rem;            
             text-align: left;
         }
@@ -201,16 +203,12 @@
         }
 
         footer {
-            /* Alterado para ser um item flex, como as colunas */
-            flex-shrink: 0;
-            width: 300px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            /* Estilo do rodapé */
             text-align: center;
             font-size: 1.1em;
-            white-space: normal; /* Garante que o texto do footer não seja afetado pelo nowrap do body */
+            padding-top: 3rem;
+            margin-top: 2rem;
+            border-top: 2px double var(--color-ink-dark);
         }
 
         /* --- Responsividade --- */
@@ -219,20 +217,22 @@
                 padding: 2rem;
                 border-width: 10px;
             }
-            main > div {
-                width: 350px; /* Colunas mais estreitas em telas menores */
-            }
             h1 {
                 font-size: 3em;
+            }
+            /* Transforma o grid em uma única coluna */
+            main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
 
         @media (max-width: 480px) {
             .newspaper-container {
-                padding: 1.5rem;
-            }
-            main > div {
-                width: 300px; /* Colunas ainda mais estreitas */
+                padding: 0 1.5rem 1.5rem;
+                margin: 1.5rem auto;
+                border-width: 8px;
+
             }
             h1 {
                 font-size: 2.5em;
@@ -293,6 +293,7 @@
 
         <main>
             <!-- Coluna 1 -->
+            <!-- Esta seção agora ocupa a largura total -->
             <div id="col-inicio">
                 <p>
                     Viaje no tempo para uma era de reis, cavaleiros e grandiosas fortalezas. Os castelos não eram apenas lares, mas símbolos de poder, centros de administração e bastiões de defesa que dominaram a paisagem medieval. Uma era de pedra e aço, onde a honra era forjada em batalha e as lendas nasciam à sombra de muralhas imponentes.
@@ -303,7 +304,7 @@
                 </figure>
             </div>
 
-            <!-- Coluna 2 -->
+            <!-- Coluna da Esquerda -->
             <div id="col-arquitetura">
                 <h2>Arquitetura e Defesa</h2>
                 <p>
@@ -314,7 +315,7 @@
                 </p>
             </div>
 
-            <!-- Coluna 3 -->
+            <!-- Coluna da Direita -->
             <div id="col-vida">
                 <h2>A Vida no Castelo</h2>
                 <p>
@@ -326,7 +327,7 @@
                 </figure>
             </div>
 
-            <!-- Coluna 4 -->
+            <!-- Esta seção volta a ocupar a largura total para quebrar o layout -->
             <div id="col-curiosidades">
                 <h2>Curiosidades Medievais</h2>
                 <p>
@@ -338,7 +339,7 @@
                 </p>
             </div>
             
-            <!-- O footer agora está dentro do main para fazer parte do scroll horizontal -->
+            <!-- O footer agora está dentro do main para ser a seção final da página -->
             <footer id="col-fim">
                 <p>Fim da edição. Que os ventos da história soprem a seu favor.</p>
             </footer>
@@ -363,21 +364,21 @@
             // --- Lógica do Menu Flutuante e Scrollspy ---
             const navLinks = document.querySelectorAll('.header-nav a');
             const sections = document.querySelectorAll('main > div, main > footer');
-            const body = document.body;
-            const newspaperContainer = document.querySelector('.newspaper-container');
 
             // Rolagem suave ao clicar no menu
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        // Calcula a posição do elemento e rola o body
-                        const mainContainer = document.querySelector('main');
-                        body.scrollTo({
-                            left: newspaperContainer.offsetLeft + targetElement.offsetLeft - 64, // 64 é um offset para não colar na borda
-                            behavior: 'smooth'
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        const headerOffset = header.offsetHeight;
+                        const elementPosition = targetSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset - 20; // 20px de margem
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
                         });
                     }
                 });
@@ -385,24 +386,21 @@
 
             // Scrollspy para destacar o item ativo
             function updateActiveLink() {
-                let currentSectionId = '';
-                const scrollCenter = body.scrollLeft + (body.clientWidth / 2);
+                const fromTop = window.scrollY + header.offsetHeight + 50; // Offset para ativar o link um pouco antes
 
                 sections.forEach(section => {
-                    if (section.offsetLeft <= scrollCenter) {
-                        currentSectionId = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${currentSectionId}`) {
-                        link.classList.add('active');
+                    if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${section.id}`) {
+                                link.classList.add('active');
+                            }
+                        });
                     }
                 });
             }
 
-            body.addEventListener('scroll', updateActiveLink);
+            window.addEventListener('scroll', updateActiveLink);
             updateActiveLink(); // Define o estado inicial
         });
     </script>
