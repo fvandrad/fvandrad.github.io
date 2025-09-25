@@ -257,6 +257,43 @@
             transition: color var(--transition);
         }
 
+        /* --- Estilos da Navegação no Modo Expandido --- */
+        .expanded-nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2001; /* Acima do conteúdo expandido */
+            background-color: rgba(44, 44, 68, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all var(--transition);
+            opacity: 0; /* Escondido por padrão */
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expanded-nav-arrow.prev { left: 2rem; }
+        .expanded-nav-arrow.next { right: 2rem; }
+
+        .expanded-nav-arrow:hover {
+            background-color: rgba(0, 255, 255, 0.2);
+            color: var(--accent-cyan);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .content-section.expanded .expanded-nav-arrow {
+            opacity: 0.7;
+            pointer-events: all;
+        }
+
         /* --- Estilos do Modo Expandido --- */
         .expand-toggle {
             position: absolute;
@@ -463,6 +500,8 @@
         <main>
             <section id="intro" class="content-section">
                 <i class="fas fa-expand expand-toggle" title="Ver em tela cheia"></i>
+                <button class="expanded-nav-arrow prev" title="Anterior"><i class="fas fa-chevron-left"></i></button>
+                <button class="expanded-nav-arrow next" title="Próximo"><i class="fas fa-chevron-right"></i></button>
                 <img src="https://images.pexels.com/photos/265129/pexels-photo-265129.jpeg" alt="Um portal ou buraco de minhoca abstrato e colorido" class="gallery-image">
                 <div class="gallery-info">
                     <h2>O Corredor do Tempo</h2>
@@ -473,6 +512,8 @@
 
             <section id="antiquity" class="content-section">
                 <i class="fas fa-expand expand-toggle" title="Ver em tela cheia"></i>
+                <button class="expanded-nav-arrow prev" title="Anterior"><i class="fas fa-chevron-left"></i></button>
+                <button class="expanded-nav-arrow next" title="Próximo"><i class="fas fa-chevron-right"></i></button>
                 <img src="https://images.pexels.com/photos/164336/pexels-photo-164336.jpeg" alt="O Coliseu de Roma ao pôr do sol" class="gallery-image">
                 <div class="gallery-info">
                     <h2>Ecos da Antiguidade</h2>
@@ -483,6 +524,8 @@
 
             <section id="medieval" class="content-section">
                 <i class="fas fa-expand expand-toggle" title="Ver em tela cheia"></i>
+                <button class="expanded-nav-arrow prev" title="Anterior"><i class="fas fa-chevron-left"></i></button>
+                <button class="expanded-nav-arrow next" title="Próximo"><i class="fas fa-chevron-right"></i></button>
                 <img src="https://images.pexels.com/photos/19424927/pexels-photo-19424927.png" alt="Um castelo medieval imponente em uma colina com neblina" class="gallery-image">
                 <div class="gallery-info">
                     <h2>Lendas Medievais</h2>
@@ -493,6 +536,8 @@
 
             <section id="renaissance" class="content-section">
                 <i class="fas fa-expand expand-toggle" title="Ver em tela cheia"></i>
+                <button class="expanded-nav-arrow prev" title="Anterior"><i class="fas fa-chevron-left"></i></button>
+                <button class="expanded-nav-arrow next" title="Próximo"><i class="fas fa-chevron-right"></i></button>
                 <img src="https://images.pexels.com/photos/2690323/pexels-photo-2690323.jpeg" alt="A cúpula da Catedral de Florença, obra de Brunelleschi" class="gallery-image">
                 <div class="gallery-info">
                     <h2>O Despertar do Gênio</h2>
@@ -503,6 +548,8 @@
 
             <section id="future" class="content-section">
                 <i class="fas fa-expand expand-toggle" title="Ver em tela cheia"></i>
+                <button class="expanded-nav-arrow prev" title="Anterior"><i class="fas fa-chevron-left"></i></button>
+                <button class="expanded-nav-arrow next" title="Próximo"><i class="fas fa-chevron-right"></i></button>
                 <img src="https://images.pexels.com/photos/354941/pexels-photo-354941.jpeg" alt="Vista panorâmica de uma cidade futurista com arranha-céus modernos e luzes brilhantes" class="gallery-image">
                 <div class="gallery-info">
                     <h2>Metrópole do Amanhã</h2>
@@ -513,6 +560,8 @@
 
             <section id="cyberpunk" class="content-section">
                 <i class="fas fa-expand expand-toggle" title="Ver em tela cheia"></i>
+                <button class="expanded-nav-arrow prev" title="Anterior"><i class="fas fa-chevron-left"></i></button>
+                <button class="expanded-nav-arrow next" title="Próximo"><i class="fas fa-chevron-right"></i></button>
                 <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg" alt="Uma pessoa com aprimoramentos cibernéticos olhando para uma cidade de neon" class="gallery-image">
                 <div class="gallery-info">
                     <h2>Futuro Distópico</h2>
@@ -554,15 +603,50 @@
                 toggle.addEventListener('click', (e) => {
                     const section = e.target.closest('.content-section');
                     if (section) {
-                        section.classList.toggle('expanded');
-                        // Alterna o ícone e o título
-                        if (section.classList.contains('expanded')) {
-                            e.target.classList.replace('fa-expand', 'fa-compress');
-                            e.target.title = "Sair da tela cheia";
-                        } else {
-                            e.target.classList.replace('fa-compress', 'fa-expand');
-                            e.target.title = "Ver em tela cheia";
-                        }
+                        toggleExpanded(section);
+                    }
+                });
+            });
+
+            // Função para gerenciar o estado expandido
+            function toggleExpanded(section, forceOpen = false) {
+                const isExpanded = section.classList.contains('expanded');
+                if (isExpanded && !forceOpen) {
+                    section.classList.remove('expanded');
+                } else {
+                    section.classList.add('expanded');
+                }
+                updateIconsAndNav(section);
+            }
+
+            // Função para atualizar ícones e visibilidade das setas de navegação
+            function updateIconsAndNav(section) {
+                const toggle = section.querySelector('.expand-toggle');
+                const prevArrow = section.querySelector('.expanded-nav-arrow.prev');
+                const nextArrow = section.querySelector('.expanded-nav-arrow.next');
+
+                if (section.classList.contains('expanded')) {
+                    toggle.classList.replace('fa-expand', 'fa-compress');
+                    toggle.title = "Sair da tela cheia";
+                    // Mostra/esconde setas com base na posição da seção
+                    prevArrow.style.display = section.previousElementSibling ? 'flex' : 'none';
+                    nextArrow.style.display = section.nextElementSibling ? 'flex' : 'none';
+                } else {
+                    toggle.classList.replace('fa-compress', 'fa-expand');
+                    toggle.title = "Ver em tela cheia";
+                }
+            }
+
+            // --- Lógica da Navegação no Modo Expandido ---
+            document.querySelectorAll('.expanded-nav-arrow').forEach(arrow => {
+                arrow.addEventListener('click', function() {
+                    const currentSection = this.closest('.content-section');
+                    const isNext = this.classList.contains('next');
+                    const targetSection = isNext ? currentSection.nextElementSibling : currentSection.previousElementSibling;
+
+                    if (targetSection && targetSection.classList.contains('content-section')) {
+                        toggleExpanded(currentSection); // Fecha o atual
+                        toggleExpanded(targetSection, true); // Abre o próximo/anterior
                     }
                 });
             });
