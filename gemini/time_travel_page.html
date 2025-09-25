@@ -245,6 +245,19 @@
             max-width: 80ch; /* Melhora a legibilidade */
         }
 
+        .photo-credit {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            opacity: 0.7;
+            margin-top: 1rem;
+        }
+
+        .photo-credit a {
+            color: inherit;
+            text-decoration: underline;
+            transition: color var(--transition);
+        }
+
         /* --- Estilos do Modo Expandido --- */
         .expand-toggle {
             position: absolute;
@@ -353,6 +366,68 @@
             }
         }
     </style>
+    <style>
+        /* --- Estilos dos Botões de Navegação Flutuantes (Desktop) --- */
+        @media (min-width: 1025px) {
+            .nav-arrows {
+                position: fixed;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 2rem;
+                z-index: 1001; /* Acima do conteúdo, mas abaixo do header */
+                pointer-events: none; /* Permite clicar através do container */
+            }
+
+            .nav-arrow {
+                pointer-events: all; /* Torna os botões clicáveis */
+                background-color: rgba(44, 44, 68, 0.5);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: var(--text-light);
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                font-size: 1.5rem;
+                cursor: pointer;
+                backdrop-filter: blur(5px);
+                transition: all var(--transition);
+                opacity: 0.7;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-arrow:hover {
+                background-color: rgba(0, 255, 255, 0.2);
+                color: var(--accent-cyan);
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* --- Estilos dos Botões de Navegação Flutuantes (Mobile) --- */
+        @media (max-width: 1024px) {
+            .nav-arrows {
+                position: fixed;
+                bottom: 2rem;
+                right: 1.5rem;
+                z-index: 999;
+                display: flex;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .nav-arrow {
+                /* Reutiliza o estilo base, mas ajusta o seletor para funcionar */
+                pointer-events: all; background-color: rgba(44, 44, 68, 0.5); border: 1px solid rgba(255, 255, 255, 0.2); color: var(--text-light); width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; backdrop-filter: blur(5px); transition: all var(--transition); opacity: 0.7; display: flex; align-items: center; justify-content: center;
+            }
+            /* Renomeia os ícones para cima/baixo para fazer sentido na navegação vertical */
+            #prev-section i::before { content: "\f077"; } /* fas fa-chevron-up */
+            #next-section i::before { content: "\f078"; } /* fas fa-chevron-down */
+        }
+    </style>
 </head>
 <body>
 
@@ -361,6 +436,11 @@
             <source src="https://videos.pexels.com/video-files/27439618/12144703_1920_1080_30fps.mp4" type="video/mp4">
             Seu navegador não suporta a tag de vídeo.
         </video>
+    </div>
+
+    <div class="nav-arrows">
+        <button id="prev-section" class="nav-arrow" title="Seção Anterior"><i class="fas fa-chevron-left"></i></button>
+        <button id="next-section" class="nav-arrow" title="Próxima Seção"><i class="fas fa-chevron-right"></i></button>
     </div>
 
     <header>
@@ -388,6 +468,7 @@
                 <div class="gallery-info">
                     <h2>O Corredor do Tempo</h2>
                     <p>Embarque em uma jornada através das eras. O tempo não é uma linha reta, mas um vasto oceano de possibilidades. Deslize para explorar momentos perdidos no passado e vislumbrar futuros imaginados.</p>
+                    <p class="photo-credit">Foto de <a href="https://www.pexels.com/photo/time-lapse-photography-of-stars-on-night-265129/" target="_blank" rel="noopener noreferrer">Pexels</a></p>
                 </div>
             </section>
 
@@ -397,6 +478,7 @@
                 <div class="gallery-info">
                     <h2>Ecos da Antiguidade</h2>
                     <p>Caminhe pelas ruas de mármore de impérios caídos. Ouça os ecos de filósofos, gladiadores e faraós. A Antiguidade Clássica, um tempo de mitos e a fundação da civilização ocidental.</p>
+                    <p class="photo-credit">Foto de <a href="https://www.pexels.com/photo/photo-of-colosseum-164336/" target="_blank" rel="noopener noreferrer">Pexels</a></p>
                 </div>
             </section>
 
@@ -406,6 +488,7 @@
                 <div class="gallery-info">
                     <h2>Lendas Medievais</h2>
                     <p>Entre em uma era de castelos imponentes, cavaleiros de armadura brilhante e lendas arturianas. O período medieval, uma tapeçaria de fé, conflito e a construção de nações.</p>
+                    <p class="photo-credit">Foto de <a href="https://www.pexels.com/photo/a-castle-on-top-of-a-hill-19424927/" target="_blank" rel="noopener noreferrer">Pexels</a></p>
                 </div>
             </section>
 
@@ -415,16 +498,17 @@
                 <div class="gallery-info">
                     <h2>O Despertar do Gênio</h2>
                     <p>Testemunhe o florescer da arte e da ciência. O Renascimento foi uma explosão de criatividade humana, onde gênios como Da Vinci e Michelangelo redesenharam o mundo e nossa compreensão sobre ele.</p>
+                    <p class="photo-credit">Foto de <a href="https://www.pexels.com/photo/the-duomo-in-florence-2690323/" target="_blank" rel="noopener noreferrer">Pexels</a></p>
                 </div>
             </section>
 
             <section id="future" class="content-section">
                 <i class="fas fa-expand expand-toggle" title="Ver em tela cheia"></i>
-                <img src="https://images.pexels.com/photos/2088164/pexels-photo-2088164.jpeg" alt="Uma cidade futurista com arquitetura orgânica e veículos voadores" class="gallery-image">
                 <img src="https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg" alt="Vista panorâmica de uma cidade futurista com arranha-céus modernos e luzes brilhantes" class="gallery-image">
                 <div class="gallery-info">
                     <h2>Metrópole do Amanhã</h2>
                     <p>Uma visão de um futuro utópico, onde a tecnologia e a natureza coexistem em harmonia. Cidades limpas, arquitetura sustentável e uma sociedade que alcançou um novo patamar de progresso.</p>
+                    <p class="photo-credit">Fotos de <a href="https://www.pexels.com/photo/skyline-view-of-city-during-night-time-325185/" target="_blank" rel="noopener noreferrer">Pexels</a></p>
                 </div>
             </section>
 
@@ -434,6 +518,7 @@
                 <div class="gallery-info">
                     <h2>Futuro Distópico</h2>
                     <p>Um futuro alternativo, encharcado de neon e chuva. A alta tecnologia convive com a decadência social em megacidades controladas por corporações. Uma era de ciborgues, hackers e inteligências artificiais rebeldes.</p>
+                    <p class="photo-credit">Foto de <a href="https://www.pexels.com/photo/a-person-wearing-a-vr-headset-8386440/" target="_blank" rel="noopener noreferrer">Pexels</a></p>
                 </div>
             </section>
         </main>
@@ -548,6 +633,89 @@
 
                 body.addEventListener('scroll', updateActiveLink);
                 updateActiveLink(); // Define o estado inicial no carregamento
+            }
+
+            // --- Lógica dos Botões Flutuantes de Navegação (Desktop) ---
+            if (window.innerWidth > 1024) {
+                const prevBtn = document.getElementById('prev-section');
+                const nextBtn = document.getElementById('next-section');
+                const body = document.body;
+
+                const getVisibleSections = () => Array.from(sections).filter(s => s.offsetParent !== null);
+
+                const updateArrowVisibility = () => {
+                    const scrollLeft = body.scrollLeft;
+                    const maxScrollLeft = body.scrollWidth - body.clientWidth;
+
+                    // Esconde o botão "anterior" se estiver no início
+                    prevBtn.style.opacity = scrollLeft > 10 ? '0.7' : '0';
+                    prevBtn.style.pointerEvents = scrollLeft > 10 ? 'all' : 'none';
+
+                    // Esconde o botão "próximo" se estiver no final
+                    nextBtn.style.opacity = scrollLeft < maxScrollLeft - 10 ? '0.7' : '0';
+                    nextBtn.style.pointerEvents = scrollLeft < maxScrollLeft - 10 ? 'all' : 'none';
+                };
+
+                nextBtn.addEventListener('click', () => {
+                    const visibleSections = getVisibleSections();
+                    const currentScroll = body.scrollLeft;
+                    const nextSection = visibleSections.find(s => s.offsetLeft > currentScroll + 1);
+                    if (nextSection) {
+                        body.scrollTo({ left: nextSection.offsetLeft, behavior: 'smooth' });
+                    }
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    const visibleSections = getVisibleSections();
+                    const currentScroll = body.scrollLeft;
+                    const prevSection = visibleSections.slice().reverse().find(s => s.offsetLeft < currentScroll - 1);
+                    if (prevSection) {
+                        body.scrollTo({ left: prevSection.offsetLeft, behavior: 'smooth' });
+                    }
+                });
+
+                body.addEventListener('scroll', updateArrowVisibility);
+                updateArrowVisibility(); // Define o estado inicial
+            } else { // --- Lógica dos Botões Flutuantes de Navegação (Mobile) ---
+                const prevBtn = document.getElementById('prev-section');
+                const nextBtn = document.getElementById('next-section');
+
+                const updateArrowVisibility = () => {
+                    const scrollY = window.scrollY;
+                    const maxScrollY = document.documentElement.scrollHeight - window.innerHeight;
+
+                    // Esconde o botão "anterior" (para cima) se estiver no topo
+                    prevBtn.style.opacity = scrollY > 50 ? '0.7' : '0';
+                    prevBtn.style.pointerEvents = scrollY > 50 ? 'all' : 'none';
+
+                    // Esconde o botão "próximo" (para baixo) se estiver no final
+                    nextBtn.style.opacity = scrollY < maxScrollY - 50 ? '0.7' : '0';
+                    nextBtn.style.pointerEvents = scrollY < maxScrollY - 50 ? 'all' : 'none';
+                };
+
+                nextBtn.addEventListener('click', () => {
+                    const currentScroll = window.scrollY;
+                    // Encontra a próxima seção que está abaixo da visualização atual
+                    const nextSection = Array.from(sections).find(s => s.offsetTop > currentScroll + window.innerHeight / 2);
+                    if (nextSection) {
+                        window.scrollTo({ top: nextSection.offsetTop - 80, behavior: 'smooth' }); // -80 para compensar o header
+                    }
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    const currentScroll = window.scrollY;
+                     // Encontra a seção anterior que está acima da visualização atual
+                    const prevSection = Array.from(sections).slice().reverse().find(s => s.offsetTop < currentScroll - 50);
+                    if (prevSection) {
+                        window.scrollTo({ top: prevSection.offsetTop - 80, behavior: 'smooth' });
+                    } else {
+                        // Se não encontrar nenhuma (está na primeira seção), volta para o topo
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+
+                window.addEventListener('scroll', updateArrowVisibility);
+                updateArrowVisibility();
             }
         });
     </script>
