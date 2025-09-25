@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Interiores | Design de Interiores</title>
+    <style>
+        /* --- RESET & FONTES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #ecf0f1;
+            --accent-color: #c0a172;
+            --text-color: #34495e;
+            --light-gray: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+        }
+
+        /* --- ESTILOS GERAIS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; }
+        p { margin-bottom: 1rem; }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #a98b5b;
+        }
+
+        /* --- HEADER & NAVEGAÇÃO --- */
+        .main-header {
+            background: #fff;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: background 0.3s ease;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .main-nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover::after {
+            width: 80%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=2127&auto=format&fit=crop') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        #hero h1 {
+            color: #fff;
+            font-size: 4rem;
+        }
+
+        #hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 1rem auto 2rem;
+        }
+
+        /* --- SEÇÕES: SOBRE, PORTFÓLIO, CONTATO --- */
+        #about { background: var(--light-gray); }
+        #about .about-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+        #about .about-text { flex: 1; }
+        #about .about-image { flex: 1; }
+        #about img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.8);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        #contact { background: var(--light-gray); }
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            #hero h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+
+            .main-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 60%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.5s ease-in-out;
+            }
+
+            .main-nav.active {
+                right: 0;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .main-nav li {
+                margin: 1.5rem 0;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            #about .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#hero" class="logo">Studio Interiores</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#hero">Início</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#portfolio">Portfólio</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Transformando Espaços, Criando Sonhos</h1>
+                <p>Design de interiores que combina estética, funcionalidade e a sua personalidade.</p>
+                <a href="#portfolio" class="btn">Veja nossos projetos</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2>Sobre Nós</h2>
+                <div class="about-content">
+                    <div class="about-image">
+                        <!-- Substitua pela sua imagem -->
+                        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1780&auto=format&fit=crop" alt="Designer de Interiores">
+                    </div>
+                    <div class="about-text">
+                        <h3>Paixão por Design</h3>
+                        <p>Acreditamos que um bom design não é apenas sobre aparência, mas sobre como um espaço faz você se sentir. Nossa missão é criar ambientes que sejam um reflexo autêntico de quem você é, combinando conforto, beleza e praticidade em cada detalhe.</p>
+                        <a href="#contact" class="btn">Vamos Conversar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="container">
+                <h2>Portfólio</h2>
+                <div class="portfolio-grid">
+                    <!-- Item 1 -->
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=2080&auto=format&fit=crop" alt="Projeto Sala de Estar">
+                        <div class="portfolio-overlay">
+                            <h3>Sala de Estar Moderna</h3>
+                            <p>São Paulo, SP</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=1780&auto=format&fit=crop" alt="Projeto Cozinha">
+                        <div class="portfolio-overlay">
+                            <h3>Cozinha Minimalista</h3>
+                            <p>Rio de Janeiro, RJ</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1780&auto=format&fit=crop" alt="Projeto Quarto">
+                        <div class="portfolio-overlay">
+                            <h3>Quarto Aconchegante</h3>
+                            <p>Belo Horizonte, MG</p>
+                        </div>
+                    </div>
+                    <!-- Adicione mais itens conforme necessário -->
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>Entre em Contato</h2>
+                <form class="contact-form" action="#" method="POST">
+                    <p>Pronto para iniciar seu projeto? Envie-nos uma mensagem!</p>
+                    <input type="text" name="name" placeholder="Seu Nome" required>
+                    <input type="email" name="email" placeholder="Seu E-mail" required>
+                    <textarea name="message" rows="5" placeholder="Sua Mensagem" required></textarea>
+                    <button type="submit" class="btn">Enviar Mensagem</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Studio Interiores. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.main-nav');
+
+        // Lógica para o menu hamburger
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Fecha o menu ao clicar em um link
+        document.querySelectorAll('.main-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>

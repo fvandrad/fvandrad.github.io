@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helena Costa | Design de Interiores</title>
+    <style>
+        /* --- FONTES E VARIÁVEIS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@700;800&display=swap');
+
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #1a1a1a;
+            --accent-color: #BDB0A4; /* Taupe suave */
+            --card-bg: #F5F3F1;
+            --border-color: #e5e5e5;
+            --font-body: 'Inter', sans-serif;
+            --font-heading: 'Syne', sans-serif;
+            --transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- RESET E ESTILOS GLOBAIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+        h2 { font-size: clamp(2rem, 5vw, 3rem); text-align: center; margin-bottom: 3rem; }
+        h3 { font-size: 1.5rem; }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--text-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 1px solid var(--text-color);
+        }
+
+        .btn:hover {
+            background: var(--bg-color);
+            color: var(--text-color);
+            transform: translateY(-3px);
+        }
+
+        /* --- ANIMAÇÃO DE ENTRADA --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- HEADER --- */
+        .main-header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: background-color 0.3s, padding 0.3s, box-shadow 0.3s;
+        }
+
+        .main-header.scrolled {
+            background-color: rgba(253, 253, 253, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .main-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .main-nav a:hover::after, .main-nav a.active::after {
+            width: 100%;
+        }
+
+        /* --- HERO --- */
+        #hero {
+            padding-top: 10rem;
+            min-height: 90vh;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            max-width: 500px;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            margin: 1.5rem 0 2.5rem;
+            color: #555;
+        }
+
+        .hero-image {
+            border-radius: 1rem;
+            overflow: hidden;
+            height: 70vh;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- SERVIÇOS --- */
+        #services {
+            background-color: var(--card-bg);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        .service-card .icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* --- PORTFÓLIO --- */
+        .portfolio-grid {
+            columns: 3;
+            column-gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            margin-bottom: 1.5rem;
+            break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            color: #fff;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        /* --- TESTEMUNHOS --- */
+        #testimonials {
+            background-color: var(--card-bg);
+        }
+
+        .testimonial-card {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-card blockquote {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border: none;
+        }
+
+        .testimonial-card cite {
+            font-style: normal;
+            font-weight: 500;
+            color: #777;
+        }
+
+        /* --- CONTATO --- */
+        .contact-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-wrapper p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-info a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--card-bg);
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text {
+                max-width: 100%;
+                order: 2;
+            }
+            .hero-image {
+                order: 1;
+                height: 50vh;
+                margin-bottom: 2rem;
+            }
+            .portfolio-grid {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav { display: none; } /* Simplificação para o exemplo. Um menu hamburger seria ideal. */
+            .portfolio-grid {
+                columns: 1;
+            }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+        }
+    </style>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#hero" class="logo">Helena Costa</a>
+            <nav class="main-nav">
+                <a href="#services" class="nav-link">Serviços</a>
+                <a href="#portfolio" class="nav-link">Portfólio</a>
+                <a href="#testimonials" class="nav-link">Depoimentos</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container hero-grid">
+                <div class="hero-text reveal">
+                    <h1>Design que conta a sua história.</h1>
+                    <p>Criamos interiores que são mais do que bonitos: são espaços funcionais, acolhedores e que refletem a alma de quem vive neles.</p>
+                    <a href="#contact" class="btn">Vamos criar juntos?</a>
+                </div>
+                <div class="hero-image reveal">
+                    <img src="https://images.pexels.com/photos/271743/pexels-photo-271743.jpeg" alt="Sala de estar moderna e elegante">
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <h2 class="reveal">Nossos Serviços</h2>
+                <div class="services-grid">
+                    <div class="service-card reveal">
+                        <div class="icon"><i class="fa-solid fa-house-chimney"></i></div>
+                        <h3>Projetos Residenciais</h3>
+                        <p>Transformamos casas em lares, com projetos completos que unem estética e funcionalidade para o seu dia a dia.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <div class="icon"><i class="fa-solid fa-building"></i></div>
+                        <h3>Design Comercial</h3>
+                        <p>Criamos espaços comerciais que encantam clientes e otimizam a experiência da sua marca.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <div class="icon"><i class="fa-solid fa-couch"></i></div>
+                        <h3>Consultoria de Estilo</h3>
+                        <p>Uma ajuda especializada para renovar ambientes, escolher móveis e definir uma paleta de cores que combine com você.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="container">
+                <h2 class="reveal">Projetos Recentes</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg" alt="Projeto de cozinha moderna">
+                        <div class="portfolio-overlay"><h4>São Paulo, SP</h4></div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg" alt="Projeto de sala de estar aconchegante">
+                        <div class="portfolio-overlay"><h4>Rio de Janeiro, RJ</h4></div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/1571461/pexels-photo-1571461.jpeg" alt="Projeto de quarto de casal">
+                        <div class="portfolio-overlay"><h4>Belo Horizonte, MG</h4></div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/1571462/pexels-photo-1571462.jpeg" alt="Projeto de home office">
+                        <div class="portfolio-overlay"><h4>Porto Alegre, RS</h4></div>
+                    </div>
+                     <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/1571459/pexels-photo-1571459.jpeg" alt="Projeto de sala de jantar">
+                        <div class="portfolio-overlay"><h4>Recife, PE</h4></div>
+                    </div>
+                     <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg" alt="Projeto de banheiro">
+                        <div class="portfolio-overlay"><h4>Salvador, BA</h4></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <div class="container">
+                <div class="testimonial-card reveal">
+                    <blockquote>"O trabalho da Helena foi impecável. Ela entendeu exatamente o que queríamos e transformou nossa casa em um refúgio de paz e beleza."</blockquote>
+                    <cite>— Família Almeida</cite>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container contact-wrapper reveal">
+                <h2>Vamos dar vida ao seu espaço?</h2>
+                <p>Estou pronta para ouvir suas ideias e transformá-las em um projeto único. Entre em contato para agendarmos uma conversa.</p>
+                <a href="mailto:contato@helenacosta.com" class="btn">Enviar um E-mail</a>
+                <div class="contact-info">
+                    <a href="tel:+5511999998888"><i class="fa-solid fa-phone"></i> (11) 99999-8888</a>
+                    <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i> @helenacosta.design</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Helena Costa Interiores. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- EFEITO DE HEADER AO ROLAR ---
+            const header = document.querySelector('.main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // --- ANIMAÇÃO DE REVELAR AO ROLAR ---
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // --- SCROLLSPY - MARCAR LINK ATIVO ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                rootMargin: '-50% 0px -50% 0px',
+                threshold: 0
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>

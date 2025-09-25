@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Saga dos Sistemas Operacionais</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Titillium+Web:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+    <style>
+        :root {
+            --bg-dark: #0d0d1a;
+            --bg-medium: #1a1a2e;
+            --bg-light: #2c2c44;
+            --text-light: #e0e0ff;
+            --text-muted: #a0a0cc;
+            --accent-cyan: #00ffff;
+            --accent-magenta: #ff00ff;
+            --accent-green: #00ff88;
+            --font-heading: 'Titillium Web', sans-serif;
+            --font-body: 'Roboto Mono', monospace;
+            --radius: 12px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- Configuração do Scroll Horizontal (Desktop) --- */
+        @media (min-width: 1025px) {
+            html {
+                height: 100%;
+                overflow: hidden; /* Previne scroll vertical na página inteira */
+            }
+
+            body {
+                height: 100%;
+                overflow-x: auto; /* Permite o scroll horizontal */
+                overflow-y: hidden; /* Esconde o scroll vertical */
+                white-space: nowrap; /* Impede que os elementos quebrem linha */
+                -webkit-overflow-scrolling: touch; /* Scroll suave em touch */
+            }
+
+            .page-wrapper {
+                display: inline-block; /* Permite que o container se expanda horizontalmente */
+                height: 100%;
+            }
+
+            main {
+                display: flex; /* Transforma o main em um container flexível horizontal */
+                height: calc(100% - 80px); /* Ajusta a altura para caber o header */
+                margin-top: 80px;
+                align-items: stretch;
+            }
+
+            .os-section {
+                width: 50vw; /* Cada seção ocupa metade da largura da tela */
+                max-width: 700px;
+                min-width: 500px;
+                height: 100%;
+                overflow-y: auto; /* Permite scroll vertical APENAS na coluna */
+                white-space: normal; /* Permite que o texto quebre linha dentro da coluna */
+                padding: 2rem 3rem;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                flex-shrink: 0; /* Impede que as seções encolham */
+            }
+
+            .os-section:last-of-type {
+                border-right: none;
+            }
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Header Fixo --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(13, 13, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: color var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyan);
+        }
+
+        /* --- Estilos de Conteúdo das Seções --- */
+        .os-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .os-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .os-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.5rem;
+        }
+
+        .os-header i {
+            font-size: 4rem;
+        }
+
+        .os-header h2 {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .os-section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .os-section h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--accent-green);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .os-section ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .os-section li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .os-section li::before {
+            content: '»';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .os-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* --- Estilização da Barra de Rolagem --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-cyan);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-magenta);
+        }
+
+        /* --- Responsividade (Mobile) --- */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none; /* Simplificando para o exemplo */
+            }
+
+            main {
+                padding-top: 80px; /* Espaço para o header fixo */
+            }
+
+            .os-section {
+                padding: 4rem 1.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .os-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <header>
+            <nav class="navbar">
+                <a href="#intro" class="logo">OS<span>.</span>Saga</a>
+                <ul class="nav-menu">
+                    <li><a href="#intro" class="nav-link active">Início</a></li>
+                    <li><a href="#windows" class="nav-link">Windows</a></li>
+                    <li><a href="#macos" class="nav-link">macOS</a></li>
+                    <li><a href="#linux" class="nav-link">Linux</a></li>
+                    <li><a href="#mobile" class="nav-link">Mobile</a></li>
+                    <li><a href="#future" class="nav-link">Futuro</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="intro" class="os-section">
+                <div class="os-header">
+                    <i class="fa-solid fa-display" style="color: var(--accent-cyan);"></i>
+                    <h2>A Saga dos Sistemas Operacionais</h2>
+                </div>
+                <p>Bem-vindo a uma jornada pela evolução dos cérebros digitais que alimentam nossos dispositivos. Do prompt de comando piscando em telas monocromáticas às interfaces fluidas e inteligentes de hoje, os sistemas operacionais são os heróis anônimos da tecnologia, traduzindo nossos cliques e toques em ações complexas.</p>
+                <p>Nesta exploração horizontal, vamos deslizar através das décadas e descobrir as filosofias, as rivalidades e as inovações que moldaram o mundo como o conhecemos. Prepare-se para mergulhar nos ecossistemas que definem como trabalhamos, jogamos e nos conectamos.</p>
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop" alt="Close-up de uma placa-mãe de computador com seus circuitos e componentes eletrônicos" class="os-image">
+            </section>
+
+            <section id="windows" class="os-section">
+                <div class="os-header">
+                    <i class="fa-brands fa-windows" style="color: #0078D6;"></i>
+                    <h2>Microsoft Windows</h2>
+                </div>
+                <p>O sistema que levou o computador para a casa de milhões. Começando como uma interface gráfica para o MS-DOS, o Windows evoluiu para se tornar o padrão de fato em desktops, conhecido por sua vasta compatibilidade de hardware e software.</p>
+                <h3>Marcos Históricos:</h3>
+                <ul>
+                    <li><strong>Windows 95:</strong> Introduziu o Menu Iniciar e a barra de tarefas, definindo o paradigma de desktop moderno.</li>
+                    <li><strong>Windows XP:</strong> Famoso por sua estabilidade (para a época) e interface colorida, dominou o mercado por anos.</li>
+                    <li><strong>Windows 10/11:</strong> Unificou a experiência em dispositivos e introduziu o conceito de "Windows como um Serviço".</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?q=80&w=2070&auto=format&fit=crop" alt="Laptop moderno rodando Windows" class="os-image">
+            </section>
+
+            <section id="macos" class="os-section">
+                <div class="os-header">
+                    <i class="fa-brands fa-apple" style="color: #A2AAAD;"></i>
+                    <h2>Apple macOS</h2>
+                </div>
+                <p>Sinônimo de design, criatividade e um ecossistema perfeitamente integrado. O macOS (anteriormente Mac OS X) sempre se destacou por sua interface elegante, baseada em Unix (BSD), e foco na experiência do usuário.</p>
+                <h3>Diferenciais:</h3>
+                <ul>
+                    <li><strong>Interface Gráfica:</strong> Pioneiro na popularização de conceitos como a área de trabalho, ícones e o mouse.</li>
+                    <li><strong>Ecossistema:</strong> Integração profunda com iPhone, iPad e outros dispositivos Apple, criando um fluxo de trabalho contínuo.</li>
+                    <li><strong>Consistência:</strong> Uma experiência de usuário polida e consistente, valorizada por profissionais criativos.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1926&auto=format&fit=crop" alt="MacBook com a interface do macOS visível" class="os-image">
+            </section>
+
+            <section id="linux" class="os-section">
+                <div class="os-header">
+                    <i class="fa-brands fa-linux" style="color: #FCC624;"></i>
+                    <h2>Linux</h2>
+                </div>
+                <p>O coração do software de código aberto. O Linux não é um único SO, mas um kernel que serve de base para centenas de "distribuições" (como Ubuntu, Fedora e Arch), cada uma com sua própria filosofia e público-alvo.</p>
+                <h3>Força e Flexibilidade:</h3>
+                <ul>
+                    <li><strong>Código Aberto:</strong> Qualquer pessoa pode ver, modificar e distribuir o código, promovendo inovação e segurança.</li>
+                    <li><strong>Personalização:</strong> Do ambiente de desktop aos menores componentes do sistema, tudo pode ser personalizado.</li>
+                    <li><strong>Poder Oculto:</strong> Alimenta a grande maioria dos servidores da web, supercomputadores e dispositivos embarcados (IoT) do mundo.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1934&auto=format&fit=crop" alt="Corredor de um data center com racks de servidores iluminados, representando o poder do Linux na infraestrutura da internet" class="os-image">
+            </section>
+
+            <section id="mobile" class="os-section">
+                <div class="os-header">
+                    <i class="fa-solid fa-mobile-screen-button" style="color: var(--accent-green);"></i>
+                    <h2>A Revolução Mobile</h2>
+                </div>
+                <p>A batalha pelos desktops foi apenas o começo. A verdadeira revolução veio com os smartphones, liderada por dois gigantes que mudaram para sempre como interagimos com a tecnologia.</p>
+                <h3>Os Titãs:</h3>
+                <ul>
+                    <li><strong>Android (Google):</strong> Baseado no kernel Linux, sua natureza aberta permitiu uma explosão de dispositivos de todos os preços e formatos. Domina o mercado global em volume.</li>
+                    <li><strong>iOS (Apple):</strong> O sistema exclusivo do iPhone, conhecido por sua segurança, desempenho otimizado e uma loja de aplicativos rigorosamente curada. Define o padrão para o segmento premium.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2070&auto=format&fit=crop" alt="Vários smartphones mostrando diferentes aplicativos" class="os-image">
+            </section>
+
+            <section id="future" class="os-section">
+                <div class="os-header">
+                    <i class="fa-solid fa-infinity" style="color: var(--accent-magenta);"></i>
+                    <h2>O Futuro é Fluido</h2>
+                </div>
+                <p>As fronteiras entre sistemas operacionais estão se tornando cada vez mais tênues. O futuro aponta para uma computação ambiente, onde a experiência é consistente e contínua, não importa o dispositivo que você esteja usando.</p>
+                <h3>Tendências Emergentes:</h3>
+                <ul>
+                    <li><strong>Sistemas baseados em Nuvem:</strong> O ChromeOS é um exemplo, onde o processamento pesado e o armazenamento acontecem online.</li>
+                    <li><strong>Realidade Aumentada e Virtual:</strong> Novos sistemas, como o visionOS da Apple, estão sendo construídos para interações espaciais.</li>
+                    <li><strong>Inteligência Artificial Integrada:</strong> A IA deixará de ser um aplicativo e se tornará parte fundamental do núcleo do SO, antecipando nossas necessidades.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?q=80&w=2070&auto=format&fit=crop" alt="Representação abstrata de inteligência artificial e redes neurais" class="os-image">
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Animação de Fade-in para seções ---
+            const sections = document.querySelectorAll('.os-section');
+            const observerOptions = {
+                root: null, // usa a viewport
+                rootMargin: '0px',
+                threshold: 0.1 // 10% da seção visível
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // --- Lógica de Navegação e Scrollspy para Desktop ---
+            if (window.innerWidth > 1024) {
+                const navLinks = document.querySelectorAll('.nav-link');
+                const body = document.body;
+
+                // Rolagem suave ao clicar no menu
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            body.scrollTo({
+                                left: targetElement.offsetLeft,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+
+                // Scrollspy para destacar o item ativo
+                function updateActiveLink() {
+                    let currentSectionId = '';
+                    const scrollCenter = body.scrollLeft + (window.innerWidth / 2);
+
+                    sections.forEach(section => {
+                        if (section.offsetLeft <= scrollCenter) {
+                            currentSectionId = section.getAttribute('id');
+                        }
+                    });
+
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${currentSectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+
+                body.addEventListener('scroll', updateActiveLink);
+                updateActiveLink(); // Define o estado inicial
+            }
+        });
+    </script>
+
+</body>
+</html>

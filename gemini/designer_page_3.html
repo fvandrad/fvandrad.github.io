@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Vértice | Design de Interiores</title>
+    <style>
+        /* --- FONTES E VARIÁVEIS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
+
+        :root {
+            --bg-color: #111317;
+            --card-bg: #1a1d22;
+            --text-color: #EAEAEA;
+            --text-muted: #888;
+            --accent-color: #C9A97E; /* Ouro queimado */
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-body: 'Poppins', sans-serif;
+            --font-heading: 'DM Serif Display', serif;
+            --transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* --- RESET E ESTILOS GLOBAIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+
+        h1 { font-size: clamp(3rem, 7vw, 5rem); }
+        h2 { font-size: clamp(2.5rem, 6vw, 3.5rem); text-align: center; margin-bottom: 3rem; }
+        h3 { font-size: 1.75rem; }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid var(--accent-color);
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        /* --- ANIMAÇÃO DE ENTRADA --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- HEADER --- */
+        .main-header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: background-color 0.3s, padding 0.3s, box-shadow 0.3s;
+        }
+
+        .main-header.scrolled {
+            background-color: rgba(17, 19, 23, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .main-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover {
+            color: var(--text-color);
+        }
+
+        .main-nav a.active {
+            color: var(--accent-color);
+        }
+
+        /* --- HERO --- */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 2.5rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- SEÇÃO DE PROCESSO --- */
+        #process {
+            background-color: var(--card-bg);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            counter-reset: process-counter;
+        }
+
+        .process-step {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .process-step::before {
+            counter-increment: process-counter;
+            content: "0" counter(process-counter);
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--border-color);
+            position: absolute;
+            top: 1rem;
+            left: 2rem;
+            z-index: 0;
+        }
+
+        .process-step h3 {
+            position: relative;
+            z-index: 1;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .process-step p {
+            position: relative;
+            z-index: 1;
+            color: var(--text-muted);
+        }
+
+        /* --- PORTFÓLIO COM SCROLL HORIZONTAL --- */
+        #portfolio {
+            padding-top: 6rem;
+            padding-bottom: 10rem;
+        }
+
+        .horizontal-scroll-wrapper {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            overflow-x: auto; /* Permite o scroll horizontal */
+            -ms-overflow-style: none;  /* IE e Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .horizontal-scroll-wrapper::-webkit-scrollbar {
+            display: none; /* Chrome, Safari e Opera */
+        }
+
+        .horizontal-scroll {
+            display: flex;
+            gap: 2rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding-left: calc((100vw - 1200px) / 2 + 2rem); /* Alinha com o container */
+        }
+
+        .portfolio-card {
+            width: 60vh; /* Largura baseada na altura da viewport */
+            height: 70vh;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .portfolio-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .portfolio-card:hover .portfolio-card-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .portfolio-card-overlay h4 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .portfolio-card-overlay p {
+            color: var(--text-muted);
+        }
+
+        /* --- DEPOIMENTOS --- */
+        .testimonial-card {
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: center;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .testimonial-card blockquote {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .testimonial-card cite {
+            font-style: normal;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        /* --- CONTATO --- */
+        #contact {
+            background-color: var(--card-bg);
+        }
+        .contact-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .contact-wrapper p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        footer p {
+            color: var(--text-muted);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 1200px) {
+            .horizontal-scroll {
+                padding-left: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav { display: none; } /* Simplificação. Um menu hamburger seria ideal. */
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.2rem; }
+
+            /* Desativa o scroll horizontal em telas menores */
+            #portfolio { padding-bottom: 6rem; }
+            .horizontal-scroll-wrapper { height: auto; }
+            .horizontal-scroll {
+                position: static;
+                flex-direction: column;
+                padding-left: 0;
+            }
+            .portfolio-card {
+                width: 100%;
+                height: 60vh;
+            }
+            .portfolio-card-overlay {
+                opacity: 1;
+                transform: translateY(0);
+                background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#hero" class="logo">Studio Vértice</a>
+            <nav class="main-nav">
+                <a href="#process" class="nav-link">Processo</a>
+                <a href="#portfolio" class="nav-link">Portfólio</a>
+                <a href="#testimonials" class="nav-link">Depoimentos</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content reveal">
+                <h1>Espaços que inspiram, histórias que conectam.</h1>
+                <p>Nosso design vai além da estética. Criamos ambientes com alma, que refletem sua identidade e transformam o seu modo de viver e trabalhar.</p>
+                <a href="#portfolio" class="btn">Conheça nossos projetos</a>
+            </div>
+        </section>
+
+        <section id="process">
+            <div class="container">
+                <h2 class="reveal">Nosso Processo</h2>
+                <div class="process-grid">
+                    <div class="process-step reveal">
+                        <h3>Imersão</h3>
+                        <p>O primeiro passo é ouvir. Entendemos seus sonhos, necessidades e estilo de vida para criar uma base sólida para o projeto.</p>
+                    </div>
+                    <div class="process-step reveal">
+                        <h3>Conceito</h3>
+                        <p>Traduzimos suas ideias em um conceito visual coeso, definindo layouts, materiais e a paleta de cores que darão vida ao espaço.</p>
+                    </div>
+                    <div class="process-step reveal">
+                        <h3>Execução</h3>
+                        <p>Com planejamento e gestão cuidadosa, coordenamos cada detalhe da obra para garantir que o resultado final seja fiel ao projeto sonhado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="container">
+                <h2 class="reveal">Portfólio</h2>
+            </div>
+            <div class="horizontal-scroll-wrapper">
+                <div class="horizontal-scroll">
+                    <div class="portfolio-card">
+                        <img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg" alt="Projeto de sala de leitura">
+                        <div class="portfolio-card-overlay"><h4>Refúgio Urbano</h4><p>São Paulo, SP</p></div>
+                    </div>
+                    <div class="portfolio-card">
+                        <img src="https://images.pexels.com/photos/6585756/pexels-photo-6585756.jpeg" alt="Projeto de cozinha gourmet">
+                        <div class="portfolio-card-overlay"><h4>Cozinha Afetiva</h4><p>Curitiba, PR</p></div>
+                    </div>
+                    <div class="portfolio-card">
+                        <img src="https://images.pexels.com/photos/3797991/pexels-photo-3797991.jpeg" alt="Projeto de escritório corporativo">
+                        <div class="portfolio-card-overlay"><h4>Sede TechCorp</h4><p>Belo Horizonte, MG</p></div>
+                    </div>
+                    <div class="portfolio-card">
+                        <img src="https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg" alt="Projeto de quarto infantil">
+                        <div class="portfolio-card-overlay"><h4>Quarto dos Sonhos</h4><p>Rio de Janeiro, RJ</p></div>
+                    </div>
+                    <div class="portfolio-card">
+                        <img src="https://images.pexels.com/photos/5998120/pexels-photo-5998120.jpeg" alt="Projeto de varanda gourmet">
+                        <div class="portfolio-card-overlay"><h4>Oásis Particular</h4><p>Salvador, BA</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <div class="container">
+                <div class="testimonial-card reveal">
+                    <blockquote>"A equipe do Studio Vértice não apenas projetou nossa casa, mas entendeu nossa alma. Cada canto tem a nossa cara. Foi uma experiência transformadora."</blockquote>
+                    <cite>— Mariana e Lucas F.</cite>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container contact-wrapper reveal">
+                <h2>Pronto para começar?</h2>
+                <p>Sua jornada para um espaço extraordinário começa com uma conversa. Entre em contato e vamos agendar um café para discutir suas ideias.</p>
+                <a href="mailto:contato@studiovertice.com" class="btn">contato@studiovertice.com</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Studio Vértice. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- EFEITO DE HEADER AO ROLAR ---
+            const header = document.querySelector('.main-header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            // --- ANIMAÇÃO DE REVELAR AO ROLAR ---
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // --- SCROLL HORIZONTAL DO PORTFÓLIO ---
+            const scrollWrapper = document.querySelector('.horizontal-scroll-wrapper');
+            const horizontalScroll = document.querySelector('.horizontal-scroll');
+
+            if (scrollWrapper && window.innerWidth > 768) {
+                // Converte a rolagem vertical (deltaY) em rolagem horizontal (scrollLeft) para o wrapper.
+                scrollWrapper.addEventListener('wheel', (evt) => {
+                    if (evt.deltaY !== 0) {
+                        evt.preventDefault();
+                        scrollWrapper.scrollLeft += evt.deltaY * 1.5; // Multiplicador para ajustar a velocidade
+                    }
+                }, { passive: false });
+            }
+
+            // --- SCROLLSPY - MARCAR LINK ATIVO ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                rootMargin: '-40% 0px -60% 0px',
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>

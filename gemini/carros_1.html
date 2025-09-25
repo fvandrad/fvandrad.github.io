@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carros — Velocidade, Inovação, Paixão</title>
+  <meta name="description" content="Explore o futuro da mobilidade com design arrojado, tecnologia de ponta e uma paixão inigualável por carros. Página moderna e responsiva." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      /* Paleta de cores escura e moderna */
+      --bg-dark: #0a0a0c;
+      --bg-medium: #1a1a1e;
+      --bg-light: #2a2a2e;
+      --text-light: #e0e0e0;
+      --text-muted: #a0a0a0;
+      --accent-blue: #007bff;
+      --accent-red: #ff4d4d;
+      --gradient-start: #007bff;
+      --gradient-end: #ff4d4d;
+      --shadow-dark: rgba(0, 0, 0, 0.4);
+      --shadow-light: rgba(0, 0, 0, 0.2);
+      --border-color: rgba(255, 255, 255, 0.08);
+
+      --max-width: 1200px;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --transition-speed: 0.3s;
+      --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      font-family: 'Inter', sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-size: 16px;
+      color: var(--text-light);
+      background: var(--bg-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Utilitários */
+    .container {
+      width: min(100% - 2rem, var(--max-width));
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .section {
+      padding: clamp(3rem, 8vw, 6rem) 0;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Baloo 2', sans-serif;
+      line-height: 1.1;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
+      margin: 0 0 0.8rem 0;
+    }
+    h1 { font-size: clamp(2.8rem, 7vw, 4.5rem); }
+    h2 { font-size: clamp(2rem, 5vw, 3.5rem); text-align: center; margin-bottom: 2rem; }
+    h3 { font-size: clamp(1.4rem, 3vw, 2rem); }
+    p { margin: 0.4rem 0 1.2rem; color: var(--text-muted); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-speed) var(--ease-out-quad);
+      box-shadow: 0 8px 20px var(--shadow-dark);
+      border: 2px solid transparent;
+      will-change: transform, box-shadow;
+    }
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px var(--shadow-dark);
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+      color: var(--bg-dark);
+    }
+    .btn-secondary {
+      background: var(--bg-medium);
+      color: var(--accent-blue);
+      border-color: var(--accent-blue);
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(10, 10, 12, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 15px var(--shadow-dark);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-light);
+      text-decoration: none;
+    }
+    .logo i {
+      color: var(--accent-red);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      transition: color var(--transition-speed);
+      position: relative;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-light);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-red));
+      transition: width var(--transition-speed);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: clamp(4rem, 10vw, 8rem) 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-content h1 {
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-red));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-content p {
+      max-width: 55ch;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .hero-image-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 15px 40px var(--shadow-dark);
+      transform: perspective(1000px) rotateY(8deg);
+      transition: transform 0.6s var(--ease-out-quad);
+    }
+    .hero-image-wrap:hover {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.9) contrast(1.1);
+      transition: transform 1s var(--ease-out-quad);
+    }
+    .hero-image-wrap:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Features Section */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .feature-card {
+      background: var(--bg-medium);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: 0 8px 25px var(--shadow-dark);
+      border: 1px solid var(--border-color);
+      transition: transform var(--transition-speed) var(--ease-out-quad), box-shadow var(--transition-speed);
+    }
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 35px var(--shadow-dark);
+    }
+    .feature-card i {
+      font-size: 2.5rem;
+      color: var(--accent-blue);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .feature-card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+      font-size: 0.95rem;
+    }
+
+    /* Gallery Section */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .gallery-item {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 25px var(--shadow-dark);
+      transition: transform var(--transition-speed) var(--ease-out-quad), box-shadow var(--transition-speed);
+      cursor: pointer;
+    }
+    .gallery-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 35px var(--shadow-dark);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.95);
+      transition: filter var(--transition-speed);
+    }
+    .gallery-item:hover img {
+      filter: brightness(1.05);
+    }
+    .gallery-item-info {
+      background: var(--bg-medium);
+      padding: 1rem;
+    }
+    .gallery-item-info h4 {
+      margin: 0;
+      color: var(--accent-red);
+    }
+    .gallery-item-info p {
+      margin: 0.4rem 0 0;
+      font-size: 0.85rem;
+    }
+
+    /* About Section */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .about-image-wrap {
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 10px 30px var(--shadow-dark);
+    }
+    .about-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-text h3 {
+      margin-bottom: 1rem;
+    }
+
+    /* Contact Section */
+    .contact-form-wrap {
+      background: var(--bg-medium);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: 0 10px 30px var(--shadow-dark);
+      border: 1px solid var(--border-color);
+      max-width: 700px;
+      margin: 2rem auto 0;
+    }
+    .contact-form {
+      display: grid;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group label {
+      margin-bottom: 0.5rem;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.8rem 1rem;
+      color: var(--text-light);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .contact-info {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--text-muted);
+    }
+    .contact-info a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+    .contact-info a:hover {
+      color: var(--accent-red);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--bg-medium);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      margin-top: 3rem;
+    }
+    .footer a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    /* Scroll Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s var(--ease-out-quad), transform 0.8s var(--ease-out-quad);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsividade */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-content {
+        order: 2;
+      }
+      .hero-image-wrap {
+        order: 1;
+        transform: none;
+        margin-bottom: 2rem;
+      }
+      .hero-image-wrap:hover {
+        transform: none;
+      }
+      .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .about-image-wrap {
+        margin: 0 auto 2rem;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(10, 10, 12, 0.95);
+        border-top: 1px solid var(--border-color);
+        padding: 1rem 0;
+        box-shadow: 0 4px 15px var(--shadow-dark);
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .nav-links a {
+        padding: 0.8rem 1rem;
+        text-align: center;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+      h2 { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+      .features-grid, .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo">
+        <i class="fa-solid fa-car"></i>
+        <span>Carros</span>
+      </a>
+      <nav class="nav-links" id="main-nav">
+        <a href="#hero" class="active">Início</a>
+        <a href="#features">Destaques</a>
+        <a href="#gallery">Modelos</a>
+        <a href="#about">A Experiência</a>
+        <a href="#contact">Contato</a>
+      </nav>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <h1>Velocidade, Inovação, Paixão.</h1>
+          <p>Explore o futuro da mobilidade com design arrojado, tecnologia de ponta e uma paixão inigualável por carros. Cada detalhe, uma obra de arte.</p>
+          <div class="hero-actions">
+            <a href="#gallery" class="btn btn-primary">
+              <i class="fa-solid fa-magnifying-glass"></i> Ver Modelos
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <i class="fa-solid fa-calendar-check"></i> Agendar Test Drive
+            </a>
+          </div>
+        </div>
+        <div class="hero-image-wrap reveal">
+          <img src="https://images.unsplash.com/photo-1583121274602-3e2820c691e7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Carro esportivo moderno em alta velocidade" loading="eager">
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+      <div class="container">
+        <h2 class="reveal">Destaques da Engenharia Automotiva</h2>
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <i class="fa-solid fa-gauge-high"></i>
+            <h3>Performance Inigualável</h3>
+            <p>Motores potentes e aerodinâmica otimizada para uma experiência de condução emocionante e precisa.</p>
+          </div>
+          <div class="feature-card reveal">
+            <i class="fa-solid fa-microchip"></i>
+            <h3>Tecnologia de Ponta</h3>
+            <p>Sistemas de assistência ao motorista, conectividade avançada e interfaces intuitivas para o seu conforto.</p>
+          </div>
+          <div class="feature-card reveal">
+            <i class="fa-solid fa-palette"></i>
+            <h3>Design Arrojado</h3>
+            <p>Linhas fluidas, acabamentos premium e uma estética que captura olhares e define tendências.</p>
+          </div>
+          <div class="feature-card reveal">
+            <i class="fa-solid fa-leaf"></i>
+            <h3>Sustentabilidade</h3>
+            <p>Inovação em veículos elétricos e híbridos, reduzindo o impacto ambiental sem comprometer a potência.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+      <div class="container">
+        <h2 class="reveal">Nossos Modelos em Destaque</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Carro esportivo vermelho" loading="lazy">
+            <div class="gallery-item-info">
+              <h4>Esportivo GT</h4>
+              <p>Potência e elegância em perfeita sintonia.</p>
+            </div>
+          </div>
+          <div class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1549399590-e0474320959f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="SUV de luxo preto" loading="lazy">
+            <div class="gallery-item-info">
+              <h4>SUV Premium</h4>
+              <p>Conforto e versatilidade para todas as suas jornadas.</p>
+            </div>
+          </div>
+          <div class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1593290297519-c7020835f11a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Carro elétrico futurista" loading="lazy">
+            <div class="gallery-item-info">
+              <h4>Elétrico Vision</h4>
+              <p>O futuro da mobilidade, silencioso e poderoso.</p>
+            </div>
+          </div>
+          <div class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Carro clássico azul" loading="lazy">
+            <div class="gallery-item-info">
+              <h4>Clássico Reborn</h4>
+              <p>A nostalgia encontra a tecnologia moderna.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="reveal">A Experiência de Dirigir</h2>
+        <div class="about-content">
+          <div class="about-image-wrap reveal">
+            <img src="https://images.unsplash.com/photo-1542239600-999908170281?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Interior de carro de luxo" loading="lazy">
+          </div>
+          <div class="about-text reveal">
+            <h3>Mais que um Veículo, um Estilo de Vida</h3>
+            <p>Acreditamos que dirigir deve ser uma experiência que transcende o simples ato de locomoção. É sobre a liberdade da estrada, a emoção da velocidade e o conforto de um interior projetado para você. Nossos carros são construídos com paixão, engenharia de precisão e um olhar atento ao futuro.</p>
+            <p>Junte-se a uma comunidade de entusiastas que valorizam a inovação, o design e a performance. Descubra o carro que não apenas te leva a lugares, mas te inspira a ir além.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="reveal">Fale Conosco ou Agende seu Test Drive</h2>
+        <div class="contact-form-wrap reveal">
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="name">Nome Completo</label>
+              <input type="text" id="name" name="name" placeholder="Seu nome" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Assunto</label>
+              <input type="text" id="subject" name="subject" placeholder="Interesse em modelo, test drive, etc.">
+            </div>
+            <div class="form-group">
+              <label for="message">Mensagem</label>
+              <textarea id="message" name="message" placeholder="Sua mensagem aqui..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem
+            </button>
+          </form>
+          <p class="contact-info">
+            Ou ligue para nós: <a href="tel:+5511999999999">(11) 99999-9999</a> | E-mail: <a href="mailto:contato@carros.com">contato@carros.com</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 Carros. Todos os direitos reservados. | <a href="#">Política de Privacidade</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll para links de âncora e destaque do menu
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section');
+    const header = document.querySelector('.header');
+    const headerHeight = header.offsetHeight;
+
+    function updateActiveLink() {
+      let currentActive = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - headerHeight - 20; // Ajuste para a altura do header
+        const sectionBottom = sectionTop + section.offsetHeight;
+        if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+          currentActive = section.id;
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(currentActive)) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const offsetTop = targetElement.offsetTop - headerHeight;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+        // Fecha o menu mobile após o clique
+        const mobileMenu = document.getElementById('main-nav');
+        if (mobileMenu.classList.contains('open')) {
+          mobileMenu.classList.remove('open');
+          document.querySelector('.menu-toggle').setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    window.addEventListener('scroll', updateActiveLink);
+    updateActiveLink(); // Chama na carga da página para definir o estado inicial
+
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      mainNav.classList.toggle('open');
+    });
+
+    // Scroll Reveal Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.1 }); // Ajuste o threshold conforme necessário
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // Placeholder para simulação de envio de formulário
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Mensagem enviada com sucesso! (Simulação)');
+        this.reset();
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Clara - Designer de Interiores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Reset e Variáveis Globais --- */
+        :root {
+            --primary-color: #2c3e50; /* Azul escuro/cinza */
+            --secondary-color: #bdc3c7; /* Cinza claro */
+            --accent-color: #c0a080; /* Dourado/Bege sofisticado */
+            --white-color: #ffffff;
+            --text-color: #34495e;
+            --light-gray: #ecf0f1;
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; /* Ajuste para o header fixo */
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--text-color);
+            background-color: var(--white-color);
+        }
+
+        /* --- Header e Navegação --- */
+        .header {
+            background-color: var(--white-color);
+            border-bottom: 1px solid var(--light-gray);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 400;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* --- Seções --- */
+        main {
+            padding-top: 80px; /* Espaço para o header fixo */
+        }
+
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0; /* Para animação de scroll */
+            transform: translateY(20px); /* Para animação de scroll */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 10px auto 0;
+        }
+
+        /* --- Seção Hero --- */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1854&q=80');
+            height: calc(100vh - 80px);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white-color);
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #a88869;
+            transform: translateY(-3px);
+        }
+
+        /* --- Seção Sobre --- */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-image {
+            flex: 1;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        .about-text {
+            flex: 1.5;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* --- Seção Portfólio --- */
+        #portfolio {
+            background-color: var(--light-gray);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: var(--white-color);
+            padding: 40px 20px 20px;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        /* --- Seção Contato --- */
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 5px;
+            font-family: var(--font-family);
+            font-size: 1rem;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-form button {
+            align-self: center;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--light-gray);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: var(--white-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 2.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="#home" class="nav-logo">Ana Clara</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link">Início</a></li>
+                <li class="nav-item"><a href="#sobre" class="nav-link">Sobre</a></li>
+                <li class="nav-item"><a href="#portfolio" class="nav-link">Portfólio</a></li>
+                <li class="nav-item"><a href="#contato" class="nav-link">Contato</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Transformando espaços, criando lares.</h1>
+                <p>Design de interiores que reflete sua personalidade e estilo de vida.</p>
+                <a href="#contato" class="cta-button">Fale Comigo</a>
+            </div>
+        </section>
+
+        <section id="sobre" class="section">
+            <h2 class="section-title">Sobre Mim</h2>
+            <div class="about-content">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=388&q=80" alt="Retrato da designer de interiores Ana Clara" class="about-image">
+                <div class="about-text">
+                    <p>Olá! Sou Ana Clara, uma designer de interiores apaixonada por criar espaços que não são apenas bonitos, mas também funcionais e inspiradores. Acredito que cada ambiente tem o poder de influenciar nosso bem-estar e nossa felicidade.</p>
+                    <p>Com anos de experiência e um olhar atento aos detalhes, meu objetivo é traduzir a personalidade e as necessidades de cada cliente em um design único e atemporal. Do conceito inicial à entrega final, trabalho em estreita colaboração com você para garantir que cada canto do seu espaço seja um reflexo do seu sonho.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section">
+            <h2 class="section-title">Portfólio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Projeto de sala de estar moderna">
+                    <div class="portfolio-overlay">
+                        <h3>Sala de Estar Moderna</h3>
+                        <p>Apartamento em São Paulo</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1556702571-3e11dd2b1a92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Projeto de cozinha gourmet">
+                    <div class="portfolio-overlay">
+                        <h3>Cozinha Gourmet</h3>
+                        <p>Residência no Rio de Janeiro</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Projeto de quarto de casal aconchegante">
+                    <div class="portfolio-overlay">
+                        <h3>Suíte Master</h3>
+                        <p>Casa de Campo em Minas Gerais</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="section">
+            <h2 class="section-title">Contato</h2>
+            <form class="contact-form" action="#" method="POST">
+                <input type="text" name="name" placeholder="Seu Nome" required>
+                <input type="email" name="email" placeholder="Seu E-mail" required>
+                <textarea name="message" placeholder="Sua Mensagem" required></textarea>
+                <button type="submit" class="cta-button">Enviar Mensagem</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Ana Clara - Designer de Interiores. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // --- Menu Hambúrguer para Mobile ---
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
+
+        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }));
+
+        // --- Animação de Scroll (Fade-in) ---
+        const sections = document.querySelectorAll('.section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1 // A seção se torna visível quando 10% dela está na tela
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+    </script>
+
+</body>
+</html>

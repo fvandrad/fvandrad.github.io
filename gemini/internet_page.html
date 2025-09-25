@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Internet Hoje: Um Retrato Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Titillium+Web:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --bg-medium: #1e1e1e;
+            --bg-light: #2d2d2d;
+            --bg-browser-frame: #252526;
+            --text-light: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-blue: #007acc;
+            --accent-green: #23d18b;
+            --accent-purple: #a476dd;
+            --font-heading: 'Titillium Web', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --radius: 8px;
+            --transition: 0.3s ease;
+            --bg-medium-translucent: rgba(30, 30, 30, 0.9);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0, 122, 204, 0.1), transparent 30%),
+                radial-gradient(circle at 75% 75%, rgba(35, 209, 139, 0.1), transparent 30%);
+            color: var(--text-light);
+            line-height: 1.7;
+            padding: 2rem;
+            transition: background-color var(--transition);
+        }
+
+        #background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .browser-window {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--bg-medium-translucent);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .browser-header {
+            background-color: var(--bg-browser-frame);
+            padding: 0.5rem 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .tabs {
+            display: flex;
+            align-items: flex-end;
+            height: 40px;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        .tabs::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--bg-light);
+            border-top-left-radius: var(--radius);
+            border-top-right-radius: var(--radius);
+            margin-right: 2px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: var(--transition);
+            white-space: nowrap;
+            border: 1px solid transparent;
+            border-bottom: none;
+            position: relative;
+            top: 1px;
+        }
+
+        .tab:hover {
+            background-color: #3a3a3a;
+            color: var(--text-light);
+        }
+
+        .tab.active {
+            background-color: var(--bg-medium-translucent);
+            color: var(--text-light);
+            border-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--bg-medium-translucent);
+        }
+
+        .tab i {
+            font-size: 0.9rem;
+        }
+
+        .browser-content {
+            padding: 2rem 2.5rem;
+            min-height: 60vh;
+        }
+
+        .page-content {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .page-content p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            max-width: 75ch;
+        }
+
+        .page-content h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--accent-purple);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--accent-purple);
+            padding-left: 0.75rem;
+        }
+
+        .page-content ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .page-content li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .page-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .browser-content {
+                padding: 1.5rem;
+            }
+            .page-header {
+                font-size: 2rem;
+            }
+            .tab {
+                padding: 0.5rem 0.75rem;
+                gap: 0.3rem;
+            }
+            .tab span {
+                display: none; /* Oculta o texto da aba em telas pequenas */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="background-animation"></canvas>
+
+    <div class="browser-window">
+        <header class="browser-header">
+            <div class="tabs">
+                <div class="tab active" data-target="social">
+                    <i class="fa-solid fa-users" style="color: #1877F2;"></i>
+                    <span>Redes Sociais</span>
+                </div>
+                <div class="tab" data-target="streaming">
+                    <i class="fa-solid fa-circle-play" style="color: #FF0000;"></i>
+                    <span>Streaming</span>
+                </div>
+                <div class="tab" data-target="cloud">
+                    <i class="fa-solid fa-cloud" style="color: #007ACC;"></i>
+                    <span>Nuvem</span>
+                </div>
+                <div class="tab" data-target="ecommerce">
+                    <i class="fa-solid fa-cart-shopping" style="color: #FF9900;"></i>
+                    <span>E-commerce</span>
+                </div>
+                <div class="tab" data-target="ai">
+                    <i class="fa-solid fa-robot" style="color: var(--accent-purple);"></i>
+                    <span>Inteligência Artificial</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="browser-content">
+            <section id="social" class="page-content active">
+                <h2 class="page-header">A Era da Conexão Social</h2>
+                <p>As redes sociais se tornaram a praça pública digital do século XXI. Elas redefiniram como nos comunicamos, consumimos notícias e formamos identidades. De plataformas baseadas em texto a ecossistemas visuais e de vídeos curtos, elas são o tecido conectivo da sociedade online moderna.</p>
+                <h3>Pilares Atuais:</h3>
+                <ul>
+                    <li><strong>Comunidades e Nichos:</strong> Além das conexões pessoais, as redes fomentam comunidades globais em torno de hobbies, profissões e interesses específicos.</li>
+                    <li><strong>Economia dos Criadores:</strong> Plataformas capacitam indivíduos a construir marcas pessoais e monetizar seu conteúdo, criando uma nova classe de empreendedores digitais.</li>
+                    <li><strong>Desafios:</strong> A desinformação, a polarização e as questões de privacidade são os grandes desafios que essas plataformas enfrentam hoje.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1974&auto=format&fit=crop" alt="Logos de várias redes sociais" class="page-image">
+            </section>
+
+            <section id="streaming" class="page-content">
+                <h2 class="page-header">O Buffet Infinito do Streaming</h2>
+                <p>A forma como consumimos mídia foi transformada. O streaming sob demanda (on-demand) destronou a TV tradicional e as mídias físicas, oferecendo catálogos vastos de filmes, séries, músicas e podcasts acessíveis instantaneamente em qualquer dispositivo.</p>
+                <h3>Características Marcantes:</h3>
+                <ul>
+                    <li><strong>Conteúdo Original:</strong> Serviços investem bilhões na produção de conteúdo exclusivo para atrair e reter assinantes, gerando uma "guerra do streaming".</li>
+                    <li><strong>Personalização:</strong> Algoritmos de recomendação analisam nossos hábitos para sugerir novos conteúdos, criando uma experiência altamente personalizada.</li>
+                    <li><strong>Acessibilidade Global:</strong> Lançamentos globais simultâneos e a disponibilidade de legendas e dublagens conectam audiências em todo o mundo.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=2070&auto=format&fit=crop" alt="Pessoa assistindo a um serviço de streaming em uma TV" class="page-image">
+            </section>
+
+            <section id="cloud" class="page-content">
+                <h2 class="page-header">A Nuvem: A Base Invisível</h2>
+                <p>A computação em nuvem é a espinha dorsal da internet moderna. De fotos de família a aplicações empresariais complexas, quase tudo que fazemos online depende de uma vasta rede de data centers espalhados pelo globo. Ela abstrai a complexidade da infraestrutura, permitindo que desenvolvedores e empresas inovem mais rápido.</p>
+                <h3>Serviços Essenciais:</h3>
+                <ul>
+                    <li><strong>Infraestrutura como Serviço (IaaS):</strong> Fornece os blocos de construção fundamentais, como servidores virtuais e armazenamento (ex: AWS, Azure, Google Cloud).</li>
+                    <li><strong>Software como Serviço (SaaS):</strong> Aplicações prontas para uso entregues pela web, como e-mail, CRM e ferramentas de colaboração (ex: Google Workspace, Salesforce).</li>
+                    <li><strong>Computação sem Servidor (Serverless):</strong> Permite executar código sem gerenciar servidores, otimizando custos e escalabilidade.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2070&auto=format&fit=crop" alt="Código de programação em um monitor com um fundo abstrato de nuvem" class="page-image">
+            </section>
+
+            <section id="ecommerce" class="page-content">
+                <h2 class="page-header">O Comércio na Ponta dos Dedos</h2>
+                <p>O e-commerce transformou o varejo em uma experiência global, 24/7. A conveniência de comprar qualquer coisa, de qualquer lugar, e receber em casa mudou os hábitos de consumo e forçou empresas tradicionais a se reinventarem digitalmente.</p>
+                <h3>Tendências Atuais:</h3>
+                <ul>
+                    <li><strong>Social Commerce:</strong> A integração de lojas diretamente em plataformas de redes sociais, tornando a jornada de descoberta à compra mais curta.</li>
+                    <li><strong>Logística Otimizada:</strong> A expectativa por entregas ultra-rápidas (no mesmo dia ou no dia seguinte) está se tornando o padrão, impulsionada por avanços em logística.</li>
+                    <li><strong>Realidade Aumentada:</strong> Permite que consumidores "experimentem" produtos virtualmente, como móveis em sua sala ou um par de tênis em seus pés, antes de comprar.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2070&auto=format&fit=crop" alt="Pessoa realizando um pagamento online com cartão de crédito" class="page-image">
+            </section>
+
+            <section id="ai" class="page-content">
+                <h2 class="page-header">A Revolução da Inteligência Artificial</h2>
+                <p>A Inteligência Artificial deixou de ser ficção científica e se tornou uma ferramenta onipresente. Ela alimenta desde os algoritmos de recomendação que vimos até os assistentes de voz em nossos bolsos e os modelos de linguagem generativa que estão redefinindo a criação de conteúdo e a programação.</p>
+                <h3>Impactos Visíveis:</h3>
+                <ul>
+                    <li><strong>IA Generativa:</strong> Modelos como GPT e DALL-E permitem a criação de texto, imagens e código de alta qualidade a partir de simples comandos, democratizando a criação.</li>
+                    <li><strong>Automação Inteligente:</strong> A IA está automatizando tarefas complexas em áreas como atendimento ao cliente (chatbots), diagnóstico médico e análise de dados.</li>
+                    <li><strong>Ética e Governança:</strong> O rápido avanço da IA traz consigo debates cruciais sobre viés algorítmico, o futuro do trabalho e a necessidade de regulamentação.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop" alt="Representação de um cérebro robótico com conexões neurais" class="page-image">
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab');
+            const pages = document.querySelectorAll('.page-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove a classe 'active' de todas as abas e páginas
+                    tabs.forEach(t => t.classList.remove('active'));
+                    pages.forEach(p => p.classList.remove('active'));
+
+                    // Adiciona a classe 'active' na aba clicada
+                    tab.classList.add('active');
+
+                    // Adiciona a classe 'active' na página correspondente
+                    const targetId = tab.getAttribute('data-target');
+                    const targetPage = document.getElementById(targetId);
+                    if (targetPage) {
+                        targetPage.classList.add('active');
+                    }
+                });
+            });
+
+            // --- Animação de Fundo Futurista ---
+            const canvas = document.getElementById('background-animation');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particlesArray;
+
+            // Propriedades das partículas
+            const particleCount = 80;
+            const particleColor = 'rgba(0, 122, 204, 0.5)';
+            const lineColor = 'rgba(0, 122, 204, 0.15)';
+
+            class Particle {
+                constructor(x, y, directionX, directionY, size) {
+                    this.x = x;
+                    this.y = y;
+                    this.directionX = directionX;
+                    this.directionY = directionY;
+                    this.size = size;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = particleColor;
+                    ctx.fill();
+                }
+                update() {
+                    if (this.x > canvas.width || this.x < 0) {
+                        this.directionX = -this.directionX;
+                    }
+                    if (this.y > canvas.height || this.y < 0) {
+                        this.directionY = -this.directionY;
+                    }
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+                    this.draw();
+                }
+            }
+
+            function init() {
+                particlesArray = [];
+                for (let i = 0; i < particleCount; i++) {
+                    let size = Math.random() * 1.5 + 1;
+                    let x = Math.random() * (innerWidth - size * 2) + size;
+                    let y = Math.random() * (innerHeight - size * 2) + size;
+                    let directionX = (Math.random() * 0.4) - 0.2;
+                    let directionY = (Math.random() * 0.4) - 0.2;
+                    particlesArray.push(new Particle(x, y, directionX, directionY, size));
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, innerWidth, innerHeight);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+            }
+
+            init();
+            animate();
+
+            window.addEventListener('resize', () => {
+                canvas.width = innerWidth;
+                canvas.height = innerHeight;
+                init();
+            });
+        });
+    </script>
+
+</body>
+</html>

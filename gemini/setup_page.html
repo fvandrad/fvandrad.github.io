@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Setup | O Espaço Perfeito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Titillium+Web:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>">
+    <style>
+        :root {
+            --bg-dark: #0d0d1a;
+            --bg-medium: #1a1a2e;
+            --bg-light: #2c2c44;
+            --text-light: #e0e0ff;
+            --text-muted: #a0a0cc;
+            --accent-cyan: #00ffff;
+            --accent-magenta: #ff00ff;
+            --accent-green: #00ff88;
+            --font-heading: 'Titillium Web', sans-serif;
+            --font-body: 'Roboto Mono', monospace;
+            --radius: 12px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- Configuração do Scroll Horizontal (Desktop) --- */
+        @media (min-width: 1025px) {
+            html {
+                height: 100%;
+                overflow: hidden; /* Previne scroll vertical na página inteira */
+            }
+
+            body {
+                height: 100%;
+                overflow-x: auto; /* Permite o scroll horizontal */
+                overflow-y: hidden; /* Esconde o scroll vertical */
+                white-space: nowrap; /* Impede que os elementos quebrem linha */
+                -webkit-overflow-scrolling: touch; /* Scroll suave em touch */
+            }
+
+            .page-wrapper {
+                display: inline-block; /* Permite que o container se expanda horizontalmente */
+                height: 100%;
+            }
+
+            main {
+                display: flex; /* Transforma o main em um container flexível horizontal */
+                height: calc(100% - 80px); /* Ajusta a altura para caber o header */
+                margin-top: 80px;
+                align-items: stretch;
+            }
+
+            .feature-section {
+                width: 50vw; /* Cada seção ocupa metade da largura da tela */
+                max-width: 700px;
+                min-width: 500px;
+                height: 100%;
+                overflow-y: auto; /* Permite scroll vertical APENAS na coluna */
+                white-space: normal; /* Permite que o texto quebre linha dentro da coluna */
+                padding: 2rem 3rem;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                flex-shrink: 0; /* Impede que as seções encolham */
+            }
+
+            .feature-section:last-of-type {
+                border-right: none;
+            }
+        }
+
+        /* --- Animação de Fundo com Canvas --- */
+        #futuristic-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Coloca o canvas atrás de todo o conteúdo */
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Header Fixo --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(13, 13, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: color var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyan);
+        }
+
+        .fullscreen-toggle {
+            margin-left: auto;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: color var(--transition), transform var(--transition);
+        }
+        .fullscreen-toggle:hover {
+            color: var(--accent-cyan);
+            transform: scale(1.1);
+        }
+        /* --- Estilos de Conteúdo das Seções --- */
+        .feature-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .feature-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.5rem;
+        }
+
+        .feature-header i {
+            font-size: 4rem;
+        }
+
+        .feature-header h2 {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .feature-section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-section ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .feature-section li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-section li::before {
+            content: '»';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            filter: saturate(1.2);
+        }
+
+        /* --- Estilização da Barra de Rolagem --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-cyan);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-magenta);
+        }
+
+        /* --- Responsividade (Mobile) --- */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none; /* Simplificando para o exemplo */
+            }
+
+            main {
+                padding-top: 80px; /* Espaço para o header fixo */
+            }
+
+            .feature-section {
+                padding: 4rem 1.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .feature-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* --- Estilos para o modo Tela Cheia --- */
+        body.fullscreen-mode {
+            overflow: hidden !important; /* Impede qualquer scroll no body */
+        }
+
+        .feature-section.fullscreen-active {
+            position: fixed;
+            top: 80px; /* Abaixo do header */
+            left: 0;
+            width: 100vw;
+            height: calc(100vh - 80px);
+            max-width: none;
+            z-index: 2000;
+            background-color: var(--bg-dark);
+            border-right: none;
+            padding: 2rem 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="futuristic-animation"></canvas>
+
+    <div class="page-wrapper">
+        <header>
+            <nav class="navbar">
+                <a href="#intro" class="logo">My<span>Setup</span></a>
+                <ul class="nav-menu">
+                    <li><a href="#intro" class="nav-link active">Início</a></li>
+                    <li><a href="#ergonomics" class="nav-link">Ergonomia</a></li>
+                    <li><a href="#hardware" class="nav-link">Hardware</a></li>
+                    <li><a href="#peripherals" class="nav-link">Periféricos</a></li>
+                    <li><a href="#ambience" class="nav-link">Ambiente</a></li>
+                    <li><a href="#personalization" class="nav-link">Personalização</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="intro" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-desktop" style="color: var(--accent-cyan);"></i>
+                    <h2>O Santuário Moderno</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>Bem-vindo ao universo dos setups. Mais do que uma mesa com um computador, seu setup é um reflexo da sua personalidade, um centro de produtividade para o trabalho e um portal para o entretenimento e a diversão.</p>
+                <p>Nesta jornada, vamos explorar os componentes que transformam um simples espaço em um ambiente perfeitamente adaptado às suas necessidades, unindo performance, conforto e estilo.</p>
+                <img src="https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg" alt="Visão ampla de um setup de computador minimalista e moderno com iluminação suave" class="feature-image">
+            </section>
+
+            <section id="ergonomics" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-chair" style="color: var(--accent-green);"></i>
+                    <h2>Ergonomia & Conforto</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>A base de qualquer bom setup é o conforto. Passar horas em frente à tela exige uma atenção especial à ergonomia para garantir saúde e bem-estar, evitando dores e aumentando o foco e a produtividade.</p>
+                <ul>
+                    <li><strong>Cadeira Ergonômica:</strong> Suporte lombar, ajustes de altura e braços são essenciais.</li>
+                    <li><strong>Altura da Mesa:</strong> Seus cotovelos devem formar um ângulo de 90 graus.</li>
+                    <li><strong>Posição do Monitor:</strong> O topo da tela na altura dos olhos para evitar tensão no pescoço.</li>
+                    <li><strong>Descanso para Pulsos:</strong> Previne lesões por esforço repetitivo (LER).</li>
+                </ul>
+                <img src="https://images.pexels.com/photos/389818/pexels-photo-389818.jpeg" alt="Pessoa trabalhando em uma mesa de altura ajustável, um exemplo de ergonomia" class="feature-image">
+            </section>
+
+            <section id="hardware" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-microchip" style="color: #0078D6;"></i>
+                    <h2>O Coração da Máquina</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>O hardware é o motor do seu setup. Seja para jogos de última geração, edição de vídeo pesada ou simplesmente para uma navegação fluida, a escolha dos componentes certos define o poder e a velocidade da sua estação de trabalho.</p>
+                <ul>
+                    <li><strong>Processador (CPU):</strong> O cérebro que executa todas as tarefas.</li>
+                    <li><strong>Placa de Vídeo (GPU):</strong> Essencial para games, design 3D e renderização.</li>
+                    <li><strong>Memória RAM:</strong> Permite que você execute múltiplos programas sem lentidão.</li>
+                    <li><strong>Armazenamento (SSD):</strong> Garante inicialização e carregamento ultra-rápidos.</li>
+                </ul>
+                <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg" alt="Close-up de uma placa-mãe de computador com CPU e memória RAM instaladas" class="feature-image">
+            </section>
+
+            <section id="peripherals" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-keyboard" style="color: #FCC624;"></i>
+                    <h2>Periféricos: A Conexão</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>Os periféricos são sua ponte de interação com o mundo digital. A escolha certa pode transformar completamente sua experiência, oferecendo precisão, conforto e uma estética que complementa seu espaço.</p>
+                <ul>
+                    <li><strong>Teclados Mecânicos:</strong> Feedback tátil e sonoro para uma digitação precisa e satisfatória.</li>
+                    <li><strong>Mouses de Precisão:</strong> Sensores de alta performance para gamers e designers.</li>
+                    <li><strong>Monitores:</strong> Telas Ultrawide para produtividade ou altas taxas de atualização para jogos.</li>
+                    <li><strong>Webcam e Microfone:</strong> Qualidade de imagem e som para reuniões e streams.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1629429408209-1f912961dbd8?q=80&w=2070&auto=format&fit=crop" alt="Setup com múltiplos monitores, teclado e mouse sobre um deskpad grande" class="feature-image">
+            </section>
+
+            <section id="ambience" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-lightbulb" style="color: var(--accent-magenta);"></i>
+                    <h2>Ambiente & Iluminação</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>A iluminação e o áudio criam a atmosfera do seu setup. Uma boa iluminação reduz o cansaço visual e pode mudar completamente o humor do ambiente, enquanto um som de qualidade proporciona imersão total.</p>
+                <ul>
+                    <li><strong>Iluminação RGB:</strong> Tiras de LED e lâmpadas inteligentes para criar cenários de cores.</li>
+                    <li><strong>Luz Principal:</strong> Uma iluminação difusa e forte para não forçar a visão.</li>
+                    <li><strong>Headsets Imersivos:</strong> Áudio espacial para jogos e cancelamento de ruído para foco.</li>
+                    <li><strong>Caixas de Som:</strong> Som de alta fidelidade para músicas e filmes.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?q=80&w=2070&auto=format&fit=crop" alt="Setup de jogos com iluminação de neon na parede e luzes RGB" class="feature-image">
+            </section>
+
+            <section id="personalization" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-palette" style="color: #A2AAAD;"></i>
+                    <h2>O Toque Pessoal</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>É aqui que seu setup se torna verdadeiramente seu. A personalização é a camada final que expressa seus gostos, hobbies e paixões, transformando um espaço de trabalho em um refúgio pessoal.</p>
+                <ul>
+                    <li><strong>Action Figures e Colecionáveis:</strong> Mostre seus personagens e franquias favoritas.</li>
+                    <li><strong>Plantas:</strong> Um toque de natureza para trazer vida e cor ao ambiente.</li>
+                    <li><strong>Quadros e Pôsteres:</strong> Arte que te inspira nas paredes.</li>
+                    <li><strong>Organização de Cabos:</strong> Um detalhe que faz toda a diferença na estética final.</li>
+                </ul>
+                <img src="https://images.pexels.com/photos/7034395/pexels-photo-7034395.jpeg" alt="Detalhe de uma prateleira de setup com action figures, plantas e decorações" class="feature-image">
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Lógica da Animação de Partículas no Canvas ---
+            const canvas = document.getElementById('futuristic-animation');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particlesArray;
+            let lightPulses = [];
+
+            // Propriedades das partículas
+            const particleCount = 100;
+            const particleColor = 'rgba(0, 255, 255, 0.4)';
+            const lineColor = 'rgba(0, 255, 255, 0.05)';
+
+            class Particle {
+                constructor(x, y, directionX, directionY, size) {
+                    this.x = x;
+                    this.y = y;
+                    this.directionX = directionX;
+                    this.directionY = directionY;
+                    this.size = size;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = particleColor;
+                    ctx.fill();
+                }
+
+                update() {
+                    if (this.x > canvas.width || this.x < 0) {
+                        this.directionX = -this.directionX;
+                    }
+                    if (this.y > canvas.height || this.y < 0) {
+                        this.directionY = -this.directionY;
+                    }
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+                    this.draw();
+                }
+            }
+
+            class LightPulse {
+                constructor(startX, startY, endX, endY) {
+                    this.startX = startX;
+                    this.startY = startY;
+                    this.endX = endX;
+                    this.endY = endY;
+                    this.progress = 0; // 0 a 1
+                    this.speed = 0.005 + Math.random() * 0.005;
+                    this.hue = Math.random() * 360;
+                }
+
+                update() {
+                    this.progress += this.speed;
+                    this.hue = (this.hue + 1) % 360;
+                    if (this.progress > 1) {
+                        this.progress = 0; // Reinicia o pulso
+                    }
+                }
+
+                draw() {
+                    const currentX = this.startX + (this.endX - this.startX) * this.progress;
+                    const currentY = this.startY + (this.endY - this.startY) * this.progress;
+
+                    ctx.beginPath();
+                    ctx.arc(currentX, currentY, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, 0.6)`;
+                    ctx.shadowColor = `hsla(${this.hue}, 100%, 50%, 0.4)`;
+                    ctx.shadowBlur = 10;
+                    ctx.fill();
+                    ctx.shadowBlur = 0; // Reset shadow
+                }
+            }
+
+            function init() {
+                particlesArray = [];
+                for (let i = 0; i < particleCount; i++) {
+                    let size = Math.random() * 2 + 1;
+                    let x = Math.random() * (innerWidth - size * 2) + size;
+                    let y = Math.random() * (innerHeight - size * 2) + size;
+                    let directionX = (Math.random() * .4) - .2;
+                    let directionY = (Math.random() * .4) - .2;
+                    particlesArray.push(new Particle(x, y, directionX, directionY, size));
+                }
+            }
+            let connectionCount = 0;
+
+            function connect() {
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a; b < particlesArray.length; b++) {
+                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                                     + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                        if (distance < (canvas.width/7) * (canvas.height/7)) {
+                            ctx.strokeStyle = lineColor;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+
+                            // Adiciona um pulso de luz a cada ~20 conexões para não sobrecarregar
+                            if (connectionCount % 20 === 0 && lightPulses.length < 50) {
+                                lightPulses.push(new LightPulse(particlesArray[a].x, particlesArray[a].y, particlesArray[b].x, particlesArray[b].y));
+                            }
+                            connectionCount++;
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, innerWidth, innerHeight);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+                // Limpa e atualiza os pulsos de luz
+                lightPulses = lightPulses.filter(p => p.progress < 1);
+                
+                for (let i = 0; i < lightPulses.length; i++) {
+                    lightPulses[i].update();
+                    lightPulses[i].draw();
+                }
+
+                connect();
+            }
+
+            init();
+            animate();
+
+
+            window.addEventListener('resize', () => {
+                canvas.width = innerWidth;
+                canvas.height = innerHeight;
+                init();
+            });
+
+            // --- Animação de Fade-in para seções ---
+            const sections = document.querySelectorAll('.feature-section');
+            const observerOptions = {
+                root: null, // usa a viewport
+                rootMargin: '0px',
+                threshold: 0.1 // 10% da seção visível
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // --- Lógica do modo Tela Cheia ---
+            const fullscreenToggles = document.querySelectorAll('.fullscreen-toggle');
+            let lastScrollLeft = 0;
+
+            fullscreenToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const section = toggle.closest('.feature-section');
+                    const body = document.body;
+
+                    if (section.classList.contains('fullscreen-active')) {
+                        // Sai da tela cheia
+                        section.classList.remove('fullscreen-active');
+                        body.classList.remove('fullscreen-mode');
+                        toggle.classList.replace('fa-compress', 'fa-expand');
+                        body.scrollLeft = lastScrollLeft; // Restaura a posição do scroll
+                    } else {
+                        // Entra em tela cheia
+                        lastScrollLeft = body.scrollLeft; // Salva a posição atual do scroll
+                        section.classList.add('fullscreen-active');
+                        body.classList.add('fullscreen-mode');
+                        toggle.classList.replace('fa-expand', 'fa-compress');
+                    }
+                });
+            });
+            // --- Lógica de Navegação e Scrollspy para Desktop ---
+            if (window.innerWidth > 1024) {
+                const navLinks = document.querySelectorAll('.nav-link');
+                const body = document.body;
+
+                // Rolagem suave ao clicar no menu
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            body.scrollTo({
+                                left: targetElement.offsetLeft,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+
+                // Scrollspy para destacar o item ativo
+                function updateActiveLink() {
+                    let currentSectionId = '';
+                    const scrollCenter = body.scrollLeft + (window.innerWidth / 2);
+
+                    sections.forEach(section => {
+                        if (section.offsetLeft <= scrollCenter) {
+                            currentSectionId = section.getAttribute('id');
+                        }
+                    });
+
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${currentSectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+
+                body.addEventListener('scroll', updateActiveLink);
+                updateActiveLink(); // Define o estado inicial
+            }
+        });
+    </script>
+
+</body>
+</html>

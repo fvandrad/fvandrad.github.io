@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub | A Plataforma do Desenvolvedor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Titillium+Web:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐙</text></svg>">
+    <style>
+        :root {
+            --bg-dark: #0d0d1a;
+            --bg-medium: #1a1a2e;
+            --bg-light: #2c2c44;
+            --text-light: #e0e0ff;
+            --text-muted: #a0a0cc;
+            --accent-cyan: #00ffff;
+            --accent-magenta: #ff00ff;
+            --accent-green: #00ff88;
+            --font-heading: 'Titillium Web', sans-serif;
+            --font-body: 'Roboto Mono', monospace;
+            --radius: 12px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- Configuração do Scroll Horizontal (Desktop) --- */
+        @media (min-width: 1025px) {
+            html {
+                height: 100%;
+                overflow: hidden; /* Previne scroll vertical na página inteira */
+            }
+
+            body {
+                height: 100%;
+                overflow-x: auto; /* Permite o scroll horizontal */
+                overflow-y: hidden; /* Esconde o scroll vertical */
+                white-space: nowrap; /* Impede que os elementos quebrem linha */
+                -webkit-overflow-scrolling: touch; /* Scroll suave em touch */
+            }
+
+            .page-wrapper {
+                display: inline-block; /* Permite que o container se expanda horizontalmente */
+                height: 100%;
+            }
+
+            main {
+                display: flex; /* Transforma o main em um container flexível horizontal */
+                height: calc(100% - 80px); /* Ajusta a altura para caber o header */
+                margin-top: 80px;
+                align-items: stretch;
+            }
+
+            .feature-section {
+                width: 50vw; /* Cada seção ocupa metade da largura da tela */
+                max-width: 700px;
+                min-width: 500px;
+                height: 100%;
+                overflow-y: auto; /* Permite scroll vertical APENAS na coluna */
+                white-space: normal; /* Permite que o texto quebre linha dentro da coluna */
+                padding: 2rem 3rem;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                flex-shrink: 0; /* Impede que as seções encolham */
+            }
+
+            .feature-section:last-of-type {
+                border-right: none;
+            }
+        }
+
+        /* --- Animação de Fundo com Canvas --- */
+        #futuristic-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Coloca o canvas atrás de todo o conteúdo */
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Header Fixo --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(13, 13, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: color var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyan);
+        }
+
+        .fullscreen-toggle {
+            margin-left: auto;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: color var(--transition), transform var(--transition);
+        }
+        .fullscreen-toggle:hover {
+            color: var(--accent-cyan);
+            transform: scale(1.1);
+        }
+        /* --- Estilos de Conteúdo das Seções --- */
+        .feature-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .feature-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.5rem;
+        }
+
+        .feature-header i {
+            font-size: 4rem;
+        }
+
+        .feature-header h2 {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .feature-section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-section ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .feature-section li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-section li::before {
+            content: '»';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            filter: saturate(1.2);
+        }
+
+        /* --- Estilização da Barra de Rolagem --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-cyan);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-magenta);
+        }
+
+        /* --- Responsividade (Mobile) --- */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none; /* Simplificando para o exemplo */
+            }
+
+            main {
+                padding-top: 80px; /* Espaço para o header fixo */
+            }
+
+            .feature-section {
+                padding: 4rem 1.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .feature-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* --- Estilos para o modo Tela Cheia --- */
+        body.fullscreen-mode {
+            overflow: hidden !important; /* Impede qualquer scroll no body */
+        }
+
+        .feature-section.fullscreen-active {
+            position: fixed;
+            top: 80px; /* Abaixo do header */
+            left: 0;
+            width: 100vw;
+            height: calc(100vh - 80px);
+            max-width: none;
+            z-index: 2000;
+            background-color: var(--bg-dark);
+            border-right: none;
+            padding: 2rem 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="futuristic-animation"></canvas>
+
+    <div class="page-wrapper">
+        <header>
+            <nav class="navbar">
+                <a href="#intro" class="logo">Git<span>Hub</span></a>
+                <ul class="nav-menu">
+                    <li><a href="#intro" class="nav-link active">Início</a></li>
+                    <li><a href="#repos" class="nav-link">Repositórios</a></li>
+                    <li><a href="#branches" class="nav-link">Branches</a></li>
+                    <li><a href="#prs" class="nav-link">Pull Requests</a></li>
+                    <li><a href="#actions" class="nav-link">Actions</a></li>
+                    <li><a href="#copilot" class="nav-link">Copilot</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="intro" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-code-branch" style="color: var(--accent-cyan);"></i>
+                    <h2>Onde o Mundo Cria</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>Bem-vindo ao GitHub, a plataforma central para desenvolvimento de software. Mais do que um simples serviço de hospedagem de código, o GitHub é o coração da comunidade open source e uma ferramenta indispensável para equipes de todos os tamanhos.</p>
+                <p>Aqui, desenvolvedores colaboram, automatizam fluxos de trabalho, revisam código e constroem o futuro da tecnologia, um commit de cada vez. Explore as ferramentas que potencializam a inovação.</p>
+                <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2088&auto=format&fit=crop" alt="Logo do GitHub em um fundo escuro com código" class="feature-image">
+            </section>
+
+            <section id="repos" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-box-archive" style="color: var(--accent-green);"></i>
+                    <h2>Repositórios</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>O repositório é o núcleo de qualquer projeto. É o seu espaço para armazenar não apenas o código, mas toda a história de desenvolvimento, documentação, issues e muito mais, tudo sob o poder do sistema de controle de versão Git.</p>
+                <ul>
+                    <li>Hospedagem de código público e privado.</li>
+                    <li>Controle de versão robusto com Git.</li>
+                    <li>Gerenciamento de issues e projetos.</li>
+                    <li>Wikis para documentação detalhada.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" alt="Laptop exibindo código em um ambiente de trabalho de desenvolvedor" class="feature-image">
+            </section>
+
+            <section id="branches" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-diagram-project" style="color: #0078D6;"></i>
+                    <h2>Branches & Merges</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>Trabalhe em novas funcionalidades ou corrija bugs de forma segura e isolada usando branches. Elas são cópias independentes do seu projeto, permitindo que você experimente sem afetar a base de código principal (main).</p>
+                <ul>
+                    <li>Desenvolvimento paralelo de features.</li>
+                    <li>Ambientes seguros para experimentação.</li>
+                    <li>Fluxo de trabalho simplificado com Git Flow.</li>
+                    <li>Fusão (merge) de alterações com confiança.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=1974&auto=format&fit=crop" alt="Diagrama abstrato representando conexões e ramificações" class="feature-image">
+            </section>
+
+            <section id="prs" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-code-pull-request" style="color: #FCC624;"></i>
+                    <h2>Pull Requests</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>Pull Requests (PRs) são o coração da colaboração no GitHub. É onde as alterações de um branch são propostas, discutidas, revisadas e, finalmente, integradas ao código principal, garantindo a qualidade e a coesão do projeto.</p>
+                <ul>
+                    <li>Revisão de código (Code Review) linha por linha.</li>
+                    <li>Discussões e sugestões diretamente no código.</li>
+                    <li>Integração com testes automatizados.</li>
+                    <li>Histórico claro de todas as decisões e mudanças.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2232&auto=format&fit=crop" alt="Duas pessoas colaborando em um laptop em um ambiente de escritório moderno" class="feature-image">
+            </section>
+
+            <section id="actions" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-robot" style="color: var(--accent-magenta);"></i>
+                    <h2>GitHub Actions</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>Automatize todo o seu fluxo de trabalho de software com GitHub Actions. Crie, teste e implante seu código diretamente do GitHub. A automação de CI/CD (Integração e Entrega Contínua) nunca foi tão integrada.</p>
+                <ul>
+                    <li>Execução de testes a cada commit.</li>
+                    <li>Build e empacotamento de aplicações.</li>
+                    <li>Deploy automático para a nuvem.</li>
+                    <li>Marketplace com milhares de ações prontas.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1934&auto=format&fit=crop" alt="Corredor de um data center com racks de servidores iluminados" class="feature-image">
+            </section>
+
+            <section id="copilot" class="feature-section">
+                <div class="feature-header">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: #A2AAAD;"></i>
+                    <h2>GitHub Copilot</h2>
+                    <i class="fa-solid fa-expand fullscreen-toggle" title="Ver em tela cheia"></i>
+                </div>
+                <p>Eleve sua produtividade com o GitHub Copilot, seu programador par com IA. Ele sugere código e funções inteiras em tempo real, diretamente no seu editor, permitindo que você se concentre na lógica de negócios.</p>
+                <ul>
+                    <li>Autocompletar de código inteligente.</li>
+                    <li>Conversão de comentários em código funcional.</li>
+                    <li>Descoberta de APIs e bibliotecas.</li>
+                    <li>Aceleração do aprendizado e da prototipagem.</li>
+                </ul>
+                <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?q=80&w=2070&auto=format&fit=crop" alt="Representação abstrata de inteligência artificial e redes neurais" class="feature-image">
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Lógica da Animação de Partículas no Canvas ---
+            const canvas = document.getElementById('futuristic-animation');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particlesArray;
+
+            // Propriedades das partículas
+            const particleCount = 100;
+            const particleColor = 'rgba(0, 255, 255, 0.4)';
+            const lineColor = 'rgba(0, 255, 255, 0.05)';
+
+            class Particle {
+                constructor(x, y, directionX, directionY, size) {
+                    this.x = x;
+                    this.y = y;
+                    this.directionX = directionX;
+                    this.directionY = directionY;
+                    this.size = size;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = particleColor;
+                    ctx.fill();
+                }
+
+                update() {
+                    if (this.x > canvas.width || this.x < 0) {
+                        this.directionX = -this.directionX;
+                    }
+                    if (this.y > canvas.height || this.y < 0) {
+                        this.directionY = -this.directionY;
+                    }
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+                    this.draw();
+                }
+            }
+
+            function init() {
+                particlesArray = [];
+                for (let i = 0; i < particleCount; i++) {
+                    let size = Math.random() * 2 + 1;
+                    let x = Math.random() * (innerWidth - size * 2) + size;
+                    let y = Math.random() * (innerHeight - size * 2) + size;
+                    let directionX = (Math.random() * .4) - .2;
+                    let directionY = (Math.random() * .4) - .2;
+                    particlesArray.push(new Particle(x, y, directionX, directionY, size));
+                }
+            }
+
+            function connect() {
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a; b < particlesArray.length; b++) {
+                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                                     + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                        if (distance < (canvas.width/7) * (canvas.height/7)) {
+                            ctx.strokeStyle = lineColor;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, innerWidth, innerHeight);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+                connect();
+            }
+
+            init();
+            animate();
+
+            window.addEventListener('resize', () => {
+                canvas.width = innerWidth;
+                canvas.height = innerHeight;
+                init();
+            });
+
+            // --- Animação de Fade-in para seções ---
+            const sections = document.querySelectorAll('.feature-section');
+            const observerOptions = {
+                root: null, // usa a viewport
+                rootMargin: '0px',
+                threshold: 0.1 // 10% da seção visível
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // --- Lógica do modo Tela Cheia ---
+            const fullscreenToggles = document.querySelectorAll('.fullscreen-toggle');
+            let lastScrollLeft = 0;
+
+            fullscreenToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const section = toggle.closest('.feature-section');
+                    const body = document.body;
+
+                    if (section.classList.contains('fullscreen-active')) {
+                        // Sai da tela cheia
+                        section.classList.remove('fullscreen-active');
+                        body.classList.remove('fullscreen-mode');
+                        toggle.classList.replace('fa-compress', 'fa-expand');
+                        body.scrollLeft = lastScrollLeft; // Restaura a posição do scroll
+                    } else {
+                        // Entra em tela cheia
+                        lastScrollLeft = body.scrollLeft; // Salva a posição atual do scroll
+                        section.classList.add('fullscreen-active');
+                        body.classList.add('fullscreen-mode');
+                        toggle.classList.replace('fa-expand', 'fa-compress');
+                    }
+                });
+            });
+            // --- Lógica de Navegação e Scrollspy para Desktop ---
+            if (window.innerWidth > 1024) {
+                const navLinks = document.querySelectorAll('.nav-link');
+                const body = document.body;
+
+                // Rolagem suave ao clicar no menu
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            body.scrollTo({
+                                left: targetElement.offsetLeft,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+
+                // Scrollspy para destacar o item ativo
+                function updateActiveLink() {
+                    let currentSectionId = '';
+                    const scrollCenter = body.scrollLeft + (window.innerWidth / 2);
+
+                    sections.forEach(section => {
+                        if (section.offsetLeft <= scrollCenter) {
+                            currentSectionId = section.getAttribute('id');
+                        }
+                    });
+
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${currentSectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+
+                body.addEventListener('scroll', updateActiveLink);
+                updateActiveLink(); // Define o estado inicial
+            }
+        });
+    </script>
+
+</body>
+</html>

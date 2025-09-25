@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sofia Alencar | Design de Interiores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- VARIÁVEIS E RESET --- */
+        :root {
+            --color-bg: #fdfcfb;
+            --color-text: #2d2d2d;
+            --color-accent: #bda07e; /* Dourado/Bronze suave */
+            --color-card-bg: #ffffff;
+            --color-border: #e9e9e9;
+            --color-white: #fff;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
+            --transition-main: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-soft: 0 8px 25px rgba(0,0,0,0.07);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- COMPONENTES GLOBAIS --- */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: clamp(2.8rem, 6vw, 4.5rem); }
+        h2 { font-size: clamp(2.2rem, 5vw, 3rem); text-align: center; margin-bottom: 3rem; }
+        h3 { font-size: 1.5rem; }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--color-text);
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition-main);
+            border: 1px solid var(--color-text);
+        }
+
+        .btn:hover {
+            background: var(--color-bg);
+            color: var(--color-text);
+            transform: translateY(-3px);
+        }
+
+        /* --- ANIMAÇÃO DE ENTRADA --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- HEADER --- */
+        .main-header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: background-color 0.3s, padding 0.3s, box-shadow 0.3s;
+        }
+
+        .main-header.scrolled {
+            background-color: rgba(253, 252, 251, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-decoration: none;
+            color: var(--color-text);
+        }
+
+        .main-nav a {
+            color: var(--color-text);
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transition: var(--transition-main);
+        }
+
+        .main-nav a:hover::after, .main-nav a.active::after {
+            width: 100%;
+        }
+
+        /* --- HERO --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--color-white);
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg') no-repeat center center/cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-top: 1rem;
+        }
+
+        /* --- SOBRE --- */
+        #sobre .about-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        #sobre img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* --- PORTFÓLIO --- */
+        #portfolio {
+            background-color: var(--color-bg);
+        }
+
+        .portfolio-grid {
+            columns: 3;
+            column-gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            margin-bottom: 1.5rem;
+            break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            color: var(--color-white);
+            opacity: 0;
+            transition: var(--transition-main);
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        /* --- CONTATO --- */
+        .contact-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            background: var(--color-card-bg);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .contact-wrapper p {
+            margin-bottom: 2rem;
+        }
+
+        .contact-wrapper .btn {
+            width: 100%;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+            #sobre .about-wrapper {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .portfolio-grid {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav { display: none; } /* Simplificação. Um menu hamburger seria ideal. */
+            .portfolio-grid {
+                columns: 1;
+            }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#hero" class="logo">Sofia Alencar</a>
+            <nav class="main-nav">
+                <a href="#sobre">Sobre</a>
+                <a href="#portfolio">Portfólio</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="reveal">
+            <div class="hero-content">
+                <h1>Design que inspira. Ambientes que acolhem.</h1>
+                <p>Criamos interiores que contam a sua história, unindo estética, funcionalidade e conforto.</p>
+            </div>
+        </section>
+
+        <section id="sobre">
+            <div class="container">
+                <div class="about-wrapper reveal">
+                    <div class="about-text">
+                        <h2>Sobre Sofia Alencar</h2>
+                        <p>Com uma paixão por transformar casas em lares, dedico-me a criar projetos que refletem a alma de seus moradores. Cada espaço é uma tela em branco, onde combino texturas, cores e luz para construir ambientes que não são apenas belos, mas também cheios de vida e significado.</p>
+                        <a href="#contato" class="btn">Vamos criar juntos?</a>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.pexels.com/photos/271743/pexels-photo-271743.jpeg" alt="Ambiente de sala de estar elegante">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="container">
+                <h2 class="reveal">Projetos Recentes</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg" alt="Projeto de sala de estar com sofá cinza">
+                        <div class="portfolio-overlay"><h4>Design 01</h4></div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg" alt="Projeto de sala de jantar com cadeiras amarelas">
+                        <div class="portfolio-overlay"><h4>Design 02</h4></div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/276566/pexels-photo-276566.jpeg" alt="Projeto de quarto com cama de casal">
+                        <div class="portfolio-overlay"><h4>Design 03</h4></div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/276554/pexels-photo-276554.jpeg" alt="Projeto de área de leitura com poltrona">
+                        <div class="portfolio-overlay"><h4>Design 04</h4></div>
+                    </div>
+                     <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/1571459/pexels-photo-1571459.jpeg" alt="Projeto de sala de jantar com mesa de madeira">
+                        <div class="portfolio-overlay"><h4>Design 05</h4></div>
+                    </div>
+                     <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/276671/pexels-photo-276671.jpeg" alt="Projeto de escritório com decoração">
+                        <div class="portfolio-overlay"><h4>Design 06</h4></div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/276551/pexels-photo-276551.jpeg" alt="Projeto de sala de estar com poltrona amarela">
+                        <div class="portfolio-overlay"><h4>Design 07</h4></div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.pexels.com/photos/276553/pexels-photo-276553.jpeg" alt="Projeto de cozinha com ilha central">
+                        <div class="portfolio-overlay"><h4>Design 08</h4></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato">
+            <div class="container">
+                <div class="contact-wrapper reveal">
+                    <h2>Vamos dar vida ao seu espaço?</h2>
+                    <p>Estou pronta para ouvir suas ideias e transformá-las em um projeto único. Entre em contato para agendarmos uma conversa.</p>
+                    <a href="mailto:contato@sofiaalencar.design" class="btn">Enviar um E-mail</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sofia Alencar Interiores. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- EFEITO DE HEADER AO ROLAR ---
+            const header = document.querySelector('.main-header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            // --- ANIMAÇÃO DE REVELAR AO ROLAR ---
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // --- SCROLLSPY - MARCAR LINK ATIVO ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.main-nav a');
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-50% 0px -50% 0px' });
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Rossi - Designer de Interiores</title>
+    <style>
+        /* --- GERAL E RESET --- */
+        :root {
+            --color-primary: #333;
+            --color-secondary: #f4f4f4;
+            --color-accent: #c5a47e;
+            --color-white: #fff;
+            --font-main: 'Poppins', sans-serif;
+            --font-headings: 'Playfair Display', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-primary);
+            background-color: var(--color-white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-headings);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        section {
+            padding: 100px 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* --- FONTES DO GOOGLE --- */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+        /* --- HEADER E NAVEGAÇÃO --- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s, padding 0.3s;
+        }
+
+        .main-header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 40px;
+        }
+
+        .logo {
+            font-family: var(--font-headings);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--color-primary);
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .main-nav li {
+            margin-left: 30px;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--color-primary);
+            font-weight: 400;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transition: width 0.3s;
+        }
+
+        .main-nav a:hover::after, .main-nav a.active::after {
+            width: 100%;
+        }
+
+        /* --- SEÇÃO HERO --- */
+        #hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=2127&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--color-white);
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* --- SEÇÃO SOBRE --- */
+        #sobre .container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* --- SEÇÃO PORTFÓLIO --- */
+        #portfolio {
+            background-color: var(--color-secondary);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 2rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            color: var(--color-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        /* --- SEÇÃO CONTATO --- */
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: var(--font-main);
+        }
+
+        .contact-form button {
+            padding: 15px;
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #b18f6a;
+        }
+
+        /* --- FOOTER --- */
+        .main-footer {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2rem;
+            }
+
+            .main-header {
+                padding: 15px 20px;
+            }
+
+            .main-nav {
+                display: none; /* Escondido em mobile, pode ser implementado com JS para um menu hamburguer */
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            #sobre .container {
+                flex-direction: column;
+            }
+
+            .about-image {
+                margin-top: 30px;
+                max-width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <a href="#hero" class="logo">Ana Rossi</a>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#portfolio">Portfólio</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Transformando espaços, criando lares.</h1>
+                <p>Design de interiores que reflete sua personalidade e estilo de vida.</p>
+            </div>
+        </section>
+
+        <section id="sobre">
+            <div class="container">
+                <div class="about-text">
+                    <h2>Sobre Mim</h2>
+                    <p>Olá! Sou Ana Rossi, uma designer de interiores apaixonada por criar espaços que não são apenas bonitos, mas também funcionais e acolhedores. Com mais de 10 anos de experiência, meu objetivo é entender a sua visão e transformá-la em uma realidade que você amará por muitos anos.</p>
+                    <p>Acredito que cada casa tem uma história para contar, e meu trabalho é ajudar a escrevê-la através de cores, texturas e layout inteligente.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" alt="Foto da designer Ana Rossi">
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="container">
+                <h2>Meu Portfólio</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=2080&auto=format&fit=crop" alt="Projeto de sala de estar moderna">
+                        <div class="portfolio-overlay"><h3>Sala de Estar Moderna</h3></div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1615873968403-89e068629265?q=80&w=1932&auto=format&fit=crop" alt="Projeto de cozinha minimalista">
+                        <div class="portfolio-overlay"><h3>Cozinha Minimalista</h3></div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16433d?q=80&w=1972&auto=format&fit=crop" alt="Projeto de quarto aconchegante">
+                        <div class="portfolio-overlay"><h3>Quarto Aconchegante</h3></div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=1964&auto=format&fit=crop" alt="Projeto de banheiro elegante">
+                        <div class="portfolio-overlay"><h3>Banheiro Elegante</h3></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato">
+            <div class="container">
+                <h2>Entre em Contato</h2>
+                <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem;">Vamos conversar sobre o seu projeto? Preencha o formulário abaixo e entrarei em contato em breve.</p>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" name="name" placeholder="Seu Nome" required>
+                    <input type="email" name="email" placeholder="Seu E-mail" required>
+                    <textarea name="message" rows="5" placeholder="Sua Mensagem" required></textarea>
+                    <button type="submit">Enviar Mensagem</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 Ana Rossi - Designer de Interiores. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.main-header');
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.main-nav a');
+            const contactForm = document.getElementById('contactForm');
+
+            // Adiciona sombra ao header ao rolar
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Animação de 'fade in' para seções ao rolar
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Manipulação do formulário de contato
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Em um projeto real, aqui você enviaria os dados para um servidor.
+                alert('Obrigado pelo seu contato! Mensagem enviada com sucesso.');
+                contactForm.reset();
+            });
+        });
+    </script>
+
+</body>
+</html>
