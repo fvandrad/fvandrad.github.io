@@ -54,7 +54,8 @@ Este é um site moderno e minimalista que exibe uma coleção de 16 projetos org
 - [IA](https://fvandrad.github.io/ia/)
 - [Notebook](https://fvandrad.github.io/notebook/)
 
-
+### Projetos Gemini (20 projetos)
+- [Lista 25/09/2025](https://fvandrad.github.io/gemini/README.md)
 
 ### Projetos IA 2025 novos (29 projetos)
 
