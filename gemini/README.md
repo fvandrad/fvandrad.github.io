@@ -22,6 +22,7 @@ Este repositório contém uma coleção de páginas da web criadas com a assist�
 *   [**Internet Page**](https://fvandrad.github.io/gemini/internet_page.html): Uma página da web sobre a internet.
 *   [**Metaverse Page**](https://fvandrad.github.io/gemini/metaverse_page.html): Uma página da web sobre o metaverso.
 *   [**OS Page**](https://fvandrad.github.io/gemini/os_page.html): Uma página da web sobre sistemas operacionais.
+*   [**Pipoca Page**](https://fvandrad.github.io/gemini/pipoca_page.html): Uma página da web sobre pipoca.
 *   [**Setup Page**](https://fvandrad.github.io/gemini/setup_page.html): Uma página da web sobre um setup.
 *   [**Time Travel Page**](https://fvandrad.github.io/gemini/time_travel_page.html): Uma página da web sobre viagem no tempo.
 *   [**Videogames Page**](https://fvandrad.github.io/gemini/videogames_page.html): Uma página da web sobre videogames.
