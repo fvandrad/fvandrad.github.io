@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Economia dos Criadores — A Nova Fronteira Digital</title>
+  <meta name="description" content="Explore a ascensão da Creator Economy, onde paixão se transforma em profissão. Uma página moderna sobre o futuro do trabalho e do entretenimento.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+
+  <style>
+    :root {
+      /* Paleta de cores vibrante e escura */
+      --bg-dark: #0f0f1f;
+      --bg-medium: #1c1c3c;
+      --text-light: #f0f0ff;
+      --text-muted: #b0b0d0;
+      --accent-purple: #9d6cff;
+      --accent-pink: #ff6cbf;
+      --accent-cyan: #6cfff4;
+      --shadow-color: rgba(157, 108, 255, 0.1);
+
+      --max-width: 1200px;
+      --radius: 12px;
+      --transition-speed: 0.4s;
+      --ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1);
+
+      --font-heading: 'Titillium Web', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-light);
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(157, 108, 255, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(255, 108, 191, 0.15), transparent 40%);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Utilitários */
+    .container {
+      width: min(100% - 2.5rem, var(--max-width));
+      margin-inline: auto;
+    }
+    .section {
+      padding: clamp(4rem, 8vw, 6rem) 0;
+    }
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      line-height: 1.2;
+      font-weight: 900;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+    h1 { 
+      font-size: clamp(3rem, 7vw, 4.5rem); 
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    h2 { font-size: clamp(2.2rem, 5vw, 3rem); text-align: center; margin-bottom: 3rem; }
+    h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); color: var(--accent-cyan); }
+    p { color: var(--text-muted); max-width: 65ch; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 1.8rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      text-decoration: none;
+      transition: all var(--transition-speed) var(--ease-out-cubic);
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+      color: var(--text-light);
+      border: 2px solid transparent;
+      box-shadow: 0 4px 15px var(--shadow-color);
+    }
+    .btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px var(--shadow-color);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: rgba(15, 15, 31, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo span {
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.5rem 0.8rem;
+      transition: color var(--transition-speed);
+      position: relative;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-light);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: var(--accent-pink);
+      transition: width var(--transition-speed);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--text-light);
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: -2;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 15, 31, 0.6);
+      background-color: rgba(15, 15, 31, 0.85);
+      z-index: -1;
+    }
+    .hero-content {
+      /* Garante que o conteúdo fique acima do vídeo/overlay */
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .hero-content p {
+      max-width: 55ch;
+      margin: 1rem auto 2rem;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    /* Seções */
+    #pillars {
+      background-color: var(--bg-medium);
+    }
+
+    /* Grid de Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .card {
+      background: var(--bg-dark);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform var(--transition-speed) var(--ease-out-cubic), box-shadow var(--transition-speed) var(--ease-out-cubic);
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 20px var(--shadow-color);
+    }
+    .card i {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 0.95rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Seção de Estatísticas */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .stats-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .stats-image video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.6);
+    }
+    .stats-content h3 {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+    .stat-item {
+      margin-bottom: 1.5rem;
+    }
+    .stat-item .number {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: block;
+      line-height: 1;
+    }
+    .stat-item .label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Seção Futuro */
+    .future-content {
+      text-align: center;
+    }
+    .future-content p {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--bg-dark);
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer p {
+      color: var(--text-muted);
+    }
+    .social-links {
+      margin-top: 1rem;
+    }
+    .social-links a {
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      margin: 0 0.75rem;
+      transition: color var(--transition-speed);
+    }
+    .social-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* Animação de Scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s var(--ease-out-cubic), transform 1s var(--ease-out-cubic);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(15, 15, 31, 0.98);
+        backdrop-filter: blur(5px);
+        transition: right 0.5s var(--ease-out-cubic);
+      }
+      .nav-links.open {
+        display: flex;
+        right: 0;
+      }
+      .nav-links a {
+        font-size: 1.5rem;
+        margin: 1rem 0;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .stats-image {
+        order: -1; /* Move a imagem para cima no mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo">
+        <i class="fa-solid fa-rocket"></i>
+        <span>Creator<span>Verse</span></span>
+      </a>
+      <nav class="nav-links" id="main-nav">
+        <a href="#hero" class="active">Início</a>
+        <a href="#pillars">Pilares</a>
+        <a href="#stats">Crescimento</a>
+        <a href="#future">Futuro</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <video autoplay loop muted playsinline class="hero-video">
+        <source src="videos/graph.mp4" type="video/mp4">
+        Seu navegador não suporta a tag de vídeo.
+      </video>
+      <div class="hero-overlay"></div>
+
+      <div class="container hero-content">
+        <h1>A Economia dos Criadores</h1>
+        <p>Uma nova era onde indivíduos transformam suas paixões em profissões, construindo comunidades e redefinindo o futuro do trabalho e do entretenimento digital.</p>
+        <a href="#pillars" class="btn">Descubra Como</a>
+      </div>
+    </section>
+
+    <!-- Pillars Section -->
+    <section id="pillars" class="section">
+      <div class="container">
+        <h2 class="reveal">Os Pilares da Creator Economy</h2>
+        <div class="cards-grid">
+          <div class="card reveal">
+            <i class="fa-solid fa-users-line"></i>
+            <h3>Plataformas Digitais</h3>
+            <p>De redes sociais a plataformas de vídeo e newsletters, a tecnologia fornece o palco para criadores alcançarem uma audiência global instantaneamente.</p>
+          </div>
+          <div class="card reveal">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+            <h3>Monetização Direta</h3>
+            <p>Modelos como assinaturas, doações, vendas de produtos e conteúdo exclusivo permitem que criadores gerem receita diretamente de sua comunidade.</p>
+          </div>
+          <div class="card reveal">
+            <i class="fa-solid fa-comments"></i>
+            <h3>Comunidade Engajada</h3>
+            <p>O verdadeiro ativo de um criador. Uma comunidade fiel e engajada que não apenas consome, mas também participa, apoia e co-cria.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="section">
+      <div class="container">
+        <h2 class="reveal">Um Mercado em Crescimento Exponencial</h2>
+        <div class="stats-grid">
+          <div class="stats-content reveal">
+            <h3>Números que Impressionam</h3>
+            <div class="stat-item">
+              <span class="number">+250 Bilhões</span>
+              <span class="label">é o valor estimado do mercado da Creator Economy até 2027.</span>
+            </div>
+            <div class="stat-item">
+              <span class="number">+50 Milhões</span>
+              <span class="label">de pessoas no mundo se consideram criadores de conteúdo.</span>
+            </div>
+            <p>Esses dados mostram que a criação de conteúdo deixou de ser um hobby para se tornar um dos setores mais dinâmicos e promissores da economia digital global.</p>
+          </div>
+          <div class="stats-image reveal">
+            <video autoplay loop muted playsinline>
+              <source src="videos/graph.mp4" type="video/mp4">
+              Seu navegador não suporta a tag de vídeo.
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Future Section -->
+    <section id="future" class="section">
+      <div class="container future-content">
+        <h2 class="reveal">O Futuro é Descentralizado</h2>
+        <p class="reveal">A próxima onda da Creator Economy explora tecnologias como Web3, NFTs e DAOs, prometendo dar aos criadores ainda mais controle, propriedade e novas formas de interagir com suas comunidades. A revolução da propriedade digital está apenas começando.</p>
+        <a href="#" class="btn reveal">Faça Parte da Próxima Geração</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 CreatorVerse. Todos os direitos reservados.</p>
+      <div class="social-links">
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const mainNav = document.getElementById('main-nav');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const sections = document.querySelectorAll('section');
+      const header = document.querySelector('.header');
+      const headerHeight = header.offsetHeight;
+
+      // Menu Mobile
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        mainNav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      });
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mainNav.classList.contains('open')) {
+            mainNav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Scrollspy para destacar link ativo
+      function updateActiveLink() {
+        let currentSectionId = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - headerHeight - 50;
+          if (window.scrollY >= sectionTop) {
+            currentSectionId = section.id;
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${currentSectionId}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+      // Animação de Scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink(); // Estado inicial
+    });
+  </script>
+</body>
+</html>

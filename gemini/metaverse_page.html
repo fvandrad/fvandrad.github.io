@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>O Metaverso — A Próxima Fronteira Digital</title>
+  <meta name="description" content="Explore o conceito do Metaverso, suas tecnologias e o impacto futuro na sociedade. Uma página imersiva sobre a nova era da interação digital.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌌</text></svg>">
+
+  <style>
+    :root {
+      /* Paleta de cores futurista e neon */
+      --bg-dark: #0a0b1e;
+      --bg-medium: #14152c;
+      --text-light: #e0e1ff;
+      --text-muted: #a0a5d0;
+      --accent-cyan: #00f6ff;
+      --accent-magenta: #ff00c1;
+      --accent-blue: #4d57ff;
+      --shadow-color: rgba(77, 87, 255, 0.1);
+
+      --max-width: 1200px;
+      --radius: 12px;
+      --transition-speed: 0.4s;
+      --ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1);
+
+      --font-heading: 'Titillium Web', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      /* Removido o controle de overflow horizontal */
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-light);
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 20% 25%, rgba(0, 246, 255, 0.1), transparent 35%),
+        radial-gradient(circle at 80% 75%, rgba(77, 87, 255, 0.1), transparent 35%);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Utilitários */
+    .container {
+      width: min(100% - 2.5rem, var(--max-width));
+      margin-inline: auto;
+    }
+    /* Ajustes para layout de tela cheia vertical */
+    .section {
+      height: 100vh; /* Cada seção ocupa a altura total da tela */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      scroll-snap-align: start; /* Alinha a seção ao rolar */
+      position: relative;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      line-height: 1.2;
+      font-weight: 900;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+    h1 { 
+      font-size: clamp(3rem, 7vw, 4.5rem); 
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px rgba(255, 0, 193, 0.3);
+    }
+    h2 { font-size: clamp(2.2rem, 5vw, 3rem); text-align: center; margin-bottom: 3rem; }
+    h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); color: var(--accent-cyan); }
+    p { color: var(--text-muted); max-width: 65ch; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 1.8rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      text-decoration: none;
+      transition: all var(--transition-speed) var(--ease-out-cubic);
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-magenta));
+      color: var(--text-light);
+      border: 2px solid transparent;
+      box-shadow: 0 4px 15px var(--shadow-color);
+    }
+    .btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px var(--shadow-color);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000; /* Garante que o header fique sobre o conteúdo */
+      background-color: rgba(10, 11, 30, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo span {
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.5rem 0.8rem;
+      transition: color var(--transition-speed);
+      position: relative;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-light);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: var(--accent-magenta);
+      transition: width var(--transition-speed);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100vh; /* Mantém a altura mínima */
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--text-light);
+      overflow: hidden;
+      background-color: var(--bg-dark); /* Cor de fundo sólida */
+    }
+    #pyramid-background {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(10, 11, 30, 0.7);
+      z-index: -1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .hero-content p {
+      max-width: 55ch;
+      margin: 1rem auto 2rem;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    /* Seções */
+    #pillars {
+      background-color: var(--bg-medium);
+    }
+
+    /* Grid de Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .card {
+      background: var(--bg-dark);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform var(--transition-speed) var(--ease-out-cubic), box-shadow var(--transition-speed) var(--ease-out-cubic);
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 20px var(--shadow-color);
+    }
+    .card i {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 0.95rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Seção de Impacto */
+    .impact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .impact-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .impact-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .impact-text ul {
+      list-style: none;
+      padding: 0;
+    }
+    .impact-text li {
+      position: relative;
+      padding-left: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    .impact-text li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent-cyan);
+      font-weight: bold;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--bg-dark);
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer p {
+      color: var(--text-muted);
+    }
+
+    /* --- Botões de Navegação Flutuantes --- */
+    .nav-arrows {
+        position: fixed;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-arrow {
+        width: 45px;
+        height: 45px;
+        background-color: rgba(20, 21, 44, 0.7);
+        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+        transition: all var(--transition-speed) var(--ease-out-cubic);
+    }
+
+    .nav-arrow:hover {
+        background-color: var(--accent-blue);
+        color: var(--text-light);
+        transform: scale(1.1);
+    }
+
+    .nav-arrow.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+    /* --- Estilização da Barra de Rolagem --- */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-cyan);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-magenta);
+    }
+
+    /* O Efeito de Snap na rolagem vertical foi removido para permitir uma navegação mais fluida. */
+
+    /* Animação de Scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s var(--ease-out-cubic), transform 1s var(--ease-out-cubic);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(10, 11, 30, 0.98);
+        backdrop-filter: blur(5px);
+        transition: right 0.5s var(--ease-out-cubic);
+      }
+      .nav-links.open {
+        display: flex;
+        right: 0;
+      }
+      .nav-links a {
+        font-size: 1.5rem;
+        margin: 1rem 0;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .impact-content {
+        grid-template-columns: 1fr; /* Coluna única no mobile */
+      }
+      .impact-image {
+        order: -1; /* Move a imagem para cima no mobile */
+        margin-bottom: 2rem;
+      }
+      /* Ajusta as seções para não terem altura fixa no mobile */
+      .section {
+        height: auto;
+        padding: 5rem 1.5rem;
+      }
+      /* Reposiciona os botões de navegação no mobile */
+      .nav-arrows {
+        top: auto;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botões de Navegação de Seção -->
+  <div class="nav-arrows">
+      <button id="prev-section-btn" class="nav-arrow" title="Seção Anterior">
+          <i class="fas fa-chevron-up"></i>
+      </button>
+      <button id="next-section-btn" class="nav-arrow" title="Próxima Seção">
+          <i class="fas fa-chevron-down"></i>
+      </button>
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo">
+        <i class="fa-solid fa-vr-cardboard"></i>
+        <span>Meta<span>Verse</span></span>
+      </a>
+      <nav class="nav-links" id="main-nav">
+        <a href="#hero" class="active">Início</a>
+        <a href="#pillars">Pilares</a>
+        <a href="#impact">Impacto</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <canvas id="pyramid-background"></canvas>
+
+      <div class="container hero-content">
+        <h1>O Metaverso</h1>
+        <p>Uma rede expansiva de mundos virtuais 3D persistentes e renderizados em tempo real, onde a identidade, os objetos e a história continuam. A próxima evolução da internet está sendo construída.</p>
+        <a href="#pillars" class="btn">Entenda os Conceitos</a>
+      </div>
+    </section>
+
+    <!-- Pillars Section -->
+    <section id="pillars" class="section">
+      <div class="container">
+        <h2 class="reveal">Os Pilares do Metaverso</h2>
+        <div class="cards-grid">
+          <div class="card reveal">
+            <i class="fa-solid fa-cubes"></i>
+            <h3>Mundos Virtuais</h3>
+            <p>Ambientes 3D imersivos e persistentes onde os usuários, através de avatares, podem interagir entre si e com o ambiente de formas complexas.</p>
+          </div>
+          <div class="card reveal">
+            <i class="fa-solid fa-handshake"></i>
+            <h3>Interoperabilidade</h3>
+            <p>A capacidade de mover avatares e ativos digitais (como roupas e itens) de forma transparente entre diferentes mundos e plataformas virtuais.</p>
+          </div>
+          <div class="card reveal">
+            <i class="fa-solid fa-coins"></i>
+            <h3>Economia Digital</h3>
+            <p>Sistemas econômicos funcionais, baseados em criptomoedas e NFTs, que permitem aos usuários criar, possuir, vender e investir em ativos digitais.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="section">
+      <div class="container">
+        <h2 class="reveal">O Impacto no Mundo Real</h2>
+        <div class="impact-content">
+          <div class="impact-text reveal">
+            <h3>Redefinindo a Interação Humana</h3>
+            <p>O Metaverso promete transformar a maneira como trabalhamos, socializamos, aprendemos e nos divertimos. As barreiras geográficas se dissolvem, abrindo novas possibilidades para colaboração e experiências compartilhadas.</p>
+            <ul>
+              <li><strong>Trabalho Remoto:</strong> Escritórios virtuais imersivos para colaboração mais natural.</li>
+              <li><strong>Educação:</strong> Aulas práticas e simulações em ambientes virtuais seguros.</li>
+              <li><strong>Entretenimento:</strong> Shows, eventos esportivos e jogos com um novo nível de imersão.</li>
+              <li><strong>Comércio:</strong> Lojas virtuais onde é possível experimentar produtos digitalmente.</li>
+            </ul>
+          </div>
+          <div class="impact-image reveal">
+            <img src="images/pessoa-usando-um-headset-de-realidade-vi.png" alt="Pessoa usando um headset de realidade virtual" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 MetaVerse. A exploração do futuro digital.</p>
+    </div>
+  </footer>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const menuToggle = document.querySelector('.menu-toggle');
+          const mainNav = document.getElementById('main-nav');
+          const navLinks = document.querySelectorAll('.nav-links a');
+          const sections = document.querySelectorAll('section[id]'); // Seleciona apenas seções com ID
+          const heroSection = document.getElementById('hero');
+          const header = document.querySelector('.header');
+
+          // --- 1. Lógica do Menu Mobile ---
+          menuToggle.addEventListener('click', () => {
+              const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+              mainNav.classList.toggle('open');
+              menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+          });
+
+          // --- 2. Lógica de Navegação com Rolagem Suave ---
+          navLinks.forEach(link => {
+              link.addEventListener('click', (e) => {
+                  const targetId = link.getAttribute('href');
+                  const targetSection = document.querySelector(targetId);
+
+                  if (targetSection) {
+                      e.preventDefault(); // Previne o salto brusco do link
+
+                      // Rola suavemente para a seção
+                      window.scrollTo({
+                          top: targetSection.offsetTop,
+                          behavior: 'smooth'
+                      });
+
+                      // Fecha o menu mobile após o clique
+                      if (mainNav.classList.contains('open')) {
+                          mainNav.classList.remove('open');
+                          menuToggle.setAttribute('aria-expanded', 'false');
+                      }
+                  }
+              });
+          });
+
+          // --- 3. Lógica de Destaque do Link Ativo (Scrollspy) ---
+          const observerOptions = {
+              root: null, // Observa em relação à viewport
+              rootMargin: '0px',
+              threshold: 0.6 // A seção precisa estar 60% visível para ser considerada "ativa"
+          };
+
+          const sectionObserver = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      const currentSectionId = entry.target.getAttribute('id');
+                      navLinks.forEach(link => {
+                          link.classList.remove('active');
+                          if (link.getAttribute('href') === `#${currentSectionId}`) {
+                              link.classList.add('active');
+                          }
+                      });
+                  }
+              });
+          }, observerOptions);
+
+          sections.forEach(section => {
+              sectionObserver.observe(section);
+          });
+
+          // --- 4. Animação de Revelar Conteúdo ao Rolar ---
+          const revealObserver = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                      entry.target.classList.add('in-view');
+                  }
+              });
+          }, { threshold: 0.15 });
+
+          document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+          // --- 6. Lógica dos Botões de Navegação de Seção ---
+          const prevBtn = document.getElementById('prev-section-btn');
+          const nextBtn = document.getElementById('next-section-btn');
+
+          function updateArrowVisibility() {
+              const scrollY = window.scrollY;
+              const windowHeight = window.innerHeight;
+              const pageHeight = document.documentElement.scrollHeight;
+
+              // Botão para cima (anterior)
+              if (scrollY < 50) {
+                  prevBtn.classList.add('hidden');
+              } else {
+                  prevBtn.classList.remove('hidden');
+              }
+
+              // Botão para baixo (próximo)
+              if (scrollY + windowHeight >= pageHeight - 50) {
+                  nextBtn.classList.add('hidden');
+              } else {
+                  nextBtn.classList.remove('hidden');
+              }
+          }
+
+          function scrollToSection(direction) {
+              const currentScroll = window.scrollY;
+              let targetSection = null;
+
+              if (direction === 'next') {
+                  // Encontra a próxima seção que está abaixo da posição atual
+                  targetSection = Array.from(sections).find(s => s.offsetTop > currentScroll + 1);
+              } else {
+                  // Encontra a seção anterior (a última cuja parte superior está acima da posição atual)
+                  const prevSections = Array.from(sections).filter(s => s.offsetTop < currentScroll - 1);
+                  if (prevSections.length > 0) {
+                      targetSection = prevSections[prevSections.length - 1];
+                  }
+              }
+
+              if (targetSection) {
+                  // Ajusta a posição da rolagem para compensar o header fixo
+                  const headerOffset = 80; // Altura do header
+                  const elementPosition = targetSection.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                  // A rolagem para a primeira seção não precisa de ajuste
+                  const targetTop = targetSection.id === 'hero' ? 0 : offsetPosition;
+
+                  window.scrollTo({
+                      top: targetTop,
+                      behavior: 'smooth'
+                  });
+              }
+          }
+
+          nextBtn.addEventListener('click', () => {
+              scrollToSection('next');
+          });
+
+          prevBtn.addEventListener('click', () => {
+              scrollToSection('previous');
+          });
+
+          window.addEventListener('scroll', updateArrowVisibility);
+          // Define o estado inicial dos botões ao carregar a página
+          updateArrowVisibility();
+
+          // --- 5. Novo Efeito de Fundo com Pirâmides ---
+          const canvas = document.getElementById('pyramid-background');
+          if (canvas) {
+              const ctx = canvas.getContext('2d');
+              let pyramids = [];
+              const pyramidCount = 100;
+              const fov = 250; // Campo de visão (Field of View)
+              let centerX, centerY;
+
+              class Pyramid {
+                  constructor() {
+                      this.init();
+                  }
+
+                  init() {
+                      this.x = (Math.random() - 0.5) * 2000;
+                      this.y = (Math.random() - 0.5) * 2000;
+                      this.z = Math.random() * 2000;
+                      this.size = 50;
+                  }
+
+                  project() {
+                      this.z -= 5; // Velocidade do movimento
+                      if (this.z < 1) {
+                          this.init(); // Reseta a pirâmide
+                      }
+
+                      const scale = fov / (fov + this.z);
+                      const x2d = this.x * scale + centerX;
+                      const y2d = this.y * scale + centerY;
+                      const size2d = this.size * scale;
+
+                      return { x: x2d, y: y2d, size: size2d, scale: scale };
+                  }
+
+                  draw() {
+                      const proj = this.project();
+                      if (proj.x < 0 || proj.x > canvas.width || proj.y < 0 || proj.y > canvas.height) {
+                          return; // Não desenha se estiver fora da tela
+                      }
+
+                      const opacity = Math.max(0, 1 - this.z / 2000);
+                      ctx.strokeStyle = `rgba(0, 246, 255, ${opacity * 0.7})`;
+                      ctx.lineWidth = proj.scale * 1.5;
+
+                      const baseHalf = proj.size / 2;
+                      const apexY = proj.y - proj.size;
+
+                      // Pontos da base
+                      const p1 = { x: proj.x - baseHalf, y: proj.y };
+                      const p2 = { x: proj.x + baseHalf, y: proj.y };
+                      const p3 = { x: proj.x, y: proj.y + baseHalf * 0.5 }; // Ponto de profundidade simulado
+
+                      // Ápice
+                      const apex = { x: proj.x, y: apexY };
+
+                      ctx.beginPath();
+                      // Linhas da base
+                      ctx.moveTo(p1.x, p1.y);
+                      ctx.lineTo(p2.x, p2.y);
+                      ctx.moveTo(p2.x, p2.y);
+                      ctx.lineTo(p3.x, p3.y);
+                      ctx.moveTo(p3.x, p3.y);
+                      ctx.lineTo(p1.x, p1.y);
+
+                      // Linhas para o ápice
+                      ctx.moveTo(p1.x, p1.y);
+                      ctx.lineTo(apex.x, apex.y);
+                      ctx.moveTo(p2.x, p2.y);
+                      ctx.lineTo(apex.x, apex.y);
+                      ctx.moveTo(p3.x, p3.y);
+                      ctx.lineTo(apex.x, apex.y);
+                      ctx.stroke();
+                  }
+              }
+
+              function setup() {
+                  canvas.width = window.innerWidth;
+                  canvas.height = window.innerHeight;
+                  centerX = canvas.width / 2;
+                  centerY = canvas.height / 2;
+                  pyramids = Array.from({ length: pyramidCount }, () => new Pyramid());
+              }
+
+              function loop() {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  pyramids.forEach(p => p.draw());
+                  requestAnimationFrame(loop);
+              }
+
+              window.addEventListener('resize', setup);
+              setup();
+              loop();
+          }
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A Evolução dos Videogames — Do Pixel à Realidade Virtual</title>
+  <meta name="description" content="Explore a fascinante jornada dos videogames, desde os clássicos de 8-bit até as imersivas experiências de VR. Uma página moderna e responsiva sobre a história dos games." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+
+  <style>
+    :root {
+      /* Paleta de cores Neon/Dark */
+      --bg-dark: #0d0d1a;
+      --bg-medium: #1a1a2e;
+      --text-light: #e0e0ff;
+      --text-muted: #a0a0cc;
+      --accent-cyan: #00ffff;
+      --accent-magenta: #ff00ff;
+      --accent-green: #00ff88;
+      --shadow-color: rgba(0, 255, 255, 0.1);
+
+      --max-width: 1200px;
+      --radius: 12px;
+      --transition-speed: 0.4s;
+      --ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1);
+
+      --font-heading: 'Titillium Web', sans-serif;
+      --font-body: 'Roboto Mono', monospace;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-light);
+      background: var(--bg-dark);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Utilitários */
+    .container {
+      width: min(100% - 2.5rem, var(--max-width));
+      margin-inline: auto;
+    }
+    .section {
+      padding: clamp(4rem, 8vw, 6rem) 0;
+    }
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      line-height: 1.2;
+      font-weight: 900;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(3rem, 7vw, 4.5rem); }
+    h2 { font-size: clamp(2.2rem, 5vw, 3rem); text-align: center; margin-bottom: 3rem; }
+    h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); color: var(--accent-cyan); }
+    p { color: var(--text-muted); max-width: 65ch; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 1.8rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      text-decoration: none;
+      transition: all var(--transition-speed) var(--ease-out-cubic);
+      background: var(--accent-cyan);
+      color: var(--bg-dark);
+      border: 2px solid var(--accent-cyan);
+      box-shadow: 0 4px 15px var(--shadow-color);
+    }
+    .btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px var(--shadow-color);
+      background: var(--accent-magenta);
+      border-color: var(--accent-magenta);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: rgba(13, 13, 26, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo span {
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.5rem 0.8rem;
+      transition: color var(--transition-speed);
+      position: relative;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-light);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: var(--accent-magenta);
+      transition: width var(--transition-speed);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--text-light);
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/grande-arena-de-e-sports-com-jogadores-c.png') no-repeat center center/cover;
+    }
+    .hero-content {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .hero-content p {
+      max-width: 55ch;
+      margin: 1rem auto 2rem;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    /* Seções */
+    #eras {
+      background-color: var(--bg-medium);
+    }
+
+    /* Grid de Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .card {
+      background: var(--bg-dark);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform var(--transition-speed) var(--ease-out-cubic), box-shadow var(--transition-speed) var(--ease-out-cubic);
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 20px var(--shadow-color);
+    }
+    .card-image {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+    }
+    .card-content h3 {
+      margin-bottom: 0.5rem;
+    }
+    .card-content p {
+      font-size: 0.95rem;
+    }
+
+    /* Seção Futuro */
+    .future-content {
+      text-align: center;
+    }
+    .future-content p {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--bg-dark);
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer p {
+      color: var(--text-muted);
+    }
+    .social-links {
+      margin-top: 1rem;
+    }
+    .social-links a {
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      margin: 0 0.75rem;
+      transition: color var(--transition-speed);
+    }
+    .social-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* Animação de Scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s var(--ease-out-cubic), transform 1s var(--ease-out-cubic);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(13, 13, 26, 0.98);
+        backdrop-filter: blur(5px);
+        transition: right 0.5s var(--ease-out-cubic);
+      }
+      .nav-links.open {
+        display: flex;
+        right: 0;
+      }
+      .nav-links a {
+        font-size: 1.5rem;
+        margin: 1rem 0;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo">
+        <i class="fa-solid fa-ghost"></i>
+        <span>Game<span>Verse</span></span>
+      </a>
+      <nav class="nav-links" id="main-nav">
+        <a href="#hero" class="active">Início</a>
+        <a href="#eras">Eras</a>
+        <a href="#future">Futuro</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <div class="container hero-content">
+        <h1>A Evolução dos Videogames</h1>
+        <p>Do simples piscar de pixels à vastidão da realidade virtual, embarque em uma jornada pela incrível história que moldou o entretenimento digital.</p>
+        <a href="#eras" class="btn">Comece a Explorar</a>
+      </div>
+    </section>
+
+    <!-- Eras Section -->
+    <section id="eras" class="section">
+      <div class="container">
+        <h2 class="reveal">As Grandes Eras dos Games</h2>
+        <div class="cards-grid">
+          <div class="card reveal">
+            <img src="images/uma-paisagem-de-videogame-em-pixel-art-m.png" alt="Uma coleção de cartuchos de jogos clássicos, incluindo Nintendo e Super Nintendo, símbolos da era 8-bit e 16-bit" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3>Era 8-Bit e 16-Bit</h3>
+              <p>Onde tudo começou. Heróis icônicos nasceram em mundos de pixels coloridos, definindo gêneros e criando a base para as futuras gerações de consoles.</p>
+            </div>
+          </div>
+          <div class="card reveal">
+            <img src="images/controle-classico-do-primeiro-playstatio.png" alt="Controle clássico do primeiro PlayStation, símbolo da era 3D" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3>A Revolução 3D</h3>
+              <p>A transição para a terceira dimensão. Mundos poligonais abriram novas possibilidades de exploração e narrativa, mudando para sempre o design de jogos.</p>
+            </div>
+          </div>
+          <div class="card reveal">
+            <img src="images/grande-arena-de-e-sports-com-jogadores-c.png" alt="Grande arena de e-sports com jogadores competindo em um palco" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3>A Era Online</h3>
+              <p>A internet conectou jogadores de todo o mundo. Surgiram os MMOs, os e-sports e a jogatina multiplayer se tornou o padrão para milhões de pessoas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Future Section -->
+    <section id="future" class="section">
+      <div class="container future-content">
+        <h2 class="reveal">O Futuro é Imersivo</h2>
+        <p class="reveal">As fronteiras entre o real e o virtual estão desaparecendo. Com a ascensão da Realidade Virtual (VR), Realidade Aumentada (AR) e Cloud Gaming, a próxima geração de jogos promete experiências mais imersivas, acessíveis e interconectadas do que nunca. O jogo está apenas começando.</p>
+        <a href="#" class="btn reveal">Junte-se à Próxima Geração</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 GameVerse. Todos os direitos reservados.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
+        <a href="#" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+        <a href="#" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const mainNav = document.getElementById('main-nav');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const sections = document.querySelectorAll('section');
+      const header = document.querySelector('.header');
+      const headerHeight = header.offsetHeight;
+
+      // Menu Mobile
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        mainNav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      });
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mainNav.classList.contains('open')) {
+            mainNav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Scrollspy para destacar link ativo
+      function updateActiveLink() {
+        let currentSectionId = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - headerHeight - 50;
+          if (window.scrollY >= sectionTop) {
+            currentSectionId = section.id;
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${currentSectionId}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+      // Animação de Scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink(); // Estado inicial
+    });
+  </script>
+</body>
+</html>

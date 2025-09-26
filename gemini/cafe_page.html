@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mundo do Café — Da Semente à Xícara</title>
+  <meta name="description" content="Explore a jornada do café, desde suas origens até os métodos de preparo que encantam paladares. Uma página moderna e responsiva sobre a cultura do café." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+
+  <style>
+    :root {
+      /* Paleta de cores inspirada no café */
+      --bg-light: #fdfaf6;
+      --bg-medium: #f3efe9;
+      --text-dark: #4a2c2a; /* Marrom escuro para texto */
+      --text-light: #6e5a58;
+      --accent-primary: #a37e58; /* Marrom médio, como um latte */
+      --accent-secondary: #c89f7a; /* Marrom mais claro */
+      --white: #ffffff;
+      --shadow-color: rgba(74, 44, 42, 0.1);
+
+      --max-width: 1200px;
+      --radius: 8px;
+      --transition-speed: 0.4s;
+      --ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1);
+
+      font-family: 'Poppins', sans-serif;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-size: 16px;
+      color: var(--text-dark);
+      background: var(--bg-light);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Utilitários */
+    .container {
+      width: min(100% - 2.5rem, var(--max-width));
+      margin-inline: auto;
+    }
+    .section {
+      padding: clamp(4rem, 8vw, 6rem) 0;
+    }
+    h1, h2, h3 {
+      font-family: 'Lora', serif;
+      line-height: 1.2;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(2.8rem, 6vw, 4.2rem); }
+    h2 { font-size: clamp(2.2rem, 5vw, 3rem); text-align: center; margin-bottom: 3rem; }
+    h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); }
+    p { color: var(--text-light); max-width: 65ch; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 1.8rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-speed) var(--ease-out-cubic);
+      background: var(--accent-primary);
+      color: var(--white);
+      border: 2px solid var(--accent-primary);
+      box-shadow: 0 4px 15px var(--shadow-color);
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px var(--shadow-color);
+      background: #8e6a48;
+      border-color: #8e6a48;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: rgba(253, 250, 246, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--bg-medium);
+      transition: all 0.3s ease;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .logo {
+      font-family: 'Lora', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 0.8rem;
+      transition: color var(--transition-speed);
+      position: relative;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-dark);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: var(--accent-primary);
+      transition: width var(--transition-speed);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 60%;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-dark);
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--white);
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/xicara-de-cafe-com-graos-de-cafe-em-uma-mesa-de-madeira.png') no-repeat center center/cover;
+    }
+    .hero-content {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .hero-content p {
+      max-width: 55ch;
+      margin: 1rem auto 2rem;
+      color: var(--bg-light);
+    }
+
+    /* Sections Genéricas */
+    #origins, #methods, #culture {
+      background-color: var(--white);
+    }
+    #methods {
+      background-color: var(--bg-medium);
+    }
+
+    /* Grid de Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 5px 20px var(--shadow-color);
+      transition: transform var(--transition-speed) var(--ease-out-cubic), box-shadow var(--transition-speed) var(--ease-out-cubic);
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px var(--shadow-color);
+    }
+    .card-image {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+    }
+    .card-content h3 {
+      margin-bottom: 0.5rem;
+    }
+    .card-content p {
+      font-size: 0.95rem;
+    }
+
+    /* Seção de Origens */
+    .origins-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .origins-text { text-align: left; }
+    .origins-text p { margin-left: 0; }
+    .origins-image-wrap img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px var(--shadow-color);
+    }
+
+    /* Seção Cultura */
+    .culture-content {
+      text-align: center;
+    }
+    .culture-content p {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--text-dark);
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--bg-medium);
+    }
+    .footer p {
+      color: var(--text-light);
+    }
+    .social-links {
+      margin-top: 1rem;
+    }
+    .social-links a {
+      color: var(--bg-medium);
+      font-size: 1.5rem;
+      margin: 0 0.75rem;
+      transition: color var(--transition-speed);
+    }
+    .social-links a:hover {
+      color: var(--accent-secondary);
+    }
+
+    /* Animação de Scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s var(--ease-out-cubic), transform 1s var(--ease-out-cubic);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsividade */
+    @media (max-width: 992px) {
+      .origins-content {
+        grid-template-columns: 1fr;
+      }
+      .origins-image-wrap {
+        order: -1;
+        margin-bottom: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(253, 250, 246, 0.98);
+        backdrop-filter: blur(5px);
+        transition: right 0.5s var(--ease-out-cubic);
+      }
+      .nav-links.open {
+        display: flex;
+        right: 0;
+      }
+      .nav-links a {
+        font-size: 1.5rem;
+        margin: 1rem 0;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo">
+        <i class="fa-solid fa-mug-hot"></i>
+        <span>Café & Prosa</span>
+      </a>
+      <nav class="nav-links" id="main-nav">
+        <a href="#hero" class="active">Início</a>
+        <a href="#origins">Origens</a>
+        <a href="#methods">Métodos</a>
+        <a href="#culture">Cultura</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <div class="container hero-content">
+        <h1>A Jornada do Café</h1>
+        <p>Da semente à xícara, uma celebração da bebida que desperta o mundo. Descubra histórias, sabores e aromas que conectam pessoas e culturas.</p>
+        <a href="#origins" class="btn">Explore a História</a>
+      </div>
+    </section>
+
+    <!-- Origins Section -->
+    <section id="origins" class="section">
+      <div class="container">
+        <h2 class="reveal">O Berço de um Gigante</h2>
+        <div class="origins-content">
+          <div class="origins-text reveal">
+            <h3>Das Montanhas da Etiópia para o Mundo</h3>
+            <p>Reza a lenda que um pastor chamado Kaldi descobriu o café no século IX, ao notar que suas cabras ficavam mais enérgicas após comerem os frutos de uma certa planta. Essa descoberta deu início a uma jornada que levaria o café a se tornar uma das commodities mais valiosas do mundo.</p>
+            <p>Da Península Arábica, onde foi cultivado e comercializado pela primeira vez, o café viajou para a Europa, Ásia e Américas, transformando-se em um ritual diário para bilhões de pessoas.</p>
+          </div>
+          <div class="origins-image-wrap reveal">
+            <img src="images/graos_de_cafe_sendo_torrados.png" alt="Grãos de café sendo torrados" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Methods Section -->
+    <section id="methods" class="section">
+      <div class="container">
+        <h2 class="reveal">A Arte da Extração</h2>
+        <div class="cards-grid">
+          <div class="card reveal">
+            <img src="images/cafe-sendo-preparado-no-metodo-hario-v60.png" alt="Café sendo preparado no método Hario V60" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3>Métodos Filtrados</h3>
+              <p>Como o Hario V60 e a Chemex, destacam a acidez e as notas florais do café, resultando em uma bebida limpa e delicada.</p>
+            </div>
+          </div>
+          <div class="card reveal">
+            <img src="images/cafe-espresso-sendo-extraido-de-uma-maqu.png" alt="Café espresso sendo extraído de uma máquina" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3>Espresso</h3>
+              <p>Uma extração rápida sob alta pressão que cria uma bebida concentrada e intensa, base para lattes, cappuccinos e muito mais.</p>
+            </div>
+          </div>
+          <div class="card reveal">
+            <img src="images/cafe_sendo_preparado_em_uma_prensa_francesa.png" alt="Café sendo preparado em uma Prensa Francesa" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3>Prensa Francesa</h3>
+              <p>Um método de imersão que produz um café encorpado e rico em óleos, com uma textura mais densa e sabor robusto.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" class="section">
+      <div class="container culture-content">
+        <h2 class="reveal">Mais que uma Bebida, uma Cultura</h2>
+        <p class="reveal">As cafeterias se tornaram as "terceiras casas" da sociedade moderna: espaços para trabalhar, socializar, relaxar e, claro, apreciar uma boa xícara de café. Do "fika" sueco ao rápido espresso italiano no balcão, cada cultura tem sua própria maneira de celebrar este ritual.</p>
+        <a href="#" class="btn reveal">Junte-se à Comunidade</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Café & Prosa. Todos os direitos reservados.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const mainNav = document.getElementById('main-nav');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const sections = document.querySelectorAll('section');
+      const header = document.querySelector('.header');
+      const headerHeight = header.offsetHeight;
+
+      // Menu Mobile
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        mainNav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      });
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mainNav.classList.contains('open')) {
+            mainNav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Scrollspy para destacar link ativo
+      function updateActiveLink() {
+        let currentSectionId = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - headerHeight - 50;
+          if (window.scrollY >= sectionTop) {
+            currentSectionId = section.id;
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${currentSectionId}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+      // Animação de Scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink(); // Estado inicial
+    });
+  </script>
+</body>
+</html>
