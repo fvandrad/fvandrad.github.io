@@ -3,29 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reino Animal — Uma Aventura pela Natureza</title>
+    <title>Reino Animal — Uma Aventura Noturna</title>
     <meta name="description" content="Explore o incrível mundo dos animais com uma página divertida, colorida e responsiva. Descubra mamíferos, aves, répteis, uma galeria de fotos e a importância da conservação.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         /* --- 🎨 Paleta de Cores e Variáveis Globais --- */
         :root {
-            --cor-fundo: #F8FFF4; /* Verde muito claro */
-            --cor-texto: #2C3E50; /* Azul ardósia escuro */
-            --cor-titulo: #16A085; /* Verde mar */
-            --cor-primaria: #F39C12; /* Laranja cenoura */
-            --cor-secundaria: #3498DB; /* Azul céu */
-            --cor-acento-1: #E74C3C; /* Vermelho alizarina */
-            --cor-acento-2: #9B59B6; /* Roxo ametista */
-            --cor-card: #FFFFFF;
-            --cor-sombra: rgba(44, 62, 80, 0.1);
-            --raio-borda: 20px;
-            --fonte-titulo: 'Poppins', sans-serif;
-            --fonte-corpo: 'Nunito', sans-serif;
+            --cor-fundo: #0a0a0c;
+            --cor-fundo-medio: #1a1a1e;
+            --cor-texto: #e0e0e0;
+            --cor-texto-suave: #a0a0a0;
+            --cor-primaria: #007bff; /* Azul vibrante */
+            --cor-secundaria: #ff4d4d; /* Vermelho vibrante */
+            --cor-card: #1a1a1e;
+            --cor-sombra: rgba(0, 0, 0, 0.4);
+            --cor-borda: rgba(255, 255, 255, 0.08);
+            --raio-borda: 16px;
+            --fonte-titulo: 'Titillium Web', sans-serif;
+            --fonte-corpo: 'Inter', sans-serif;
+            --transicao: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         /* --- ⚙️ Reset e Configurações Base --- */
@@ -37,13 +41,14 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 80px;
         }
 
         body {
             font-family: var(--fonte-corpo);
             background-color: var(--cor-fundo);
             color: var(--cor-texto);
-            line-height: 1.7;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
@@ -54,20 +59,21 @@
         }
 
         section {
-            padding: 6rem 0;
-            padding: 7rem 0;
+            padding: clamp(4rem, 8vw, 6rem) 0;
         }
 
         h1, h2, h3 {
             font-family: var(--fonte-titulo);
-            font-weight: 800;
-            color: var(--cor-titulo);
+            font-weight: 900;
+            color: var(--cor-texto);
             line-height: 1.2;
+            letter-spacing: 0.5px;
         }
 
-        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
-        h2 { font-size: clamp(2rem, 4vw, 3rem); text-align: center; margin-bottom: 3rem; }
-        h3 { font-size: 1.5rem; color: var(--cor-primaria); }
+        h1 { font-size: clamp(2.8rem, 7vw, 4.5rem); }
+        h2 { font-size: clamp(2rem, 5vw, 3.5rem); text-align: center; margin-bottom: 2rem; }
+        h3 { font-size: clamp(1.4rem, 3vw, 2rem); }
+        p { color: var(--cor-texto-suave); }
 
         /* --- ✨ Animações de Entrada --- */
         .fade-in {
@@ -86,10 +92,10 @@
             position: sticky;
             top: 0;
             width: 100%;
-            background-color: rgba(248, 255, 244, 0.85);
+            background-color: rgba(10, 10, 12, 0.8);
             backdrop-filter: blur(10px);
             z-index: 100;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--cor-borda);
         }
 
         .nav-container {
@@ -102,8 +108,8 @@
         .logo {
             font-family: var(--fonte-titulo);
             font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--cor-titulo);
+            font-weight: 900;
+            color: var(--cor-texto);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -118,7 +124,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: var(--cor-texto);
+            color: var(--cor-texto-suave);
             font-weight: 700;
             padding-bottom: 5px;
             position: relative;
@@ -131,26 +137,32 @@
             left: 0;
             width: 0;
             height: 3px;
-            background-color: var(--cor-primaria);
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+            transition: width var(--transicao);
             border-radius: 2px;
         }
 
+        .nav-links a:hover, .nav-links a.active { color: var(--cor-texto); }
         .nav-links a:hover::after, .nav-links a.active::after {
             width: 100%;
         }
 
         .hamburger-menu {
             display: none;
+            background: none;
+            border: none;
+            color: var(--cor-texto);
+            font-size: 1.8rem;
             cursor: pointer;
+            z-index: 101; /* Acima da navegação */
         }
 
         /* --- 🦁 Seção Hero --- */
         .hero {
-            height: 85vh;
-            max-height: 750px;
+            min-height: 90vh;
             display: grid;
             align-items: center;
+            justify-content: center;
             text-align: center;
             overflow: hidden;
             color: var(--cor-card); /* Texto branco para contraste com imagem */
@@ -165,8 +177,8 @@
         }
 
         .hero-background img {
-            width: 100%;
             height: 100%;
+            width: 100%;
             object-fit: cover;
             animation: kenburns 20s ease-out infinite;
         }
@@ -180,17 +192,17 @@
             content: '';
             position: absolute;
             inset: 0;
-            background-color: rgba(0, 0, 0, 0.4); /* Overlay escuro */
+            background-color: rgba(0, 0, 0, 0.5); /* Overlay escuro */
             z-index: 1;
         }
 
         .hero h1 {
-            color: var(--cor-card);
+            color: var(--cor-texto);
             text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
         }
 
         .hero p {
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--cor-texto);
             text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
         }
         .hero-content {
@@ -206,25 +218,25 @@
 
         .btn-primary {
             display: inline-block;
-            background-color: var(--cor-primaria);
-            color: white;
+            background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+            color: var(--cor-fundo);
             padding: 1rem 2.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
             font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 20px var(--cor-sombra);
+            transition: transform var(--transicao), box-shadow var(--transicao);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.5);
+            box-shadow: 0 12px 30px var(--cor-sombra);
         }
 
         /* --- 🐾 Seção de Categorias --- */
         #categorias {
-            background-color: #E8F5E9; /* Verde mais claro */
+            background-color: var(--cor-fundo-medio);
         }
 
         .categorias-grid {
@@ -235,31 +247,36 @@
 
         .categoria-card {
             background: var(--cor-card);
+            border: 1px solid var(--cor-borda);
             border-radius: var(--raio-borda);
             padding: 2rem;
             text-align: center;
-            box-shadow: 0 5px 20px var(--cor-sombra);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px var(--cor-sombra);
+            transition: transform var(--transicao), box-shadow var(--transicao);
         }
 
         .categoria-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px var(--cor-sombra);
+            box-shadow: 0 12px 35px var(--cor-sombra);
         }
 
         .categoria-card .icon {
-            width: 100px;
-            height: 100px;
+            font-size: 4rem;
             margin: 0 auto 1.5rem;
-            transition: transform 0.4s ease;
+            transition: transform var(--transicao);
+            display: inline-block;
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-
         .categoria-card:hover .icon {
             transform: scale(1.1) rotate(5deg);
         }
 
         .categoria-card h3 {
             margin-bottom: 0.5rem;
+            color: var(--cor-texto);
         }
 
         /* --- 💡 Seção de Curiosidades --- */
@@ -285,11 +302,12 @@
             display: grid;
             place-items: center;
             color: white;
+            font-size: 1.5rem;
         }
 
         .curiosidade-item h3 {
             margin-bottom: 0.25rem;
-            color: var(--cor-texto);
+            color: var(--cor-primaria);
         }
 
         .curiosidade-imagem img {
@@ -297,16 +315,15 @@
             border-radius: var(--raio-borda);
             box-shadow: 0 10px 30px var(--cor-sombra);
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: transform var(--transicao);
         }
         .curiosidade-imagem img:hover {
             transform: scale(1.03);
-            box-shadow: 0 10px 30px var(--cor-sombra);
         }
 
         /* --- 🌍 Seção de Conservação --- */
         #conservacao {
-            background: linear-gradient(135deg, var(--cor-secundaria), var(--cor-titulo));
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
             color: white;
             text-align: center;
         }
@@ -323,7 +340,7 @@
 
         /* --- 🖼️ Seção de Galeria --- */
         #galeria {
-            background-color: var(--cor-fundo);
+            background-color: var(--cor-fundo-medio);
         }
 
         .galeria-grid {
@@ -335,15 +352,15 @@
         .galeria-item {
             border-radius: var(--raio-borda);
             overflow: hidden;
-            box-shadow: 0 5px 20px var(--cor-sombra);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 8px 25px var(--cor-sombra);
+            transition: transform var(--transicao), box-shadow var(--transicao);
             height: 280px;
             cursor: pointer;
         }
 
         .galeria-item:hover {
             transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 35px rgba(44, 62, 80, 0.15);
+            box-shadow: 0 15px 35px var(--cor-sombra);
         }
 
         .galeria-item img {
@@ -351,12 +368,16 @@
             height: 100%;
             object-fit: cover;
             transition: filter 0.4s ease;
+            filter: saturate(0.8) brightness(0.9);
+        }
+        .galeria-item:hover img {
+            filter: saturate(1) brightness(1);
         }
 
         /* --- 🦶 Rodapé --- */
         footer {
-            background-color: var(--cor-texto);
-            color: var(--cor-fundo);
+            background-color: var(--cor-fundo-medio);
+            color: var(--cor-texto-suave);
             padding: 3rem 2rem;
             text-align: center;
         }
@@ -375,15 +396,15 @@
         }
 
         .footer-links a {
-            color: var(--cor-fundo);
+            color: var(--cor-texto-suave);
             text-decoration: none;
             font-weight: 600;
             opacity: 0.8;
-            transition: opacity 0.3s ease;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            opacity: 1;
+            color: var(--cor-texto);
         }
 
         /* --- 🖼️ Modal de Imagem (Lightbox) --- */
@@ -486,10 +507,10 @@
         @media (max-width: 900px) {
             .nav-links {
                 position: fixed;
-                top: 80px;
+                top: 0;
                 left: 0;
                 right: 0;
-                background-color: rgba(248, 255, 244, 0.95);
+                background-color: rgba(10, 10, 12, 0.95);
                 backdrop-filter: blur(5px);
                 flex-direction: column;
                 padding: 2rem;
@@ -497,8 +518,8 @@
                 gap: 1.5rem;
                 transform: translateY(-120%);
                 opacity: 0;
-                transition: transform 0.4s ease, opacity 0.4s ease;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+                transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s;
+                visibility: hidden;
             }
             .nav-links.nav-open {
                 transform: translateY(0);
@@ -514,7 +535,6 @@
             h1 { font-size: 2.2rem; }
             h2 { font-size: 1.8rem; }
             section { padding: 4rem 0; }
-            section { padding: 5rem 0; }
             .container { padding: 0 1rem; }
         }
     </style>
@@ -525,21 +545,20 @@
     <header class="main-header">
         <div class="container nav-container">
             <a href="#hero" class="logo">
-                <!-- Ícone de Folha/Pata -->
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1.62-2.38c.52.12,1,0.25,1.53,0.34C12.3,20.5,18,13.88,18,10H22C22,6.2,19.8,4,17,4V8z"/></svg>
+                <i class="fas fa-paw"></i>
                 Reino Animal
             </a>
             <nav>
-                <ul class="nav-links">
+                <ul class="nav-links" id="main-nav">
                     <li><a href="#categorias" class="nav-link">Categorias</a></li>
                     <li><a href="#curiosidades" class="nav-link">Curiosidades</a></li>
                     <li><a href="#galeria" class="nav-link">Galeria</a></li>
                     <li><a href="#conservacao" class="nav-link">Conservação</a></li>
                 </ul>
             </nav>
-            <div class="hamburger-menu">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
-            </div>
+            <button class="hamburger-menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
@@ -547,11 +566,13 @@
         <!-- Seção Hero -->
         <section id="hero" class="hero">
             <div class="hero-background">
-                <img src="https://images.pexels.com/photos/2220336/pexels-photo-2220336.jpeg" alt="Raposa na neve olhando para a câmera">
+                <video autoplay loop muted playsinline>
+                    <source src="videos/leao.mp4" type="video/mp4">
+                </video>
             </div>
             <div class="container hero-content">
                 <h1 class="fade-in">Uma Aventura pelo Mundo Animal</h1>
-                <p class="fade-in" style="transition-delay: 0.2s;">Descubra a diversidade, a beleza e os segredos das criaturas que compartilham o nosso planeta.</p>
+                <p class="fade-in" style="transition-delay: 0.2s;">Descubra a diversidade, a beleza e os segredos das criaturas que compartilham o nosso planeta, em uma jornada noturna pela natureza selvagem.</p>
                 <a href="#categorias" class="btn-primary fade-in" style="transition-delay: 0.4s;">Começar a Explorar</a>
             </div>
         </section>
@@ -562,26 +583,26 @@
             <div class="categorias-grid">
                 <!-- Mamíferos -->
                 <div class="categoria-card fade-in">
-                    <svg class="icon" viewBox="0 0 100 100"><text x="50" y="50" font-size="80" text-anchor="middle" dominant-baseline="central">🦁</text></svg>
-                    <h3>Mamíferos</h3>
+                    <i class="fas fa-paw icon"></i>
+                    <h3 style="color: var(--cor-primaria);">Mamíferos</h3>
                     <p>De leões majestosos a coalas sonolentos, descubra os animais que amamentam seus filhotes.</p>
                 </div>
                 <!-- Aves -->
                 <div class="categoria-card fade-in" style="transition-delay: 0.1s;">
-                    <svg class="icon" viewBox="0 0 100 100"><text x="50" y="50" font-size="80" text-anchor="middle" dominant-baseline="central">🦜</text></svg>
-                    <h3>Aves</h3>
+                    <i class="fas fa-feather-alt icon"></i>
+                    <h3 style="color: var(--cor-secundaria);">Aves</h3>
                     <p>Explore o mundo das penas, cantos e voos, das águias imponentes aos beija-flores delicados.</p>
                 </div>
                 <!-- Répteis -->
                 <div class="categoria-card fade-in" style="transition-delay: 0.2s;">
-                    <svg class="icon" viewBox="0 0 100 100"><text x="50" y="50" font-size="80" text-anchor="middle" dominant-baseline="central">🐢</text></svg>
-                    <h3>Répteis e Anfíbios</h3>
+                    <i class="fas fa-frog icon"></i>
+                    <h3 style="color: #28a745;">Répteis e Anfíbios</h3>
                     <p>Conheça as criaturas de sangue frio, como tartarugas antigas, cobras e sapos coloridos.</p>
                 </div>
                 <!-- Vida Marinha -->
                 <div class="categoria-card fade-in" style="transition-delay: 0.3s;">
-                    <svg class="icon" viewBox="0 0 100 100"><text x="50" y="50" font-size="80" text-anchor="middle" dominant-baseline="central">🐠</text></svg>
-                    <h3>Vida Marinha</h3>
+                    <i class="fas fa-fish icon"></i>
+                    <h3 style="color: #17a2b8;">Vida Marinha</h3>
                     <p>Mergulhe nos oceanos para encontrar golfinhos, peixes-palhaço e os gigantes gentis, as baleias.</p>
                 </div>
             </div>
@@ -594,7 +615,7 @@
                     <h2 style="text-align: left;" class="fade-in">Fatos Incríveis</h2>
                     <div class="curiosidade-item fade-in">
                         <div class="icon" style="background-color: var(--cor-acento-1);">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12,17.27L18.18,21L17,14.64L22,9.24L15.81,8.62L12,3L8.19,8.62L2,9.24L7,14.64L5.82,21L12,17.27Z"/></svg>
+                            <i class="fas fa-mask"></i>
                         </div>
                         <div>
                             <h3>O Polvo Mestre do Disfarce</h3>
@@ -603,7 +624,7 @@
                     </div>
                     <div class="curiosidade-item fade-in" style="transition-delay: 0.2s;">
                         <div class="icon" style="background-color: var(--cor-acento-2);">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            <i class="fas fa-hands-holding"></i>
                         </div>
                         <div>
                             <h3>O Sono das Lontras</h3>
@@ -612,7 +633,7 @@
                     </div>
                      <div class="curiosidade-item fade-in" style="transition-delay: 0.4s;">
                         <div class="icon" style="background-color: var(--cor-secundaria);">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                            <i class="fas fa-heartbeat"></i>
                         </div>
                         <div>
                             <h3>O Coração da Baleia-Azul</h3>
@@ -621,7 +642,7 @@
                     </div>
                 </div>
                 <div class="curiosidade-imagem fade-in">
-                    <img src="https://images.pexels.com/photos/1661179/pexels-photo-1661179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Arara colorida em um galho">
+                    <img src="https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" loading="lazy" alt="Leão majestoso olhando para a câmera">
                 </div>
             </div>
         </section>
@@ -630,18 +651,18 @@
         <section id="galeria" class="container">
             <h2 class="fade-in">Galeria de Fotos</h2>
             <div class="galeria-grid">
-                <div class="galeria-item fade-in"><img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg" alt="Gatinho branco e fofo"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.05s;"><img src="https://images.pexels.com/photos/47547/squirrel-animal-cute-rodents-47547.jpeg" alt="Esquilo comendo uma noz"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.1s;"><img src="https://images.pexels.com/photos/1661179/pexels-photo-1661179.jpeg" alt="Arara colorida em um galho"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.15s;"><img src="https://images.pexels.com/photos/34231/antler-antler-carrier-fallow-deer-hirsch.jpg" alt="Cervo com grandes chifres"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.2s;"><img src="https://images.pexels.com/photos/792381/pexels-photo-792381.jpeg" alt="Pantera negra com olhos amarelos"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.25s;"><img src="https://images.pexels.com/photos/67552/giraffe-tall-mammal-africa-67552.jpeg" alt="Girafa comendo folhas de uma árvore"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.3s;"><img src="https://images.pexels.com/photos/62289/yemen-chameleon-chamaeleo-calyptratus-chameleon-reptile-62289.jpeg" alt="Camaleão colorido em um galho"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.35s;"><img src="https://images.pexels.com/photos/325045/pexels-photo-325045.jpeg" alt="Raposa vermelha na neve"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.4s;"><img src="https://images.pexels.com/photos/162140/duckling-birds-yellow-fluffy-162140.jpeg" alt="Patinho amarelo fofo"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.45s;"><img src="https://images.pexels.com/photos/97533/pexels-photo-97533.jpeg" alt="Peixe-palhaço em uma anêmona"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.5s;"><img src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg" alt="Dois filhotes de cachorro Golden Retriever"></div>
-                <div class="galeria-item fade-in" style="transition-delay: 0.55s;"><img src="https://images.pexels.com/photos/17811/pexels-photo.jpg" alt="Lobo cinzento uivando"></div>
+                <div class="galeria-item fade-in"><img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg" loading="lazy" alt="Gatinho branco e fofo"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.05s;"><img src="https://images.pexels.com/photos/47547/squirrel-animal-cute-rodents-47547.jpeg" loading="lazy" alt="Esquilo comendo uma noz"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.1s;"><img src="https://images.pexels.com/photos/1661179/pexels-photo-1661179.jpeg" loading="lazy" alt="Arara colorida em um galho"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.15s;"><img src="https://images.pexels.com/photos/34231/antler-antler-carrier-fallow-deer-hirsch.jpg" loading="lazy" alt="Cervo com grandes chifres"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.2s;"><img src="https://images.pexels.com/photos/792381/pexels-photo-792381.jpeg" loading="lazy" alt="Pantera negra com olhos amarelos"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.25s;"><img src="https://images.pexels.com/photos/67552/giraffe-tall-mammal-africa-67552.jpeg" loading="lazy" alt="Girafa comendo folhas de uma árvore"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.3s;"><img src="https://images.pexels.com/photos/62289/yemen-chameleon-chamaeleo-calyptratus-chameleon-reptile-62289.jpeg" loading="lazy" alt="Camaleão colorido em um galho"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.35s;"><img src="https://images.pexels.com/photos/325045/pexels-photo-325045.jpeg" loading="lazy" alt="Raposa vermelha na neve"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.4s;"><img src="https://images.pexels.com/photos/162140/duckling-birds-yellow-fluffy-162140.jpeg" loading="lazy" alt="Patinho amarelo fofo"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.45s;"><img src="https://images.pexels.com/photos/97533/pexels-photo-97533.jpeg" loading="lazy" alt="Peixe-palhaço em uma anêmona"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.5s;"><img src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg" loading="lazy" alt="Dois filhotes de cachorro Golden Retriever"></div>
+                <div class="galeria-item fade-in" style="transition-delay: 0.55s;"><img src="https://images.pexels.com/photos/17811/pexels-photo.jpg" loading="lazy" alt="Lobo cinzento uivando"></div>
             </div>
         </section>
 
@@ -650,7 +671,7 @@
             <div class="container fade-in">
                 <h2>Proteja Nossos Amigos</h2>
                 <p>Muitas espécies estão em risco de extinção devido à ação humana. Pequenas atitudes, como reduzir o consumo de plástico, apoiar projetos de conservação e conscientizar outras pessoas, fazem uma grande diferença. Vamos juntos cuidar do nosso planeta e de todos os seus habitantes!</p>
-                <a href="#" class="btn-primary" style="background-color: white; color: var(--cor-titulo);">Saiba Como Ajudar</a>
+                <a href="#" class="btn-primary" style="background: var(--cor-fundo); color: var(--cor-texto);">Saiba Como Ajudar</a>
             </div>
         </section>
     </main>
@@ -666,6 +687,9 @@
                 <li><a href="#conservacao">Conservação</a></li>
             </ul>
             <p>&copy; 2025 Reino Animal. Criado com inspiração na natureza.</p>
+            <div class="social-links">
+                <a href="https://github.com/fvandrad" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style="color: var(--cor-texto-suave); text-decoration: none; font-size: 1.5rem; opacity: 0.8; transition: color 0.3s ease;"><i class="fab fa-github"></i></a>
+            </div>
         </div>
     </footer>
 
@@ -674,10 +698,10 @@
         <span class="close-modal" title="Fechar">&times;</span>
         <img class="modal-content" id="modal-img">
         <!-- Navegação e Controles -->
-        <a class="prev-btn" title="Anterior">&#10094;</a>
-        <a class="next-btn" title="Próximo">&#10095;</a>
+        <button class="prev-btn" title="Anterior">&#10094;</button>
+        <button class="next-btn" title="Próximo">&#10095;</button>
         <div class="autoplay-controls">
-            <a class="play-pause-btn" title="Iniciar/Pausar Autoplay">&#9658;</a> <!-- Play icon -->
+            <button class="play-pause-btn" title="Iniciar/Pausar Autoplay"><i class="fas fa-play"></i></button>
         </div>
     </div>
 
@@ -685,7 +709,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Animação de entrada ao rolar
+            // --- Animação de entrada ao rolar ---
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -698,7 +722,7 @@
                 observer.observe(element);
             });
 
-            // Destaque do menu ativo na rolagem
+            // --- Destaque do menu ativo na rolagem (Scrollspy) ---
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('.nav-link');
 
@@ -723,14 +747,25 @@
             const hamburger = document.querySelector('.hamburger-menu');
             const navMenu = document.querySelector('.nav-links');
 
-            hamburger.addEventListener('click', () => {
+            const toggleMenu = () => {
+                const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+                hamburger.setAttribute('aria-expanded', !isExpanded);
+                hamburger.querySelector('i').classList.toggle('fa-bars');
+                hamburger.querySelector('i').classList.toggle('fa-times');
                 navMenu.classList.toggle('nav-open');
+                navMenu.style.visibility = navMenu.classList.contains('nav-open') ? 'visible' : 'hidden';
+            };
+
+            hamburger.addEventListener('click', () => {
+                toggleMenu();
             });
 
             // Fecha o menu ao clicar em um link
             navMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
-                    navMenu.classList.remove('nav-open');
+                    if (navMenu.classList.contains('nav-open')) {
+                        toggleMenu();
+                    }
                 });
             });
 
@@ -741,10 +776,11 @@
             const prevBtn = document.querySelector(".prev-btn");
             const nextBtn = document.querySelector(".next-btn");
             const playPauseBtn = document.querySelector(".play-pause-btn");
+            const playPauseIcon = playPauseBtn.querySelector('i');
 
             // Pega todas as imagens clicáveis
             const clickableImages = document.querySelectorAll('.galeria-item img, .curiosidade-imagem img');
-            const imageSources = Array.from(clickableImages).map(img => ({src: img.src, alt: img.alt}));
+            const imageSources = Array.from(clickableImages).map(img => ({ src: img.src, alt: img.alt }));
             let currentIndex = 0;
             let autoplayInterval = null;
 
@@ -787,12 +823,14 @@
             }
 
             function startAutoplay() {
-                playPauseBtn.innerHTML = "&#10074;&#10074;"; // Pause icon
+                playPauseIcon.classList.replace('fa-play', 'fa-pause');
+                playPauseBtn.title = "Pausar Autoplay";
                 autoplayInterval = setInterval(nextImage, 3000); // Muda a cada 3 segundos
             }
 
             function stopAutoplay() {
-                playPauseBtn.innerHTML = "&#9658;"; // Play icon
+                playPauseIcon.classList.replace('fa-pause', 'fa-play');
+                playPauseBtn.title = "Iniciar Autoplay";
                 clearInterval(autoplayInterval);
                 autoplayInterval = null;
             }
@@ -807,6 +845,19 @@
             nextBtn.onclick = nextImage;
             playPauseBtn.onclick = toggleAutoplay;
             modal.onclick = (e) => { if (e.target === modal) fecharModal(); };
+
+            // Navegação por teclado
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === "block") {
+                    if (e.key === 'ArrowRight') {
+                        nextImage();
+                    } else if (e.key === 'ArrowLeft') {
+                        prevImage();
+                    } else if (e.key === 'Escape') {
+                        fecharModal();
+                    }
+                }
+            });
         });
     </script>
 

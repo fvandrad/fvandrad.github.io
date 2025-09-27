@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vibe — Compartilhe Momentos, Crie Conexões</title>
+  <meta name="description" content="Vibe é o novo aplicativo social para compartilhar seus melhores momentos de forma divertida e autêntica. Junte-se à comunidade e espalhe sua vibe!" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👋</text></svg>">
+
+  <style>
+    :root {
+      /* Paleta de cores vibrante e alegre */
+      --cor-laranja: #FF7A00;
+      --cor-roxo: #6A00FF;
+      --cor-amarelo: #FFD600;
+      --cor-fundo: #FFF9F0;
+      --cor-texto: #1A1A1A;
+      --cor-texto-suave: #555;
+      --cor-branco: #FFFFFF;
+      --sombra: rgba(106, 0, 255, 0.15);
+
+      --max-width: 1100px;
+      --raio-borda: 24px;
+      --transicao: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      --fonte-titulo: 'Fredoka One', cursive;
+      --fonte-corpo: 'Inter', sans-serif;
+      color-scheme: light;
+    }
+
+    /* --- Reset e Configurações Base --- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      font-family: var(--fonte-corpo);
+      font-size: 16px;
+      color: var(--cor-texto);
+      background-color: var(--cor-fundo);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* --- Utilitários --- */
+    .container {
+      width: min(100% - 3rem, var(--max-width));
+      margin-inline: auto;
+    }
+    .section {
+      padding: clamp(4rem, 8vw, 6rem) 0;
+      position: relative;
+    }
+    h1, h2, h3 {
+      font-family: var(--fonte-titulo);
+      line-height: 1.2;
+      font-weight: 400; /* Fredoka One só tem peso 400 */
+      color: var(--cor-roxo);
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(3rem, 7vw, 4.5rem); }
+    h2 { font-size: clamp(2.2rem, 5vw, 3rem); text-align: center; margin-bottom: 3rem; }
+    h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); color: var(--cor-laranja); }
+    p { color: var(--cor-texto-suave); max-width: 60ch; }
+
+    /* --- Botão Principal (CTA) --- */
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-amarelo {
+      background-color: var(--cor-amarelo);
+      color: var(--cor-texto);
+      box-shadow: 0 4px 20px rgba(255, 214, 0, 0.4);
+    }
+    .btn-amarelo:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(255, 214, 0, 0.6);
+    }
+
+    /* --- Animações de Rolagem --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- Header --- */
+    .header {
+      padding: 1.5rem 0;
+      position: absolute;
+      width: 100%;
+      z-index: 10;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: var(--fonte-titulo);
+      font-size: 2rem;
+      color: var(--cor-roxo);
+      text-decoration: none;
+    }
+
+    /* --- Seção Hero --- */
+    .hero {
+      padding-top: 120px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-video-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: -2;
+      filter: brightness(0.5);
+    }
+    .hero p {
+      margin: 1rem auto 2.5rem;
+      font-size: 1.1rem;
+      color: var(--cor-branco);
+    }
+    .hero-ilustracao {
+      position: relative;
+      margin-top: 3rem;
+    }
+    .hero-ilustracao svg {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+    }
+    .hero h1 {
+      color: var(--cor-branco);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    /* --- Seção de Features --- */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    .feature-card {
+      background: var(--cor-branco);
+      border-radius: var(--raio-borda);
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px var(--sombra);
+      transition: transform var(--transicao), box-shadow var(--transicao);
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px var(--sombra);
+    }
+    .feature-card .icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--cor-roxo);
+      display: inline-block;
+      transition: transform 0.5s ease;
+    }
+    .feature-card:hover .icon {
+      transform: rotate(10deg) scale(1.2);
+    }
+    .feature-card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    /* --- Seção de Depoimentos --- */
+    #depoimentos {
+      background-color: var(--cor-branco);
+    }
+    .depoimentos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .depoimento-card {
+      background-color: var(--cor-fundo);
+      padding: 2rem;
+      border-radius: var(--raio-borda);
+      border: 2px solid #eee;
+      position: relative;
+    }
+    .depoimento-card::before {
+      content: '“';
+      font-family: var(--fonte-titulo);
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      font-size: 5rem;
+      color: var(--cor-laranja);
+      opacity: 0.3;
+      line-height: 1;
+    }
+    .depoimento-texto {
+      position: relative;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    .depoimento-autor {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .depoimento-autor img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--cor-amarelo);
+    }
+    .autor-nome {
+      font-weight: 700;
+      color: var(--cor-roxo);
+    }
+
+    /* --- Seção CTA Final --- */
+    .cta {
+      background: linear-gradient(45deg, var(--cor-roxo), var(--cor-laranja));
+      text-align: center;
+      border-radius: var(--raio-borda);
+      padding: 4rem 2rem;
+      color: var(--cor-branco);
+    }
+    .cta h2 {
+      color: var(--cor-branco);
+      margin-bottom: 1rem;
+    }
+    .cta p {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0 auto 2.5rem;
+    }
+
+    /* --- Footer --- */
+    .footer {
+      padding: 4rem 0 2rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--fonte-titulo);
+      font-size: 1.8rem;
+      color: var(--cor-roxo);
+      margin-bottom: 1rem;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      list-style: none;
+    }
+    .social-links a {
+      color: var(--cor-texto-suave);
+      font-size: 1.5rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .social-links a:hover {
+      color: var(--cor-laranja);
+      transform: scale(1.2);
+    }
+    .copyright {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    /* --- Ilustrações e Formas de Fundo --- */
+    .bg-shape {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.1;
+      animation: float 8s ease-in-out infinite;
+    }
+    .shape1 {
+      width: 200px;
+      height: 200px;
+      background: var(--cor-amarelo);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      top: 10%;
+      left: 5%;
+    }
+    .shape2 {
+      width: 150px;
+      height: 150px;
+      background: var(--cor-laranja);
+      border-radius: 80% 20% 60% 40% / 50% 70% 30% 50%;
+      bottom: 15%;
+      right: 10%;
+      animation-delay: -4s;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* --- Responsividade --- */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.8rem; }
+      h2 { font-size: 2rem; }
+      .btn { padding: 0.8rem 2rem; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">Vibe</a>
+      <a href="#cta" class="btn btn-amarelo">Baixar Agora</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Seção Hero -->
+    <video autoplay loop muted playsinline class="hero-video-bg">
+      <source src="videos/formas.mp4" type="video/mp4">
+      Seu navegador não suporta vídeos.
+    </video>
+    <section id="hero" class="hero container">
+      <div class="hero-content">
+        <h1 class="reveal">Sua Vibe, Seu Mundo.</h1>
+        <p class="reveal" style="transition-delay: 0.1s;">Chega de posts chatos. Com o Vibe, cada momento compartilhado é uma explosão de diversão e criatividade. Conecte-se de um jeito novo!</p>
+        <a href="#cta" class="btn btn-amarelo reveal" style="transition-delay: 0.2s;">Entre na Vibe!</a>
+      </div>
+      <div class="hero-ilustracao reveal" style="transition-delay: 0.3s;">
+        <!-- Ilustração Lúdica de pessoas interagindo -->
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,150 C100,50 300,250 400,150" fill="none" stroke="#FFD600" stroke-width="10" stroke-linecap="round" stroke-dasharray="600" stroke-dashoffset="600">
+            <animate attributeName="stroke-dashoffset" from="600" to="0" dur="2s" fill="freeze" begin="0.5s" />
+          </path>
+          <path d="M20,100 C120,200 280,0 380,100" fill="none" stroke="#FF7A00" stroke-width="10" stroke-linecap="round" stroke-dasharray="10 20">
+            <animate attributeName="stroke-dashoffset" from="0" to="60" dur="3s" repeatCount="indefinite" />
+          </path>
+          <circle cx="50" cy="120" r="20" fill="#6A00FF">
+            <animate attributeName="cy" from="120" to="110" dur="2.5s" begin="0s" repeatCount="indefinite" direction="alternate" />
+          </circle>
+          <circle cx="180" cy="80" r="25" fill="#FF7A00">
+            <animate attributeName="cy" from="80" to="90" dur="3s" begin="0.5s" repeatCount="indefinite" direction="alternate" />
+          </circle>
+          <circle cx="350" cy="140" r="18" fill="#6A00FF">
+            <animate attributeName="cy" from="140" to="130" dur="2s" begin="0.2s" repeatCount="indefinite" direction="alternate" />
+          </circle>
+          <rect x="250" y="150" width="30" height="30" rx="8" fill="#FFD600" transform="rotate(45 265 165)">
+            <animateTransform attributeName="transform" type="rotate" from="45 265 165" to="405 265 165" dur="10s" repeatCount="indefinite" />
+          </rect>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Seção de Features -->
+    <section id="features" class="section container">
+      <div class="bg-shape shape1"></div>
+      <h2 class="reveal">Tudo que você precisa para brilhar</h2>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <span class="icon">🎨</span>
+          <h3>Filtros Mágicos</h3>
+          <p>Transforme suas fotos e vídeos com filtros de realidade aumentada que reagem à sua voz e movimento.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.1s;">
+          <span class="icon">🎶</span>
+          <h3>Trilhas Sonoras Épicas</h3>
+          <p>Adicione músicas que estão bombando ou crie suas próprias batidas com nosso editor de áudio integrado.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.2s;">
+          <span class="icon">🕹️</span>
+          <h3>Desafios Divertidos</h3>
+          <p>Participe de desafios diários, ganhe pontos e mostre seu talento para toda a comunidade Vibe.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Depoimentos -->
+    <section id="depoimentos" class="section">
+      <div class="container">
+        <div class="bg-shape shape2"></div>
+        <h2 class="reveal">A galera já tá no Vibe!</h2>
+        <div class="depoimentos-grid">
+          <div class="depoimento-card reveal">
+            <p class="depoimento-texto">"Finalmente um app que não me sinto pressionada a ser perfeita. Aqui eu posso ser eu mesma e me divertir de verdade!"</p>
+            <div class="depoimento-autor">
+              <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=120&h=120&dpr=2" alt="Foto de Julia">
+              <span class="autor-nome">@juliacriativa</span>
+            </div>
+          </div>
+          <div class="depoimento-card reveal" style="transition-delay: 0.1s;">
+            <p class="depoimento-texto">"Os desafios são viciantes! É a melhor parte do meu dia, sério. Já fiz vários amigos por aqui."</p>
+            <div class="depoimento-autor">
+              <img src="https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=120&h=120&dpr=2" alt="Foto de Leo">
+              <span class="autor-nome">@leogamer</span>
+            </div>
+          </div>
+          <div class="depoimento-card reveal" style="transition-delay: 0.2s;">
+            <p class="depoimento-texto">"Amo os filtros de música! Consigo criar vídeos incríveis em segundos. Minha criatividade foi pra outro nível com o Vibe."</p>
+            <div class="depoimento-autor">
+              <img src="https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=120&h=120&dpr=2" alt="Foto de Bia">
+              <span class="autor-nome">@biadanca</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção CTA Final -->
+    <section id="cta" class="section container">
+      <div class="cta reveal">
+        <h2>Pronto para espalhar sua Vibe?</h2>
+        <p>Junte-se a milhares de pessoas que estão redescobrindo a alegria de compartilhar. Baixe o Vibe agora e comece a criar!</p>
+        <a href="#" class="btn btn-amarelo">
+          <i class="fab fa-apple"></i> Baixar na App Store
+        </a>
+        <a href="#" class="btn btn-amarelo" style="margin-left: 1rem;">
+          <i class="fab fa-google-play"></i> Baixar no Google Play
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">Vibe</div>
+      <ul class="social-links">
+        <li><a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
+        <li><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="https://github.com/fvandrad" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+      </ul>
+      <p class="copyright">&copy; 2024 Vibe Inc. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animação de Scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    });
+  </script>
+
+</body>
+</html>

@@ -280,6 +280,23 @@
             border-right: none;
             padding: 2rem 3rem;
         }
+
+        .footer {
+            position: fixed;
+            bottom: 1rem;
+            right: 1.5rem;
+            z-index: 1000;
+        }
+
+        .footer a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: color var(--transition);
+        }
+
+        .footer a:hover {
+            color: var(--accent-cyan);
+        }
     </style>
 </head>
 <body>
@@ -576,5 +593,10 @@
         });
     </script>
 
+    <footer class="footer">
+        <a href="https://github.com/fvandrad" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+    </footer>
 </body>
 </html>

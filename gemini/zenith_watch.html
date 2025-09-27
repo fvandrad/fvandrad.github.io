@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith - O Futuro no seu Pulso</title>
+    <meta name="description" content="Descubra o Zenith, o relógio inteligente que combina design atemporal com tecnologia de ponta.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌚</text></svg>">
+
+    <style>
+        /* --- Variáveis e Configurações Globais --- */
+        :root {
+            --cor-fundo: #0a0a0a;
+            --cor-texto: #f0f0f0;
+            --cor-texto-suave: #888888;
+            --cor-dourado: #c5b358;
+            --cor-dourado-hover: #dcd07e;
+            --fonte-principal: 'Poppins', sans-serif;
+            --transicao-suave: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- Reset Básico --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* --- Estilos do Corpo da Página --- */
+        body {
+            font-family: var(--fonte-principal);
+            color: var(--cor-texto);
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.7)), url('images/smartwatch-zenith.png') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            text-align: center;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow: hidden; /* Evita barras de rolagem desnecessárias */
+        }
+
+        /* --- Cabeçalho --- */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--cor-texto);
+            text-decoration: none;
+        }
+
+        /* --- Conteúdo Principal --- */
+        .main-content {
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        /* --- Título e Descrição --- */
+        h1 {
+            font-weight: 200; /* Tipografia fina */
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 strong {
+            font-weight: 600;
+            color: var(--cor-dourado);
+        }
+
+        p {
+            color: var(--cor-texto-suave);
+            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 45ch;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* --- Botão de Call-to-Action (CTA) --- */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--cor-dourado);
+            color: var(--cor-fundo);
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--cor-dourado);
+            transition: background-color var(--transicao-suave), color var(--transicao-suave), transform var(--transicao-suave);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--cor-dourado);
+            transform: translateY(-3px);
+        }
+
+        /* --- Animação de Entrada --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Rodapé --- */
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+        }
+
+        .social-links a {
+            color: var(--cor-texto-suave);
+            font-size: 1.5rem;
+            transition: color var(--transicao-suave), transform var(--transicao-suave);
+        }
+
+        .social-links a:hover {
+            color: var(--cor-dourado);
+            transform: scale(1.1);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">Zenith</a>
+    </header>
+
+    <main class="main-content">
+        <h1>Elegância Atemporal, <strong>Inovação Contínua</strong>.</h1>
+        <p>Zenith é a fusão perfeita entre a arte da relojoaria clássica e a tecnologia que define o futuro. Monitore sua vida, sem perder seu estilo.</p>
+        <a href="#" class="cta-button">Comprar agora</a>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/fvandrad" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

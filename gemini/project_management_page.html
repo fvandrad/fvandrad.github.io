@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GestorPro | Software de Gestão de Projetos</title>
+    <meta name="description" content="Otimize seus projetos, colabore com sua equipe e alcance resultados incríveis com o GestorPro.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* --- Variáveis e Estilos Globais --- */
+        :root {
+            --navy-blue: #1A2C42; /* Azul marinho profundo */
+            --steel-blue: #345D9D; /* Azul aço para acentos */
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --white: #ffffff;
+            --text-color: #343a40;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+            --transition: 0.3s ease-in-out;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-color);
+            background-color: var(--white);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--navy-blue);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--steel-blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--navy-blue);
+            transform: translateY(-3px);
+        }
+
+        /* --- Header --- */
+        .header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--navy-blue);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            color: var(--steel-blue);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative; /* Necessário para o posicionamento do vídeo */
+            overflow: hidden; /* Garante que o vídeo não vaze */
+            padding: 100px 0;
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 44, 66, 0.7); /* Sobreposição com o tom azul da página */
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            color: var(--white); /* Texto branco para contraste */
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--light-gray); /* Texto cinza claro para contraste */
+            max-width: 650px;
+            margin: 0 auto 30px;
+        }
+
+        /* --- Features Section --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            color: var(--steel-blue);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        /* --- Interface Section --- */
+        .interface-image-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .interface-image-wrapper img {
+            width: 100%;
+            display: block;
+        }
+
+        #interface p {
+            text-align: center; max-width: 700px; margin: -30px auto 50px; color: var(--dark-gray);
+        }
+
+        /* --- Testimonials Section --- */
+        #testimonials {
+            background-color: var(--light-gray);
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: center;
+            border-left: 5px solid var(--steel-blue);
+        }
+
+        .testimonial-card blockquote {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--dark-gray);
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card cite {
+            font-weight: 700;
+            font-style: normal;
+            color: var(--navy-blue);
+        }
+
+        /* --- Contact Section --- */
+        .contact-form-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form-wrapper h2 {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 5px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--steel-blue);
+            box-shadow: 0 0 0 2px rgba(52, 93, 157, 0.2);
+        }
+
+        /* --- FAQ Section --- */
+        #faq {
+            background-color: var(--light-gray);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 20px 0;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--navy-blue);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question i {
+            transition: transform var(--transition);
+            color: var(--steel-blue);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+        }
+
+        .faq-answer p {
+            padding-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px; /* Ajuste conforme necessário */
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--navy-blue);
+            color: var(--light-gray);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 80px;
+        }
+
+        .footer .social-links {
+            margin-top: 15px;
+        }
+
+        .footer .social-links a {
+            color: var(--light-gray);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color var(--transition);
+        }
+
+        .footer .social-links a:hover {
+            color: var(--steel-blue);
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; } /* Simplificação para o exemplo */
+            h2 { font-size: 2rem; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="#hero" class="logo">GestorPro</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#features" class="nav-link">Recursos</a></li>
+                    <li><a href="#interface" class="nav-link">Interface</a></li>
+                    <li><a href="#testimonials" class="nav-link">Depoimentos</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#contact" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+            <a href="#contact" class="btn btn-primary">Agendar Demo</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero section visible">
+            <div class="hero-overlay"></div>
+            <video autoplay loop muted playsinline class="hero-video-bg">
+                <source src="videos/projeto.mp4" type="video/mp4">
+                Seu navegador não suporta a tag de vídeo.
+            </video>
+            <div class="container" style="position: relative; z-index: 1;">
+                <h1>Organize o caos. Entregue projetos no prazo.</h1>
+                <p>GestorPro é a plataforma completa para planejar, executar e monitorar seus projetos, permitindo que sua equipe colabore de forma eficiente e focada em resultados.</p>
+                <a href="#contact" class="btn btn-primary">Comece agora com uma demonstração</a>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <div class="container">
+                <h2>Recursos que impulsionam sua produtividade</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-tasks icon"></i>
+                        <h3>Planejamento de Tarefas</h3>
+                        <p>Crie, atribua e priorize tarefas com facilidade. Visualize seus projetos em quadros Kanban ou listas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-users icon"></i>
+                        <h3>Colaboração em Equipe</h3>
+                        <p>Comunique-se com sua equipe, compartilhe arquivos e mantenha todos na mesma página em tempo real.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-pie icon"></i>
+                        <h3>Relatórios e Análises</h3>
+                        <p>Obtenha insights valiosos sobre o progresso dos projetos com dashboards e relatórios personalizáveis.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-clock icon"></i>
+                        <h3>Controle de Tempo</h3>
+                        <p>Monitore o tempo gasto em cada tarefa para otimizar a alocação de recursos e a gestão de custos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interface" class="section">
+            <div class="container">
+                <h2>Interface Intuitiva e Poderosa</h2>
+                <p>Veja como o GestorPro organiza suas tarefas, equipes e cronogramas em um único lugar, com um design limpo que permite focar no que realmente importa.</p>
+                <div class="interface-image-wrapper">
+                    <!-- Substitua 'url_da_sua_imagem.jpg' pela imagem real da sua interface -->
+                    <img src="images/dashboard-do-software-gestorpro.png" alt="Dashboard do software GestorPro mostrando projetos e tarefas">
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="section">
+            <div class="container">
+                <h2>O que nossos clientes dizem</h2>
+                <div class="testimonial-card">
+                    <blockquote>"Desde que adotamos o GestorPro, nossa eficiência aumentou em 40%. A comunicação da equipe melhorou drasticamente e finalmente temos uma visão clara de todos os projetos em andamento."</blockquote>
+                    <cite>— Joana Silva, CEO da InovaTech</cite>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section">
+            <div class="container">
+                <h2>Perguntas Frequentes</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">O GestorPro se integra com outras ferramentas? <i class="fas fa-chevron-down"></i></button>
+                        <div class="faq-answer">
+                            <p>Sim! O GestorPro oferece integrações nativas com as principais ferramentas do mercado, como Slack, Google Drive, GitHub e muitas outras, para centralizar seu fluxo de trabalho.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Existe um aplicativo para celular? <i class="fas fa-chevron-down"></i></button>
+                        <div class="faq-answer">
+                            <p>Com certeza. Nosso aplicativo para iOS e Android permite que você gerencie seus projetos, se comunique com a equipe e acompanhe o progresso de qualquer lugar.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Qual é o modelo de precificação? <i class="fas fa-chevron-down"></i></button>
+                        <div class="faq-answer">
+                            <p>Oferecemos planos flexíveis baseados no número de usuários e nos recursos necessários. Agende uma demonstração para que possamos entender suas necessidades e recomendar o melhor plano para sua equipe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container contact-form-wrapper">
+                <h2>Agende uma Demonstração Gratuita</h2>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail Corporativo</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Empresa</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Solicitar Demonstração</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 GestorPro. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="https://github.com/fvandrad" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animação de scroll para revelar seções
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Lógica do Acordeão para o FAQ
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Opcional: fechar outros itens abertos
+                    // document.querySelectorAll('.faq-item.active').forEach(openItem => { if(openItem !== item) openItem.classList.remove('active'); });
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
