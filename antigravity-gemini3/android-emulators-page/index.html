@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melhores Emuladores Android para Windows</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="cursor-light"></div>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="Emuladores Android">Emuladores Android</h1>
+            <p class="subtitle">A melhor experiência mobile no seu PC</p>
+            <a href="#emulators" class="cta-button">Explorar</a>
+        </div>
+        <div class="hero-slideshow">
+            <div class="hero-bg-slide" style="background-image: url('hero-bg.png')"></div>
+            <div class="hero-bg-slide" style="background-image: url('hero-bg-2.png')"></div>
+            <div class="hero-bg-slide" style="background-image: url('hero-bg-3.png')"></div>
+            <div class="hero-bg-slide" style="background-image: url('hero-bg-4.png')"></div>
+        </div>
+    </header>
+
+    <main id="emulators">
+        <section class="emulator-grid">
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="icon-container">
+                        <img src="https://placehold.co/100x100/000000/00f3ff?text=BS" alt="BlueStacks Logo"
+                            class="emulator-icon">
+                    </div>
+                    <h2>BlueStacks</h2>
+                    <p>O rei dos emuladores. Performance extrema para jogos pesados.</p>
+                    <div class="requirements">
+                        <strong>Requisitos:</strong> Win 10, 8GB RAM, SSD
+                    </div>
+                    <a href="https://www.google.com/search?q=BlueStacks" target="_blank" class="download-btn">Baixar</a>
+                </div>
+                <div class="card-border"></div>
+            </div>
+
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="icon-container">
+                        <img src="https://placehold.co/100x100/000000/bc13fe?text=LD" alt="LDPlayer Logo"
+                            class="emulator-icon">
+                    </div>
+                    <h2>LDPlayer</h2>
+                    <p>Leve e rápido. Otimizado para PCs mais fracos e multitarefa.</p>
+                    <div class="requirements">
+                        <strong>Requisitos:</strong> Win 10, 8GB RAM, VT-x
+                    </div>
+                    <a href="https://www.google.com/search?q=LDPlayer" target="_blank" class="download-btn">Baixar</a>
+                </div>
+                <div class="card-border"></div>
+            </div>
+
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="icon-container">
+                        <img src="https://placehold.co/100x100/000000/0aff0a?text=Nox" alt="NoxPlayer Logo"
+                            class="emulator-icon">
+                    </div>
+                    <h2>NoxPlayer</h2>
+                    <p>Estabilidade e customização. Perfeito para macros e scripts.</p>
+                    <div class="requirements">
+                        <strong>Requisitos:</strong> Win 10, 4GB RAM, OpenGL 3.0+
+                    </div>
+                    <a href="https://www.google.com/search?q=NoxPlayer" target="_blank" class="download-btn">Baixar</a>
+                </div>
+                <div class="card-border"></div>
+            </div>
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="icon-container">
+                        <img src="https://placehold.co/100x100/000000/ff0055?text=GPG" alt="Google Play Games Logo"
+                            class="emulator-icon">
+                    </div>
+                    <h2>Google Play Games</h2>
+                    <p>A experiência oficial do Google. Sincronização perfeita.</p>
+                    <div class="requirements">
+                        <strong>Requisitos:</strong> Win 10, 8GB RAM, Gaming GPU
+                    </div>
+                    <a href="https://www.google.com/search?q=Google+Play+Games" target="_blank"
+                        class="download-btn">Baixar</a>
+                </div>
+                <div class="card-border"></div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-item">
+                <h3>🎮 Gaming</h3>
+                <p>Jogue com teclado e mouse.</p>
+            </div>
+            <div class="feature-item">
+                <h3>⚡ Performance</h3>
+                <p>Mais FPS que no celular.</p>
+            </div>
+            <div class="feature-item">
+                <h3>💻 Multitarefa</h3>
+                <p>Várias instâncias ao mesmo tempo.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Android Emulators Hub. Design by Antigravity.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script>
+        VanillaTilt.init(document.querySelectorAll(".card"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2,
+        });
+    </script>
+</body>
+
+</html>
