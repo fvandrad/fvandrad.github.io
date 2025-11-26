@@ -2,7 +2,9 @@
 
 ## 📋 Sobre o Projeto
 
-Este é um site moderno e minimalista que exibe uma coleção de 16 projetos organizados em três categorias principais: Deus (1), Natureza (11) e Tecnologia (4). O site utiliza JavaScript para carregar dinamicamente informações dos projetos a partir de suas meta tags.
+Este é um site moderno e minimalista que exibe uma coleção de 80 projetos organizados em seis categorias principais: Deus (2), Natureza (14), Tecnologia (4), Antigravity Gemini3 (6), Gemini (25) e IA 2025 (29). O site utiliza JavaScript para carregar dinamicamente informações dos projetos a partir de suas meta tags.
+
+Todos os projetos presentes nas pastas gemini, antigravity-gemini3 e ia2025 foram incluídos abaixo.
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -54,11 +56,14 @@ Este é um site moderno e minimalista que exibe uma coleção de 16 projetos org
 - [IA](https://fvandrad.github.io/ia/)
 - [Notebook](https://fvandrad.github.io/notebook/)
 
-### **Projetos Antigravity Gemini3 (3 projetos)**
+### **Projetos Antigravity Gemini3 (6 projetos)**
 
 - [**Android Emulators**](https://fvandrad.github.io/antigravity-gemini3/android-emulators-page/) — Melhores emuladores Android para Windows (BlueStacks, LDPlayer, Nox, Google Play Games).
+- [**Chewing Gum Page**](https://fvandrad.github.io/antigravity-gemini3/chewing-gum-page/) — História, curiosidades e como é feito o chiclete.
+- [**Dog Sizes Page**](https://fvandrad.github.io/antigravity-gemini3/dog-sizes-page/) — Guia de portes caninos: pequeno, médio, grande e gigante.
 - [**Horses Page**](https://fvandrad.github.io/antigravity-gemini3/horses-page/) — Galeria fotográfica e conteúdo sobre cavalos (Majestade Equina).
 - [**Music Apps**](https://fvandrad.github.io/antigravity-gemini3/music-apps-page/) — Comparativo dos melhores aplicativos de música (Spotify, Apple Music, Tidal, YouTube Music).
+- [**Tangerine Cultivation Page**](https://fvandrad.github.io/antigravity-gemini3/tangerine-cultivation-page/) — Ciclo de vida da mexerica, do plantio à colheita.
 
 ### **Projetos Gemini (25 projetos)**
 
@@ -90,7 +95,7 @@ Segue a lista detalhada dos projetos dentro da pasta `gemini` (copiada do `gemin
 | 22 | [**Time Travel Page**](https://fvandrad.github.io/gemini/time_travel_page.html) | Uma página da web sobre viagem no tempo. |
 | 23 | [**Vibe Page**](https://fvandrad.github.io/gemini/vibe_page.html) | Uma página da web sobre "vibe". |
 | 24 | [**Videogames Page**](https://fvandrad.github.io/gemini/videogames_page.html) | Uma página da web sobre videogames. |
-| 25 | [**Zenith Watch**](https://fvandrad.github.io/gemini/zenith_watch.html) | Uma página da web sobre o relógio Zenith. |
+| 25 | [**Zenith Watch**](https://fvandrad.github.io/gemini/zenith_watch.html) | Uma página da web sobre o relógio Zenith.
 
 Para ver mais detalhes e ativos (imagens, vídeos), abra o arquivo `gemini/README.md`.
 

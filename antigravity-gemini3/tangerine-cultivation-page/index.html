@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Cultivo da Mexerica | Do Plantio à Colheita</title>
+    <meta name="description"
+        content="Descubra o ciclo de vida da mexerica, desde a semente até a formação da árvore, flores e frutos. Saiba o tempo de cada fase de desenvolvimento.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">Citrus<span>Vita</span></a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#ciclo">O Ciclo</a></li>
+                <li><a href="#detalhes">Detalhes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-bg" style="background-image: url('images/hero.png');"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1 class="fade-in-up">A Jornada da <span class="highlight">Mexerica</span></h1>
+                <p class="fade-in-up delay-1">Do pequeno grão à doçura do fruto, descubra os segredos do cultivo desta
+                    fruta fascinante.</p>
+                <a href="#ciclo" class="btn fade-in-up delay-2">Explorar o Ciclo</a>
+            </div>
+        </section>
+
+        <section id="intro" class="intro container">
+            <div class="intro-text">
+                <h2>Uma Fruta, Múltiplas Fases</h2>
+                <p>O cultivo da mexerica (ou tangerina) é uma arte que exige paciência e dedicação. Cada fase do seu
+                    desenvolvimento possui características únicas e tempos específicos, influenciados pelo método de
+                    plantio e pelas condições climáticas.</p>
+            </div>
+        </section>
+
+        <section id="ciclo" class="timeline-section">
+            <div class="container">
+                <h2 class="section-title">O Ciclo de Vida</h2>
+                <div class="timeline">
+
+                    <!-- Fase 1: Semente -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="card-image">
+                                <img src="images/seed.png" alt="Germinação da semente de mexerica">
+                            </div>
+                            <div class="card-text">
+                                <span class="phase-tag">Fase 1</span>
+                                <h3>A Semente e Germinação</h3>
+                                <p class="time-info"><i class="icon-clock"></i> Tempo: ~7 dias</p>
+                                <p>Tudo começa com a semente. Em condições ideais de umidade e temperatura, a germinação
+                                    é o primeiro sinal de vida, ocorrendo rapidamente em cerca de uma semana.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fase 2: Árvore Jovem -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="card-image">
+                                <img src="images/sapling.png" alt="Muda de mexerica crescendo">
+                            </div>
+                            <div class="card-text">
+                                <span class="phase-tag">Fase 2</span>
+                                <h3>Crescimento Vegetativo</h3>
+                                <p class="time-info"><i class="icon-clock"></i> Tempo: 1-2 anos (enxerto) ou 6-7 anos
+                                    (semente)</p>
+                                <p>A planta desenvolve raízes fortes e folhagem densa. Se plantada por semente, a espera
+                                    pelo primeiro fruto é longa. Com enxertia, a produção pode começar já no segundo
+                                    ano.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fase 3: Floração -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="card-image">
+                                <img src="images/flower.png" alt="Flores de mexerica">
+                            </div>
+                            <div class="card-text">
+                                <span class="phase-tag">Fase 3</span>
+                                <h3>A Floração</h3>
+                                <p class="time-info"><i class="icon-clock"></i> Tempo: Sazonal (Primavera)</p>
+                                <p>A árvore se cobre de delicadas flores brancas e perfumadas. É o momento crucial da
+                                    polinização, onde abelhas e outros insetos garantem a futura colheita.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fase 4: Fruto -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="card-image">
+                                <img src="images/fruit.png" alt="Mexericas maduras no pé">
+                            </div>
+                            <div class="card-text">
+                                <span class="phase-tag">Fase 4</span>
+                                <h3>Frutificação e Colheita</h3>
+                                <p class="time-info"><i class="icon-clock"></i> Tempo: 8-9 meses após floração</p>
+                                <p>Os frutos crescem e amadurecem lentamente, ganhando cor e doçura. A colheita
+                                    geralmente ocorre no outono/inverno (maio a julho para a Ponkan).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CitrusVita. Todos os direitos reservados.</p>
+            <p>Desenvolvido com IA.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item, .intro-text').forEach(el => {
+            el.classList.add('fade-in-section');
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
