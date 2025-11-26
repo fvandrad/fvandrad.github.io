@@ -19,6 +19,7 @@ Todos os projetos foram contruídos com ajuda de IA.
 <summary><strong>Projetos Antigravity (6 projetos)</strong></summary>
 
 - [**Android Emulators**](https://fvandrad.github.io/antigravity/android-emulators-page/) — Melhores emuladores Android para Windows (BlueStacks, LDPlayer, Nox, Google Play Games).
+- [**Antigravity Google Page**](https://fvandrad.github.io/antigravity/antigravity-google-page/) — Página inicial do Antigravity.
 - [**Chewing Gum Page**](https://fvandrad.github.io/antigravity/chewing-gum-page/) — História, curiosidades e como é feito o chiclete.
 - [**Dog Sizes Page**](https://fvandrad.github.io/antigravity/dog-sizes-page/) — Guia de portes caninos: pequeno, médio, grande e gigante.
 - [**Horses Page**](https://fvandrad.github.io/antigravity/horses-page/) — Galeria fotográfica e conteúdo sobre cavalos (Majestade Equina).
