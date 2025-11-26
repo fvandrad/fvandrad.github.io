@@ -2,9 +2,9 @@
 
 ## 📋 Sobre o Projeto
 
-Este é um repositório moderno e minimalista que exibe uma coleção de projetos organizados em categorias principais: Deus, Antigravity Gemini 3, Gemini IA 2025,Natureza e Tecnologia. 
+Este é um repositório moderno e minimalista que exibe uma coleção de projetos organizados em categorias principais: Deus, Antigravity Gemini 3, Gemini IA 2025, Natureza e Tecnologia. 
 
-Todos os projetos foran contruídos com ajuda de IA.
+Todos os projetos foram contruídos com ajuda de IA.
 
 ## 📂 Categorias e Projetos
 
