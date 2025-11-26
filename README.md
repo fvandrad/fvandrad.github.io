@@ -2,7 +2,7 @@
 
 ## 📋 Sobre o Projeto
 
-Este é um repositório moderno e minimalista que exibe uma coleção de projetos organizados em categorias principais: Deus, Antigravity Gemini 3, Gemini IA 2025, Natureza e Tecnologia. 
+Este é um repositório moderno e minimalista que exibe uma coleção de projetos organizados em categorias principais: Deus, Antigravity, Gemini IA 2025, Natureza e Tecnologia. 
 
 Todos os projetos foram contruídos com ajuda de IA.
 
@@ -16,14 +16,14 @@ Todos os projetos foram contruídos com ajuda de IA.
 </details>
 
 <details>
-<summary><strong>Projetos Antigravity Gemini3 (6 projetos)</strong></summary>
+<summary><strong>Projetos Antigravity (6 projetos)</strong></summary>
 
-- [**Android Emulators**](https://fvandrad.github.io/antigravity-gemini3/android-emulators-page/) — Melhores emuladores Android para Windows (BlueStacks, LDPlayer, Nox, Google Play Games).
-- [**Chewing Gum Page**](https://fvandrad.github.io/antigravity-gemini3/chewing-gum-page/) — História, curiosidades e como é feito o chiclete.
-- [**Dog Sizes Page**](https://fvandrad.github.io/antigravity-gemini3/dog-sizes-page/) — Guia de portes caninos: pequeno, médio, grande e gigante.
-- [**Horses Page**](https://fvandrad.github.io/antigravity-gemini3/horses-page/) — Galeria fotográfica e conteúdo sobre cavalos (Majestade Equina).
-- [**Music Apps**](https://fvandrad.github.io/antigravity-gemini3/music-apps-page/) — Comparativo dos melhores aplicativos de música (Spotify, Apple Music, Tidal, YouTube Music).
-- [**Tangerine Cultivation Page**](https://fvandrad.github.io/antigravity-gemini3/tangerine-cultivation-page/) — Ciclo de vida da mexerica, do plantio à colheita.
+- [**Android Emulators**](https://fvandrad.github.io/antigravity/android-emulators-page/) — Melhores emuladores Android para Windows (BlueStacks, LDPlayer, Nox, Google Play Games).
+- [**Chewing Gum Page**](https://fvandrad.github.io/antigravity/chewing-gum-page/) — História, curiosidades e como é feito o chiclete.
+- [**Dog Sizes Page**](https://fvandrad.github.io/antigravity/dog-sizes-page/) — Guia de portes caninos: pequeno, médio, grande e gigante.
+- [**Horses Page**](https://fvandrad.github.io/antigravity/horses-page/) — Galeria fotográfica e conteúdo sobre cavalos (Majestade Equina).
+- [**Music Apps**](https://fvandrad.github.io/antigravity/music-apps-page/) — Comparativo dos melhores aplicativos de música (Spotify, Apple Music, Tidal, YouTube Music).
+- [**Tangerine Cultivation Page**](https://fvandrad.github.io/antigravity/tangerine-cultivation-page/) — Ciclo de vida da mexerica, do plantio à colheita.
 </details>
 
 <details>
