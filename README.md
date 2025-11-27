@@ -9,60 +9,57 @@ Todos os projetos foram contruídos com ajuda de IA.
 ## 📂 Categorias e Projetos
 
 <details>
-<summary><strong>Deus (2 projetos)</strong></summary>
+<summary><strong>Deus</strong></summary>
 
 - [Deus](https://fvandrad.github.io/deus/)
 - [Maria](https://fvandrad.github.io/maria/)
 </details>
 
 <details>
-<summary><strong>Projetos Antigravity (6 projetos)</strong></summary>
+<summary><strong>Projetos Antigravity</strong></summary>
 
-- [**Android Emulators**](https://fvandrad.github.io/antigravity/android-emulators-page/) — Melhores emuladores Android para Windows (BlueStacks, LDPlayer, Nox, Google Play Games).
-- [**Antigravity Google Page**](https://fvandrad.github.io/antigravity/antigravity-google-page/) — Página inicial do Antigravity.
-- [**Chewing Gum Page**](https://fvandrad.github.io/antigravity/chewing-gum-page/) — História, curiosidades e como é feito o chiclete.
-- [**Dog Sizes Page**](https://fvandrad.github.io/antigravity/dog-sizes-page/) — Guia de portes caninos: pequeno, médio, grande e gigante.
-- [**Horses Page**](https://fvandrad.github.io/antigravity/horses-page/) — Galeria fotográfica e conteúdo sobre cavalos (Majestade Equina).
-- [**Music Apps**](https://fvandrad.github.io/antigravity/music-apps-page/) — Comparativo dos melhores aplicativos de música (Spotify, Apple Music, Tidal, YouTube Music).
-- [**Tangerine Cultivation Page**](https://fvandrad.github.io/antigravity/tangerine-cultivation-page/) — Ciclo de vida da mexerica, do plantio à colheita.
+- [**Android Emulators**](https://fvandrad.github.io/antigravity/android-emulators-page/)
+- [**Antigravity Google Page**](https://fvandrad.github.io/antigravity/antigravity-google-page/)
+- [**Architecture Design Page**](https://fvandrad.github.io/antigravity/architecture-design-page/)
+- [**Chewing Gum Page**](https://fvandrad.github.io/antigravity/chewing-gum-page/)
+- [**Dog Sizes Page**](https://fvandrad.github.io/antigravity/dog-sizes-page/)
+- [**Horses Page**](https://fvandrad.github.io/antigravity/horses-page/)
+- [**Music Apps**](https://fvandrad.github.io/antigravity/music-apps-page/)
+- [**Tangerine Cultivation Page**](https://fvandrad.github.io/antigravity/tangerine-cultivation-page/)
 </details>
 
 <details>
-<summary><strong>Projetos Gemini (25 projetos)</strong></summary>
+<summary><strong>Projetos Gemini</strong></summary>
 
-Segue a lista detalhada dos projetos dentro da pasta `gemini` (copiada do `gemini/README.md`):
-
-- [**Animais Gemini Pro**](https://fvandrad.github.io/gemini/animais-gemini-pro.html) - Uma página da web sobre animais, criada com o Gemini Pro.
-- [**Arquiteta Portfolio**](https://fvandrad.github.io/gemini/arquiteta_portfolio.html) - Um portfólio para uma arquiteta.
-- [**Cafe Page**](https://fvandrad.github.io/gemini/cafe_page.html) - Uma página da web sobre café.
-- [**Carros 1**](https://fvandrad.github.io/gemini/carros_1.html) - Uma página da web sobre carros.
-- [**Carros 2**](https://fvandrad.github.io/gemini/carros_2.html) - Outra página da web sobre carros.
-- [**Creator Economy Page**](https://fvandrad.github.io/gemini/creator_economy_page.html) - Uma página da web sobre a economia dos criadores.
-- [**Designer Interiores**](https://fvandrad.github.io/gemini/designer_interiores.html) - Um portfólio para um designer de interiores.
-- [**Designer Page**](https://fvandrad.github.io/gemini/designer_page.html) - Uma página da web geral para um designer.
-- [**Designer Page 1**](https://fvandrad.github.io/gemini/designer_page_1.html) - Uma página da web para um designer.
-- [**Designer Page 2**](https://fvandrad.github.io/gemini/designer_page_2.html) - Outra página da web para um designer.
-- [**Designer Page 3**](https://fvandrad.github.io/gemini/designer_page_3.html) - Uma terceira página da web para um designer.
-- [**Designer Portfolio**](https://fvandrad.github.io/gemini/designer-portfolio.html) - Um portfólio para um designer.
-- [**Gallery Page**](https://fvandrad.github.io/gemini/gallery_page.html) - Uma página da web com uma galeria de imagens.
-- [**Gemini Page**](https://fvandrad.github.io/gemini/gemini_page.html) - Uma página da web sobre o Gemini.
-- [**Github Page**](https://fvandrad.github.io/gemini/github_page.html) - Uma página da web para um perfil do GitHub.
-- [**Internet Page**](https://fvandrad.github.io/gemini/internet_page.html) - Uma página da web sobre a internet.
-- [**Metaverse Page**](https://fvandrad.github.io/gemini/metaverse_page.html) - Uma página da web sobre o metaverso.
-- [**OS Page**](https://fvandrad.github.io/gemini/os_page.html) - Uma página da web sobre sistemas operacionais.
-- [**Pipoca Page**](https://fvandrad.github.io/gemini/pipoca_page.html) - Uma página da web sobre pipoca.
-- [**Project Management Page**](https://fvandrad.github.io/gemini/project_management_page.html) - Uma página da web sobre gerenciamento de projetos.
-- [**Setup Page**](https://fvandrad.github.io/gemini/setup_page.html) - Uma página da web sobre um setup.
-- [**Time Travel Page**](https://fvandrad.github.io/gemini/time_travel_page.html) - Uma página da web sobre viagem no tempo.
-- [**Vibe Page**](https://fvandrad.github.io/gemini/vibe_page.html) - Uma página da web sobre "vibe".
-- [**Videogames Page**](https://fvandrad.github.io/gemini/videogames_page.html) - Uma página da web sobre videogames.
-- [**Zenith Watch**](https://fvandrad.github.io/gemini/zenith_watch.html) - Uma página da web sobre o relógio Zenith.
-
-Para ver mais detalhes e ativos (imagens, vídeos), abra o arquivo `gemini/README.md`.
+- [**Animais Gemini Pro**](https://fvandrad.github.io/gemini/animais-gemini-pro.html)
+- [**Arquiteta Portfolio**](https://fvandrad.github.io/gemini/arquiteta_portfolio.html)
+- [**Cafe Page**](https://fvandrad.github.io/gemini/cafe_page.html)
+- [**Carros 1**](https://fvandrad.github.io/gemini/carros_1.html)
+- [**Carros 2**](https://fvandrad.github.io/gemini/carros_2.html)
+- [**Creator Economy Page**](https://fvandrad.github.io/gemini/creator_economy_page.html)
+- [**Designer Interiores**](https://fvandrad.github.io/gemini/designer_interiores.html)
+- [**Designer Page**](https://fvandrad.github.io/gemini/designer_page.html)
+- [**Designer Page 1**](https://fvandrad.github.io/gemini/designer_page_1.html)
+- [**Designer Page 2**](https://fvandrad.github.io/gemini/designer_page_2.html)
+- [**Designer Page 3**](https://fvandrad.github.io/gemini/designer_page_3.html)
+- [**Designer Portfolio**](https://fvandrad.github.io/gemini/designer-portfolio.html)
+- [**Gallery Page**](https://fvandrad.github.io/gemini/gallery_page.html)
+- [**Gemini Page**](https://fvandrad.github.io/gemini/gemini_page.html)
+- [**Github Page**](https://fvandrad.github.io/gemini/github_page.html)
+- [**Internet Page**](https://fvandrad.github.io/gemini/internet_page.html)
+- [**Metaverse Page**](https://fvandrad.github.io/gemini/metaverse_page.html)
+- [**OS Page**](https://fvandrad.github.io/gemini/os_page.html)
+- [**Pipoca Page**](https://fvandrad.github.io/gemini/pipoca_page.html)
+- [**Project Management Page**](https://fvandrad.github.io/gemini/project_management_page.html)
+- [**Setup Page**](https://fvandrad.github.io/gemini/setup_page.html)
+- [**Time Travel Page**](https://fvandrad.github.io/gemini/time_travel_page.html)
+- [**Vibe Page**](https://fvandrad.github.io/gemini/vibe_page.html)
+- [**Videogames Page**](https://fvandrad.github.io/gemini/videogames_page.html)
+- [**Zenith Watch**](https://fvandrad.github.io/gemini/zenith_watch.html)
 </details>
 
 <details>
-<summary><strong>Projetos IA 2025 novos (29 projetos)</strong></summary>
+<summary><strong>Projetos IA 2025</strong></summary>
 
 - [Cachorros](https://fvandrad.github.io/ia2025/cachorros-chatgpt-gpt5.html)
 - [Cachorros](https://fvandrad.github.io/ia2025/cachorros-copilot-gpt5.html)
@@ -96,7 +93,7 @@ Para ver mais detalhes e ativos (imagens, vídeos), abra o arquivo `gemini/READM
 </details>
 
 <details>
-<summary><strong>Natureza (14 projetos)</strong></summary>
+<summary><strong>Natureza</strong></summary>
 
 - [Cavalo Amarela](https://fvandrad.github.io/cavalo-amarela/)
 - [Cavalo Azul](https://fvandrad.github.io/cavalo-azul)
@@ -115,7 +112,7 @@ Para ver mais detalhes e ativos (imagens, vídeos), abra o arquivo `gemini/READM
 </details>
 
 <details>
-<summary><strong>Tecnologia (4 projetos)</strong></summary>
+<summary><strong>Tecnologia</strong></summary>
 
 - [Our World](https://fvandrad.github.io/ourworld/)
 - [Conectado](https://fvandrad.github.io/conectado/)

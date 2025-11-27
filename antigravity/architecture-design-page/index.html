@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Portfólio de Arquitetura e Design - Projetos modernos e inovadores que transformam espaços em experiências únicas">
+    <title>Architecture & Design Studio | Portfólio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">◆</span>
+                <span class="logo-text">ArchDesign</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#services" class="nav-link">Serviços</a></li>
+                <li><a href="#projects" class="nav-link">Projetos</a></li>
+                <li><a href="#about" class="nav-link">Sobre</a></li>
+                <li><a href="#contact" class="nav-link">Contato</a></li>
+            </ul>
+            <div class="nav-social">
+                <a href="#" class="social-icon" aria-label="Facebook">f</a>
+                <a href="#" class="social-icon" aria-label="Instagram">📷</a>
+                <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Arquitetura &</span>
+                    <span class="title-line gradient-text">Design</span>
+                </h1>
+                <div class="title-underline"></div>
+                <p class="hero-description">
+                    Transformamos espaços em experiências únicas através de design inovador
+                    e arquitetura contemporânea. Cada projeto é uma obra de arte cuidadosamente
+                    elaborada para superar expectativas.
+                </p>
+                <button class="cta-button" id="learn-more-btn">
+                    <span>Explorar Projetos</span>
+                    <span class="button-arrow">→</span>
+                </button>
+            </div>
+
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-bar"></div>
+                        <div class="card-bar"></div>
+                        <div class="card-bar short"></div>
+                    </div>
+                </div>
+
+                <div class="floating-card card-2">
+                    <div class="card-icon user-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+                            <path d="M6 21V19C6 16.7909 7.79086 15 10 15H14C16.2091 15 18 16.7909 18 19V21"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="floating-card card-3">
+                    <div class="card-grid">
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                        <div class="grid-item"></div>
+                    </div>
+                    <div class="card-icon small">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" />
+                            <path d="M3 9H21" stroke="currentColor" stroke-width="2" />
+                            <path d="M9 21V9" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="floating-card card-4">
+                    <div class="card-list">
+                        <div class="list-item">
+                            <div class="list-circle"></div>
+                            <div class="list-line"></div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-circle"></div>
+                            <div class="list-line"></div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-circle"></div>
+                            <div class="list-line short"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-card card-5">
+                    <div class="card-icon chat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="decorative-circle circle-1"></div>
+                <div class="decorative-circle circle-2"></div>
+                <div class="decorative-circle circle-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nossos Serviços</h2>
+                <p class="section-subtitle">Soluções completas em arquitetura e design</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Arquitetura Residencial</h3>
+                    <p class="service-description">Projetos personalizados que refletem seu estilo de vida e criam
+                        ambientes únicos para sua família.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" />
+                            <path
+                                d="M16 21V5C16 4.46957 15.7893 3.96086 15.4142 3.58579C15.0391 3.21071 14.5304 3 14 3H10C9.46957 3 8.96086 3.21071 8.58579 3.58579C8.21071 3.96086 8 4.46957 8 5V21"
+                                stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Arquitetura Comercial</h3>
+                    <p class="service-description">Espaços comerciais inovadores que impulsionam negócios e impressionam
+                        clientes.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M3.27002 6.96L12 12.01L20.73 6.96" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M12 22.08V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Design de Interiores</h3>
+                    <p class="service-description">Ambientes sofisticados com atenção aos detalhes, funcionalidade e
+                        estética impecável.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M14.7 6.3C15.0314 5.96863 15.4249 5.70679 15.8575 5.53199C16.2901 5.35719 16.7535 5.27295 17.22 5.28402C17.6865 5.2951 18.1454 5.40125 18.5694 5.59625C18.9934 5.79124 19.3742 6.07101 19.69 6.42C20.0059 6.73578 20.2557 7.11158 20.4257 7.52558C20.5956 7.93958 20.6818 8.38346 20.6791 8.83113C20.6764 9.27879 20.585 9.72158 20.4102 10.1336C20.2354 10.5456 19.9808 10.9186 19.66 11.23L18.95 11.94L12.06 5.05L12.77 4.34C13.1014 4.00863 13.4949 3.74679 13.9275 3.57199C14.3601 3.39719 14.8235 3.31295 15.29 3.32402C15.7565 3.3351 16.2154 3.44125 16.6394 3.63625C17.0634 3.83124 17.4442 4.11101 17.76 4.46L17.77 4.47C18.0859 4.78578 18.3357 5.16158 18.5057 5.57558C18.6756 5.98958 18.7618 6.43346 18.7591 6.88113C18.7564 7.32879 18.665 7.77158 18.4902 8.18358C18.3154 8.59558 18.0608 8.96863 17.74 9.28L17.03 9.99L14.7 6.3Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M9.06 12.44L3.29 18.21C2.9 18.6 2.9 19.23 3.29 19.62L4.38 20.71C4.77 21.1 5.4 21.1 5.79 20.71L11.56 14.94L9.06 12.44Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M12.06 5.05L18.95 11.94" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Consultoria</h3>
+                    <p class="service-description">Orientação especializada para transformar suas ideias em projetos
+                        viáveis e bem-sucedidos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Projetos em Destaque</h2>
+                <p class="section-subtitle">Conheça alguns dos nossos trabalhos mais recentes</p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="C:/Users/fvand/.gemini/antigravity/brain/f767002f-1c12-472f-8535-98c31c200388/residential_project_1764254566323.png"
+                            alt="Projeto Residencial">
+                        <div class="project-overlay">
+                            <button class="view-project-btn">Ver Projeto</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Residência Moderna</h3>
+                        <p class="project-category">Arquitetura Residencial</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="C:/Users/fvand/.gemini/antigravity/brain/f767002f-1c12-472f-8535-98c31c200388/commercial_project_1764254583602.png"
+                            alt="Projeto Comercial">
+                        <div class="project-overlay">
+                            <button class="view-project-btn">Ver Projeto</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Edifício Corporativo</h3>
+                        <p class="project-category">Arquitetura Comercial</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="C:/Users/fvand/.gemini/antigravity/brain/f767002f-1c12-472f-8535-98c31c200388/interior_project_1764254601007.png"
+                            alt="Projeto de Interiores">
+                        <div class="project-overlay">
+                            <button class="view-project-btn">Ver Projeto</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Design de Interiores</h3>
+                        <p class="project-category">Interiores Contemporâneos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Sobre Nós</h2>
+                    <p class="about-description">
+                        Somos um estúdio de arquitetura e design dedicado a criar espaços extraordinários
+                        que inspiram e transformam. Com mais de uma década de experiência, combinamos
+                        criatividade, inovação e expertise técnica para entregar projetos que superam expectativas.
+                    </p>
+                    <p class="about-description">
+                        Nossa abordagem é centrada no cliente, garantindo que cada projeto reflita
+                        perfeitamente a visão e as necessidades de quem o habita. Do conceito à execução,
+                        estamos comprometidos com a excelência em cada detalhe.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-label">Projetos Concluídos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">12+</div>
+                            <div class="stat-label">Anos de Experiência</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Clientes Satisfeitos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="C:/Users/fvand/.gemini/antigravity/brain/f767002f-1c12-472f-8535-98c31c200388/architecture_hero_image_1764254550960.png"
+                        alt="Sobre Nós">
+                    <div class="image-decoration"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Entre em Contato</h2>
+                <p class="section-subtitle">Vamos transformar suas ideias em realidade</p>
+            </div>
+
+            <div class="contact-content">
+                <form class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Assunto</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <span>Enviar Mensagem</span>
+                        <span class="button-arrow">→</span>
+                    </button>
+                </form>
+
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-text">
+                            <h4>Endereço</h4>
+                            <p>Av. Paulista, 1000<br>São Paulo, SP</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📧</div>
+                        <div class="info-text">
+                            <h4>Email</h4>
+                            <p>contato@archdesign.com.br</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📱</div>
+                        <div class="info-text">
+                            <h4>Telefone</h4>
+                            <p>(11) 9999-9999</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">◆</span>
+                    <span class="logo-text">ArchDesign</span>
+                </div>
+                <p class="footer-text">© 2025 ArchDesign Studio. Todos os direitos reservados.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
