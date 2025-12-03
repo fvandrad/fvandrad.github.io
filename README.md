@@ -19,11 +19,13 @@ Todos os projetos foram contruídos com ajuda de IA.
 <summary><strong>Projetos Antigravity</strong></summary>
 
 - [**Android Emulators**](https://fvandrad.github.io/antigravity/android-emulators-page/)
+- [**Angels Page**](https://fvandrad.github.io/antigravity/angels-page/)
 - [**Antigravity Google Page**](https://fvandrad.github.io/antigravity/antigravity-google-page/)
 - [**Architecture Design Page**](https://fvandrad.github.io/antigravity/architecture-design-page/)
 - [**Chewing Gum Page**](https://fvandrad.github.io/antigravity/chewing-gum-page/)
 - [**Dog Sizes Page**](https://fvandrad.github.io/antigravity/dog-sizes-page/)
 - [**Horses Page**](https://fvandrad.github.io/antigravity/horses-page/)
+- [**Laptop Stands Page**](https://fvandrad.github.io/antigravity/laptop-stands-page/)
 - [**Music Apps**](https://fvandrad.github.io/antigravity/music-apps-page/)
 - [**Tangerine Cultivation Page**](https://fvandrad.github.io/antigravity/tangerine-cultivation-page/)
 </details>
