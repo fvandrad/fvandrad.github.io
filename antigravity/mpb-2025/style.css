@@ -1,0 +1,461 @@
+:root {
+    --bg-dark: #0f0c15;
+    --primary: #ff4d4d;
+    --secondary: #ff9e2c;
+    --accent: #6c5ce7;
+    --text-light: #ffffff;
+    --text-dim: #a0a0b0;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --card-hover: rgba(255, 255, 255, 0.1);
+    --font-main: 'Outfit', sans-serif;
+    --font-display: 'Playfair Display', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Dynamic Background */
+.background-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 77, 77, 0.2) 0%, transparent 40%);
+    z-index: -1;
+}
+
+/* Typography & Utilities */
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6rem 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.badge {
+    background: rgba(255, 158, 44, 0.2);
+    color: var(--secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.hero h1 {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.play-all-btn {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.play-all-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 77, 77, 0.3);
+}
+
+/* Hero Image & Glass Card */
+.hero-image-container {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transform: rotate(2deg);
+    transition: transform 0.5s ease;
+}
+
+.hero-image:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+.floating-card {
+    position: absolute;
+    bottom: -20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-card i {
+    background: var(--primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.floating-card div {
+    display: flex;
+    flex-direction: column;
+}
+
+.floating-card strong {
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+/* Charts Section */
+.charts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    background: var(--glass-bg);
+    padding: 0.5rem;
+    border-radius: 50px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+/* Song List */
+.song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 120px; /* Space for player */
+}
+
+.song-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--glass-bg);
+    border: 1px solid transparent;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.song-item:hover {
+    background: var(--card-hover);
+    border-color: var(--glass-border);
+    transform: scale(1.01);
+}
+
+.song-rank {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-dim);
+    width: 40px;
+    margin-right: 1rem;
+    font-family: var(--font-display);
+}
+
+.song-item:nth-child(1) .song-rank { color: #ffd700; }
+.song-item:nth-child(2) .song-rank { color: #c0c0c0; }
+.song-item:nth-child(3) .song-rank { color: #cd7f32; }
+
+.song-cover {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-right: 1.5rem;
+}
+
+.song-details {
+    flex: 1;
+}
+
+.song-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.song-artist {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+.song-meta {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+.play-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.song-item:hover .play-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Player Bar */
+.player-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(15, 12, 21, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.player-bar.active {
+    transform: translateY(0);
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 250px;
+}
+
+.player-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background: #333;
+}
+
+.player-text h4 {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.player-text p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.control-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.control-btn:hover {
+    color: var(--primary);
+}
+
+.play-pause {
+    width: 50px;
+    height: 50px;
+    background: var(--text-light);
+    color: var(--bg-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.play-pause:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.player-progress {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    max-width: 400px;
+}
+
+.progress-bar-container {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.progress-bar {
+    width: 30%;
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.progress-bar-container:hover .progress-bar::after {
+    opacity: 1;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 4rem;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .hero-image-container {
+        width: 100%;
+    }
+    
+    .song-meta {
+        display: none;
+    }
+    
+    .player-progress {
+        display: none;
+    }
+}

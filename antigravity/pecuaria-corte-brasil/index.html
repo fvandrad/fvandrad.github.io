@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raças da Pecuária de Corte no Brasil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/a_cinematic_wide_shot_of_a_vast_lush_green_brazili....png');">
+        <div class="hero-overlay"></div>
+
+        <div class="header-content">
+            <div class="hero-badge">
+                <span class="badge-icon">🐂</span>
+                <span class="badge-text">Pecuária Brasileira</span>
+            </div>
+
+            <h1>Gigantes da Pecuária</h1>
+
+            <p class="hero-subtitle">Conheça as raças bovinas que movem a pecuária de corte no Brasil, combinando
+                tradição, genética e
+                produtividade excepcional.</p>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="230">0</div>
+                    <div class="stat-label">Milhões de Cabeças</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="6">0</div>
+                    <div class="stat-label">Raças Principais</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="1">0</div>
+                    <div class="stat-label">Maior Rebanho Comercial</div>
+                </div>
+            </div>
+
+            <a href="#breeds" class="hero-cta">
+                <span>Explorar Raças</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 4L10 16M10 16L16 10M10 16L4 10" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="intro">
+            <h2>O Rebanho Brasileiro</h2>
+            <p>O Brasil possui um dos maiores rebanhos comerciais do mundo. A diversidade de climas e biomas exige raças
+                adaptadas e resistentes. Abaixo, listamos as principais protagonistas desse cenário.</p>
+        </section>
+
+        <div class="breed-grid" id="breeds">
+            <!-- Nelore -->
+            <article class="breed-card">
+                <div class="breed-image-placeholder"
+                    style="background-image: url('images/a_majestic_white_nelore_bull_standing_proudly_in_a....png');">
+                    <!-- Imagem: Nelore -->
+                </div>
+                <div class="breed-info">
+                    <h3>Nelore</h3>
+                    <span class="origin">Origem: Índia</span>
+                    <p>A raça predominante no Brasil. Conhecida por sua pelagem branca e grande resistência ao calor e
+                        parasitas.</p>
+                    <ul class="features">
+                        <li>Alta rusticidade</li>
+                        <li>Adaptação ao clima tropical</li>
+                        <li>Excelente habilidade materna</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Angus -->
+            <article class="breed-card">
+                <div class="breed-image-placeholder"
+                    style="background-image: url('images/a_solid_black_angus_bull_standing_in_a_green_field....png');">
+                    <!-- Imagem: Angus -->
+                </div>
+                <div class="breed-info">
+                    <h3>Angus</h3>
+                    <span class="origin">Origem: Escócia</span>
+                    <p>Sinônimo de carne de qualidade premium. Muito utilizada em cruzamentos industriais para melhorar
+                        a maciez e o marmoreio.</p>
+                    <ul class="features">
+                        <li>Carne de alta qualidade</li>
+                        <li>Precocidade sexual e de abate</li>
+                        <li>Alto marmoreio</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Brahman -->
+            <article class="breed-card">
+                <div class="breed-image-placeholder"
+                    style="background-image: url('images/a_large_grey_brahman_bull_with_a_prominent_hump_an....png');">
+                    <!-- Imagem: Brahman -->
+                </div>
+                <div class="breed-info">
+                    <h3>Brahman</h3>
+                    <span class="origin">Origem: EUA</span>
+                    <p>Um zebuíno robusto, resultado do cruzamento de várias raças indianas. Excelente para produção de
+                        carne em regiões quentes.</p>
+                    <ul class="features">
+                        <li>Grande porte e musculatura</li>
+                        <li>Tolerância ao calor</li>
+                        <li>Eficiência alimentar</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Brangus -->
+            <article class="breed-card">
+                <div class="breed-image-placeholder"
+                    style="background-image: url('images/a_black_brangus_bull_showing_characteristics_of_bo....png');">
+                    <!-- Imagem: Brangus -->
+                </div>
+                <div class="breed-info">
+                    <h3>Brangus</h3>
+                    <span class="origin">Origem: EUA</span>
+                    <p>O melhor dos dois mundos: a rusticidade do Brahman com a qualidade de carne do Angus. Ideal para
+                        o Centro-Oeste e Sul.</p>
+                    <ul class="features">
+                        <li>Carne de qualidade</li>
+                        <li>Resistência a parasitas</li>
+                        <li>Boa adaptação</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Tabapuã -->
+            <article class="breed-card">
+                <div class="breed-image-placeholder"
+                    style="background-image: url('images/a_white_tabapua_bull_polled_no_horns_standing_in_a....png');">
+                    <!-- Imagem: Tabapuã -->
+                </div>
+                <div class="breed-info">
+                    <h3>Tabapuã</h3>
+                    <span class="origin">Origem: Brasil</span>
+                    <p>O "Zebu Brasileiro". Mocho (sem chifres) e extremamente dócil, é conhecido por seu ganho de peso
+                        veloz.</p>
+                    <ul class="features">
+                        <li>Raça 100% brasileira</li>
+                        <li>Docilidade</li>
+                        <li>Precocidade</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Senepol -->
+            <article class="breed-card">
+                <div class="breed-image-placeholder"
+                    style="background-image: url('images/a_red_senepol_bull_grazing_in_a_sunny_field_short_....png');">
+                    <!-- Imagem: Senepol -->
+                </div>
+                <div class="breed-info">
+                    <h3>Senepol</h3>
+                    <span class="origin">Origem: Caribe</span>
+                    <p>Taurino adaptado aos trópicos. Possui pelo zero e alta tolerância ao calor, cruzando muito bem
+                        com o Nelore.</p>
+                    <ul class="features">
+                        <li>Taurino tropical</li>
+                        <li>Não possui chifres</li>
+                        <li>Heterose a pasto</li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Pecuária Brasil - Desenvolvido com Antigravity</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

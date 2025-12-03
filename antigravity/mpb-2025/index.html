@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top MBP 2025 - As Mais Tocadas</title>
+    <meta name="description"
+        content="Descubra as músicas de MPB que definiram o ano de 2025. Uma seleção curada dos maiores sucessos.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-gradient"></div>
+
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">Tendências Musicais</span>
+            <h1>O Melhor da <span class="gradient-text">MPB 2025</span></h1>
+            <p>Uma viagem sonora pelo futuro da música brasileira. Do neo-samba ao tropicalismo digital.</p>
+            <button class="play-all-btn" id="playAllBtn"><i class="fas fa-play"></i> Ouvir Playlist</button>
+        </div>
+        <div class="hero-image-container">
+            <img src="mbp_2025_hero_art.png" alt="Arte abstrata musical brasileira" class="hero-image"
+                onerror="this.src='default_cover.png'">
+            <div class="glass-card floating-card">
+                <i class="fas fa-music"></i>
+                <div>
+                    <strong>Top 1 Brasil</strong>
+                    <span>Solar do Amanhã</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="charts-header">
+            <h2>Top 10 Brasil</h2>
+            <div class="filters">
+                <button class="filter-btn active">Geral</button>
+                <button class="filter-btn">Virais</button>
+                <button class="filter-btn">Lançamentos</button>
+            </div>
+        </section>
+
+        <div class="song-list" id="songList">
+            <!-- Songs will be injected here by JS -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MBP Trends. Feito com amor pela música brasileira.</p>
+    </footer>
+
+    <!-- Player Bar (Sticky Bottom) -->
+    <div class="player-bar" id="playerBar">
+        <div class="player-info">
+            <img src="" alt="Capa" id="playerCover" class="player-cover">
+            <div class="player-text">
+                <h4 id="playerTitle">Selecione uma música</h4>
+                <p id="playerArtist">--</p>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button class="control-btn"><i class="fas fa-step-backward"></i></button>
+            <button class="control-btn play-pause" id="mainPlayBtn"><i class="fas fa-play"></i></button>
+            <button class="control-btn"><i class="fas fa-step-forward"></i></button>
+        </div>
+        <div class="player-progress">
+            <span id="currentTime">0:00</span>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <span id="totalTime">3:45</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
