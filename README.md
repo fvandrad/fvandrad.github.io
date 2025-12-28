@@ -1,4 +1,6 @@
-# Top Repositories in Github
+<div align="center">
+    <img src="images/Gemini_Generated_Image_mou2qdmou2qdmou2.png" alt="Página Antigravity" width="100%" style="border-radius: 10px; margin: 20px 0;">
+</div>
 
 ## 📋 Sobre o Projeto
 
@@ -14,6 +16,8 @@ Todos os projetos foram contruídos com ajuda de IA.
 - [Deus](https://fvandrad.github.io/deus/)
 - [Maria](https://fvandrad.github.io/maria/)
 </details>
+
+
 
 <details>
 <summary><strong>Projetos Antigravity</strong></summary>
