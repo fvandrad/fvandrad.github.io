@@ -30,6 +30,7 @@ Todos os projetos foram contruídos com ajuda de IA.
 - [**Dog Sizes Page**](https://fvandrad.github.io/antigravity/dog-sizes-page/)
 - [**Horses Page**](https://fvandrad.github.io/antigravity/horses-page/)
 - [**Laptop Stands Page**](https://fvandrad.github.io/antigravity/laptop-stands-page/)
+- [**Lion Cub Linux**](https://fvandrad.github.io/antigravity/lion-cub-linux/) - mar/26
 - [**MBP 2025**](https://fvandrad.github.io/antigravity/mbp-2025/)
 - [**Music Apps**](https://fvandrad.github.io/antigravity/music-apps-page/)
 - [**Pecuaria Corte Brasil**](https://fvandrad.github.io/antigravity/pecuaria-corte-brasil/)

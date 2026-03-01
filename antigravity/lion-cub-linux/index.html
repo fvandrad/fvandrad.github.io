@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lion Cub × Linux 🦁 💻</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Um filhote de leão fofo usando Linux num notebook elegante.">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="blob"></div>
+
+    <header class="hero">
+        <div class="container">
+            <section class="content">
+                <h1>O Futuro é<br>Selvagem.</h1>
+                <p>
+                    Imagine a força da natureza combinada com a liberdade do código aberto.
+                    Um pequeno rei da selva, dominando o mundo através do terminal Linux.
+                </p>
+                <div class="cta-group">
+                    <a href="#features" class="btn btn-primary">
+                        <i class="fa-brands fa-linux"></i>
+                        Baixar Kernel
+                    </a>
+                    <a href="#gallery" class="btn btn-secondary">
+                        Explorar Savana
+                    </a>
+                </div>
+            </section>
+
+            <section class="image-wrapper hero-image-wrapper">
+                <div class="glass-badge float">
+                    <i class="fa-brands fa-linux linux-icon"></i>
+                    <span>Linux Desktop Edition</span>
+                </div>
+                <img src="lion-linux.png" alt="Filhote de leão usando Linux no notebook" class="hero-img">
+            </section>
+        </div>
+    </header>
+
+    <section id="features" class="section">
+        <div class="section-title">
+            <h2>Poder Felino</h2>
+            <p>Por que o Lion Cub Linux é a escolha suprema para desenvolvedores</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fa-solid fa-bolt feature-icon"></i>
+                <h3>Velocidade Predadora</h3>
+                <p>Otimizado para hardware moderno com um kernel customizado para máxima performance e baixa latência.
+                </p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-shield-cat feature-icon"></i>
+                <h3>Segurança da Matilha</h3>
+                <p>Proteção robusta e isolamento de processos, mantendo seus dados tão seguros quanto uma toca de leão.
+                </p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-code-branch feature-icon"></i>
+                <h3>ADN Open Source</h3>
+                <p>Totalmente customizável e transparente. Se você pode imaginar, você pode construir no Lion Cub Linux.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section">
+        <div class="section-title">
+            <h2>Vida Selvagem Digital</h2>
+            <p>Veja como é o dia a dia na nossa savana tecnológica</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="lion-coder.png" alt="Leão codificando">
+                <div class="gallery-overlay">
+                    <h3>Deep Learning na Savana</h3>
+                    <p>Desenvolvendo algoritmos para a próxima geração.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="lion-server.png" alt="Leão no servidor">
+                <div class="gallery-overlay">
+                    <h3>Mestre do Data Center</h3>
+                    <p>Gerenciando clusters de alta disponibilidade.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="lion-community.png" alt="Comunidade Lion Linux">
+                <div class="gallery-overlay">
+                    <h3>Comunidade Colaborativa</h3>
+                    <p>Onde as espécies se unem pelo código aberto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number">500k+</span>
+                <span class="stat-label">Downloads</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50k+</span>
+                <span class="stat-label">Contribuidores</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">99.9%</span>
+                <span class="stat-label">Uptime</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Documentação</a>
+            <a href="#">GitHub</a>
+            <a href="#">Comunidade</a>
+            <a href="#">Privacidade</a>
+        </div>
+        <p>&copy; 2026 Lion Cub Linux. Todos os direitos reservados à natureza.</p>
+    </footer>
+
+    <script>
+        // Simple micro-animation on mouse move for the hero image
+        const imageWrapper = document.querySelector('.hero-image-wrapper');
+        document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth > 768) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                imageWrapper.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            }
+        });
+
+        // Reset on mouse leave
+        document.addEventListener('mouseleave', () => {
+            imageWrapper.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+    </script>
+</body>
+
+</html>
