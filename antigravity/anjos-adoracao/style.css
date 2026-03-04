@@ -1,0 +1,545 @@
+/* CSS Reset and Variables */
+:root {
+    --pearl-white: #fdffff;
+    --gold: #d4af37;
+    --light-gold: #f9e596;
+    --celestial-blue: #0b1a30;
+    --heavenly-blue: #1c3d5a;
+    --soft-purple: #3a1c5a;
+    --glow-gold: rgba(212, 175, 55, 0.6);
+    --glow-blue: rgba(28, 61, 90, 0.8);
+
+    --font-heading: 'Cinzel', serif;
+    --font-text: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--celestial-blue);
+    color: var(--pearl-white);
+    font-family: var(--font-text);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Background Canvas */
+#celestial-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Animated Gradient Background */
+.heavenly-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 100%, var(--heavenly-blue) 0%, var(--celestial-blue) 60%, var(--soft-purple) 100%);
+    z-index: -3;
+    animation: breathe 10s infinite alternate ease-in-out;
+}
+
+@keyframes breathe {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* Typography styles */
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.glow-text {
+    font-size: 4.5rem;
+    color: var(--light-gold);
+    text-shadow: 0 0 20px rgba(249, 229, 150, 0.5), 0 0 40px rgba(212, 175, 55, 0.3);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.section-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.section-desc {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Navigation */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--light-gold);
+    letter-spacing: 2px;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content {
+    z-index: 2;
+    padding: 2rem;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    letter-spacing: 1px;
+}
+
+/* Pure CSS Divine Light Rays */
+.divine-light-rays {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg at 50% 20%,
+            transparent 150deg,
+            rgba(255, 255, 255, 0.05) 160deg,
+            rgba(249, 229, 150, 0.15) 180deg,
+            rgba(255, 255, 255, 0.05) 200deg,
+            transparent 210deg);
+    z-index: 1;
+    pointer-events: none;
+    animation: rotate-rays 30s linear infinite;
+}
+
+@keyframes rotate-rays {
+    0% {
+        transform: translateX(-50%) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateX(-50%) rotate(5deg);
+    }
+
+    100% {
+        transform: translateX(-50%) rotate(-5deg);
+    }
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, var(--gold), #b8960b);
+    color: #fff;
+    box-shadow: 0 0 20px var(--glow-gold);
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 30px rgba(249, 229, 150, 0.8);
+}
+
+.secondary-btn {
+    background: transparent;
+    color: var(--light-gold);
+    border: 1px solid var(--gold);
+    box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1), 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.secondary-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+    box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.3), 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Cards Section */
+.about-angels {
+    padding: 8rem 0;
+    background: linear-gradient(to bottom, transparent, rgba(11, 26, 48, 0.9));
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.angel-card {
+    background: rgba(28, 61, 90, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.angel-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(212, 175, 55, 0.6);
+}
+
+.card-glow {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    opacity: 0.5;
+}
+
+.angel-card:hover .card-glow {
+    transform: translateX(-50%) scale(1.5);
+    opacity: 1;
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.angel-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--light-gold);
+    position: relative;
+    z-index: 2;
+}
+
+.angel-card p {
+    font-weight: 300;
+    color: rgba(253, 255, 255, 0.8);
+    position: relative;
+    z-index: 2;
+}
+
+/* Celestial Worship */
+.celestial-worship {
+    padding: 10rem 0;
+    position: relative;
+}
+
+.choir-light-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(58, 28, 90, 0.3) 0%, transparent 60%);
+    pointer-events: none;
+    animation: pulse-slow 6s infinite alternate;
+}
+
+@keyframes pulse-slow {
+    0% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.worship-verses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    justify-content: center;
+}
+
+.verse-card {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    padding: 3rem;
+    position: relative;
+}
+
+.verse-card::before {
+    content: '"';
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    font-family: var(--font-heading);
+    font-size: 8rem;
+    color: rgba(212, 175, 55, 0.1);
+    line-height: 1;
+}
+
+.verse-card p {
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+}
+
+.verse-card cite {
+    font-family: var(--font-heading);
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Throne Glory */
+.throne-glory {
+    padding: 10rem 0;
+}
+
+.throne-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    padding: 0 2rem;
+}
+
+@media (max-width: 800px) {
+    .throne-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.throne-illustration {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.throne-core {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 50px 20px #fff, 0 0 100px 40px var(--light-gold);
+    z-index: 10;
+}
+
+.throne-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-top-color: rgba(255, 255, 255, 0.8);
+    border-bottom-color: rgba(255, 255, 255, 0.8);
+}
+
+.ring-1 {
+    width: 150px;
+    height: 150px;
+    animation: spin 10s linear infinite;
+}
+
+.ring-2 {
+    width: 200px;
+    height: 200px;
+    border-left-color: rgba(255, 255, 255, 0.5);
+    border-right-color: rgba(255, 255, 255, 0.5);
+    animation: spin-reverse 15s linear infinite;
+}
+
+.ring-3 {
+    width: 280px;
+    height: 280px;
+    border: 1px dashed rgba(212, 175, 55, 0.4);
+    animation: spin 25s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin-reverse {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.throne-text h2 {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 800px) {
+    .throne-text h2 {
+        text-align: center;
+    }
+}
+
+.throne-text p {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+/* Spiritual Application */
+.spiritual-application {
+    padding: 10rem 0;
+    text-align: center;
+}
+
+.final-reflection {
+    font-size: 1.3rem;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    font-weight: 300;
+}
+
+.quote-block {
+    margin: 0 auto 4rem;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+    max-width: 700px;
+}
+
+.quote-block p {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--light-gold);
+}
+
+/* Footer */
+footer {
+    padding: 3rem;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(11, 26, 48, 0.8);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Animation Classes (Reveals) */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .glow-text {
+        font-size: 3rem;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-content {
+        padding: 1rem;
+    }
+}
+
+/* Images Backgrounds */
+.hero {
+    background: linear-gradient(to bottom, rgba(11, 26, 48, 0.4), var(--celestial-blue)), url('hero_bg.jpg') no-repeat center center/cover;
+}
+
+.seraphim-card {
+    background: linear-gradient(to bottom, rgba(11, 26, 48, 0.5), rgba(11, 26, 48, 0.9)), url('seraphim.jpg') no-repeat center center/cover;
+}
+
+.cherubim-card {
+    background: linear-gradient(to bottom, rgba(11, 26, 48, 0.5), rgba(11, 26, 48, 0.9)), url('cherubim.jpg') no-repeat center center/cover;
+}
+
+.archangel-card {
+    background: linear-gradient(to bottom, rgba(11, 26, 48, 0.5), rgba(11, 26, 48, 0.9)), url('archangel.jpg') no-repeat center center/cover;
+}
+
+.throne-glory {
+    background: linear-gradient(to bottom, var(--celestial-blue), rgba(11, 26, 48, 0.4), var(--celestial-blue)), url('throne.jpg') no-repeat center center/cover;
+    position: relative;
+    z-index: 1;
+}
+
+.throne-glory::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    z-index: -1;
+}

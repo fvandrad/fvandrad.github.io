@@ -24,6 +24,7 @@ Todos os projetos foram contruídos com ajuda de IA.
 
 - [**Android Emulators**](https://fvandrad.github.io/antigravity/android-emulators-page/)
 - [**Angels Page**](https://fvandrad.github.io/antigravity/angels-page/)
+- [**Anjos Adoração**](https://fvandrad.github.io/antigravity/anjos-adoracao/) - mar/26
 - [**Antigravity Google Page**](https://fvandrad.github.io/antigravity/antigravity-google-page/)
 - [**Architecture Design Page**](https://fvandrad.github.io/antigravity/architecture-design-page/)
 - [**Chewing Gum Page**](https://fvandrad.github.io/antigravity/chewing-gum-page/)
