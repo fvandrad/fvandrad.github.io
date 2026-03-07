@@ -34,6 +34,7 @@ Todos os projetos foram contruídos com ajuda de IA.
 - [**Lion Cub Linux**](https://fvandrad.github.io/antigravity/lion-cub-linux/) - mar/26
 - [**MBP 2025**](https://fvandrad.github.io/antigravity/mbp-2025/)
 - [**Music Apps**](https://fvandrad.github.io/antigravity/music-apps-page/)
+- [**Ensinámentos de Jesus**](https://fvandrad.github.io/antigravity/ensinamentos-jesus/) - mar/26
 - [**Pecuaria Corte Brasil**](https://fvandrad.github.io/antigravity/pecuaria-corte-brasil/)
 - [**Personal Portfolio**](https://fvandrad.github.io/antigravity/personal-portfolio/)
 - [**Super Dev Cat**](https://fvandrad.github.io/antigravity/super-dev-cat/)

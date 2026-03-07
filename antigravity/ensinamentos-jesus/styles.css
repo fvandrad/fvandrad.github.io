@@ -1,0 +1,663 @@
+@charset "UTF-8";
+
+/* =========================================
+   VARIÁVEIS DE CORES E TIPOGRAFIA
+========================================= */
+:root {
+    /* Paleta Soft & Natural */
+    --white: #ffffff;
+    --light-blue: #f4f9fc;
+    --light-blue-accent: #e5f1f8;
+    --soft-gold: #cba342;
+    --beige: #faf8f5;
+    
+    /* Cores de Texto */
+    --text-dark: #2d3436;
+    --text-medium: #4a5568;
+    --text-light: #718096;
+    
+    /* Sombras e transições */
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 20px 40px -10px rgba(0,0,0,0.12);
+    --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Tipografia */
+    --font-serif: 'Lora', serif;
+    --font-sans: 'Outfit', sans-serif;
+}
+
+/* =========================================
+   RESET E ESTILOS GLOBAIS
+========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-medium);
+    background-color: var(--white);
+    line-height: 1.8;
+    font-size: 1.125rem;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    color: var(--text-dark);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+a {
+    text-decoration: none;
+    color: var(--soft-gold);
+    transition: var(--transition);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.feature-image {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto 3rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    object-fit: cover;
+    max-height: 450px;
+    display: block;
+}
+
+/* =========================================
+   ANIMAÇÃO DE SCROLL (Animate on scroll)
+========================================= */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.15s; }
+.delay-2 { transition-delay: 0.3s; }
+.delay-3 { transition-delay: 0.45s; }
+
+/* =========================================
+   LAYOUT DE SEÇÕES (Generals)
+========================================= */
+.section {
+    padding: 7rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+/* Backgrounds */
+.bg-white { background-color: var(--white); }
+.bg-light-blue { background-color: var(--light-blue); }
+.bg-beige { background-color: var(--beige); }
+
+/* Headers de Seção */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+.divider {
+    height: 3px;
+    width: 60px;
+    background-color: var(--soft-gold);
+    margin: 0 auto 1.5rem;
+    border-radius: 2px;
+}
+
+.mx-auto { margin-right: auto !important; margin-left: auto !important; }
+
+.section-header.align-left {
+    text-align: left;
+}
+
+.section-header.align-left .divider {
+    margin-left: 0;
+}
+
+/* =========================================
+   1. HERO SECTION (Introdução Luminousa)
+========================================= */
+.hero {
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(229, 241, 248, 0.8) 100%), url('hero-bg.jpg') center/cover no-repeat;
+}
+
+/* Efeito Luminous / Divino sem Imagem */
+.hero-gradient {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+    pointer-events: none;
+    z-index: 1;
+    animation: pulse 8s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.1); opacity: 1; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.eyebrow {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.85rem;
+    color: var(--soft-gold);
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+    color: #1a202c; /* bem escuro para contraste no hero */
+}
+
+.hero .subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text-medium);
+    margin-bottom: 2rem;
+}
+
+.hero .intro {
+    font-size: 1.15rem;
+    max-width: 650px;
+    margin: 0 auto 3rem;
+    color: var(--text-light);
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: var(--text-dark);
+    color: var(--white);
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    background-color: var(--soft-gold);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* =========================================
+   2. QUEM FOI JESUS
+========================================= */
+.content-text.double-column {
+    column-count: 2;
+    column-gap: 3rem;
+}
+
+.content-text p {
+    text-align: justify;
+    margin-bottom: 1.5rem;
+    break-inside: avoid;
+}
+
+.content-text p:first-child::first-letter {
+    float: left;
+    font-family: var(--font-serif);
+    font-size: 4.5rem;
+    line-height: 0.8;
+    padding-top: 8px;
+    padding-right: 12px;
+    padding-bottom: 0px;
+    color: var(--soft-gold);
+}
+
+/* =========================================
+   3. CORAÇÃO DA MENSAGEM (Cards)
+========================================= */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--light-blue-accent);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--light-blue-accent), var(--soft-gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.card:hover::before {
+    transform: scaleX(1);
+}
+
+.card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: var(--light-blue-accent);
+    width: 60px; height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.practical-verse {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+    font-size: 0.95rem;
+}
+
+.practical-verse strong {
+    color: var(--soft-gold);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.practical-verse blockquote {
+    margin-top: 1rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--text-light);
+    border-left: 3px solid var(--soft-gold);
+    padding-left: 1rem;
+}
+
+.practical-verse cite {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-family: var(--font-sans);
+    font-style: normal;
+    color: var(--text-medium);
+}
+
+/* =========================================
+   4. AS PARÁBOLAS (Lista Decorada)
+========================================= */
+.parable-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.parable-item {
+    display: flex;
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+    border-left: 5px solid var(--soft-gold);
+    transition: var(--transition);
+}
+
+.parable-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateX(10px);
+}
+
+.parable-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--soft-gold);
+}
+
+.parable-content .summary {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+}
+
+.parable-content .meaning, .parable-content .moral {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.parable-content strong {
+    color: var(--text-dark);
+}
+
+/* =========================================
+   5. SERMÃO DA MONTANHA
+========================================= */
+.sermao-section {
+    position: relative;
+    background: linear-gradient(to right, rgba(255,255,255,0.85), rgba(255,255,255,0.95)),
+                url('sermao-montanha.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.sermao-content {
+    background-color: var(--white);
+    padding: 4rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    border-top: 6px solid var(--soft-gold);
+}
+
+.sermao-text p {
+    font-size: 1.15rem;
+    line-height: 1.9;
+}
+
+.sermao-values {
+    margin-top: 3rem;
+    list-style: none;
+}
+
+.sermao-values li {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+    position: relative;
+    font-size: 1.1rem;
+}
+
+.sermao-values li::before {
+    content: '✧';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--soft-gold);
+    font-size: 1.2rem;
+}
+
+.sermao-values li strong {
+    color: var(--text-dark);
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+/* =========================================
+   6. VIDA DIÁRIA
+========================================= */
+.practical-life-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.practical-item {
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.practical-marker {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 14px; height: 14px;
+    background-color: var(--soft-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(203, 163, 66, 0.2);
+}
+
+.practical-content h4 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.practical-content p {
+    font-size: 1.05rem;
+    color: var(--text-medium);
+}
+
+/* =========================================
+   7. VERSÍCULOS INSPIRADORES
+========================================= */
+/* Ajuste para Section background gold set in HTML class style */
+
+.bg-soft-gold {
+    background: linear-gradient(135deg, #d4af37 0%, #b8952c 100%);
+}
+
+.verses-carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.verse-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    transition: var(--transition);
+}
+
+.verse-card:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.verse-text {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+}
+
+.verse-ref {
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+}
+
+/* =========================================
+   8. IMPACTO NO MUNDO
+========================================= */
+.lead-text {
+    font-size: 1.3rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-family: var(--font-serif);
+    color: var(--text-dark);
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.impact-box {
+    padding: 0 1rem;
+}
+
+.impact-box h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--soft-gold);
+    display: flex;
+    align-items: center;
+}
+
+.impact-box h3::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 2px;
+    background-color: var(--soft-gold);
+    margin-right: 15px;
+}
+
+.impact-box p {
+    font-size: 1.05rem;
+    text-align: justify;
+}
+
+/* =========================================
+   9. REFLEXÃO ESPIRITUAL
+========================================= */
+.reflexao-title {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.reflexao-text {
+    font-size: 1.3rem;
+    font-family: var(--font-serif);
+    max-width: 850px;
+    margin: 0 auto 2rem;
+    line-height: 1.9;
+    color: var(--text-medium);
+}
+
+.text-center { text-align: center; }
+
+/* =========================================
+   10. RODAPÉ INSPIRADOR
+========================================= */
+.footer {
+    background-color: var(--text-dark);
+    color: var(--white);
+    padding: 6rem 2rem 3rem;
+    text-align: center;
+}
+
+.footer-quote {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--beige);
+}
+
+.footer-copy {
+    font-size: 0.9rem;
+    color: #a0aec0;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE GERAL
+========================================= */
+@media (max-width: 992px) {
+    .hero h1 { font-size: 3rem; }
+    .content-text.double-column { column-count: 1; }
+    .impact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .sermao-content { padding: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+    .section { padding: 4rem 1.5rem; }
+    .hero h1 { font-size: 2.5rem; }
+    .hero .intro { font-size: 1rem; }
+    .reflexao-title { font-size: 2.2rem; }
+    .reflexao-text, .lead-text { font-size: 1.15rem; }
+    .card, .parable-item { padding: 1.5rem; }
+    .parable-list { gap: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+    .hero h1 { font-size: 2rem; }
+    .btn-primary { padding: 0.8rem 2rem; }
+    .section-header h2 { font-size: 2rem; }
+    .sermao-content { padding: 1.5rem; }
+    .footer-quote { font-size: 1.5rem; }
+    .verses-carousel { grid-template-columns: 1fr; }
+}
