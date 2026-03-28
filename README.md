@@ -42,6 +42,16 @@ Todos os projetos foram contruídos com ajuda de IA.
 </details>
 
 <details>
+<summary><strong>Projetos Codex</strong></summary>
+
+- [**Botanical Harmony**](https://fvandrad.github.io/codex/colecao-natural/) - mar/26
+- [**Elementos Primordiais**](https://fvandrad.github.io/codex/elementos/) - mar/26
+- [**PulseLab Music**](https://fvandrad.github.io/codex/musica/) - mar/26
+- [**Natureza Viva**](https://fvandrad.github.io/codex/nature/) - mar/26
+- [**A Vida de um Pintinho**](https://fvandrad.github.io/codex/pintinho/) - mar/26
+</details>
+
+<details>
 <summary><strong>Projetos Gemini</strong></summary>
 
 - [**Animais Gemini Pro**](https://fvandrad.github.io/gemini/animais-gemini-pro.html)

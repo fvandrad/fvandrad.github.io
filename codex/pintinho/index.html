@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Vida de um Pintinho</title>
+  <meta
+    name="description"
+    content="Uma página moderna e delicada sobre a jornada de um pintinho desde o ovo até os primeiros passos no terreiro."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --bg: #fff8ee;
+      --bg-soft: #fdf0d7;
+      --panel: rgba(255, 252, 246, 0.72);
+      --panel-strong: #fffaf1;
+      --text: #2e241c;
+      --muted: #735d4a;
+      --gold: #f0b63f;
+      --gold-deep: #db8f14;
+      --orange: #f28b3c;
+      --rose: #d76f68;
+      --leaf: #6d8d55;
+      --line: rgba(84, 52, 20, 0.12);
+      --shadow: 0 24px 80px rgba(118, 74, 19, 0.16);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --content: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 214, 130, 0.78), transparent 32%),
+        radial-gradient(circle at 85% 20%, rgba(242, 139, 60, 0.22), transparent 22%),
+        linear-gradient(180deg, #fffaf2 0%, #fff4e3 44%, #fff9f1 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      width: 26rem;
+      height: 26rem;
+      border-radius: 50%;
+      filter: blur(30px);
+      z-index: -1;
+      opacity: 0.42;
+      pointer-events: none;
+    }
+
+    body::before {
+      top: -8rem;
+      right: -7rem;
+      background: rgba(240, 182, 63, 0.36);
+    }
+
+    body::after {
+      bottom: -10rem;
+      left: -8rem;
+      background: rgba(215, 111, 104, 0.18);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(calc(100% - 2rem), var(--content));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-mark {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #ffd86e, #f59c41);
+      box-shadow: 0 10px 25px rgba(245, 156, 65, 0.25);
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .nav {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(115, 93, 74, 0.09);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 2rem 0 4rem;
+    }
+
+    .hero-copy,
+    .hero-card,
+    .story-card,
+    .quote,
+    .closing {
+      animation: rise 0.8s ease both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 250, 241, 0.78);
+      border: 1px solid rgba(84, 52, 20, 0.08);
+      color: var(--gold-deep);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Cormorant Garamond", serif;
+      margin: 0;
+      line-height: 0.95;
+    }
+
+    h1 {
+      font-size: clamp(3.8rem, 8vw, 7rem);
+      margin-top: 1.2rem;
+      max-width: 10ch;
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3.4rem;
+      padding: 0 1.4rem;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      color: white;
+      box-shadow: 0 18px 35px rgba(242, 139, 60, 0.28);
+    }
+
+    .button-secondary {
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(84, 52, 20, 0.08);
+      color: var(--text);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+      min-height: 32rem;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.78), rgba(255, 248, 238, 0.58)),
+        linear-gradient(180deg, rgba(240, 182, 63, 0.12), rgba(215, 111, 104, 0.08));
+      border: 1px solid rgba(84, 52, 20, 0.08);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      isolation: isolate;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 1.2rem;
+      border-radius: calc(var(--radius-xl) - 10px);
+      border: 1px dashed rgba(219, 143, 20, 0.22);
+      pointer-events: none;
+    }
+
+    .hero-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.02) contrast(1.02);
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(47, 29, 13, 0.02), rgba(47, 29, 13, 0.28)),
+        linear-gradient(120deg, rgba(255, 248, 233, 0.5), transparent 45%);
+      z-index: 0;
+    }
+
+    .sun {
+      position: absolute;
+      top: 1.6rem;
+      right: 1.8rem;
+      width: 5.4rem;
+      height: 5.4rem;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff6cf, #f4c14b 62%, #ed9a2a 100%);
+      box-shadow: 0 0 0 18px rgba(244, 193, 75, 0.12);
+      z-index: 1;
+    }
+
+    .hero-notes {
+      position: absolute;
+      top: 2.4rem;
+      left: 2rem;
+      display: grid;
+      gap: 0.75rem;
+      width: min(14rem, 70%);
+      z-index: 1;
+    }
+
+    .note {
+      padding: 0.9rem 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(84, 52, 20, 0.07);
+      backdrop-filter: blur(14px);
+    }
+
+    .note strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.95rem;
+    }
+
+    .note span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    main section {
+      padding: 2rem 0 1rem;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2.5rem, 5vw, 4.2rem);
+    }
+
+    .section-head p {
+      max-width: 42ch;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .chapter-stack {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .chapter {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 1.2rem;
+      align-items: center;
+      padding: 1.2rem;
+      border-radius: var(--radius-xl);
+      background: rgba(255, 252, 246, 0.76);
+      border: 1px solid rgba(84, 52, 20, 0.08);
+      box-shadow: 0 18px 40px rgba(128, 84, 25, 0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .chapter:nth-child(even) {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .chapter:nth-child(even) .chapter-media {
+      order: 2;
+    }
+
+    .chapter-media img {
+      width: 100%;
+      height: 100%;
+      min-height: 16rem;
+      object-fit: cover;
+      display: block;
+      border-radius: calc(var(--radius-xl) - 10px);
+      box-shadow: 0 18px 36px rgba(128, 84, 25, 0.14);
+    }
+
+    .chapter-copy {
+      padding: 0.4rem 0.6rem;
+    }
+
+    .chapter-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 3rem;
+      height: 3rem;
+      padding: 0 0.9rem;
+      border-radius: 999px;
+      background: rgba(240, 182, 63, 0.14);
+      color: var(--gold-deep);
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .chapter-copy h3 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      margin-bottom: 0.7rem;
+    }
+
+    .chapter-copy p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 48ch;
+    }
+
+    .quote {
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(109, 141, 85, 0.16), rgba(255, 250, 241, 0.85)),
+        rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(84, 52, 20, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .quote p {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.08;
+      max-width: 16ch;
+    }
+
+    .quote small {
+      display: block;
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      align-items: stretch;
+    }
+
+    .fact-block {
+      padding: 1.8rem;
+      border-radius: var(--radius-lg);
+      background: var(--panel-strong);
+      border: 1px solid rgba(84, 52, 20, 0.08);
+      box-shadow: 0 14px 36px rgba(128, 84, 25, 0.08);
+    }
+
+    .fact-block h3 {
+      font-size: 2.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .fact-list {
+      display: grid;
+      gap: 1rem;
+      color: var(--muted);
+    }
+
+    .fact-list div {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .fact-list div:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .fact-list strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: var(--text);
+    }
+
+    .closing {
+      margin: 2rem 0 4rem;
+      padding: 2rem;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(240, 182, 63, 0.22), rgba(255, 255, 255, 0.72)),
+        rgba(255, 249, 241, 0.9);
+      border: 1px solid rgba(84, 52, 20, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .closing h2 {
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .closing p {
+      max-width: 60ch;
+      color: var(--muted);
+      line-height: 1.85;
+      margin: 0;
+    }
+
+    footer {
+      padding: 0 0 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .facts {
+        grid-template-columns: 1fr;
+      }
+
+      .chapter,
+      .chapter:nth-child(even) {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 28rem;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar,
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      h1 {
+        max-width: 100%;
+      }
+
+      .hero-card {
+        padding: 1.4rem;
+      }
+
+      .hero-notes {
+        position: static;
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+
+      .sun {
+        width: 4.2rem;
+        height: 4.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#inicio">
+        <span class="brand-mark">◌</span>
+        <span>Ninho Dourado</span>
+      </a>
+      <nav class="nav">
+        <a href="#historia">História</a>
+        <a href="#curiosidades">Curiosidades</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow">Uma jornada delicada da vida no terreiro</div>
+        <h1>O começo encantador de um pintinho.</h1>
+        <p>
+          Tudo começa quando a galinha choca o ovo com cuidado e calor, enquanto o galo vigia o
+          quintal e completa a cena de uma nova vida que está prestes a nascer. Esta página conta,
+          com um visual leve e moderno, o caminho de um pequeno pinto desde o ovo até seus
+          primeiros passos curiosos pelo terreiro.
+        </p>
+        <div class="actions">
+          <a class="button button-primary" href="#historia">Explorar a jornada</a>
+          <a class="button button-secondary" href="#curiosidades">Ver atmosfera da página</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="pintinho-nascendo.jpeg" alt="Pintinho nascendo do ovo em meio à palha do galinheiro">
+        <div class="sun"></div>
+        <div class="hero-notes">
+          <div class="note">
+            <strong>Nascimento</strong>
+            <span>O pintinho rompe a casca e encontra o mundo aquecido pela mãe.</span>
+          </div>
+          <div class="note">
+            <strong>Proteção</strong>
+            <span>A galinha acolhe, orienta e ensina, enquanto o galo observa o terreiro.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section id="historia">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Capítulos da vida</div>
+            <h2>Uma história pequena e cheia de ternura</h2>
+          </div>
+          <p>
+            Cada fase do pintinho tem um encanto próprio: o abrigo do ovo, a descoberta do calor da
+            mãe e a alegria dos primeiros movimentos pelo chão do quintal.
+          </p>
+        </div>
+
+        <div class="chapter-stack">
+          <article class="chapter">
+            <div class="chapter-media">
+              <img src="ovo-no-ninho.jpeg" alt="Ovo de galinha no ninho de palha">
+            </div>
+            <div class="chapter-copy">
+              <div class="chapter-number">Parte 1</div>
+              <h3>Dentro do ovo</h3>
+              <p>
+                Antes de ser visto, o pintinho cresce em silencio. A galinha aquece o ninho com
+                paciencia, criando o ambiente ideal para a vida se formar com seguranca e calma.
+              </p>
+            </div>
+          </article>
+
+          <article class="chapter">
+            <div class="chapter-media">
+              <img src="pintinho-nascendo.jpeg" alt="Pintinho rompendo a casca do ovo">
+            </div>
+            <div class="chapter-copy">
+              <div class="chapter-number">Parte 2</div>
+              <h3>O nascimento</h3>
+              <p>
+                Chega o instante do primeiro rachado. Pequenos estalos anunciam a chegada do
+                pintinho, que usa forca e instinto para sair da casca e conhecer o mundo.
+              </p>
+            </div>
+          </article>
+
+          <article class="chapter">
+            <div class="chapter-media">
+              <img src="galinha-com-pintinho.jpeg" alt="Galinha protegendo um pintinho no terreiro">
+            </div>
+            <div class="chapter-copy">
+              <div class="chapter-number">Parte 3</div>
+              <h3>Calor e protecao</h3>
+              <p>
+                Ainda fragil, ele busca abrigo debaixo das asas da mae. A galinha acolhe e orienta,
+                enquanto o galo faz parte da cena do terreiro com presenca e vigilancia.
+              </p>
+            </div>
+          </article>
+
+          <article class="chapter">
+            <div class="chapter-media">
+              <img src="familia-no-quintal.jpeg" alt="Galo, galinha e pintinho caminhando pelo quintal">
+            </div>
+            <div class="chapter-copy">
+              <div class="chapter-number">Parte 4</div>
+              <h3>Os primeiros passos</h3>
+              <p>
+                Aos poucos, o pintinho anda, observa o chao, escuta os sons do quintal e ganha
+                confianca. O que era apenas um ovo agora se torna uma vida curiosa e vibrante.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="quote">
+        <p>"Toda grande jornada também pode começar com um pequeno bico rompendo uma casca."</p>
+        <small>Uma metáfora suave para o nascimento, a coragem e a descoberta.</small>
+      </div>
+
+      <section id="curiosidades">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Clima da página</div>
+            <h2>Curiosidades e atmosfera</h2>
+          </div>
+          <p>
+            Este conteúdo foi pensado para transmitir aconchego, origem, cuidado e a beleza simples
+            da vida no campo, com um estilo visual elegante e contemporâneo.
+          </p>
+        </div>
+
+        <div class="facts">
+          <article class="fact-block">
+            <h3>O que esta página comunica</h3>
+            <div class="fact-list">
+              <div>
+                <strong>Origem da vida</strong>
+                O foco está no nascimento do pintinho a partir do ovo gerado pela galinha e pelo galo.
+              </div>
+              <div>
+                <strong>Cuidado materno</strong>
+                A galinha aparece como figura central de acolhimento, calor e proteção.
+              </div>
+              <div>
+                <strong>Beleza do cotidiano rural</strong>
+                O terreiro, a luz do amanhecer e o ninho ajudam a construir um clima poético.
+              </div>
+            </div>
+          </article>
+
+          <article class="fact-block">
+            <h3>Direção visual usada</h3>
+            <div class="fact-list">
+              <div>
+                <strong>Paleta quente</strong>
+                Tons amanteigados, dourados e terrosos para reforçar calor, natureza e suavidade.
+              </div>
+              <div>
+                <strong>Tipografia editorial</strong>
+                Uma combinação elegante entre uma fonte serifada expressiva e uma sans moderna.
+              </div>
+              <div>
+                <strong>Profundidade leve</strong>
+                Vidro fosco, sombras suaves e transições discretas para um acabamento atual.
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="closing">
+        <h2>Uma página feita para parecer doce, viva e memorável</h2>
+        <p>
+          O resultado mistura sensibilidade e acabamento moderno para contar uma história simples de
+          um jeito especial. Quando você gerar as imagens, elas poderão entrar com facilidade nesse
+          layout, mantendo a mesma linguagem visual acolhedora e refinada.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      A vida de um pintinho, contada com luz quente, formas suaves e um toque contemporâneo.
+    </footer>
+  </div>
+</body>
+</html>
