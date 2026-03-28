@@ -49,6 +49,7 @@ Todos os projetos foram contruídos com ajuda de IA.
 - [**PulseLab Music**](https://fvandrad.github.io/codex/musica/) - mar/26
 - [**Natureza Viva**](https://fvandrad.github.io/codex/nature/) - mar/26
 - [**A Vida de um Pintinho**](https://fvandrad.github.io/codex/pintinho/) - mar/26
+- [**Water**](https://fvandrad.github.io/codex/water/) - mar/26
 </details>
 
 <details>
