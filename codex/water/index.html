@@ -17,6 +17,13 @@
       --coral: #ff5d83;
       --sand: #ffd47b;
       --shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+      --hero-image: url("https://images.unsplash.com/photo-1772402227290-54ab9d1f821f?auto=format&fit=crop&w=1600&q=80");
+      --hero-secondary-image: url("https://images.unsplash.com/photo-1764499920645-4a5bca060dd4?auto=format&fit=crop&w=1200&q=80");
+      --horizon-image: url("https://images.unsplash.com/photo-1768851719323-61ab229fb60e?auto=format&fit=crop&w=1600&q=80");
+      --reef-image: url("https://images.unsplash.com/photo-1770535849202-8e42411cf3d5?auto=format&fit=crop&w=1600&q=80");
+      --turtle-image: url("https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80");
+      --coral-image: url("https://images.unsplash.com/photo-1770535849309-e0f9358bf843?auto=format&fit=crop&w=1200&q=80");
+      --jelly-image: url("https://images.unsplash.com/photo-1773046918909-6e90bc783ca1?auto=format&fit=crop&w=1200&q=80");
     }
 
     * {
@@ -471,7 +478,7 @@
       height: 210px;
       background:
         linear-gradient(180deg, rgba(108, 200, 255, 0.22), rgba(42, 109, 227, 0.4)),
-        url("https://images.unsplash.com/photo-1768851719323-61ab229fb60e?auto=format&fit=crop&w=1600&q=80");
+        var(--horizon-image);
       background-position: center;
       background-size: cover;
       clip-path: polygon(0% 79%, 8% 62%, 16% 20%, 24% 55%, 33% 85%, 42% 35%, 50% 8%, 58% 72%, 67% 88%, 76% 24%, 84% 42%, 92% 70%, 100% 34%, 100% 100%, 0% 100%);
@@ -547,7 +554,7 @@
       border-radius: 44% 56% 36% 64% / 43% 39% 61% 57%;
       background:
         linear-gradient(180deg, rgba(94, 200, 255, 0.15), rgba(36, 125, 232, 0.2)),
-        url("https://images.unsplash.com/photo-1770535849202-8e42411cf3d5?auto=format&fit=crop&w=1600&q=80");
+        var(--reef-image);
       background-position: center;
       background-size: cover;
       border: 4px solid #101026;
@@ -842,12 +849,12 @@
 
     <section class="hero" id="inicio">
       <div class="hero-visual" aria-hidden="true">
-        <div class="blob large" style="--blob-image: url('https://images.unsplash.com/photo-1772402227290-54ab9d1f821f?auto=format&fit=crop&w=1600&q=80');">
+        <div class="blob large" style="--blob-image: var(--hero-image);">
           <div class="bubble" style="left: 16%; top: 18%;"></div>
           <div class="bubble" style="left: 22%; top: 27%; width: 9px; height: 9px;"></div>
           <div class="bubble" style="left: 62%; top: 14%; width: 11px; height: 11px;"></div>
         </div>
-        <div class="blob small" style="--blob-image: url('https://images.unsplash.com/photo-1764499920645-4a5bca060dd4?auto=format&fit=crop&w=1200&q=80');">
+        <div class="blob small" style="--blob-image: var(--hero-secondary-image);">
           <div class="bubble" style="left: 24%; top: 28%; width: 8px; height: 8px;"></div>
         </div>
       </div>
@@ -932,21 +939,21 @@
       </div>
 
       <div class="gallery-grid">
-        <article class="gallery-card" style="--card-bg: url('https://images.unsplash.com/photo-1764499920645-4a5bca060dd4?auto=format&fit=crop&w=1200&q=80');">
+        <article class="gallery-card" style="--card-bg: var(--turtle-image);">
           <div class="content">
             <h3>Tartaruga Azul</h3>
             <p>Navegação serena entre correntes leves e campos de algas translúcidas.</p>
           </div>
         </article>
 
-        <article class="gallery-card" style="--card-bg: url('https://images.unsplash.com/photo-1770535849309-e0f9358bf843?auto=format&fit=crop&w=1200&q=80');">
+        <article class="gallery-card" style="--card-bg: var(--coral-image);">
           <div class="content">
             <h3>Jardim Neon</h3>
             <p>Corais fluorescentes formam um mosaico vivo, vibrante e hipnótico.</p>
           </div>
         </article>
 
-        <article class="gallery-card" style="--card-bg: url('https://images.unsplash.com/photo-1773046918909-6e90bc783ca1?auto=format&fit=crop&w=1200&q=80');">
+        <article class="gallery-card" style="--card-bg: var(--jelly-image);">
           <div class="content">
             <h3>Água-viva Lunar</h3>
             <p>Brilho suave e movimento contínuo em silêncio absoluto nas águas profundas.</p>
