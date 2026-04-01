@@ -44,6 +44,7 @@ Todos os projetos foram contruídos com ajuda de IA.
 <details>
 <summary><strong>Projetos Codex</strong></summary>
 
+- [**Linux para iniciantes**](https://fvandrad.github.io/codex/linux/) - abr/26
 - [**Botanical Harmony**](https://fvandrad.github.io/codex/colecao-natural/) - mar/26
 - [**Elementos Primordiais**](https://fvandrad.github.io/codex/elementos/) - mar/26
 - [**PulseLab Music**](https://fvandrad.github.io/codex/musica/) - mar/26

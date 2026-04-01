@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux para Iniciantes</title>
+  <style>
+    :root {
+      --bg: #09111f;
+      --bg-soft: #10213b;
+      --panel: rgba(10, 20, 36, 0.82);
+      --panel-strong: rgba(14, 28, 48, 0.96);
+      --line: rgba(163, 191, 250, 0.18);
+      --text: #edf4ff;
+      --muted: #a9bddf;
+      --accent: #8cf0c4;
+      --accent-strong: #49c8d8;
+      --gold: #ffd27a;
+      --shadow: 0 24px 80px rgba(2, 8, 20, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1200px;
+      --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+      --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(73, 200, 216, 0.28), transparent 34%),
+        radial-gradient(circle at 85% 15%, rgba(140, 240, 196, 0.18), transparent 28%),
+        linear-gradient(180deg, #06101c 0%, #0b1730 48%, #09101d 100%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(6, 12, 24, 0.65);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.92rem;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #05111f;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      box-shadow: 0 14px 28px rgba(73, 200, 216, 0.28);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--muted);
+      transition: 180ms ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      outline: none;
+    }
+
+    .hero {
+      padding: 54px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .section-card,
+    .distro-card,
+    .tip-card,
+    .command-card,
+    .timeline-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-copy {
+      padding: 34px;
+      border-radius: var(--radius-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -70px;
+      top: -100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 210, 122, 0.22), transparent 68%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(140, 240, 196, 0.09);
+      border: 1px solid rgba(140, 240, 196, 0.18);
+      font-size: 0.84rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      line-height: 1.05;
+    }
+
+    h1 {
+      margin-top: 18px;
+      font-size: clamp(2.6rem, 5vw, 5.2rem);
+      max-width: 11ch;
+    }
+
+    .hero-copy p {
+      margin: 20px 0 0;
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-weight: 700;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #05111f;
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .hero-highlights div {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-highlights strong {
+      display: block;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .hero-panel {
+      padding: 22px;
+      border-radius: var(--radius-xl);
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero-panel h2 {
+      font-size: 1.45rem;
+      margin-bottom: 6px;
+    }
+
+    .hero-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini-shot {
+      position: relative;
+      min-height: 160px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0b1320;
+    }
+
+    .mini-shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.88;
+    }
+
+    .mini-shot span {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      background: rgba(4, 9, 18, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    main section {
+      padding: 28px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.8rem, 3vw, 3rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 58ch;
+      line-height: 1.6;
+    }
+
+    .section-card {
+      border-radius: var(--radius-xl);
+      padding: 26px;
+    }
+
+    .chooser-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .tip-card {
+      padding: 20px;
+      border-radius: var(--radius-lg);
+    }
+
+    .tip-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .tip-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .distro-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .distro-card {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .distro-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #08101d;
+    }
+
+    .distro-content {
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .distro-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .tag {
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: #04111f;
+      background: var(--gold);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .distro-content p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .meta-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 0.87rem;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+    }
+
+    .command-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .command-card {
+      padding: 18px;
+      border-radius: 20px;
+    }
+
+    .command-card code {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--accent);
+      margin-top: 10px;
+      font-size: 0.96rem;
+      overflow-x: auto;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-card {
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .timeline-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+    }
+
+    .footer {
+      padding: 24px 0 50px;
+    }
+
+    .footer-card {
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      background: rgba(8, 16, 29, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .footer-card p {
+      margin: 0;
+    }
+
+    .sources {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sources a {
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .two-col,
+      .chooser-grid,
+      .distro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-highlights {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero,
+      main section {
+        padding-top: 22px;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .section-card {
+        padding: 20px;
+      }
+
+      .hero-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">L</div>
+        <span>Linux para Iniciantes</span>
+      </div>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#distros">Distros</a>
+        <a href="#escolher">Como escolher</a>
+        <a href="#primeiros-passos">Primeiros passos</a>
+        <a href="#comandos">Comandos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Guia prático para começar bem</div>
+          <h1>Linux sem susto, sem pressa e com direção.</h1>
+          <p>
+            Se você está chegando agora no mundo Linux, esta página reúne as distribuições mais relevantes para começar,
+            capturas recentes de desktops modernos e um caminho simples para entender qual sistema combina mais com o seu perfil.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#distros">Ver distros recomendadas</a>
+            <a class="button secondary" href="#primeiros-passos">Aprender o básico</a>
+          </div>
+          <div class="hero-highlights">
+            <div>
+              <strong>6</strong>
+              opções populares para iniciantes
+            </div>
+            <div>
+              <strong>3</strong>
+              caminhos fáceis para escolher
+            </div>
+            <div>
+              <strong>10 min</strong>
+              para sair com uma direção clara
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Galeria visual">
+          <div>
+            <h2>Desktops Linux atuais</h2>
+            <p style="margin: 8px 0 0; color: var(--muted); line-height: 1.6;">
+              Uma amostra visual de como o Linux moderno realmente se parece em 2025 e 2026.
+            </p>
+          </div>
+          <div class="hero-gallery">
+            <div class="mini-shot">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ubuntu%2024.04%20LTS%20default%20desktop%20-%20English.png" alt="Desktop do Ubuntu 24.04 LTS">
+              <span>Ubuntu 24.04 LTS</span>
+            </div>
+            <div class="mini-shot">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Fedora%20Workstation%2042.png" alt="Desktop do Fedora Workstation 42">
+              <span>Fedora 42</span>
+            </div>
+            <div class="mini-shot">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Linux%20Mint%2022.png" alt="Desktop do Linux Mint 22">
+              <span>Linux Mint 22</span>
+            </div>
+            <div class="mini-shot">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Zorin-18-Desktop%20Installed.png" alt="Desktop do Zorin OS 18">
+              <span>Zorin OS 18</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="escolher">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Como escolher sua primeira distro</h2>
+          </div>
+          <p>
+            Em vez de procurar “a melhor distro”, tente escolher a melhor porta de entrada para o seu objetivo.
+          </p>
+        </div>
+
+        <div class="chooser-grid">
+          <article class="tip-card">
+            <h3>Quero algo familiar</h3>
+            <p>
+              Se você vem do Windows e quer uma curva suave, Linux Mint e Zorin OS costumam ser as opções mais amigáveis.
+            </p>
+          </article>
+          <article class="tip-card">
+            <h3>Quero equilíbrio e suporte</h3>
+            <p>
+              Ubuntu continua sendo um ponto de partida sólido graças à documentação enorme, compatibilidade ampla e ciclo LTS.
+            </p>
+          </article>
+          <article class="tip-card">
+            <h3>Quero aprender mais fundo</h3>
+            <p>
+              Fedora e Debian ajudam bastante quem quer entender melhor o ecossistema Linux, mantendo estabilidade e qualidade.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="distros">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Principais distros para iniciantes</h2>
+          </div>
+          <p>
+            A seleção abaixo mistura facilidade de uso, comunidade ativa, boa documentação e visual moderno. As datas e versões citadas foram conferidas com fontes oficiais recentes.
+          </p>
+        </div>
+
+        <div class="distro-grid">
+          <article class="distro-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ubuntu%2024.04%20LTS%20default%20desktop%20-%20English.png" alt="Ubuntu 24.04 LTS em execução">
+            <div class="distro-content">
+              <div class="distro-top">
+                <h3>Ubuntu</h3>
+                <span class="tag">Melhor equilíbrio</span>
+              </div>
+              <p>
+                Ótima escolha para quem quer começar com um sistema popular, bem documentado e com excelente suporte da comunidade. A linha LTS tende a ser a mais tranquila para uso diário.
+              </p>
+              <div class="meta-row">
+                <span class="meta-pill">Atual: 24.04.4 LTS</span>
+                <span class="meta-pill">Perfil: geral</span>
+                <span class="meta-pill">Desktop: GNOME</span>
+              </div>
+              <ul class="list">
+                <li>Ideal para estudo, trabalho, navegação e desenvolvimento.</li>
+                <li>Tem enorme quantidade de tutoriais e compatibilidade de software.</li>
+                <li>Bom ponto de partida para quase todo mundo.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="distro-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Linux%20Mint%2022.png" alt="Linux Mint 22 em execução">
+            <div class="distro-content">
+              <div class="distro-top">
+                <h3>Linux Mint</h3>
+                <span class="tag">Mais amigável</span>
+              </div>
+              <p>
+                Muito recomendada para quem sai do Windows e quer um desktop clássico, organizado e pronto para usar. É frequentemente a distro mais confortável para quem quer “instalar e usar”.
+              </p>
+              <div class="meta-row">
+                <span class="meta-pill">Série atual: 22.x</span>
+                <span class="meta-pill">Perfil: iniciantes</span>
+                <span class="meta-pill">Desktop: Cinnamon</span>
+              </div>
+              <ul class="list">
+                <li>Layout familiar e menos choque visual para novos usuários.</li>
+                <li>Ferramentas próprias de atualização e configuração são muito boas.</li>
+                <li>Excelente opção para PCs pessoais e notebooks do dia a dia.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="distro-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Fedora%20Workstation%2042.png" alt="Fedora Workstation 42 em execução">
+            <div class="distro-content">
+              <div class="distro-top">
+                <h3>Fedora Workstation</h3>
+                <span class="tag">Moderna e limpa</span>
+              </div>
+              <p>
+                Fedora entrega um desktop atual, elegante e muito alinhado às tecnologias mais recentes do ecossistema Linux. É excelente para quem quer um sistema moderno sem cair em complexidade excessiva.
+              </p>
+              <div class="meta-row">
+                <span class="meta-pill">Atual: Fedora Linux 42</span>
+                <span class="meta-pill">Perfil: estudo e dev</span>
+                <span class="meta-pill">Desktop: GNOME</span>
+              </div>
+              <ul class="list">
+                <li>Ótima opção para programadores e entusiastas.</li>
+                <li>Costuma trazer novidades antes das distros mais conservadoras.</li>
+                <li>Visual moderno e experiência bem refinada.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="distro-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Zorin-18-Desktop%20Installed.png" alt="Zorin OS 18 em execução">
+            <div class="distro-content">
+              <div class="distro-top">
+                <h3>Zorin OS</h3>
+                <span class="tag">Transição suave</span>
+              </div>
+              <p>
+                Focado em facilitar a vida de quem vem do Windows, com visual polido e configuração acessível. É uma distro muito boa para uso doméstico, estudos e máquinas mais antigas.
+              </p>
+              <div class="meta-row">
+                <span class="meta-pill">Atual: Zorin OS 18</span>
+                <span class="meta-pill">Perfil: Windows para Linux</span>
+                <span class="meta-pill">Desktop: GNOME customizado</span>
+              </div>
+              <ul class="list">
+                <li>Interface bastante amigável para quem está migrando.</li>
+                <li>Boa opção para reaproveitar computadores antigos.</li>
+                <li>Tem foco forte em simplicidade e produtividade.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="distro-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pop%21%20OS%2024.04%20Alpha%207%20COSMIC%20Text%20Editor%202025-07-30%20-%20English.png" alt="Pop! OS 24.04 em execução">
+            <div class="distro-content">
+              <div class="distro-top">
+                <h3>Pop!_OS</h3>
+                <span class="tag">Produtividade</span>
+              </div>
+              <p>
+                Muito interessante para notebooks, trabalho e usuários que querem uma experiência eficiente logo de cara. É também uma escolha popular entre desenvolvedores e pessoas que usam múltiplas janelas.
+              </p>
+              <div class="meta-row">
+                <span class="meta-pill">Atual: 24.04 LTS</span>
+                <span class="meta-pill">Perfil: foco e multitarefa</span>
+                <span class="meta-pill">Base: Ubuntu</span>
+              </div>
+              <ul class="list">
+                <li>Fluxo de trabalho forte para produtividade.</li>
+                <li>Boa fama em hardware e experiência refinada.</li>
+                <li>Vale atenção extra para quem quer estudar e trabalhar no mesmo sistema.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="distro-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Openlogo-debianV2.svg" alt="Logotipo da Debian">
+            <div class="distro-content">
+              <div class="distro-top">
+                <h3>Debian</h3>
+                <span class="tag">Estável e clássica</span>
+              </div>
+              <p>
+                Debian é uma das bases mais importantes do mundo Linux. Não é a mais “pronta para impressionar” visualmente, mas é excelente para quem quer estabilidade, aprender fundamentos e construir confiança.
+              </p>
+              <div class="meta-row">
+                <span class="meta-pill">Atual estável: Debian 13.4</span>
+                <span class="meta-pill">Perfil: aprender base</span>
+                <span class="meta-pill">Vários desktops</span>
+              </div>
+              <ul class="list">
+                <li>Ótima para entender o ecossistema com calma.</li>
+                <li>Muito respeitada por estabilidade e organização.</li>
+                <li>Boa para quem quer crescer no Linux sem pressa.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container two-col">
+        <div class="section-card">
+          <div class="section-heading">
+            <div>
+              <h2>Minha recomendação rápida</h2>
+            </div>
+          </div>
+          <ul class="list">
+            <li>Se você quer o caminho mais fácil: comece por <strong>Linux Mint</strong>.</li>
+            <li>Se quer um equilíbrio entre facilidade e ecossistema: escolha <strong>Ubuntu</strong>.</li>
+            <li>Se quer algo moderno e elegante para aprender mais: vá de <strong>Fedora</strong>.</li>
+            <li>Se está saindo do Windows e quer transição visual suave: teste <strong>Zorin OS</strong>.</li>
+            <li>Se quer estabilidade e fundamentos: experimente <strong>Debian</strong> depois do primeiro contato.</li>
+          </ul>
+        </div>
+
+        <div class="section-card">
+          <div class="section-heading">
+            <div>
+              <h2>Erros comuns no começo</h2>
+            </div>
+          </div>
+          <ul class="list">
+            <li>Achar que você precisa dominar o terminal no primeiro dia.</li>
+            <li>Trocar de distro toda semana sem aprender a usar uma de verdade.</li>
+            <li>Instalar tudo de qualquer fonte sem entender o que está fazendo.</li>
+            <li>Comparar Linux com Windows em cada detalhe, em vez de entender a lógica própria do sistema.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="primeiros-passos">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Primeiros passos no mundo Linux</h2>
+          </div>
+          <p>
+            Se você acabou de instalar sua primeira distro, estes passos ajudam bastante a evitar frustração e acelerar a adaptação.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-card">
+            <strong>1. Explore a central de aplicativos</strong>
+            Antes de sair instalando programas pela internet, procure pela loja ou gerenciador de software da própria distro.
+          </article>
+          <article class="timeline-card">
+            <strong>2. Atualize o sistema</strong>
+            Logo no começo, aplique as atualizações disponíveis para receber correções, drivers e melhorias de segurança.
+          </article>
+          <article class="timeline-card">
+            <strong>3. Aprenda a estrutura básica</strong>
+            Entenda onde ficam sua pasta pessoal, downloads, arquivos de sistema e discos montados.
+          </article>
+          <article class="timeline-card">
+            <strong>4. Instale só o necessário</strong>
+            Navegador, editor, mensageiro, suíte de escritório e uma ferramenta de backup já resolvem muito no início.
+          </article>
+          <article class="timeline-card">
+            <strong>5. Use uma distro por algumas semanas</strong>
+            A melhor forma de aprender é viver a rotina real antes de decidir se quer trocar de sistema.
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="comandos">
+      <div class="container two-col">
+        <div class="section-card">
+          <div class="section-heading">
+            <div>
+              <h2>Comandos básicos que valem conhecer</h2>
+            </div>
+          </div>
+          <div class="command-grid">
+            <article class="command-card">
+              <strong>Ver arquivos na pasta atual</strong>
+              <code>ls</code>
+            </article>
+            <article class="command-card">
+              <strong>Saber em qual diretório você está</strong>
+              <code>pwd</code>
+            </article>
+            <article class="command-card">
+              <strong>Entrar em outra pasta</strong>
+              <code>cd NomeDaPasta</code>
+            </article>
+            <article class="command-card">
+              <strong>Atualizar lista de pacotes no Ubuntu, Mint e Debian</strong>
+              <code>sudo apt update</code>
+            </article>
+            <article class="command-card">
+              <strong>Atualizar o sistema no Fedora</strong>
+              <code>sudo dnf upgrade</code>
+            </article>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-heading">
+            <div>
+              <h2>O que mais vale saber</h2>
+            </div>
+          </div>
+          <ul class="list">
+            <li>O terminal é importante, mas você pode começar quase tudo pela interface gráfica.</li>
+            <li>Backup continua sendo importante no Linux, exatamente como em qualquer outro sistema.</li>
+            <li>Flatpak e lojas de aplicativos ajudam bastante a instalar software sem complicação.</li>
+            <li>Se o seu foco é aprender, documentar o que você fez acelera muito sua evolução.</li>
+            <li>Para testar sem trocar seu sistema principal, uma máquina virtual também é um ótimo começo.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-card">
+        <p>
+          Referências conferidas em abril de 2026: Ubuntu 24.04.4 LTS, Fedora Linux 42, Debian 13.4, Pop!_OS 24.04 LTS, Zorin OS 18 e a série Linux Mint 22.x. As imagens usadas nesta página apontam para capturas recentes publicadas no Wikimedia Commons ou para logotipo livre.
+        </p>
+        <div class="sources">
+          <a href="https://ubuntu.com/download/desktop" target="_blank" rel="noreferrer">Ubuntu</a>
+          <a href="https://fedoraproject.org/" target="_blank" rel="noreferrer">Fedora</a>
+          <a href="https://www.debian.org/releases/stable/" target="_blank" rel="noreferrer">Debian</a>
+          <a href="https://system76.com/pop/download/" target="_blank" rel="noreferrer">Pop!_OS</a>
+          <a href="https://zorin.com/os/" target="_blank" rel="noreferrer">Zorin OS</a>
+          <a href="https://packages.linuxmint.com/" target="_blank" rel="noreferrer">Linux Mint</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
