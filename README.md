@@ -45,7 +45,7 @@ Todos os projetos foram contruídos com ajuda de IA.
 | `🍊` | Tangerine Cultivation Page | [Abrir](https://fvandrad.github.io/antigravity/tangerine-cultivation-page/) | - |
 </details>
 
-<details>
+<details open>
 <summary><strong>Projetos Codex</strong></summary>
 
 | Ícone | Projeto | Link | Nota |
