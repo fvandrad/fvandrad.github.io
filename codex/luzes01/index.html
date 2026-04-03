@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luzes Abstratas</title>
+    <meta
+      name="description"
+      content="Landing page com estética cinematográfica de luzes abstratas, usando vídeos e fotos inspirados em assets recentes do Pixabay."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #05060a;
+        --bg-soft: #0d1220;
+        --panel: rgba(8, 11, 18, 0.74);
+        --panel-strong: rgba(8, 11, 18, 0.92);
+        --text: #f6f7fb;
+        --muted: rgba(237, 240, 255, 0.68);
+        --line: rgba(255, 255, 255, 0.1);
+        --blue: #7cd2ff;
+        --violet: #ab8cff;
+        --teal: #70ffd7;
+        --pink: #ff78c6;
+        --shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top, rgba(124, 210, 255, 0.12), transparent 28%),
+          radial-gradient(circle at 85% 12%, rgba(171, 140, 255, 0.2), transparent 18%),
+          linear-gradient(180deg, #05060a 0%, #060812 48%, #04050a 100%);
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%),
+          radial-gradient(circle at 50% 8%, rgba(130, 180, 255, 0.08), transparent 30%);
+        mix-blend-mode: screen;
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      img,
+      video {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        position: relative;
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        padding: 24px 0 48px;
+        isolation: isolate;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: -10vh;
+        width: clamp(120px, 14vw, 180px);
+        height: 125vh;
+        transform: translateX(-50%);
+        background:
+          linear-gradient(
+            180deg,
+            rgba(174, 199, 255, 0) 0%,
+            rgba(174, 199, 255, 0.22) 12%,
+            rgba(238, 243, 255, 0.95) 46%,
+            rgba(160, 220, 255, 0.8) 72%,
+            rgba(110, 133, 255, 0) 100%
+          );
+        filter: blur(18px);
+        opacity: 0.9;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 8vh;
+        width: min(820px, 82vw);
+        height: 210px;
+        transform: translateX(-50%);
+        background: radial-gradient(circle, rgba(135, 175, 255, 0.85) 0%, rgba(147, 109, 255, 0.35) 34%, transparent 72%);
+        filter: blur(44px);
+        opacity: 0.95;
+        z-index: 0;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 6px 0 34px;
+        position: relative;
+        z-index: 3;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-family: "Sora", sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .brand-mark {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background:
+          radial-gradient(circle at 30% 30%, #fff, rgba(255, 255, 255, 0.3) 28%, transparent 30%),
+          linear-gradient(135deg, var(--blue), var(--violet), var(--pink));
+        box-shadow: 0 0 24px rgba(153, 183, 255, 0.55);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible,
+      .cta-link:hover,
+      .cta-link:focus-visible {
+        color: var(--text);
+      }
+
+      .hero-media {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        border-radius: 0 0 32px 32px;
+      }
+
+      .hero-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 50% 20%, rgba(180, 215, 255, 0.16), transparent 30%),
+          linear-gradient(180deg, rgba(3, 4, 10, 0.5) 0%, rgba(3, 4, 10, 0.64) 40%, rgba(3, 4, 10, 0.96) 100%);
+      }
+
+      .hero-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(1.08) contrast(1.06) brightness(0.48);
+      }
+
+      .hero-video.secondary {
+        mix-blend-mode: screen;
+        opacity: 0.34;
+        transform: scale(1.14);
+      }
+
+      .hero-video.tertiary {
+        mix-blend-mode: screen;
+        opacity: 0.16;
+        transform: scale(1.2);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        gap: 26px;
+        padding: 10vh 0 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 999px;
+        background: rgba(10, 12, 18, 0.66);
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--violet), var(--blue));
+        box-shadow: 0 0 16px rgba(171, 140, 255, 0.9);
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 11ch;
+        font-family: "Sora", sans-serif;
+        font-size: clamp(3.4rem, 12vw, 7.5rem);
+        line-height: 0.94;
+        letter-spacing: -0.06em;
+      }
+
+      .subtitle {
+        margin: 0;
+        font-size: clamp(1.4rem, 3vw, 2.85rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .subtitle span,
+      .card h3 span,
+      .section-title span {
+        background: linear-gradient(90deg, #f4b4ff 0%, #b8a6ff 35%, #8be0ff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .lede {
+        margin: 0;
+        max-width: 760px;
+        color: var(--muted);
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        line-height: 1.7;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .tag {
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: rgba(18, 21, 33, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(247, 248, 255, 0.88);
+        font-size: 0.92rem;
+        font-weight: 600;
+        box-shadow: var(--shadow);
+      }
+
+      .showcase-card {
+        position: relative;
+        width: min(840px, 100%);
+        margin-top: 16px;
+        padding: clamp(24px, 4vw, 38px);
+        border-radius: 28px;
+        background: linear-gradient(180deg, rgba(9, 11, 18, 0.94), rgba(8, 10, 16, 0.82));
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        box-shadow: 0 26px 120px rgba(0, 0, 0, 0.45);
+        overflow: hidden;
+      }
+
+      .showcase-card::before {
+        content: "";
+        position: absolute;
+        inset: auto 10% -30% 10%;
+        height: 190px;
+        background: radial-gradient(circle, rgba(126, 165, 255, 0.45), transparent 68%);
+        filter: blur(22px);
+        pointer-events: none;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      .card h2,
+      .card h3,
+      .section-title,
+      .section-copy,
+      .metric strong,
+      .metric span,
+      .manifesto p,
+      .credit-item span {
+        position: relative;
+        z-index: 1;
+      }
+
+      .card h2 {
+        margin: 0 0 14px;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.02;
+        letter-spacing: -0.05em;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .metric-stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      .metric {
+        padding: 18px 18px 16px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 1.55rem;
+        margin-bottom: 6px;
+      }
+
+      .metric span {
+        display: block;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      main {
+        position: relative;
+        z-index: 2;
+        padding: 42px 0 80px;
+      }
+
+      .section {
+        padding: 34px 0;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 22px;
+        margin-bottom: 24px;
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        line-height: 1.05;
+        letter-spacing: -0.05em;
+      }
+
+      .section-copy {
+        margin: 0;
+        max-width: 540px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .mosaic {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 20px;
+      }
+
+      .media-card,
+      .manifesto,
+      .credits,
+      .feature-panel {
+        position: relative;
+        border-radius: 26px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+
+      .media-card.large {
+        min-height: 560px;
+      }
+
+      .media-card.video {
+        min-height: 270px;
+      }
+
+      .media-card img,
+      .media-card video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .media-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(4, 5, 10, 0.08) 0%, rgba(4, 5, 10, 0.72) 100%);
+      }
+
+      .media-caption {
+        position: absolute;
+        inset: auto 18px 18px 18px;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+      }
+
+      .media-caption strong {
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 6px;
+      }
+
+      .media-caption span {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.9rem;
+      }
+
+      .stack {
+        display: grid;
+        gap: 20px;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .feature-panel {
+        padding: 24px;
+      }
+
+      .feature-panel h3 {
+        margin: 0 0 10px;
+        font-size: 1.24rem;
+      }
+
+      .feature-panel p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .manifesto {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 22px;
+        padding: 28px;
+        align-items: center;
+      }
+
+      .manifesto img {
+        border-radius: 20px;
+        min-height: 260px;
+        object-fit: cover;
+      }
+
+      .manifesto p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 1.02rem;
+      }
+
+      .credits {
+        padding: 26px;
+        background: var(--panel-strong);
+      }
+
+      .credits h3 {
+        margin: 0 0 10px;
+        font-size: 1.15rem;
+      }
+
+      .credits p {
+        margin: 0 0 18px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .credit-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .credit-item {
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .credit-item strong,
+      .credit-item a {
+        display: block;
+      }
+
+      .credit-item strong {
+        margin-bottom: 6px;
+      }
+
+      .credit-item span,
+      .credit-item a {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .credit-item a:hover,
+      .credit-item a:focus-visible {
+        color: var(--text);
+      }
+
+      footer {
+        padding: 16px 0 40px;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.92rem;
+        text-align: center;
+      }
+
+      @media (max-width: 920px) {
+        .topbar,
+        .section-heading,
+        .card-grid,
+        .mosaic,
+        .manifesto,
+        .feature-grid,
+        .credit-list {
+          grid-template-columns: 1fr;
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .topbar {
+          gap: 16px;
+        }
+
+        .nav {
+          flex-wrap: wrap;
+          gap: 12px 16px;
+        }
+
+        .hero-content {
+          padding-top: 9vh;
+        }
+
+        .media-card.large {
+          min-height: 440px;
+        }
+
+        .manifesto img {
+          min-height: 220px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          min-height: auto;
+        }
+
+        .shell {
+          width: min(100% - 20px, 1200px);
+        }
+
+        .topbar {
+          padding-bottom: 22px;
+        }
+
+        .brand {
+          font-size: 1.05rem;
+        }
+
+        .nav {
+          font-size: 0.88rem;
+        }
+
+        .hero-content {
+          gap: 18px;
+          padding-top: 7vh;
+        }
+
+        .showcase-card,
+        .feature-panel,
+        .credits,
+        .manifesto {
+          border-radius: 22px;
+        }
+
+        .tag {
+          width: 100%;
+          text-align: center;
+        }
+
+        .media-caption {
+          inset: auto 14px 14px 14px;
+          flex-direction: column;
+          align-items: start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero" id="topo">
+      <div class="hero-media" aria-hidden="true">
+        <video
+          class="hero-video"
+          src="https://cdn.pixabay.com/video/2017/11/12/12902-242487547_tiny.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+        ></video>
+        <video
+          class="hero-video secondary"
+          src="https://cdn.pixabay.com/video/2016/11/04/6266-190550868_tiny.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+        ></video>
+        <video
+          class="hero-video tertiary"
+          src="https://cdn.pixabay.com/video/2016/09/13/5192-183786490_tiny.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+        ></video>
+      </div>
+
+      <div class="shell">
+        <div class="topbar">
+          <a class="brand" href="#topo">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Luzes<span style="color: rgba(255,255,255,0.62)">Axis</span>
+          </a>
+
+          <nav class="nav" aria-label="Principal">
+            <a href="#galeria">Galeria</a>
+            <a href="#movimento">Movimento</a>
+            <a href="#manifesto">Manifesto</a>
+            <a href="#creditos">Créditos</a>
+          </nav>
+        </div>
+
+        <div class="hero-content">
+          <div class="eyebrow">Visual inspirado em composições luminosas abstratas</div>
+
+          <h1>LUZES VIVAS</h1>
+
+          <p class="subtitle">Experiências <span>abstratas em fluxo</span></p>
+
+          <p class="lede">
+            Uma landing page com atmosfera cinematográfica, feixes centrais, reflexos fluidos e textura de galeria
+            imersiva usando vídeos e fotos do Pixabay selecionados a partir de buscas recentes de luz abstrata.
+          </p>
+
+          <div class="tag-row" aria-label="Destaques">
+            <div class="tag">Vídeo em camadas</div>
+            <div class="tag">Glow central dramático</div>
+            <div class="tag">Fotos abstratas curatoriais</div>
+            <div class="tag">Layout responsivo premium</div>
+          </div>
+
+          <section class="showcase-card" aria-label="Resumo visual">
+            <div class="card-grid">
+              <div class="card">
+                <h2>Entre em uma <span>paisagem de fótons</span>.</h2>
+                <p>
+                  A proposta replica a sensação do layout de referência sem copiar a marca: fundo escuro, eixo de
+                  luz intenso, tipografia expressiva, módulos translúcidos e uma sequência editorial de mídia com cara
+                  de showcase criativo.
+                </p>
+              </div>
+
+              <div class="metric-stack">
+                <div class="metric">
+                  <strong>03 vídeos</strong>
+                  <span>sobrepostos no hero para criar profundidade, ruído visual e movimento contínuo.</span>
+                </div>
+                <div class="metric">
+                  <strong>04 fotos</strong>
+                  <span>com recortes abstratos, neon, textura e geometria para reforçar a narrativa visual.</span>
+                </div>
+                <div class="metric">
+                  <strong>01 direção</strong>
+                  <span>escura, elegante e focada em luz como matéria principal do design.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="shell">
+        <section class="section" id="galeria">
+          <div class="section-heading">
+            <h2 class="section-title">Galeria de <span>luzes abstratas</span></h2>
+            <p class="section-copy">
+              Cards amplos para dar escala ao visual. Misturei superfícies orgânicas, halo, neon e composição digital
+              para a página ficar mais autoral e menos “template”.
+            </p>
+          </div>
+
+          <div class="mosaic">
+            <article class="media-card large">
+              <img
+                src="https://cdn.pixabay.com/photo/2018/11/13/23/07/abstract-art-3814214_640.jpg"
+                alt="Arte abstrata luminosa com tons rosados e azulados"
+              />
+              <div class="media-caption">
+                <div>
+                  <strong>Frequência Prismática</strong>
+                  <span>Foto abstrata usada como painel editorial principal.</span>
+                </div>
+                <span>Pixabay / abstract-art-3814214</span>
+              </div>
+            </article>
+
+            <div class="stack">
+              <article class="media-card video" id="movimento">
+                <video
+                  src="https://cdn.pixabay.com/video/2019/10/09/27669-365224683_tiny.mp4"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                ></video>
+                <div class="media-caption">
+                  <div>
+                    <strong>Partículas em Suspensão</strong>
+                    <span>Camada de brilho quente para contraste com a base azul.</span>
+                  </div>
+                  <span>Pixabay / video-27669</span>
+                </div>
+              </article>
+
+              <article class="media-card video">
+                <img
+                  src="https://cdn.pixabay.com/photo/2017/08/26/17/27/abstract-art-2683704_640.jpg"
+                  alt="Composição abstrata com linhas escuras e foco de luz"
+                />
+                <div class="media-caption">
+                  <div>
+                    <strong>Ruído e Pulsação</strong>
+                    <span>Textura de apoio para a seção de exploração visual.</span>
+                  </div>
+                  <span>Pixabay / abstract-art-2683704</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <h2 class="section-title">Blocos para contar uma <span>história luminosa</span></h2>
+            <p class="section-copy">
+              Estruturei a página como uma landing contemporânea: hero forte, prova visual, grid de diferenciais,
+              manifesto estético e créditos dos assets.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-panel">
+              <h3>Direção de arte</h3>
+              <p>
+                Fundo escuro com vibração azul, violeta e ciano. O feixe central amarra o hero e conduz o olhar para o
+                cartão principal.
+              </p>
+            </article>
+
+            <article class="feature-panel">
+              <h3>Ritmo de movimento</h3>
+              <p>
+                Os vídeos não competem entre si: uma base geométrica, uma camada orgânica e um ruído de partículas para
+                sensação de profundidade.
+              </p>
+            </article>
+
+            <article class="feature-panel">
+              <h3>Composição responsiva</h3>
+              <p>
+                Em telas menores, os módulos empilham com folga e mantêm o impacto visual sem sacrificar legibilidade
+                nem o autoplay silencioso.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="manifesto">
+          <article class="manifesto">
+            <img
+              src="https://cdn.pixabay.com/photo/2016/08/31/18/08/abstract-1634270_640.jpg"
+              alt="Luzes abstratas suaves com degradê violeta e azul"
+            />
+            <div>
+              <h2 class="section-title">Luz como <span>matéria narrativa</span></h2>
+              <p>
+                Em vez de tratar brilho como decoração, a página usa luz como estrutura. Ela define hierarquia, cria
+                atmosfera e substitui ilustrações pesadas por uma experiência mais fluida. O resultado fica próximo da
+                referência no impacto, mas com uma identidade própria e mais alinhada ao tema “luzes abstratas”.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="section" id="creditos">
+          <article class="credits">
+            <h3>Fontes visuais usadas</h3>
+            <p>
+              Os links abaixo apontam para as buscas e páginas do Pixabay que guiaram a curadoria. Os arquivos de mídia
+              no layout usam URLs de CDN públicas do próprio Pixabay, derivadas dessas páginas.
+            </p>
+
+            <div class="credit-list">
+              <div class="credit-item">
+                <strong>Busca de vídeos</strong>
+                <a href="https://pixabay.com/pt/videos/search/abstratas/" target="_blank" rel="noreferrer">
+                  pixabay.com/pt/videos/search/abstratas/
+                </a>
+                <span>Base para selecionar loops abstratos com aparência mais recente.</span>
+              </div>
+
+              <div class="credit-item">
+                <strong>Vídeo de referência</strong>
+                <a
+                  href="https://pixabay.com/videos/light-abstract-background-bright-41937/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  light-abstract-background-bright-41937
+                </a>
+                <span>Página usada para localizar vídeos relacionados no mesmo estilo.</span>
+              </div>
+
+              <div class="credit-item">
+                <strong>Busca de fotos</strong>
+                <a href="https://pixabay.com/pt/photos/search/luz%20abstrata/" target="_blank" rel="noreferrer">
+                  pixabay.com/pt/photos/search/luz abstrata/
+                </a>
+                <span>Busca em português com ordenação recente disponível na interface do Pixabay.</span>
+              </div>
+
+              <div class="credit-item">
+                <strong>Busca ampliada</strong>
+                <a href="https://pixabay.com/pt/images/search/abstratas/" target="_blank" rel="noreferrer">
+                  pixabay.com/pt/images/search/abstratas/
+                </a>
+                <span>Complemento para compor a galeria com texturas e formas geométricas.</span>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      LuzesAxis, estudo visual com assets Pixabay e estética de showcase abstrato.
+    </footer>
+  </body>
+</html>

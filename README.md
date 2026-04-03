@@ -51,6 +51,8 @@ Todos os projetos foram contruídos com ajuda de IA.
 | Ícone | Projeto | Link | Nota |
 | --- | --- | --- | --- |
 | `🐧` | Linux para iniciantes | [Abrir](https://fvandrad.github.io/codex/linux/) | abr/26 |
+| `💡` | Luz elétrica que transforma espaços | [Abrir](https://fvandrad.github.io/codex/luzes/) | abr/26 |
+| `✨` | Luzes Abstratas | [Abrir](https://fvandrad.github.io/codex/luzes01/) | abr/26 |
 | `🌿` | Botanical Harmony | [Abrir](https://fvandrad.github.io/codex/colecao-natural/) | mar/26 |
 | `🔥` | Elementos Primordiais | [Abrir](https://fvandrad.github.io/codex/elementos/) | mar/26 |
 | `🎧` | PulseLab Music | [Abrir](https://fvandrad.github.io/codex/musica/) | mar/26 |
